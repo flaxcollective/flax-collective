@@ -1,4 +1,10 @@
+"use client";
+
+import { useState } from 'react';
+import EmployerModal from '../shared/EmployerModal';
+
 export default function HomeServices() {
+  const [isEmployerModalOpen, setIsEmployerModalOpen] = useState(false);
 
   return (
     <section id="services" className="home-services-section">
@@ -54,14 +60,16 @@ export default function HomeServices() {
         </div>
 
         <div className="sfe-button-container">
-          <a href="/contact-us" className="sfe-btn">
+          <button onClick={() => setIsEmployerModalOpen(true)} className="sfe-btn cursor-pointer">
             Hire Pre-Screened Talent
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
+      
+      <EmployerModal isOpen={isEmployerModalOpen} onClose={() => setIsEmployerModalOpen(false)} />
     </section>
   );
 }

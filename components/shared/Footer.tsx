@@ -35,16 +35,16 @@ export default function Footer() {
         {/* Social Icons */}
         <div className="flex gap-6 mb-12">
           {[
-            { icon: '/assets/icons/linkedin-footer-icon.png', label: 'LinkedIn' },
-            { icon: '/assets/icons/facebook-footer-icon.png', label: 'Facebook' },
-            { icon: '/assets/icons/instagram-footer-icon.png', label: 'Instagram' },
-            { icon: '/assets/icons/snapchat-footer-icon.png', label: 'Snapchat' },
+            { icon: '/assets/icons/linkedin-footer-icon.png', label: 'LinkedIn', link: 'https://www.linkedin.com/company/flaxcollective' },
+            { icon: '/assets/icons/facebook-footer-icon.png', label: 'Facebook', link: 'https://www.facebook.com/flaxcollective' },
+            { icon: '/assets/icons/instagram-footer-icon.png', label: 'Instagram', link: 'https://www.instagram.com/flaxcollective/' },
           ].map((s) => (
             <a
               key={s.label}
-              href="#"
+              href={s.link}
               title={s.label}
               className="transition-opacity hover:opacity-75"
+              target='_blank'
             >
               <img src={s.icon} alt={s.label} className="w-[18px] h-[18px] object-contain" style={{ filter: 'brightness(0)' }} />
             </a>

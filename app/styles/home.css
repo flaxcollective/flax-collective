@@ -40,7 +40,7 @@
   font-family: "Source Serif 4";
   font-size: 66px;
   font-style: normal;
-  font-weight: 360;
+  font-weight: 450;
   line-height: 95px;
 }
 
@@ -392,7 +392,7 @@
   color: #2F3E56;
   text-align: center;
   font-family: "Source Serif 4";
-  font-size: 26px;
+  font-size: 22px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -405,7 +405,7 @@
   color: #666;
   text-align: center;
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 30px;
@@ -555,6 +555,82 @@
   background: #5c6a2f;
 }
 
+/* CONTACT CTA CARDS */
+.contact-cta-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-cta-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.contact-cta-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-color: #6e7c3a;
+}
+
+.cta-icon {
+  width: 64px;
+  height: 64px;
+  background: #f4f6ef;
+  color: #6e7c3a;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cta-text {
+  flex: 1;
+}
+
+.cta-text h3 {
+  font-family: "Source Serif 4";
+  font-size: 20px;
+  font-weight: 600;
+  color: #2F3E56;
+  margin-bottom: 4px;
+}
+
+.cta-text p {
+  font-family: Montserrat;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.cta-arrow {
+  color: #6e7c3a;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+
+.contact-cta-card:hover .cta-arrow {
+  opacity: 1;
+}
+
+.employer-cta:hover {
+  background: #f4f6ef;
+}
+
+.student-cta:hover {
+  background: #f4f6ef;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .contact-container {
@@ -592,10 +668,11 @@
 
 .about-intro {
   font-family: Montserrat;
-  font-size: 14px;
-  line-height: 26px;
+  font-size: 16px;
+  line-height: 28px;
   color: #666;
   margin-bottom: 40px;
+  font-weight: 500;
 }
 
 
@@ -1289,6 +1366,7 @@
   text-align: justify;
   text-transform: capitalize;
   align-items: center;
+  font-weight: 500;
 }
 
 /* Card */
@@ -1355,6 +1433,7 @@
   color: #555;
   text-align: justify;
   text-transform: capitalize;
+  font-weight: 500;
 }
 
 /* Values toggle button */
@@ -1455,6 +1534,7 @@
   line-height: 1.65;
   color: #666;
   text-transform: capitalize;
+  font-weight: 500;
 }
 
 /* Responsive */
@@ -1495,16 +1575,19 @@
   font-weight: 500;
   color: #2F3E56;
   margin-bottom: 16px;
+  margin-bottom: 2rem;
+
 }
 
 .cp-text {
   font-family: Montserrat, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.75;
   color: #555;
   text-align: justify;
   text-transform: capitalize;
   margin-bottom: 10px;
+  font-weight: 500;
 }
 
 .cp-text--small {
@@ -1521,7 +1604,7 @@
   line-height: 30px;
   text-transform: capitalize;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 4rem;
 }
 
 /* Key Areas grid — 5 columns */
@@ -1616,7 +1699,7 @@
 
 .fs-step-label {
   font-family: Montserrat, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: #2F3E56;
   line-height: 1.4;
@@ -1659,7 +1742,7 @@
   background: linear-gradient(to top, rgba(47, 62, 86, 0.85), transparent);
   color: #fff;
   font-family: Montserrat, sans-serif;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 600;
   padding: 28px 12px 16px;
   text-transform: capitalize;
@@ -1731,10 +1814,10 @@
 .global-footprint-desc {
   color: #E9E9E9;
   font-family: Montserrat, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 26px;
   margin-bottom: 20px;
-  max-width: 1000px;
+  font-weight: 500;
 }
 
 .global-footprint-middle {
@@ -1749,7 +1832,7 @@
 }
 
 .global-footprint-middle-content {
-  flex: 0 0 45%;
+  flex: 0 0 50%;
 }
 
 .global-footprint-subtitle {
@@ -1764,12 +1847,14 @@
 .global-footprint-subdesc {
   color: #666;
   font-family: Montserrat, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 24px;
+  font-weight: 500;
+  text-align: justify;
 }
 
 .global-footprint-middle-image {
-  flex: 0 0 55%;
+  flex: 0 0 50%;
   display: flex;
   justify-content: center;
 }
@@ -1779,12 +1864,14 @@
   max-width: 500px;
   height: auto;
   object-fit: contain;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
 }
 
 .global-footprint-subtitle-white {
   color: #FFF;
   font-family: Montserrat, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 16px;
   text-transform: capitalize;
@@ -1797,7 +1884,7 @@
 .global-footprint-desc-white {
   color: #E9E9E9;
   font-family: Montserrat, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 26px;
   margin-bottom: 20px;
 }
@@ -1867,7 +1954,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 12px;
+  border-radius: 12px 12px 0px 0px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }

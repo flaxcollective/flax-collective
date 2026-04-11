@@ -1,6 +1,11 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
+import StudentModal from '../shared/StudentModal';
 
 export default function HomePrograms() {
+  const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
+
   const basicPrograms = [
     {
       title: "Certificate In Food & Beverage Service",
@@ -80,7 +85,7 @@ export default function HomePrograms() {
                   <p className="program-desc">{prog.desc}</p>
                   <div className="program-card-footer">
                     <span className="program-price">{prog.price}</span>
-                    <button className="program-apply-btn">Apply Now</button>
+                    <button onClick={() => setIsStudentModalOpen(true)} className="program-apply-btn">Apply Now</button>
                   </div>
                 </div>
               </div>
@@ -103,7 +108,7 @@ export default function HomePrograms() {
                   <p className="program-desc">{prog.desc}</p>
                   <div className="program-card-footer">
                     <span className="program-price">{prog.price}</span>
-                    <button className="program-apply-btn">Apply Now</button>
+                    <button onClick={() => setIsStudentModalOpen(true)} className="program-apply-btn">Apply Now</button>
                   </div>
                 </div>
               </div>
@@ -112,6 +117,8 @@ export default function HomePrograms() {
         </div>
 
       </div>
+
+      <StudentModal isOpen={isStudentModalOpen} onClose={() => setIsStudentModalOpen(false)} />
     </section>
   );
 }
