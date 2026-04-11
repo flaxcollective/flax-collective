@@ -42,31 +42,29 @@ export default function HomeProcess() {
         <div className="process-grid">
           {processData.map((item, idx) => (
             <div key={idx} className="process-card">
-
               <div className="process-step">
                 <span>STEP</span>
                 <strong>{item.step}</strong>
               </div>
-
               <h3>{item.title}</h3>
               <p>{item.desc}</p>
-
             </div>
           ))}
         </div>
 
         <div className="process-quote-section">
-          <div className="process-quote-section-content-1">
-            <h2>Opportunities for Students</h2>
-            <p>Flax Collective provides aspiring hospitality professionals with a structured pathway to build international careers.</p>
-            <p>Through counselling, training, and certification programs, students develop the professional skills required by global hospitality organizations before being considered for recruitment opportunities.</p>
+          <h2>Opportunities for Students & Employers</h2>
+          <div className="process-quote-section-content">
+            <div className="process-quote-section-content-1">
+              <h2>Opportunities for Students</h2>
+              <p>Flax Collective provides aspiring hospitality professionals with a structured pathway to build international careers.</p>
+            </div>
+            <div className="process-quote-section-content-2">
+              <h2>Talent Solutions for Employers</h2>
+              <p>Hospitality organizations partner with Flax Collective to access a reliable pipeline of trained and pre-screened hospitality professionals who are prepared to contribute from day one. Our recruitment model emphasizes preparation, quality, and transparency.</p>
+            </div>
           </div>
-          <div className="process-quote-section-content-2">
-            <h2>Talent Solutions for Employers</h2>
-            <p>Hospitality organizations partner with Flax Collective to access a reliable pipeline of trained and pre-screened hospitality professionals who are prepared to contribute from day one.</p>
-            <p>Our recruitment model emphasizes preparation, quality, and transparency.</p>
-          </div>
-        </div>
+        </div>       
       </div>
     </section>
   );

@@ -2,130 +2,69 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#FFFFFF', borderTop: '1px solid #e0d9ce' }}>
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-10">
-        {/* Brand Column */}
-        <div>
-          <div className="mb-5">
-            <img
-              src="/assets/flex-collective-logo.png"
-              alt="Flex Collective"
-              className="h-14 w-auto"
-            />
+    <footer style={{ background: '#F4F1EA' }} className=" pb-8">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center text-center">
+        {/* Logo */}
+        <div className="mt-10 mb-5">
+          <img src="/assets/images/flex-collective-footer-logo.png" alt="Flax Collective" className="" />
+        </div>
+
+        {/* Text */}
+        <p className="text-[14px] leading-relaxed max-w-2xl font-medium" style={{ color: '#888888' }}>
+          For Inquiries Regarding{' '}
+          <strong style={{ color: '#555555', fontWeight: 600 }}>
+            Certification Programs, Recruitment Opportunities, Or Employer Partnerships,
+          </strong>
+        </p>
+        <p className="text-[14px] leading-relaxed mb-10 max-w-2xl font-medium" style={{ color: '#888888' }}>
+          Please Contact The Flax Collective Team.
+        </p>
+
+        {/* Contact items */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-10 mb-10">
+          <div className="flex items-center gap-2">
+            <img src="/assets/icons/footer-mail-icon-1.png" alt="mail" className="w-4 h-4 object-contain" style={{ filter: 'brightness(0)' }} />
+            <span className="text-[13px] font-semibold" style={{ color: '#555555' }}>info@flaxcollective.com</span>
           </div>
-          <p className="text-[13px] leading-relaxed mb-5 max-w-[240px]" style={{ color: '#555555' }}>
-            For Inquiries Regarding{' '}
-            <strong style={{ color: '#333333' }}>
-              Certification Programs, Recruitment Opportunities, Or Employer Partnerships,
-            </strong>{' '}
-            Please Contact The Flex Collective Team.
+          <div className="flex items-center gap-2">
+            <img src="/assets/icons/footer-mail-icon-2.png" alt="mail" className="w-4 h-4 object-contain" style={{ filter: 'brightness(0)' }} />
+            <span className="text-[13px] font-semibold" style={{ color: '#555555' }}>studentsupport@flax.com</span>
+          </div>
+        </div>
+
+        {/* Social Icons */}
+        <div className="flex gap-6 mb-12">
+          {[
+            { icon: '/assets/icons/linkedin-footer-icon.png', label: 'LinkedIn' },
+            { icon: '/assets/icons/facebook-footer-icon.png', label: 'Facebook' },
+            { icon: '/assets/icons/instagram-footer-icon.png', label: 'Instagram' },
+            { icon: '/assets/icons/snapchat-footer-icon.png', label: 'Snapchat' },
+          ].map((s) => (
+            <a
+              key={s.label}
+              href="#"
+              title={s.label}
+              className="transition-opacity hover:opacity-75"
+            >
+              <img src={s.icon} alt={s.label} className="w-[18px] h-[18px] object-contain" style={{ filter: 'brightness(0)' }} />
+            </a>
+          ))}
+        </div>
+
+        {/* Divider */}
+        <div className="w-full border-t mb-6" style={{ borderColor: '#d0c9be' }}></div>
+
+        {/* Bottom Bar */}
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-wrap justify-center md:justify-start gap-8">
+            <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>Privacy Policy</Link>
+            <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>Terms Of Service</Link>
+            <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>About</Link>
+            <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>Refund Policy</Link>
+          </div>
+          <p className="text-[12px] font-medium" style={{ color: '#555555' }}>
+            © 2026 FLAX Collective. All Rights Reserved.
           </p>
-
-          {/* Contact items */}
-          <div className="space-y-2 mb-5">
-            <div className="flex items-center gap-2">
-              <img src="/assets/footer-mail-icon-1.png" alt="mail" className="w-4 h-4 object-contain" />
-              <span className="text-[12px]" style={{ color: '#555555' }}>info@flexcollective.com</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img src="/assets/footer-mail-icon-2.png" alt="mail" className="w-4 h-4 object-contain" />
-              <span className="text-[12px]" style={{ color: '#555555' }}>studentsupport@flex.com</span>
-            </div>
-          </div>
-
-          {/* Social Icons */}
-          <div className="flex gap-2">
-            {[
-              { icon: '/assets/instagram-footer-icon.png', href: '#', label: 'Instagram' },
-              { icon: '/assets/facebook-footer-icon.png', href: '#', label: 'Facebook' },
-              { icon: '/assets/linkedin-footer-icon.png', href: '#', label: 'LinkedIn' },
-              { icon: '/assets/snapchat-footer-icon.png', href: '#', label: 'Snapchat' },
-              { icon: '/assets/youtube-footer-icon.png', href: '#', label: 'YouTube' },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                title={s.label}
-                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors hover:shadow-md"
-                style={{ background: '#F4F1EA', border: '1px solid #e0d9ce' }}
-              >
-                <img src={s.icon} alt={s.label} className="w-4 h-4 object-contain" />
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Policies */}
-        <div>
-          <h4 className="text-[12px] font-bold mb-5 tracking-wider uppercase" style={{ color: '#2F3E56' }}>Policies</h4>
-          <ul className="space-y-3">
-            {['Refund Policy', 'Programs'].map((item) => (
-              <li key={item}>
-                <Link href="#" className="text-[13px] transition-colors hover:underline" style={{ color: '#555555' }}>
-                  {item}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Privacy */}
-        <div>
-          <h4 className="text-[12px] font-bold mb-5 tracking-wider uppercase" style={{ color: '#2F3E56' }}>Privacy</h4>
-          <ul className="space-y-3">
-            {['Terms & Conditions', 'Login', 'Feedback', 'Payment'].map((item) => (
-              <li key={item}>
-                <Link href="#" className="text-[13px] transition-colors hover:underline" style={{ color: '#555555' }}>
-                  {item}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Company */}
-        <div>
-          <h4 className="text-[12px] font-bold mb-5 tracking-wider uppercase" style={{ color: '#2F3E56' }}>Company</h4>
-          <ul className="space-y-3">
-            {['Contact', 'Career', 'Service'].map((item) => (
-              <li key={item}>
-                <Link href="#" className="text-[13px] transition-colors hover:underline" style={{ color: '#555555' }}>
-                  {item}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div style={{ borderTop: '1px solid #e0d9ce' }} className="py-4 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex gap-5">
-            <Link href="#" className="text-[12px] hover:underline" style={{ color: '#555555' }}>Privacy Policy</Link>
-            <Link href="#" className="text-[12px] hover:underline" style={{ color: '#555555' }}>Terms Of Service</Link>
-            <Link href="#" className="text-[12px] hover:underline" style={{ color: '#555555' }}>About</Link>
-          </div>
-          <p className="text-[12px]" style={{ color: '#888888' }}>© 2026 Flex Collective. All Rights Reserved.</p>
-          <div className="flex gap-2">
-            {[
-              '/assets/instagram-footer-icon.png',
-              '/assets/facebook-footer-icon.png',
-              '/assets/linkedin-footer-icon.png',
-              '/assets/snapchat-footer-icon.png',
-              '/assets/youtube-footer-icon.png',
-            ].map((icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
-                style={{ background: '#F4F1EA', border: '1px solid #e0d9ce' }}
-              >
-                <img src={icon} alt="" className="w-3.5 h-3.5 object-contain" />
-              </a>
-            ))}
-          </div>
         </div>
       </div>
     </footer>

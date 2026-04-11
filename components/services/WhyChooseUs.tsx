@@ -1,21 +1,21 @@
 const cards = [
   {
-    icon: '/assets/key-areas-icon-star.png',
+    icon: '/assets/icons/key-areas-icon-star.png',
     title: '360 Focus Plan',
     desc: 'A holistic approach covering recruitment, training, retention and performance measurement.',
   },
   {
-    icon: '/assets/key-areas-icon-chat.png',
+    icon: '/assets/icons/key-areas-icon-chat.png',
     title: 'Client Testimonies',
     desc: 'Proven track record of success backed by real testimonials from satisfied global clients.',
   },
   {
-    icon: '/assets/transparent-recruitment.png',
+    icon: '/assets/icons/transparent-recruitment.png',
     title: 'Transparent Services',
     desc: 'Complete clarity in pricing, processes and expectations with no hidden costs.',
   },
   {
-    icon: '/assets/key-areas-icon-breifcase.png',
+    icon: '/assets/icons/key-areas-icon-breifcase.png',
     title: 'Customer Management',
     desc: 'Dedicated account management ensuring personalized attention throughout your partnership.',
   },

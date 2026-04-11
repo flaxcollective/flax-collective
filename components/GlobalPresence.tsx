@@ -6,7 +6,7 @@ export default function GlobalPresence() {
           <div className="lg:w-1/2">
             <h2 className="text-4xl font-serif font-bold mb-6">Our Global Footprint</h2>
             <p className="text-gray-300 leading-relaxed mb-8 text-lg">
-              Operating across key international hubs, Flex Collective brings a world of expertise right to your doorstep. Our localized teams understand regional subtleties while leveraging a vast global network.
+              Operating across key international hubs, Flax Collective brings a world of expertise right to your doorstep. Our localized teams understand regional subtleties while leveraging a vast global network.
             </p>
             
             <div className="space-y-6">
@@ -23,7 +23,7 @@ export default function GlobalPresence() {
           <div className="lg:w-1/2">
             <div className="bg-white p-2 rounded-2xl shadow-2xl">
               <img 
-                src="/assets/global-map.png" 
+                src="/assets/icons/global-map.png" 
                 alt="Global Presence Map" 
                 className="w-full h-auto rounded-xl"
               />

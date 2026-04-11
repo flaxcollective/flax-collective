@@ -3,19 +3,19 @@ import { useState } from 'react';
 
 const profiles = [
   {
-    src: '/assets/founder-image.png',
+    src: '/assets/images/founder-image.png',
     badge: 'Career Counselling',
     title: 'Career Counsellor',
     desc: 'Personalized guidance navigating global hospitality careers.',
   },
   {
-    src: '/assets/for-employers-img-1.png',
+    src: '/assets/images/for-employers-img-1.png',
     badge: 'Interview Prep',
     title: 'Interview Prep',
     desc: 'Intensive coaching for high-stakes hospitality interviews.',
   },
   {
-    src: '/assets/for-employers-img-2.png',
+    src: '/assets/images/for-employers-img-2.png',
     badge: 'Resume Review',
     title: 'Resume Review',
     desc: 'Expert-crafted CVs that stand out to top employers worldwide.',

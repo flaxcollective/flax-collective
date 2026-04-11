@@ -8,9 +8,9 @@ export default function Header() {
           {/* Logo Placeholder */}
           <Link href="/" className="flex items-center">
             <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold text-gray-500 overflow-hidden">
-               <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
+               <img src="/assets/icons/logo.png" alt="Logo" className="w-full h-full object-contain" />
             </div>
-            <span className="ml-3 font-serif font-bold text-xl text-[var(--color-primary)]">FLEX COLLECTIVE</span>
+            <span className="ml-3 font-serif font-bold text-xl text-[var(--color-primary)]">Flax Collective</span>
           </Link>
 
           {/* Main Navigation */}

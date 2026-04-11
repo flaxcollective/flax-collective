@@ -1,11 +1,11 @@
 export default function HomeGallery() {
   const images = [
-    "/assets/for-employers-img-1.png",
-    "/assets/for-employers-img-2.png",
-    "/assets/for-employers-img-3.png",
-    "/assets/for-employers-img-4.png",
-    "/assets/for-employers-img-5.png",
-    "/assets/for-employers-img-6.png",
+    "/assets/images/for-employers-img-1.png",
+    "/assets/images/for-employers-img-2.png",
+    "/assets/images/for-employers-img-3.png",
+    "/assets/images/for-employers-img-4.png",
+    "/assets/images/for-employers-img-5.png",
+    "/assets/images/for-employers-img-6.png",
   ];
 
   return (

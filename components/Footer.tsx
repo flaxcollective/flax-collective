@@ -10,9 +10,9 @@ export default function Footer() {
           <div>
             <Link href="/" className="flex items-center mb-6">
               <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold text-gray-500 overflow-hidden">
-                <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                <img src="/assets/icons/logo.png" alt="Logo" className="w-full h-full object-contain" />
               </div>
-              <span className="ml-3 font-serif font-bold text-lg text-[var(--color-primary-dark)]">FLEX COLLECTIVE</span>
+              <span className="ml-3 font-serif font-bold text-lg text-[var(--color-primary-dark)]">Flax Collective</span>
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               Empowering global hospitality through strategic consulting, unparalleled talent acquisition, and transformative digital solutions.
@@ -78,7 +78,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Flex Collective. All rights reserved.
+            &copy; {new Date().getFullYear()} Flax Collective. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <Link href="#" className="text-gray-400 hover:text-gray-600 text-sm">Privacy Policy</Link>

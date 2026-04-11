@@ -14,8 +14,11 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "Flex Collective - Global Hospitality Potential",
-  description: "Unlock Global Hospitality Potential with Flex Collective.",
+  title: "Flax Collective - Global Hospitality Potential",
+  description: "Unlock Global Hospitality Potential with Flax Collective.",
+  icons: {
+    icon: "/assets/images/flex-collective-logo.png",
+  },
 };
 
 export default function RootLayout({

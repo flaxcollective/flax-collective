@@ -26,7 +26,7 @@ export default function HomePartners() {
         </ul>
 
         <p className="text-gray-600 font-medium text-lg leading-relaxed">
-          Whether you are looking to expand regionally or globally, or need strategic support to stabilize and grow, Flex Collective is your ideal partner.
+          Whether you are looking to expand regionally or globally, or need strategic support to stabilize and grow, Flax Collective is your ideal partner.
         </p>
       </div>
     </section>

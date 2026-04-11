@@ -1,11 +1,11 @@
 export default function Gallery() {
   const images = [
-    { src: "/assets/gallery-1.png", alt: "Gallery Case 1", label: "Hospitality Check" },
-    { src: "/assets/gallery-2.png", alt: "Gallery Case 2", label: "Client Meeting" },
-    { src: "/assets/gallery-3.png", alt: "Gallery Case 3", label: "Service Excellence" },
-    { src: "/assets/gallery-4.png", alt: "Gallery Case 4", label: "Culinary Arts" },
-    { src: "/assets/gallery-5.png", alt: "Gallery Case 5", label: "Team Collaboration" },
-    { src: "/assets/gallery-6.png", alt: "Gallery Case 6", label: "Global Summit" }
+    { src: "/assets/icons/gallery-1.png", alt: "Gallery Case 1", label: "Hospitality Check" },
+    { src: "/assets/icons/gallery-2.png", alt: "Gallery Case 2", label: "Client Meeting" },
+    { src: "/assets/icons/gallery-3.png", alt: "Gallery Case 3", label: "Service Excellence" },
+    { src: "/assets/icons/gallery-4.png", alt: "Gallery Case 4", label: "Culinary Arts" },
+    { src: "/assets/icons/gallery-5.png", alt: "Gallery Case 5", label: "Team Collaboration" },
+    { src: "/assets/icons/gallery-6.png", alt: "Gallery Case 6", label: "Global Summit" }
   ];
 
   return (

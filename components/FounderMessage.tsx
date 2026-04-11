@@ -7,7 +7,7 @@ export default function FounderMessage() {
             <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">Founder&apos;s Message</h2>
             <div className="space-y-6 text-gray-700 leading-relaxed">
               <p>
-                &quot;Welcome to Flex Collective. Our journey began with a simple but powerful observation: the hospitality industry thrives on connection, but the systems that support it are often fragmented. We set out to build an ecosystem that unites talent, education, and business operations under one roof.
+                &quot;Welcome to Flax Collective. Our journey began with a simple but powerful observation: the hospitality industry thrives on connection, but the systems that support it are often fragmented. We set out to build an ecosystem that unites talent, education, and business operations under one roof.
               </p>
               <p>
                 In today&apos;s globalized world, traditional boundaries are blurring. Our commitment is to provide flexible, forward-thinking solutions that empower institutions to teach better, professionals to work smarter, and brands to expand seamlessly. 
@@ -25,7 +25,7 @@ export default function FounderMessage() {
             <div className="relative">
               <div className="w-64 h-80 md:w-80 md:h-96 rounded-full overflow-hidden border-8 border-white shadow-xl relative z-10">
                 <img 
-                  src="/assets/founder.png" 
+                  src="/assets/icons/founder.png" 
                   alt="Founder" 
                   className="w-full h-full object-cover"
                 />

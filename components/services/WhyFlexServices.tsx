@@ -1,19 +1,19 @@
 const cards = [
   {
-    icon: '/assets/transparent-recruitment.png',
-    img: '/assets/for-employers-img-1.png',
+    icon: '/assets/icons/transparent-recruitment.png',
+    img: '/assets/images/for-employers-img-1.png',
     title: 'Training & Development',
     desc: 'Comprehensive training programs designed to upskill hospitality professionals across all levels of the industry.',
   },
   {
-    icon: '/assets/prepared-talent.png',
-    img: '/assets/for-employers-img-2.png',
+    icon: '/assets/icons/prepared-talent.png',
+    img: '/assets/images/for-employers-img-2.png',
     title: 'Flexible Recruitment',
     desc: 'Adaptive hiring strategies that connect the right talent with the right opportunity, locally and globally.',
   },
   {
-    icon: '/assets/training-program (2).png',
-    img: '/assets/for-employers-img-3.png',
+    icon: '/assets/icons/training-program (2).png',
+    img: '/assets/images/for-employers-img-3.png',
     title: 'Curriculum & Programs',
     desc: 'Industry-aligned academic programs built with top institutions to prepare students for global careers.',
   },
@@ -35,7 +35,7 @@ export default function WhyFlexServices() {
             className="text-[32px] font-bold mb-3"
             style={{ color: '#2F3E56', fontFamily: 'Georgia, serif' }}
           >
-            Why Flex Collective
+            Why Flax Collective
           </h2>
           <p className="text-[14px] max-w-xl mx-auto" style={{ color: '#666666' }}>
             We deliver end-to-end support for students, professionals, and organizations navigating the global hospitality industry.

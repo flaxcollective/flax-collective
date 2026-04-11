@@ -1,24 +1,24 @@
 const features = [
   {
-    icon: '/assets/international- hospitality-recruitment.png',
+    icon: '/assets/icons/international- hospitality-recruitment.png',
     title: 'International Hospitality Recruitment',
     desc: 'Connecting top-tier international talent with premier hospitality establishments worldwide.',
     link: '/services',
   },
   {
-    icon: '/assets/telent-devlopement.png',
+    icon: '/assets/icons/telent-devlopement.png',
     title: 'Talent Development',
     desc: 'Comprehensive human resources strategies for retention and organizational development.',
     link: '/services',
   },
   {
-    icon: '/assets/industry-focused-devlopemnt.png',
+    icon: '/assets/icons/industry-focused-devlopemnt.png',
     title: 'Industry Focused Development',
     desc: 'Bridging the gap between educational institutions and hospitality students worldwide.',
     link: '/services',
   },
   {
-    icon: '/assets/key-areas-icon-globe.png',
+    icon: '/assets/icons/key-areas-icon-globe.png',
     title: 'Work Globally',
     desc: 'Access international talent and digital transformation.',
     link: '/services',

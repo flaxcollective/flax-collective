@@ -4,7 +4,7 @@ export default function ProgramHero() {
       <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center py-16">
         {/* Left: Image */}
         <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
-          <img src="/assets/hero-programs.png" alt="Programs Hero" className="w-full h-full object-cover" />
+          <img src="/assets/icons/hero-programs.png" alt="Programs Hero" className="w-full h-full object-cover" />
         </div>
 
         {/* Right: Text */}
@@ -14,7 +14,7 @@ export default function ProgramHero() {
             Future-Ready<br />Training Programs
           </h1>
           <p className="text-[14px] text-[#555] leading-relaxed mb-8 max-w-[400px]">
-            Flex Collective&apos;s industry-accredited programs equip students with the skills, knowledge, and global experience needed to thrive in the competitive hospitality industry.
+            Flax Collective&apos;s industry-accredited programs equip students with the skills, knowledge, and global experience needed to thrive in the competitive hospitality industry.
           </p>
           <div className="flex gap-4">
             <a href="/contact-us" className="px-7 py-3 bg-[#6b7847] text-white text-[13px] font-semibold rounded-full hover:bg-[#4f5c34] transition-colors">

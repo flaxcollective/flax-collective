@@ -23,7 +23,7 @@ export default function WhyFlexCollective() {
     <section className="py-24 bg-[var(--color-background-beige)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-serif font-bold text-gray-900 mb-6">Why flex Collective</h2>
+          <h2 className="text-4xl font-serif font-bold text-gray-900 mb-6">Why Flax Collective</h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             We are more than consultants; we are your dedicated partners in navigating the complex landscape of global hospitality.
           </p>

@@ -14,7 +14,7 @@ export default function ServicesHero() {
             Shaping The Future<br />Of Professionals
           </h1>
           <p className="text-[14px] leading-relaxed mb-4" style={{ color: '#666666' }}>
-            Flex Collective empowers professionals, educational institutions, and hospitality brands through strategic consulting, global staffing, and transformative programs designed for the modern world.
+            Flax Collective empowers professionals, educational institutions, and hospitality brands through strategic consulting, global staffing, and transformative programs designed for the modern world.
           </p>
           <p className="text-[14px] leading-relaxed mb-8" style={{ color: '#666666' }}>
             Our end-to-end solutions cover recruitment, career services, training, and institutional partnerships — built for the global hospitality ecosystem.
@@ -44,7 +44,7 @@ export default function ServicesHero() {
             style={{ boxShadow: '0 12px 40px rgba(47,62,86,0.18)' }}
           >
             <img
-              src="/assets/about-us-image.png"
+              src="/assets/images/about-us-image.png"
               alt="Shaping The Future Of Professionals"
               className="w-full h-auto object-cover"
               style={{ maxHeight: '480px', objectFit: 'cover' }}

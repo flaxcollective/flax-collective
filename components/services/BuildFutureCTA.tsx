@@ -56,7 +56,7 @@ export default function BuildFutureCTA() {
               style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.25)' }}
             >
               <img
-                src="/assets/for-employers-img-4.png"
+                src="/assets/images/for-employers-img-4.png"
                 alt="For Students"
                 className="w-full h-full object-cover"
                 style={{ height: '240px' }}
@@ -67,7 +67,7 @@ export default function BuildFutureCTA() {
               style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.25)' }}
             >
               <img
-                src="/assets/for-employers-img-5.png"
+                src="/assets/images/for-employers-img-5.png"
                 alt="For Partners"
                 className="w-full h-full object-cover"
                 style={{ height: '240px' }}

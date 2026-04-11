@@ -96,7 +96,7 @@ export default function ProgramList() {
 
           {/* Right: Featured Image */}
           <div className="rounded-2xl overflow-hidden shadow-xl self-start sticky top-24">
-            <img src="/assets/programs-feature.png" alt="Program Highlight" className="w-full h-auto object-cover" />
+            <img src="/assets/icons/programs-feature.png" alt="Program Highlight" className="w-full h-auto object-cover" />
             <div className="p-5 bg-white border-t border-[#e8e0d5]">
               <h4 className="font-bold text-[15px] text-[#1e2d3d] mb-2">Certificate In Food &amp; Beverage Service</h4>
               <p className="text-[12px] text-[#666] leading-relaxed mb-4">Gain internationally recognised certification in food and beverage management with placement support included.</p>

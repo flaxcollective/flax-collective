@@ -8,7 +8,6 @@ import EmployerServices from "@/components/services/EmployerServices";
 import HowItWorksEmployers from "@/components/services/HowItWorksEmployers";
 import WhyChooseUs from "@/components/services/WhyChooseUs";
 import BuildFutureCTA from "@/components/services/BuildFutureCTA";
-import ContactSection from "@/components/shared/ContactSection";
 
 export default function ServicesPage() {
   return (
@@ -21,7 +20,6 @@ export default function ServicesPage() {
       <HowItWorksEmployers />
       <WhyChooseUs />
       <BuildFutureCTA />
-      <ContactSection />
       <Footer />
     </>
   );

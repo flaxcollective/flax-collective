@@ -6,7 +6,7 @@ import ProgramList from "@/components/program/ProgramList";
 import HowItWorksStudents from "@/components/program/HowItWorksStudents";
 import ProgramFAQ from "@/components/program/ProgramFAQ";
 import CareerCTA from "@/components/program/CareerCTA";
-import ContactSection from "@/components/shared/ContactSection";
+import HomeContectUs from "@/components/home/HomeContectUs";
 
 export default function ProgramPage() {
   return (
@@ -18,7 +18,7 @@ export default function ProgramPage() {
       <HowItWorksStudents />
       <ProgramFAQ />
       <CareerCTA />
-      <ContactSection />
+      <HomeContectUs />
       <Footer />
     </>
   );

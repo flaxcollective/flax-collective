@@ -3,7 +3,7 @@ export default function ContactHero() {
     <section className="mt-[72px] relative w-full min-h-[55vh] bg-[#1e2d3d] overflow-hidden flex items-center">
       {/* Background image */}
       <div className="absolute inset-0">
-        <img src="/assets/hero-contact.png" alt="Contact Us" className="w-full h-full object-cover opacity-50" />
+        <img src="/assets/icons/hero-contact.png" alt="Contact Us" className="w-full h-full object-cover opacity-50" />
         <div className="absolute inset-0 bg-[#1e2d3d]/40" />
       </div>
 

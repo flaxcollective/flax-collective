@@ -7,7 +7,7 @@ const faqs = [
   { q: 'What Are The Joining Qualifications?', a: 'Entry requirements vary by program. Most certificate-level programs require a high school diploma, while advanced diplomas may require relevant industry experience. Full details are on each program page.' },
   { q: 'Are The Programs Online?', a: 'We offer a blend of online and in-person delivery formats depending on the program. Some require on-site practical components at partner institutions or hospitality venues.' },
   { q: 'Is There An Internship Component?', a: 'Yes! Many of our programs include a structured internship or industry placement component, giving students hands-on experience with leading hospitality brands around the world.' },
-  { q: 'How Is Certification Offered?', a: 'Upon successful completion, students receive a globally recognized certificate or diploma from Flex Collective, co-verified by our institutional partners.' },
+  { q: 'How Is Certification Offered?', a: 'Upon successful completion, students receive a globally recognized certificate or diploma from Flax Collective, co-verified by our institutional partners.' },
   { q: 'Is Acuity Scheduling Required?', a: 'For certain advisory or counselling sessions, you may need to schedule an appointment. Our team will guide you through this process during onboarding.' },
 ];
 

@@ -25,7 +25,7 @@ export default function WhatSetsApart() {
           {/* Center: Featured image */}
           <div className="px-5">
             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
-              <img src="/assets/programs-center.png" alt="Programs Featured" className="w-full h-full object-cover" />
+              <img src="/assets/icons/programs-center.png" alt="Programs Featured" className="w-full h-full object-cover" />
             </div>
           </div>
 

@@ -9,7 +9,7 @@ export default function NetworkMap() {
         </div>
         <div className="network-img-wrap">
           <img
-            src="/assets/our-talent-network.png"
+            src="/assets/images/our-talent-network.png"
             alt="Our Global Talent Network"
             className="w-full h-auto"
           />

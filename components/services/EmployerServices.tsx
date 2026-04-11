@@ -1,21 +1,21 @@
 const services = [
   {
-    src: '/assets/for-employers-img-1.png',
+    src: '/assets/images/for-employers-img-1.png',
     title: 'Hiring Solutions',
     desc: 'End-to-end recruitment for hospitality brands of all sizes.',
   },
   {
-    src: '/assets/for-employers-img-3.png',
+    src: '/assets/images/for-employers-img-3.png',
     title: 'Assessment of Employees',
     desc: 'Evaluate and optimize your existing workforce performance.',
   },
   {
-    src: '/assets/for-employers-img-5.png',
+    src: '/assets/images/for-employers-img-5.png',
     title: 'Internship Programs',
     desc: 'Structured internships bridging students with leading brands.',
   },
   {
-    src: '/assets/for-employers-img-6.png',
+    src: '/assets/images/for-employers-img-6.png',
     title: 'International Staffing',
     desc: 'Global talent sourcing across 20+ countries.',
   },

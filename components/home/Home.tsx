@@ -1,18 +1,15 @@
 import HomeHero from "@/components/home/HomeHero";
 import HomeQuote from "@/components/home/HomeQuote";
 import HomeWhyFlex from "@/components/home/HomeWhyFlex";
-import HomeServices from "@/components/home/HomeServices";
-import HomePartners from "@/components/home/HomePartners";
-import InquiryForm from "@/components/home/InquiryForm";
 import HomeAbout from "@/components/home/HomeAbout";
 import HomeFounder from "@/components/home/HomeFounder";
-import WhoIsItFor from "@/components/WhoIsItFor";
-import GlobalFootprint from "@/components/home/GlobalFootprint";
+import HomeGlobalFootprint from "@/components/home/HomeGlobalFootprint";
 import HomeProcess from "@/components/home/HomeProcess";
-import HomeGallery from "@/components/home/HomeGallery";
-import PrePublicSection from "@/components/home/PrePublicSection";
-import ContactSection from "@/components/shared/ContactSection";
-import HomeJourney from "@/components/home/HomeJourney";
+import HomeContectUs from "@/components/home/HomeContectUs";
+import HomeMissionVission from "./HomeMissionVission";
+import HomePrograms from "@/components/home/HomePrograms";
+import HomeServices from "@/components/home/HomeServices";
+
 
 export default function Home() {
   return (
@@ -21,15 +18,13 @@ export default function Home() {
       <HomeQuote />
       <HomeWhyFlex />
       <HomeProcess />
-      <HomeJourney />
+      <HomeServices />
       <HomeAbout />
       <HomeFounder />
-      <WhoIsItFor />
-      <GlobalFootprint />
-      <HomeServices includeTitle={false} isSubList={true} /> 
-      <HomeGallery />
-      <PrePublicSection />
-      <ContactSection />
+      <HomePrograms />
+      <HomeMissionVission />
+      <HomeGlobalFootprint />
+      <HomeContectUs />
     </>
   );
 }
