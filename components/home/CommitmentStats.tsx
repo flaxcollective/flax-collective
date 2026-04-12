@@ -1,3 +1,4 @@
+import "@/app/styles/home/commitment-stats.css";
 const stats = [
   { value: '15+', label: 'Years of Experience' },
   { value: '30+', label: 'Global Partnerships' },

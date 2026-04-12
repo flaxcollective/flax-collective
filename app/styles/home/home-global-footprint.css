@@ -1,0 +1,211 @@
+/* ─── GLOBAL FOOTPRINT ───────────────────────────────────── */
+.footprint-section {
+  padding: 5rem 0;
+  background: #2F3E56;
+}
+
+.footprint-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6E7C3A;
+  margin-bottom: 0.5rem;
+}
+
+.footprint-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #FFFFFF;
+  font-family: Georgia, serif;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.footprint-divider {
+  width: 2.5rem;
+  height: 3px;
+  background: #6E7C3A;
+  margin-bottom: 1.5rem;
+}
+
+.footprint-text {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(244, 241, 234, 0.8);
+  margin-bottom: 2rem;
+}
+
+.footprint-card {
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footprint-card-title {
+  font-weight: 700;
+  color: #FFFFFF;
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+}
+
+.footprint-card-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(244, 241, 234, 0.7);
+}
+
+.footprint-map-wrap {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ─── GLOBAL FOOTPRINT ───────────────────────────────────────── */
+.global-footprint-section {
+  background-color: #E1DACA;
+  padding: 80px 20px;
+}
+
+.global-footprint-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.global-footprint-title {
+  color: #2F3E56;
+  font-family: "Source Serif 4";
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+}
+
+.global-footprint-desc {
+  color: #666;
+  text-align: justify;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  /* 187.5% */
+  text-transform: capitalize;
+  margin-top: 1rem;
+}
+
+.global-footprint-middle {
+  background: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  gap: 40px;
+  border-radius: 20px;
+}
+
+.global-footprint-middle-content {
+  flex: 0 0 50%;
+}
+
+.global-footprint-subtitle {
+  color: #736A2F;
+  text-align: left;
+  font-family: "Source Serif 4";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.global-footprint-subdesc {
+  color: #666;
+  text-align: justify;
+  font-family: "Source Serif 4";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin-top: 1rem;
+  /* 157.143% */
+}
+
+.global-footprint-middle-image {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.global-footprint-middle-image img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
+}
+
+.global-footprint-subtitle-white {
+  color: #2F3E56;
+  text-align: left;
+  font-family: "Source Serif 4";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.global-footprint-subtitle-white span {
+  font-weight: 400;
+}
+
+.global-footprint-desc-white {
+  color: #666;
+  text-align: justify;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  /* 187.5% */
+  margin-top: 1rem;
+}
+
+.global-footprint-desc-white strong {
+  color: #666;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+@media (max-width: 1024px) {
+  .global-footprint-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .global-footprint-middle {
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .global-footprint-middle-content {
+    flex: 1;
+  }
+
+  .global-footprint-middle-image {
+    flex: 1;
+  }
+}

@@ -1,0 +1,70 @@
+/* ─── COMMITMENT STATS ───────────────────────────────────── */
+.stats-section {
+  padding: 3.5rem 0;
+  background: #FFFFFF;
+  border-top: 1px solid #e0d9ce;
+  border-bottom: 1px solid #e0d9ce;
+}
+
+.stats-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6E7C3A;
+  margin-bottom: 0.5rem;
+}
+
+.stats-heading {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2F3E56;
+  font-family: Georgia, serif;
+}
+
+.stats-connector {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: #6E7C3A;
+  opacity: 0.3;
+}
+
+@media (min-width: 768px) {
+  .stats-connector {
+    display: block;
+  }
+}
+
+.stats-circle {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 2px solid #6E7C3A;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 10;
+}
+
+.stats-circle-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #6E7C3A;
+  font-family: Georgia, serif;
+}
+
+.stats-circle-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666666;
+}
+

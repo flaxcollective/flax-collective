@@ -1,3 +1,4 @@
+import "@/app/styles/home/pre-public-section.css";
 export default function PrePublicSection() {
   return (
     <section className="py-24 bg-[#f8f9f5]">

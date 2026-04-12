@@ -1,3 +1,4 @@
+import "@/app/styles/home/home-features.css";
 const features = [
   {
     icon: '/assets/icons/international- hospitality-recruitment.png',

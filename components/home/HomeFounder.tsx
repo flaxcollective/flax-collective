@@ -1,8 +1,9 @@
+import "@/app/styles/home/home-founder.css";
 export default function HomeFounder() {
   return (
-    <section className="py-24 home-founder-section">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section className="home-founder-section">
+      <div className="home-founder-section-container ">
+        <div className="mb-12">
           <h2 className="text-4xl font-serif font-bold text-gray-900 mb-6">
             Founder’s Message
           </h2>
@@ -12,27 +13,28 @@ export default function HomeFounder() {
           <div className="flex flex-col founder-text-container">
             <div className="founder-text">
               <p className="mb-4">
-                At Flax Collective, We Believe That Exceptional Hospitality Begins With Exceptional People.
+                At Flax Collective, we believe that exceptional hospitality begins with exceptional people.
               </p>
 
               <p className="mb-4">
-                <strong>Across Global Markets,</strong> Many Talented Hospitality Professionals Possess The Passion And Potential To Succeed On The International Stage. At The Same Time, <strong>Hospitality Organizations Worldwide Seek Individuals</strong> Who Are Not Only Qualified But Truly Prepared To <strong>Deliver World-Class Service. Flax Collective Was Founded To Thoughtfully Bridge This Gap.</strong>
+                <strong>Across global markets,</strong> many talented hospitality professionals possess the passion and potential to succeed on the international stage. At the same time, <strong>hospitality organizations worldwide seek individuals</strong> who are not only qualified but truly prepared to <strong>deliver world-class service. Flax Collective was founded to thoughtfully bridge this gap.</strong>
               </p>
 
               <p className="mb-4">
-                Our Focus Is On <strong>Preparation, Professionalism, And Partnership.</strong> Through Structured Counselling, Targeted Certification Programs, And Practical Industry Workshops, We Ensure That Every Candidate We Introduce To Employers Is Aligned With International Hospitality Standards And Ready To <strong>Contribute With Confidence From Day One.</strong>
+                Our focus is on <strong>preparation, professionalism, and partnership.</strong> Through structured counselling, targeted certification programs, and practical industry workshops, we ensure that every candidate we introduce to employers is aligned with international hospitality standards and ready to <strong>contribute with confidence from day one.</strong>
               </p>
 
               <p className="mb-4">
-                Equally Central To Our Philosophy Is A Commitment To <strong>Integrity And Transparency.</strong> Our <strong>Pay-After-Joining Recruitment Model</strong> Reflects The Trust We Aim To Build With Both Our Candidates And Our Employer Partners.
+                Equally central to our philosophy is a commitment to <strong>integrity and transparency.</strong> Our <strong>pay-after-joining recruitment model</strong> reflects the trust we aim to build with both our candidates and our employer partners.
               </p>
 
               <p className="mb-4">
-                Flax Collective Exists To Create Meaningful Connections—Helping <strong>Aspiring Professionals Build Global Careers While Enabling Hospitality Organizations</strong> To Strengthen Their Teams With <strong>Capable, Well-Prepared Talent."</strong>
+                Flax Collective exists to create meaningful connections—helping <strong>aspiring professionals build global careers while enabling hospitality organizations</strong> to strengthen their teams with <strong>capable, well-prepared talent.</strong>
               </p>
             </div>
           </div>
-          <div className="flex justify-center h-auto items-stretch founder-image-container">
+
+          {/* <div className="flex justify-center h-auto items-stretch founder-image-container">
             <div className="relative w-full rounded-[16px] overflow-hidden shadow-xl h-full">
               <img
                 src="/assets/images/founder-image.png"
@@ -44,9 +46,10 @@ export default function HomeFounder() {
                 <p className="text-[#eee] text-[13px] font-medium">Founder Of Flax Collective</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
+        <div className="global-page-divider mt-14"></div>
       </div>
-    </section >
+    </section>
   );
 }

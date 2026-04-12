@@ -1,0 +1,83 @@
+/* ─── WHY WORK WITH US (PrePublicSection) ────────────────── */
+.whywork-section {
+  padding: 5rem 0;
+  background: #FFFFFF;
+}
+
+.whywork-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6E7C3A;
+  margin-bottom: 0.5rem;
+}
+
+.whywork-heading {
+  font-size: 30px;
+  font-weight: 700;
+  color: #2F3E56;
+  font-family: Georgia, serif;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.whywork-divider {
+  width: 2.5rem;
+  height: 3px;
+  background: #6E7C3A;
+  margin-bottom: 1.5rem;
+}
+
+.whywork-text {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #666666;
+  margin-bottom: 2rem;
+}
+
+.whywork-btn {
+  display: inline-block;
+  padding: 0.75rem 1.75rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid #6E7C3A;
+  color: #6E7C3A;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.whywork-btn:hover {
+  background: #6E7C3A;
+  color: #FFFFFF;
+}
+
+.whywork-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  background: #F4F1EA;
+}
+
+.whywork-check-circle {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: #6E7C3A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.whywork-check-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #444444;
+}
+

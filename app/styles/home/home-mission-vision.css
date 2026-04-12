@@ -1,0 +1,227 @@
+/* ─── MISSION · VISION · VALUES ──────────────────────────── */
+.mv-section {
+  background: #F4F1EA;
+}
+
+.mv-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+/* Header */
+.mv-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.mv-heading {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 38px;
+  font-weight: 500;
+  color: #2F3E56;
+  margin-bottom: 16px;
+}
+
+.mv-subtext {
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #666;
+  margin: 0 auto;
+  text-align: justify;
+  align-items: center;
+  font-weight: 500;
+}
+
+/* Card */
+.mv-card {
+  background: #FFFFFF;
+  border: 1px solid #e0d9ce;
+  border-radius: 12px;
+  padding: 36px 40px;
+}
+
+/* Row */
+.mv-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.mv-values-header-row {
+  align-items: center;
+}
+
+.mv-divider {
+  border: none;
+  border-top: 1px solid #eee8de;
+  margin: 28px 0;
+}
+
+/* Icon box */
+.mv-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #2F3E56;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #2F3E56;
+}
+
+.mv-icon-wrap--green {
+  border-color: #6E7C3A;
+  color: #6E7C3A;
+}
+
+/* Row body */
+.mv-row-body {
+  flex: 1;
+}
+
+.mv-row-title {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2F3E56;
+  margin-bottom: 8px;
+}
+
+.mv-row-text {
+  font-family: Montserrat, sans-serif;
+  font-size: 13px;
+  line-height: 1.75;
+  color: #555;
+  text-align: justify;
+  font-weight: 500;
+}
+
+/* Values toggle button */
+.mv-values-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mv-values-toggle .mv-row-title {
+  margin-bottom: 0;
+  color: #6E7C3A;
+  border-bottom: 2px solid #6E7C3A;
+  padding-bottom: 2px;
+}
+
+/* Chevron */
+.mv-chevron {
+  color: #6E7C3A;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.mv-chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Values list */
+.mv-values-list {
+  margin-top: 20px;
+  padding-left: 68px;
+  /* align with row body */
+}
+
+.mv-value-item {
+  padding-bottom: 24px;
+}
+
+.mv-value-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Track (dot + vertical line) */
+.mv-value-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.mv-value-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #6E7C3A;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.mv-value-line {
+  position: absolute;
+  top: 16px;
+  /* starts just below the dot */
+  bottom: -24px;
+  /* extends through padding-bottom of mv-value-item */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: #6E7C3A;
+  opacity: 0.3;
+}
+
+/* Value content — 3-column: title | dot-track | desc */
+.mv-value-content {
+  display: grid;
+  grid-template-columns: 160px 36px 1fr;
+  column-gap: 12px;
+  align-items: start;
+}
+
+.mv-value-title {
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2F3E56;
+  padding-top: 0px;
+}
+
+.mv-value-desc {
+  font-family: Montserrat, sans-serif;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #666;
+  font-weight: 500;
+}
+
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .mv-container {
+    width: 90%;
+  }
+
+  .mv-value-content {
+    grid-template-columns: 120px 36px 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .mv-card {
+    padding: 24px 20px;
+  }
+
+  .mv-heading {
+    font-size: 28px;
+  }
+
+  .mv-values-list {
+    padding-left: 0;
+  }
+}

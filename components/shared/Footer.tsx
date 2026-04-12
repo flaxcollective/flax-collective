@@ -11,17 +11,17 @@ export default function Footer() {
 
         {/* Text */}
         <p className="text-[14px] leading-relaxed max-w-2xl font-medium" style={{ color: '#888888' }}>
-          For Inquiries Regarding{' '}
+          For inquiries regarding{' '}
           <strong style={{ color: '#555555', fontWeight: 600 }}>
-            Certification Programs, Recruitment Opportunities, Or Employer Partnerships,
+            certification programs, recruitment opportunities, or employer partnerships,
           </strong>
         </p>
-        <p className="text-[14px] leading-relaxed mb-10 max-w-2xl font-medium" style={{ color: '#888888' }}>
-          Please Contact The Flax Collective Team.
+        <p className="text-[14px] leading-relaxed mt-3 mb-4 max-w-2xl font-medium" style={{ color: '#888888' }}>
+          Please contact the Flax Collective team.
         </p>
 
         {/* Contact items */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-10 mb-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-10 mb-8">
           <div className="flex items-center gap-2">
             <img src="/assets/icons/footer-mail-icon-1.png" alt="mail" className="w-4 h-4 object-contain" style={{ filter: 'brightness(0)' }} />
             <span className="text-[13px] font-semibold" style={{ color: '#555555' }}>info@flaxcollective.com</span>
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
 
         {/* Social Icons */}
-        <div className="flex gap-6 mb-12">
+        <div className="flex gap-6 mb-6">
           {[
             { icon: '/assets/icons/linkedin-footer-icon.png', label: 'LinkedIn', link: 'https://www.linkedin.com/company/flaxcollective' },
             { icon: '/assets/icons/facebook-footer-icon.png', label: 'Facebook', link: 'https://www.facebook.com/flaxcollective' },
@@ -46,13 +46,13 @@ export default function Footer() {
               className="transition-opacity hover:opacity-75"
               target='_blank'
             >
-              <img src={s.icon} alt={s.label} className="w-[18px] h-[18px] object-contain" style={{ filter: 'brightness(0)' }} />
+              <img src={s.icon} alt={s.label} className="w-[22px] h-[22px] object-contain" style={{ filter: 'brightness(0)' }} />
             </a>
           ))}
         </div>
 
         {/* Divider */}
-        <div className="w-full border-t mb-6" style={{ borderColor: '#d0c9be' }}></div>
+        <div className="w-full border-t mb-6" style={{ borderColor: '#666' }}></div>
 
         {/* Bottom Bar */}
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
@@ -63,7 +63,7 @@ export default function Footer() {
             <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>Refund Policy</Link>
           </div>
           <p className="text-[12px] font-medium" style={{ color: '#555555' }}>
-            © 2026 FLAX Collective. All Rights Reserved.
+            © 2026 Flax Collective. All Rights Reserved.
           </p>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import "@/app/styles/home/network-map.css";
 export default function NetworkMap() {
   return (
     <section className="network-section">

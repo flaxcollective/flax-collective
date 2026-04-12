@@ -46,3 +46,9 @@ a {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #F4F1EA; }
 ::-webkit-scrollbar-thumb { background: #6E7C3A; border-radius: 3px; }
+
+.global-page-divider{
+  background: linear-gradient(90deg, rgba(43, 55, 105, 0.02) 0%, rgba(43, 55, 105, 0.20) 25%, #2B3769 50%, rgba(43, 55, 105, 0.20) 75%, rgba(43, 55, 105, 0.02) 100%);
+  height: 2px;
+  width: 100%;
+}

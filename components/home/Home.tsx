@@ -1,5 +1,4 @@
 import HomeHero from "@/components/home/HomeHero";
-import HomeQuote from "@/components/home/HomeQuote";
 import HomeWhyFlex from "@/components/home/HomeWhyFlex";
 import HomeAbout from "@/components/home/HomeAbout";
 import HomeFounder from "@/components/home/HomeFounder";
@@ -15,14 +14,13 @@ export default function Home() {
   return (
     <>
       <HomeHero />
-      <HomeQuote />
       <HomeWhyFlex />
-      <HomeProcess />
-      <HomeServices />
+      <HomeProcess />      
       <HomeAbout />
       <HomeFounder />
       <HomePrograms />
       <HomeMissionVission />
+      <HomeServices />
       <HomeGlobalFootprint />
       <HomeContectUs />
     </>

@@ -624,9 +624,70 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-.cta-img-wrap {
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  height: 240px;
+/* ============================================================
+   RESPONSIVE OVERRIDES
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .services-hero-heading {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-hero {
+    min-height: auto;
+    padding: 60px 0;
+  }
+  
+  .services-hero-heading {
+    font-size: 28px;
+    text-align: center;
+  }
+  
+  .services-hero-text {
+    text-align: center;
+  }
+  
+  .services-hero .flex-row {
+    flex-direction: column;
+  }
+  
+  .services-hero-img-wrap {
+    margin-top: 30px;
+  }
+
+  .wfs-heading, .student-heading, .employer-heading, .hiw-heading, .wcu-heading, .cta-heading {
+    font-size: 26px !important;
+    text-align: center;
+  }
+
+  .wfs-desc, .employer-desc, .hiw-desc, .wcu-desc, .cta-text {
+    text-align: center;
+    margin: 0 auto 30px;
+  }
+
+  .wfs-section .grid-cols-3, 
+  .employer-section .grid-cols-3,
+  .wcu-section .grid-cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hiw-section .flex {
+    flex-direction: column;
+  }
+
+  .hiw-connector {
+    display: none;
+  }
+
+  .cta-section .flex-row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cta-btn-primary, .cta-btn-outline {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }

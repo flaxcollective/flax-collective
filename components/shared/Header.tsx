@@ -7,6 +7,17 @@ import { usePathname } from 'next/navigation';
 export default function Header() {
   const pathname = usePathname();
   const [activeHash, setActiveHash] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,14 +28,12 @@ export default function Header() {
         const el = document.getElementById(section);
         if (el) {
           const rect = el.getBoundingClientRect();
-          // Adjust 150px to represent the "active" threshold from the top
           if (rect.top <= 150) {
             current = `#${section}`;
           }
         }
       }
 
-      // If we are at the very top of the page, highlight HOME
       if (window.scrollY < 100) {
         current = '';
       }
@@ -33,71 +42,154 @@ export default function Header() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check on mount
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  const navLinksLeft = [
     { label: 'HOME', href: '/', hash: '' },
     { label: 'SERVICES', href: '#services', hash: '#services' },
-    { label: 'PROGRAM', href: '#programs', hash: '#programs' },
+  ];
+
+  const navLinksRight = [
+    { label: 'COURSES', href: '#programs', hash: '#programs' },
     { label: 'CONTACT US', href: '#contact', hash: '#contact' },
   ];
 
+  const navLinks = [...navLinksLeft, ...navLinksRight];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string, href: string) => {
+    setIsMenuOpen(false);
+    if (hash) {
+      e.preventDefault();
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (href === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white">
-      <div className="w-full px-10 md:px-20 lg:px-28 xl:px-40 2xl:px-48 mx-auto flex items-center justify-between h-full relative">
+    <header className="fixed top-0 left-0 w-full z-50 header-main">
+      {/* DESKTOP HEADER - Split nav with centered logo drop using pure SVG */}
+      <div className="desktop-header hidden lg:block w-full relative header-container">
+        
+        {/* Background SVG exactly as requested */}
+        <div className="desktop-svg-bg overflow-hidden absolute top-0 left-0 w-full h-[320px] z-0 pointer-events-none flex justify-center">
+            <svg width="1920" height="320" viewBox="0 0 1920 320" fill="none" xmlns="http://www.w3.org/2000/svg" className="min-w-[1920px] max-w-none">
+              <g filter="url(#filter0_d_4743_3203)">
+                <path d="M0 0H1920V196H1413.5H1193.5H1153.95C1125.78 196 1102.37 217.718 1100.26 245.811C1098.99 262.837 1084.8 276 1067.73 276H961H862.094C839.519 276 820.798 258.522 819.25 236C817.702 213.478 798.981 196 776.406 196H728.5H507H0V0Z" fill="white"/>
+              </g>
+              <defs>
+                <filter id="filter0_d_4743_3203" x="-36" y="-36" width="2000" height="356" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                  <feOffset dx="4" dy="4"/>
+                  <feGaussianBlur stdDeviation="20"/>
+                  <feComposite in2="hardAlpha" operator="out"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0.184314 0 0 0 0 0.243137 0 0 0 0 0.337255 0 0 0 0.25 0"/>
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_4743_3203"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_4743_3203" result="shape"/>
+                </filter>
+              </defs>
+            </svg>
+        </div>
 
-        {/* LEFT: Navigation Links */}
-        <nav className="flex-1 flex items-center gap-8">
-          {navLinks.map((link) => {
-            const isActive = activeHash === link.hash;
-            
-            const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-              if (link.hash) {
-                e.preventDefault();
-                const el = document.querySelector(link.hash);
-                if (el) {
-                  el.scrollIntoView({ behavior: 'smooth' });
-                }
-              } else if (link.href === '/') {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-            };
+        {/* Content layer */}
+        <div className="w-full flex h-[196px] relative z-10 max-w-[1920px] mx-auto">
+          {/* Nav Left */}
+          <div className="header-nav-left flex-1 flex items-center justify-end">
+            <nav className="flex items-center gap-10">
+              {navLinksLeft.map((link) => {
+                const isActive = (link.hash === '' && activeHash === '') || (link.hash !== '' && activeHash === link.hash);
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.hash, link.href)}
+                    className={`transition-colors duration-200 cursor-pointer nav-link ${isActive ? 'active' : ''}`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </nav>
+          </div>
 
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={handleNavClick}
-                className={`transition-colors duration-200 cursor-pointer ${isActive ? 'active' : ''}`}
-              >
-                {link.label}
-              </a>
-            );
-          })}
-        </nav>
+          {/* Logo Center */}
+          <div className="header-logo-center flex-none flex justify-center items-start w-[400px]">
+            <Link href="/" className="logo-link-responsive flex justify-center items-start mt-4" onClick={(e) => handleNavClick(e, '', '/')}>
+              <img
+                src="/assets/images/flex-collective-logo.png"
+                alt="Flax Collective"
+                className="header-logo-img"
+              />
+            </Link>
+          </div>
 
-        {/* CENTER: Logo */}
-        <Link href="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <img
-            src="/assets/images/flex-collective-logo.png"
-            alt="Flax Collective"
-            className="h-[114x] w-[114px] object-contain"
-          />
-        </Link>
-
-        {/* RIGHT: Phone */}
-        <div className="flex-1 flex justify-end">
-          <div className="flex items-center gap-2 border border-[#999] rounded-full px-5 py-2.5 hover:bg-gray-50 transition-colors">
-            <img src="/assets/icons/navbar-call-icon.png" alt="Call" className="w-[18px] h-[18px] object-contain" />
-            <a href="tel:+919876543210" className="header-contact-number text-[15px] whitespace-nowrap !text-[#333]">
-              + 91 98765-43210
-            </a>
+          {/* Nav Right */}
+          <div className="header-nav-right flex-1 flex items-center justify-start">
+            <nav className="flex items-center gap-10">
+              {navLinksRight.map((link) => {
+                const isActive = activeHash === link.hash;
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.hash, link.href)}
+                    className={`transition-colors duration-200 cursor-pointer nav-link ${isActive ? 'active' : ''}`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </nav>
           </div>
         </div>
+      </div>
+
+      {/* MOBILE HEADER */}
+      <div className="mobile-header lg:hidden">
+
+        {/* Logo Left */}
+        <div className="mobile-logo">
+          <Link href="/">
+            <img
+              src="/assets/images/flex-collective-logo.png"
+              alt="Flax Collective"
+            />
+          </Link>
+        </div>
+
+        {/* Hamburger Right */}
+        <div className="mobile-menu">
+          <button onClick={toggleMenu} aria-label="Toggle Menu">
+            <span className={isMenuOpen ? "line l1 active" : "line l1"}></span>
+            <span className={isMenuOpen ? "line l2 active" : "line l2"}></span>
+            <span className={isMenuOpen ? "line l3 active" : "line l3"}></span>
+          </button>
+        </div>
+
+      </div>
+
+      {/* MOBILE NAVIGATION OVERLAY (Shared by mobile components) */}
+      <div className={`fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-transform duration-300 lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <nav className="flex flex-col items-center gap-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link.hash, link.href)}
+              className="text-2xl font-semibold text-[#333] tracking-wider"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </div>
     </header>
   );

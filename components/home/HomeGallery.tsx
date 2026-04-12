@@ -1,3 +1,4 @@
+import "@/app/styles/home/home-gallery.css";
 export default function HomeGallery() {
   const images = [
     "/assets/images/for-employers-img-1.png",

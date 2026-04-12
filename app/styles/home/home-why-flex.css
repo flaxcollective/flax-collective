@@ -1,0 +1,168 @@
+/* WHy Flax Collective */
+
+
+.why-flex {
+  background: #F4F1EA;
+  width: 100%;
+  padding: 30px 0px;
+}
+
+
+.why-flex-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+
+.why-flex-container h2 {
+  color: #2F3E56;
+  font-family: "Source Serif 4";
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+}
+
+.why-flex-subtext {
+  color: #666;
+  text-align: justify;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  margin-bottom: 3rem;
+}
+
+.why-flex-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.why-flex-card {
+  background: #f5f5f5;
+  padding: 15px 15px;
+  border: 1px solid #cfcfcf;
+  text-align: center;
+  transition: 0.3s ease;
+  border-radius: 20px;
+}
+
+.why-flex-card:hover {
+  transform: translateY(-5px);
+}
+
+.why-flex-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background: #2F3E56;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.why-flex-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.why-flex-card h3 {
+  color: #000;
+  font-family: "Source Serif 4";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+.why-flex-card p {
+  color: #666;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+
+
+
+
+
+
+/* ─── WHY FLEX (HomeWhyFlex) ─────────────────────────────── */
+.whyflex-section {
+  padding: 5rem 0;
+  background: #F4F1EA;
+}
+
+.whyflex-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6E7C3A;
+  margin-bottom: 0.5rem;
+}
+
+.whyflex-heading {
+  font-size: 30px;
+  font-weight: 700;
+  color: #2F3E56;
+  font-family: Georgia, serif;
+  margin-bottom: 1rem;
+}
+
+.whyflex-desc {
+  font-size: 14px;
+  color: #666666;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.whyflex-card {
+  background: #FFFFFF;
+  border: 1px solid #e0d9ce;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  transition: box-shadow 0.3s;
+}
+
+.whyflex-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.whyflex-icon-wrap {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: #F4F1EA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.whyflex-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2F3E56;
+  margin-bottom: 0.75rem;
+}
+
+.whyflex-card-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666666;
+}
+

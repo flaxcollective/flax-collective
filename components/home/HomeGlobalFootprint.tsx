@@ -1,3 +1,4 @@
+import "@/app/styles/home/home-global-footprint.css";
 export default function HomeGlobalFootprint() {
   return (
     <section className="global-footprint-section">
