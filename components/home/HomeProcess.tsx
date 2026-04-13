@@ -4,7 +4,7 @@ export default function HomeProcess() {
     {
       step: "01",
       title: "Candidate Identification",
-      desc: "We identify promising hospitality graduates and professionals through institutional partnerships and global career networks."
+      desc: "We identify promising graduates and professionals through institutional partnerships and global career networks."
     },
     {
       step: "02",
@@ -14,7 +14,7 @@ export default function HomeProcess() {
     {
       step: "03",
       title: "Certification & Skill Development",
-      desc: "Candidates participate in certification programs and workshops focused on hospitality standards and workplace professionalism."
+      desc: "Candidates participate in certification programs and workshops focused on international standards and workplace professionalism."
     },
     {
       step: "04",
@@ -24,7 +24,7 @@ export default function HomeProcess() {
     {
       step: "05",
       title: "Employer Matching",
-      desc: "Qualified candidates are introduced to hospitality employers based on their skills and role requirements."
+      desc: "Qualified candidates are introduced to potential employers based on their skills and role requirements."
     },
     {
       step: "06",
@@ -37,9 +37,9 @@ export default function HomeProcess() {
     <section className="process-section">
       <div className="process-container">
         <h2>Our Process</h2>
-        <p className="process-subtext">
+        {/* <p className="process-subtext">
           Flax Collective follows a structured pathway that prepares candidates and supports employers through a reliable recruitment process.
-        </p>
+        </p> */}
         <div className="process-grid">
           {processData.map((item, idx) => (
             <div key={idx} className="process-card">
@@ -56,19 +56,29 @@ export default function HomeProcess() {
         <div className="global-page-divider mt-14"></div>
 
         <div className="process-quote-section mt-20">
-          <h2>Opportunities for Students & Employers</h2>
-          <div className="process-quote-section-content flex gap-10 w-full">
-            <div className="process-quote-section-content-1 w-1/2 flex flex-col ">
-              <h2>Opportunities for Students</h2>
-              <p>Flax Collective provides aspiring hospitality professionals with a structured pathway to build international careers.</p>
+          <h2>Opportunities</h2>
+          <div className="opportunities-layout">
+            <div className="opportunities-cards">
+              <div className="process-quote-section-content-1">
+                <h2>Opportunities For Students</h2>
+                <p>Flax Collective provides aspiring professionals with a structured pathway to build international careers.</p>
+              </div>
+              <div className="process-quote-section-content-2">
+                <h2>Talent Solutions For Employers</h2>
+                <p>
+                  Organizations partner with Flax Collective to access a reliable pipeline of{" "}
+                  <strong>trained and pre-screened professionals</strong> who are prepared to contribute
+                  from day one. Our recruitment model emphasizes preparation, quality, and transparency.
+                </p>
+              </div>
             </div>
-            <div className="process-quote-section-content-2 w-1/2 flex flex-col ">
-              <h2>Talent Solutions for Employers</h2> 
-              <p>Hospitality organizations partner with Flax Collective to access a reliable pipeline of trained and pre-screened hospitality professionals who are prepared to contribute from day one. Our recruitment model emphasizes preparation, quality, and transparency.</p>
+            <div className="opportunities-image">
+              <img src="/assets/images/opportunities.png" alt="Opportunities illustration" />
             </div>
           </div>
         </div>
-         <div className="global-page-divider mt-14"></div>
+
+        <div className="global-page-divider mt-14"></div>
       </div>
     </section>
   );

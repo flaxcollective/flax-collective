@@ -1,0 +1,257 @@
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer {
+  background: #F4F1EA;
+  padding-bottom: 32px;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ─── Logo ── */
+.footer-logo {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.footer-logo img {
+  height: auto;
+  max-width: 160px;
+}
+
+/* ─── Desktop text ── */
+.footer-inquiry-text {
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: #444;
+  max-width: 600px;
+  margin-bottom: 4px;
+}
+
+.footer-inquiry-text strong {
+  font-weight: 700;
+  color: #2F3E56;
+}
+
+.footer-please-text {
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+/* ─── Mobile tagline ── */
+.footer-tagline {
+  display: none;
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #444;
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+/* ─── Email ── */
+.footer-email {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.footer-email img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: brightness(0);
+}
+
+.footer-email span {
+  font-family: Montserrat, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ─── Social icons ── */
+.footer-socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+
+.footer-socials a:hover {
+  opacity: 0.65;
+}
+
+.footer-socials img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0);
+}
+
+/* ─── Divider ── */
+.footer-divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #666;
+  margin-bottom: 24px;
+}
+
+/* ─── Bottom bar (desktop) ── */
+.footer-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footer-links-desktop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.footer-links-desktop a {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-links-desktop a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Mobile links (hidden on desktop) ── */
+.footer-links-mobile {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.footer-links-mobile-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-links-mobile a {
+  font-family: Montserrat, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: underline;
+}
+
+.footer-links-mobile-bullet {
+  font-size: 13px;
+  color: #333;
+}
+
+/* ─── Copyright ── */
+.footer-copy {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .footer {
+    background: #F4F1EA;
+    padding-bottom: 24px;
+  }
+
+  .footer-logo {
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+
+  /* Show tagline, hide inquiry text */
+  .footer-tagline {
+    display: block;
+  }
+
+  .footer-inquiry-text,
+  .footer-please-text {
+    display: none;
+  }
+
+  /* Email */
+  .footer-email {
+    margin-bottom: 20px;
+  }
+
+  .footer-email span {
+    font-size: 14px;
+  }
+
+  /* Show mobile links, hide desktop links */
+  .footer-links-mobile {
+    display: flex;
+  }
+
+  /* Socials order: Instagram → Facebook → LinkedIn on mobile */
+  .footer-socials {
+    gap: 28px;
+    margin-bottom: 16px;
+  }
+
+  .footer-socials img {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Hide desktop divider & bottom bar on mobile */
+  .footer-divider {
+    display: none;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .footer-links-desktop {
+    display: none;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: #333;
+    margin-top: 4px;
+  }
+}

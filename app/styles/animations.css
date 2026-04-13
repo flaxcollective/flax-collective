@@ -1,0 +1,109 @@
+/* ============================================================
+   ANIMATIONS — animations.css
+   Import this in your global CSS or layout.tsx
+   ============================================================ */
+
+/* ─── KEYFRAMES ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── BASE: elements start hidden ─── */
+.anim {
+  opacity: 0;
+}
+
+/* ─── TRIGGERED: when .in-view is added by JS ─── */
+.anim.in-view {
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-duration: 0.7s;
+}
+
+.anim.fade-up.in-view       { animation-name: fadeUp; }
+.anim.fade-down.in-view     { animation-name: fadeDown; }
+.anim.fade-in.in-view       { animation-name: fadeIn; }
+.anim.fade-left.in-view     { animation-name: fadeLeft; }
+.anim.fade-right.in-view    { animation-name: fadeRight; }
+.anim.scale-in.in-view      { animation-name: scaleIn; }
+.anim.slide-up.in-view      { animation-name: slideUp; }
+
+/* ─── DELAY UTILITIES ─── */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* ─── DURATION UTILITIES ─── */
+.duration-500  { animation-duration: 0.5s !important; }
+.duration-700  { animation-duration: 0.7s !important; }
+.duration-900  { animation-duration: 0.9s !important; }
+.duration-1100 { animation-duration: 1.1s !important; }
+
+/* ─── INITIAL PAGE LOAD animations (no JS needed) ─── */
+.load-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.load-fade-down {
+  animation: fadeDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.load-fade-in {
+  animation: fadeIn 0.8s ease both;
+}
+
+/* Stagger helpers for hero section */
+.load-delay-100 { animation-delay: 0.1s; }
+.load-delay-200 { animation-delay: 0.2s; }
+.load-delay-300 { animation-delay: 0.3s; }
+.load-delay-400 { animation-delay: 0.4s; }
+.load-delay-500 { animation-delay: 0.5s; }
+.load-delay-600 { animation-delay: 0.6s; }
+
+/* ─── REDUCED MOTION: respect user preference ─── */
+@media (prefers-reduced-motion: reduce) {
+  .anim,
+  .load-fade-up,
+  .load-fade-down,
+  .load-fade-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

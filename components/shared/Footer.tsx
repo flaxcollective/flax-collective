@@ -1,71 +1,78 @@
 import Link from 'next/link';
+import "@/app/styles/footer.css";
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#F4F1EA' }} className=" pb-8">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center text-center">
+    <footer className="footer">
+      <div className="footer-inner">
+
         {/* Logo */}
-        <div className="mt-10 mb-5">
-          <img src="/assets/images/flex-collective-footer-logo.png" alt="Flax Collective" className="" />
+        <div className="footer-logo">
+          <img src="/assets/images/flex-collective-footer-logo.png" alt="Flax Collective" />
         </div>
 
-        {/* Text */}
-        <p className="text-[14px] leading-relaxed max-w-2xl font-medium" style={{ color: '#888888' }}>
-          For inquiries regarding{' '}
-          <strong style={{ color: '#555555', fontWeight: 600 }}>
-            certification programs, recruitment opportunities, or employer partnerships,
-          </strong>
-        </p>
-        <p className="text-[14px] leading-relaxed mt-3 mb-4 max-w-2xl font-medium" style={{ color: '#888888' }}>
-          Please contact the Flax Collective team.
+        {/* Mobile-only tagline */}
+        <p className="footer-tagline">
+          Strategic Consultancy For Sustainable Growth &amp; Measurable Success
         </p>
 
-        {/* Contact items */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-10 mb-8">
-          <div className="flex items-center gap-2">
-            <img src="/assets/icons/footer-mail-icon-1.png" alt="mail" className="w-4 h-4 object-contain" style={{ filter: 'brightness(0)' }} />
-            <span className="text-[13px] font-semibold" style={{ color: '#555555' }}>info@flaxcollective.com</span>
+        {/* Desktop-only inquiry text */}
+        <p className="footer-inquiry-text">
+          For Inquiries Regarding{' '}
+          <strong>Certification Programs, Recruitment Opportunities, Or Employer Partnerships,</strong>
+        </p>
+        <p className="footer-please-text">Please Contact The Flax Collective Team.</p>
+
+        {/* Email */}
+        <div className="footer-email">
+          <img src="/assets/icons/footer-mail-icon-1.png" alt="mail" />
+          <span>info@flaxcollective.com</span>
+        </div>
+
+        {/* Mobile links — shown only on mobile */}
+        <div className="footer-links-mobile">
+          <div className="footer-links-mobile-row">
+            <span className="footer-links-mobile-bullet">•</span>
+            <Link href="#">Privacy Policy</Link>
+            <span className="footer-links-mobile-bullet">•</span>
+            <Link href="#">Terms &amp; Conditions</Link>
           </div>
-          <div className="flex items-center gap-2">
-            <img src="/assets/icons/footer-mail-icon-2.png" alt="mail" className="w-4 h-4 object-contain" style={{ filter: 'brightness(0)' }} />
-            <span className="text-[13px] font-semibold" style={{ color: '#555555' }}>studentsupport@flax.com</span>
+          <div className="footer-links-mobile-row">
+            <span className="footer-links-mobile-bullet">•</span>
+            <Link href="#">Refund Policy</Link>
           </div>
         </div>
 
-        {/* Social Icons */}
-        <div className="flex gap-6 mb-6">
-          {[
-            { icon: '/assets/icons/linkedin-footer-icon.png', label: 'LinkedIn', link: 'https://www.linkedin.com/company/flaxcollective' },
-            { icon: '/assets/icons/facebook-footer-icon.png', label: 'Facebook', link: 'https://www.facebook.com/flaxcollective' },
-            { icon: '/assets/icons/instagram-footer-icon.png', label: 'Instagram', link: 'https://www.instagram.com/flaxcollective/' },
-          ].map((s) => (
-            <a
-              key={s.label}
-              href={s.link}
-              title={s.label}
-              className="transition-opacity hover:opacity-75"
-              target='_blank'
-            >
-              <img src={s.icon} alt={s.label} className="w-[22px] h-[22px] object-contain" style={{ filter: 'brightness(0)' }} />
-            </a>
-          ))}
+        {/* Social icons */}
+        <div className="footer-socials">
+          {/* Mobile order: Instagram → Facebook → LinkedIn */}
+          {/* Desktop order: LinkedIn → Instagram → Facebook */}
+          <a href="https://www.instagram.com/flaxcollective/" target="_blank" rel="noreferrer" title="Instagram">
+            <img src="/assets/icons/instagram-footer-icon.png" alt="Instagram" />
+          </a>
+          <a href="https://www.facebook.com/flaxcollective" target="_blank" rel="noreferrer" title="Facebook">
+            <img src="/assets/icons/facebook-footer-icon.png" alt="Facebook" />
+          </a>
+          <a href="https://www.linkedin.com/company/flaxcollective" target="_blank" rel="noreferrer" title="LinkedIn">
+            <img src="/assets/icons/linkedin-footer-icon.png" alt="LinkedIn" />
+          </a>
         </div>
 
-        {/* Divider */}
-        <div className="w-full border-t mb-6" style={{ borderColor: '#666' }}></div>
+        {/* Divider — desktop only */}
+        <hr className="footer-divider" />
 
-        {/* Bottom Bar */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex flex-wrap justify-center md:justify-start gap-8">
-            <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>Privacy Policy</Link>
-            <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>Terms Of Service</Link>
-            <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>About</Link>
-            <Link href="#" className="text-[12px] font-medium hover:underline" style={{ color: '#555555' }}>Refund Policy</Link>
+        {/* Bottom bar */}
+        <div className="footer-bottom">
+          {/* Desktop links */}
+          <div className="footer-links-desktop">
+            <Link href="#">Privacy Policy</Link>
+            <Link href="#">Terms &amp; Conditions</Link>
+            <Link href="#">Refund Policy</Link>
           </div>
-          <p className="text-[12px] font-medium" style={{ color: '#555555' }}>
-            © 2026 Flax Collective. All Rights Reserved.
-          </p>
+
+          <p className="footer-copy">© 2026 FLAX Collective. All Rights Reserved.</p>
         </div>
+
       </div>
     </footer>
   );

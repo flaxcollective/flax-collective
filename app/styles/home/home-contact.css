@@ -137,10 +137,102 @@
 }
 
 
-/* RESPONSIVE */
+/* ============================================================
+   RESPONSIVE — Tablet (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .contact-container {
+    width: 90%;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ============================================================ */
 @media (max-width: 768px) {
+  .contact-section {
+    padding: 40px 0;
+  }
+
   .contact-container {
     flex-direction: column;
-    width: 90%;
+    width: 100%;
+    padding: 0 5%;
+    gap: 32px;
+  }
+
+  /* Heading */
+  .contact-left h2 {
+    font-size: 28px;
+    margin-bottom: 14px;
+    text-transform: none;
+  }
+
+  /* Subtext — justified, matching screenshot */
+  .contact-subtext {
+    font-size: 14px;
+    line-height: 26px;
+    text-align: justify;
+    margin-bottom: 10px;
+  }
+
+  .contact-subtext span {
+    font-size: 14px;
+    line-height: 26px;
+  }
+
+  /* Check points */
+  .contact-points {
+    gap: 12px;
+    margin-top: 1.25rem;
+  }
+
+  .contact-check {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .contact-point p {
+    font-size: 14px;
+  }
+
+  /* Form — full width, tighter gaps */
+  .contact-right form {
+    gap: 14px;
+  }
+
+  .contact-right input,
+  .contact-right textarea {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .contact-right textarea {
+    height: 120px;
+  }
+
+  /* Submit button — full width, prominent */
+  .contact-right button {
+    padding: 16px;
+    font-size: 15px;
+    border-radius: 8px;
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Small Mobile (≤ 400px)
+   ============================================================ */
+@media (max-width: 400px) {
+  .contact-left h2 {
+    font-size: 24px;
+  }
+
+  .contact-subtext {
+    font-size: 13px;
+    line-height: 24px;
   }
 }

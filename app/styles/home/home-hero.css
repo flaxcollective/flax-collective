@@ -5,12 +5,14 @@
 .home-hero {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 196px);
-  margin-top: 112px; /* Accounts for fixed 196px white top area */
+  height: auto;
+  margin-top: 112px;
+  /* Accounts for fixed 196px white top area */
   background-color: #F4F1EA;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding-bottom: 100px;
 }
 
 .home-hero-container {
@@ -21,7 +23,7 @@
 .home-hero-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   gap: 2rem;
 }
@@ -31,18 +33,23 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  align-items: center;
+  width: 100%;
   z-index: 2;
 }
 
 .home-hero-content h1 {
   color: #2F3E56;
-  font-family: "Source Serif 4", serif;
-  font-size: 58px;
+  text-align: center;
+  font-family: "Source Serif 4";
+  font-size: 50px;
   font-style: normal;
-  font-weight: 450;
-  line-height: 1.25;
-  margin: 0 0 1.25rem 0;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .home-hero-desc {
@@ -184,92 +191,162 @@
   display: block;
 }
 
-/* ============================================================
-   RESPONSIVE — Tablet (≤ 1024px)
-   ============================================================ */
-@media (max-width: 1024px) {
-  .home-hero {
-    padding: 48px 6% 0px 6%;
-  }
+.home-hero-bottom-text h2 {
+  color: #736B2E;
+  font-family: "Source Serif 4";
+  font-size: 90px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: capitalize;
+  text-align: center;
+}
 
-  .home-hero-content h1 {
-    font-size: 44px;
-  }
-
-  .home-hero-image-wrap {
-    max-width: 48%;
-  }
+.home-hero-mobile-img {
+  display: none;
 }
 
 /* ============================================================
    RESPONSIVE — Mobile (≤ 768px)
    ============================================================ */
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ============================================================ */
 @media (max-width: 768px) {
+  .home-hero{
+    padding-bottom: 20px;
+  }
+  .home-hero-bottom-text h2{
+    font-size:28px;
+  }
   .home-hero {
     min-height: auto;
-    padding: 32px 5% 40px;
+    margin-top: 2rem;
+  }
+
+  .home-hero-container {
+    width: 90%;
   }
 
   .home-hero-top {
     flex-direction: column;
     align-items: flex-start;
+    text-align: left;
     gap: 0;
   }
 
-  /* Hide desktop image */
+  /* LEFT: Content */
+  .home-hero-content {
+    max-width: 100%;
+    width: 100%;
+    align-items: flex-start;
+    order: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .home-hero-content h1 {
+    font-size: 34px;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+    text-align: left;
+    text-align: center;
+  }
+
+  .home-hero-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    max-width: 100%;
+    margin-bottom: 0;
+    text-align: left;
+    padding: 0;
+  }
+
+  /* Mobile hero image — shown between desc and buttons */
+  .home-hero-mobile-img {
+    display: block;
+    width: 100%;
+    margin: 1.25rem 0;
+  }
+
+  /* Hide the image-wrap (desktop image) on mobile */
   .home-hero-image-wrap {
     display: none;
   }
 
-  .home-hero-content {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .home-hero-content h1 {
-    font-size: 32px;
-    line-height: 1.25;
-    margin-bottom: 1rem;
-  }
-
-  .home-hero-desc {
-    font-size: 13px;
-    line-height: 1.75;
-    max-width: 100%;
-    margin-bottom: 1.25rem;
-  }
-
-  /* Show mobile image between description and buttons */
-  .home-hero-mobile-img {
-    display: block;
-    width: 100%;
-    max-width: 360px;
-    height: auto;
-    object-fit: contain;
-    margin: 0 auto 1.5rem auto;
-  }
-
+  /* CTA Buttons — side by side, matching screenshot */
   .hero-btn-sec-1 {
-    justify-content: flex-start;
-    gap: 0.6rem;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
   }
 
-  .home-hero-btn-services,
-  .home-hero-btn-program {
-    height: 46px;
+  .home-hero-btn-services {
+    flex: 0 0 auto;
+    height: 48px;
     padding: 0 20px;
-    font-size: 13px;
+    font-size: 14px;
     border-radius: 8px;
+    justify-content: center;
+    white-space: nowrap;
   }
 
+  /* "View Programs" — ghost/text style on mobile */
+  .home-hero-btn-program {
+    flex: 0 0 auto;
+    height: 48px;
+    padding: 0 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    justify-content: center;
+    white-space: nowrap;
+    background: transparent;
+    color: #2F3E56;
+    border: none;
+  }
+
+  .home-hero-btn-program:hover {
+    background: transparent;
+    color: #1e2d40;
+    transform: none;
+  }
+
+  .home-hero-btn-program svg path {
+    stroke: #2F3E56;
+  }
+
+  /* Tag Pills — left-aligned */
   .hero-btn-sec-2 {
-    gap: 0.5rem;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
   }
 
   .hero-btn-sec-2 a {
-    font-size: 11px;
-    padding: 6px 12px;
+    font-size: 12px;
+    padding: 7px 14px;
+  }
+
+  /* Bottom text — left-aligned */
+  .home-hero-bottom-text {
+    text-align: left;
+    margin-top: 32px;
+  }
+
+  .home-hero-bottom-text p {
+    font-size: 14px;
+    line-height: 1.8;
   }
 }
 
@@ -278,12 +355,18 @@
    ============================================================ */
 @media (max-width: 480px) {
   .home-hero-content h1 {
-    font-size: 26px;
+    font-size: 28px;
+    line-height: 1.25;
   }
 
-  .home-hero-btn-services,
+  .home-hero-btn-services {
+    height: 46px;
+    font-size: 13px;
+    padding: 0 16px;
+  }
+
   .home-hero-btn-program {
-    width: 100%;
-    justify-content: center;
+    height: 46px;
+    font-size: 13px;
   }
 }

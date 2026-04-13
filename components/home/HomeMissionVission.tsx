@@ -5,23 +5,23 @@ import { useState } from "react";
 const values = [
     {
         title: "Integrity",
-        desc: "We Maintain Transparency And Fairness In Every Stage Of Our Training And Recruitment Process.",
+        desc: "We maintain transparency and fairness in every stage of our training and recruitment process.",
     },
     {
         title: "Excellence",
-        desc: "We Prepare Candidates To Meet The Highest Standards Of Professional Hospitality Service.",
+        desc: "We prepare candidates to meet the highest standards of professional service.",
     },
     {
         title: "Opportunity",
-        desc: "We Believe Talented Individuals Deserve Access To Global Career Pathways.",
+        desc: "We believe talented individuals deserve access to global career pathways.",
     },
     {
         title: "Responsibility",
-        desc: "We Are Committed To Ethical Recruitment Practices That Protect And Empower Both Candidates And Employers.",
+        desc: "We are committed to ethical recruitment practices that protect and empower both candidates and employers.",
     },
     {
         title: "Partnership",
-        desc: "We Build Long-Term Relationships With Institutions, Employers, And Professionals Based On Trust And Shared Growth.",
+        desc: "We build long-term relationships with institutions, employers, and professionals based on trust and shared growth.",
     },
 ];
 
@@ -55,9 +55,7 @@ export default function HomeMissionVission() {
                         <div className="mv-row-body">
                             <h3 className="mv-row-title">Our Vision</h3>
                             <p className="mv-row-text">
-                                To Become A Trusted Bridge Between Hospitality Talent And International Opportunity,
-                                Enabling Skilled Professionals To Build Global Careers While Supporting Organizations
-                                In Developing High-Performing Hospitality Teams.
+                               To become a trusted bridge between talent and opportunity, enabling skilled professionals to build global careers while supporting organizations in developing high-performing teams.
                             </p>
                         </div>
                     </div>
@@ -83,9 +81,7 @@ export default function HomeMissionVission() {
                         <div className="mv-row-body">
                             <h3 className="mv-row-title">Our Mission</h3>
                             <p className="mv-row-text">
-                                To Prepare Hospitality Professionals For International Careers Through Structured
-                                Training, Professional Guidance, And Responsible Recruitment Practices While
-                                Providing Employers With Access To Reliable, Job-Ready Talent.
+                                To prepare professionals for international careers through structured training, professional guidance, and responsible recruitment practices while providing employers with access to reliable, job-ready talent.
                             </p>
                         </div>
                     </div>

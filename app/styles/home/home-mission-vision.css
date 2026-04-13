@@ -73,8 +73,8 @@
 }
 
 .mv-icon-wrap--green {
-  border-color: #6E7C3A;
-  color: #6E7C3A;
+  border-color: #2F3E56;
+  color: #2F3E56;
 }
 
 /* Row body */
@@ -112,14 +112,14 @@
 
 .mv-values-toggle .mv-row-title {
   margin-bottom: 0;
-  color: #6E7C3A;
-  border-bottom: 2px solid #6E7C3A;
+  color: #2F3E56;
+  border-bottom: 2px solid #2F3E56;
   padding-bottom: 2px;
 }
 
 /* Chevron */
 .mv-chevron {
-  color: #6E7C3A;
+  color: #2F3E56;
   transition: transform 0.25s ease;
   flex-shrink: 0;
 }
@@ -155,7 +155,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid #6E7C3A;
+  border: 2px solid #736A2F;
   background: #fff;
   flex-shrink: 0;
   position: relative;
@@ -171,7 +171,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  background: #6E7C3A;
+  background: #736A2F;
   opacity: 0.3;
 }
 
@@ -200,28 +200,166 @@
 }
 
 
-
-/* Responsive */
-@media (max-width: 1024px) {
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
   .mv-container {
-    width: 90%;
+    width: 100%;
+    padding: 0 5%;
   }
 
+  .mv-card {
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+
+  /* Row: icon + title inline, text wraps below */
+  .mv-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start;  /* ← THIS is the fix */
+  }
+
+  /* Remove circle border on mobile — just show the icon */
+  .mv-icon-wrap {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px; /* ← fine-tune to align with title text */
+  }
+  .mv-icon-wrap svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Row body takes full width below icon */
+  .mv-row-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mv-row-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #2F3E56;
+  }
+
+  /* Text below — full width, justified */
+  .mv-row-text {
+    font-size: 14px;
+    line-height: 1.8;
+    text-align: justify;
+    color: #555;
+    margin-top: 10px;
+    width: 100%;
+    /* Push text below the icon+title row */
+    flex-basis: 100%;
+  }
+
+  .mv-divider {
+    margin: 20px 0;
+    border-top: 1px solid #eee8de;
+  }
+
+  /* Values toggle — icon + "Our Values" + chevron inline */
+  .mv-values-header-row {
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .mv-values-toggle {
+    gap: 8px;
+  }
+
+  .mv-values-toggle .mv-row-title {
+    font-size: 20px;
+    color: #6E7C3A;
+    border-bottom: 2px solid #6E7C3A;
+    padding-bottom: 1px;
+    margin-bottom: 0;
+  }
+
+  /* Values list — flush left, no indent */
+  .mv-values-list {
+    padding-left: 0;
+    margin-top: 20px;
+  }
+
+  .mv-value-item {
+    padding-bottom: 20px;
+  }
+
+  /* 3-col: title | dot | desc */
   .mv-value-content {
-    grid-template-columns: 120px 36px 1fr;
+    display: grid;
+    grid-template-columns: 110px 24px 1fr;
+    column-gap: 10px;
+    align-items: start;
+  }
+
+  .mv-value-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2F3E56;
+  }
+
+  /* Dot: FILLED olive circle — matches target screenshot */
+  .mv-value-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #6E7C3A;
+    border: none;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .mv-value-line {
+    top: 10px;
+    width: 2px;
+    background: #6E7C3A;
+    opacity: 0.25;
+  }
+
+  .mv-value-desc {
+    font-size: 12px;
+    line-height: 1.65;
+    color: #666;
   }
 }
 
-@media (max-width: 640px) {
+/* ============================================================
+   RESPONSIVE — Small Mobile (≤ 400px)
+   ============================================================ */
+@media (max-width: 400px) {
   .mv-card {
-    padding: 24px 20px;
+    padding: 20px 14px;
   }
 
-  .mv-heading {
-    font-size: 28px;
+  .mv-value-content {
+    grid-template-columns: 90px 20px 1fr;
+    column-gap: 8px;
   }
 
-  .mv-values-list {
-    padding-left: 0;
+  .mv-value-title {
+    font-size: 13px;
+  }
+
+  .mv-value-desc {
+    font-size: 11px;
+  }
+
+  .mv-row-text {
+    font-size: 13px;
   }
 }

@@ -34,6 +34,8 @@
   gap: 40px 30px;
 }
 
+
+
 /* CARD */
 .process-card {
   text-align: center;
@@ -126,12 +128,6 @@
   z-index: 0;
 }
 
-@media (min-width: 1024px) {
-  .process-connector {
-    display: block;
-  }
-}
-
 .process-circle {
   width: 7rem;
   height: 7rem;
@@ -191,10 +187,14 @@
   margin-bottom: 2rem;
 }
 
+
+
 .process-quote-section-content {
   display: flex;
   gap: 40px;
 }
+
+
 
 .process-quote-section-content-1,
 .process-quote-section-content-2 {
@@ -208,6 +208,7 @@
   justify-content: center;
   padding: 20px;
 }
+
 
 .process-quote-section-content-1 h2,
 .process-quote-section-content-2 h2 {
@@ -231,4 +232,181 @@
   font-style: normal;
   font-weight: 500;
   line-height: 30px;
+}
+
+/* ─── OPPORTUNITIES LAYOUT ────────────────────────── */
+.opportunities-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 40px;
+}
+
+.opportunities-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 50%;
+}
+
+.opportunities-image {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.opportunities-image img {
+  width: 100%;
+  object-fit: contain;
+}
+
+/* FIX: was 50%, must be 100% so cards fill their column */
+.process-quote-section-content-1,
+.process-quote-section-content-2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid #BFBFBF;
+  background: #FFF;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 32px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .opportunities-layout {
+    flex-direction: column;
+  }
+  .opportunities-cards,
+  .opportunities-image {
+    width: 100%;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)  — REPLACE existing blocks
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .process-container {
+    width: 100%;
+    padding: 0 5%;
+  }
+
+  .process-container h2 {
+    font-size: 30px;
+    margin-bottom: 14px;
+  }
+
+  .process-subtext {
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 2rem;
+    text-align: justify;
+  }
+
+  /* 2-column grid — matches screenshot exactly */
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 14px;
+  }
+
+  /* Tighten cards for 2-col layout */
+  .process-card {
+    padding: 46px 14px 20px;
+    border-width: 8px;
+    border-radius: 20px;
+    text-align: left;
+  }
+
+  /* Step badge — keep same positioning, scale slightly */
+  .process-step {
+    top: -16px;
+    right: 12px;
+    padding: 4px 9px;
+    gap: 4px;
+  }
+
+  .process-step span {
+    font-size: 8px;
+  }
+
+  .process-step strong {
+    font-size: 14px;
+  }
+
+  .process-card h3 {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  .process-card p {
+    font-size: 11px;
+    line-height: 18px;
+    text-align: left;
+  }
+
+  /* Opportunities section — already stacks via ≤1024px rule,
+     just fix heading size & card padding */
+
+  .process-quote-section-content {
+    flex-direction: column;
+  }
+
+  .process-quote-section h2 {
+    font-size: 26px;
+    margin-bottom: 1.25rem;
+  }
+
+  .process-quote-section-content-1,
+  .process-quote-section-content-2 {
+    padding: 20px 18px;
+    border-radius: 16px;
+    width: 100%;
+  }
+
+  .process-quote-section-content-1 h2,
+  .process-quote-section-content-2 h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .process-quote-section-content-1 p,
+  .process-quote-section-content-2 p {
+    font-size: 13px;
+    line-height: 24px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Small Mobile (≤ 400px)
+   ============================================================ */
+@media (max-width: 400px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 10px;
+  }
+
+  .process-card {
+    padding: 40px 10px 16px;
+    border-width: 6px;
+  }
+
+  .process-card h3 {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .process-card p {
+    font-size: 10px;
+    line-height: 16px;
+  }
 }

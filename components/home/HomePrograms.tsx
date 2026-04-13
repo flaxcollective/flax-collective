@@ -78,7 +78,7 @@ export default function HomePrograms() {
           <h2>Our Courses</h2>
           <p className="programs-subtitle">Industry-Led. Relevant. Career Ready.</p>
           <p className="programs-desc">
-            At Flax Collective, Each Program Is Thoughtfully Curated In Collaboration With Industry Experts To Deliver Not Just Knowledge, But Refinement, Confidence, And True Professional Readiness.
+           Thoughtfully curated in collaboration with industry experts to deliver not just knowledge, but refinement, confidence, and true professional readiness.
           </p>
         </div>
 
@@ -91,7 +91,6 @@ export default function HomePrograms() {
               </div>
               <div className="program-card-content">
                 <h4>{course.title}</h4>
-                <p className="program-desc">{course.desc}</p>
               </div>
               <div className="program-card-footer">
                 <span className="program-price">{course.price}</span>
@@ -166,7 +165,7 @@ export default function HomePrograms() {
           </div>
 
           <p className="cp-text cp-text--small">
-            Courses Are Delivered Through <strong>Online Learning Modules And Interactive Sessions,</strong> Allowing Participants From Different Locations To Develop Industry-Relevant Skills While Preparing For International Hospitality Roles.
+            Courses Are delivered through <strong>online learning modules, interactive sessions and in person.</strong> 
           </p>
         </div>
 

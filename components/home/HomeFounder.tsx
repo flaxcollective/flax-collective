@@ -12,24 +12,20 @@ export default function HomeFounder() {
         <div className="flex w-full gap-16 items-stretch">
           <div className="flex flex-col founder-text-container">
             <div className="founder-text">
-              <p className="mb-4">
-                At Flax Collective, we believe that exceptional hospitality begins with exceptional people.
+              <p className="mb-4 founder-text-sub">
+                At Flax Collective, we believe that exceptional work ethic begins with exceptional people.
               </p>
-
               <p className="mb-4">
-                <strong>Across global markets,</strong> many talented hospitality professionals possess the passion and potential to succeed on the international stage. At the same time, <strong>hospitality organizations worldwide seek individuals</strong> who are not only qualified but truly prepared to <strong>deliver world-class service. Flax Collective was founded to thoughtfully bridge this gap.</strong>
+                Across global markets, many talented professionals possess the passion and potential to succeed on the international stage. At the same time, organizations worldwide seek individuals who are not only qualified but truly prepared to deliver world-class service. Flax Collective was founded to thoughtfully bridge this gap.
               </p>
-
               <p className="mb-4">
-                Our focus is on <strong>preparation, professionalism, and partnership.</strong> Through structured counselling, targeted certification programs, and practical industry workshops, we ensure that every candidate we introduce to employers is aligned with international hospitality standards and ready to <strong>contribute with confidence from day one.</strong>
+                Our focus is on preparation, professionalism, and partnership. Through structured counselling, targeted certification programs, and practical industry workshops, we ensure that every candidate we introduce to employers is aligned with international standards and ready to contribute with confidence from day one.
               </p>
-
               <p className="mb-4">
-                Equally central to our philosophy is a commitment to <strong>integrity and transparency.</strong> Our <strong>pay-after-joining recruitment model</strong> reflects the trust we aim to build with both our candidates and our employer partners.
+                Equally central to our philosophy is a commitment to integrity and transparency. Our pay-after-joining recruitment model reflects the trust we aim to build with both our candidates and our employer partners.
               </p>
-
               <p className="mb-4">
-                Flax Collective exists to create meaningful connections—helping <strong>aspiring professionals build global careers while enabling hospitality organizations</strong> to strengthen their teams with <strong>capable, well-prepared talent.</strong>
+                Flax Collective exists to create meaningful connections—helping aspiring professionals build global careers while enabling organizations to strengthen their teams with capable, well-prepared talent.
               </p>
             </div>
           </div>

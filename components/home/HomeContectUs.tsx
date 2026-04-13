@@ -13,7 +13,7 @@ export default function HomeContectUs() {
             For inquiries regarding <span>certification programs, recruitment opportunities, or employer partnerships,</span> please contact the Flax Collective team.
           </p>
           <p className="contact-subtext mt-3">
-            We look forward to supporting professionals and organizations in building the future of hospitality.
+            We look forward to supporting professionals and organizations in building the future.
           </p>
 
           <div className="contact-points">

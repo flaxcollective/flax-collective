@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import "./styles/shared.css";
+import "./styles/animations.css";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
