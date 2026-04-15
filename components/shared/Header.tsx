@@ -9,6 +9,7 @@ export default function Header() {
   const [activeHash, setActiveHash] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -22,8 +23,9 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Sticky header triggers after scrolling past the hero header
-      setIsScrolled(window.scrollY > 180);
+      const y = window.scrollY;
+      setScrollY(y);
+      setIsScrolled(y > 180);
 
       const sections = ['services', 'programs', 'contact'];
       let current = '';
@@ -34,7 +36,7 @@ export default function Header() {
           if (rect.top <= 150) current = `#${section}`;
         }
       }
-      if (window.scrollY < 100) current = '';
+      if (y < 100) current = '';
       setActiveHash(current);
     };
 
@@ -42,6 +44,13 @@ export default function Header() {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const FADE_START = 100;
+  const FADE_END = 200;
+  const progress = Math.min(1, Math.max(0, (scrollY - FADE_START) / (FADE_END - FADE_START)));
+  const svgOpacity = 1 - progress;
+  const stickyOpacity = progress;
+
 
   const navLinksLeft = [
     { label: 'HOME', href: '/', hash: '' },
@@ -71,36 +80,46 @@ export default function Header() {
     <header className={`fixed top-0 left-0 w-full z-50 header-main ${isScrolled ? 'header-scrolled' : ''}`}>
 
       {/* ── DESKTOP: Original SVG shape header (visible when NOT scrolled) ── */}
-      <div className="desktop-header hidden lg:block w-full relative header-container">
+      <div className="desktop-header hidden lg:block w-full relative header-container" style={{
+        opacity: svgOpacity,
+        pointerEvents: svgOpacity < 0.1 ? 'none' : 'auto',
+        transition: 'opacity 0.1s linear',
+      }}>
+
         <div className="desktop-svg-bg absolute top-0 left-0 w-full h-[320px] overflow-hidden">
-          <svg
-            width="100%"
-            height="320"
-            viewBox="0 0 1920 320"
-            preserveAspectRatio="xMidYMin slice"
+          <div
+            className="absolute top-0 left-0 w-full h-full"
+            style={{ filter: "drop-shadow(0 6px 16px rgba(47, 62, 86, 0.18))" }}
           >
-            <g filter="url(#filter0_d_4743_3203)">
-              <path d="M0 0H1920V196H1413.5H1193.5H1170
-C1130 196 1100 220 1100 245
-C1100 265 1080 280 1050 280
-H870
-C840 280 820 265 820 245
-C820 220 790 196 750 196
-H728.5H507H0V0Z" fill="white" />
-            </g>
-            <defs>
-              <filter id="filter0_d_4743_3203" x="-36" y="-36" width="2000" height="356" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                <feOffset dx="4" dy="4" />
-                <feGaussianBlur stdDeviation="12" />
-                <feComposite in2="hardAlpha" operator="out" />
-                <feColorMatrix type="matrix" values="0 0 0 0 0.184314 0 0 0 0 0.243137 0 0 0 0 0.337255 0 0 0 0.25 0" />
-                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_4743_3203" />
-                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_4743_3203" result="shape" />
-              </filter>
-            </defs>
-          </svg>
+            {/* Full-width white header bar */}
+            <div
+              className="absolute top-0 left-0 w-full bg-white"
+              style={{ height: 196 }}
+            />
+
+            {/* Fixed-size centered notch — calc ensures perfect center at all screen sizes */}
+            <svg
+              style={{
+                position: "absolute",
+                top: 130,
+                left: "calc(50% - 210px)",
+              }}
+              width="420"
+              height="150"
+              viewBox="0 0 420 150"
+            >
+              <path
+                d="M0 66
+           C40 66 70 90 70 115
+           C70 135 90 150 120 150
+           H300
+           C330 150 350 135 350 115
+           C350 90 380 66 420 66
+           V0 H0 Z"
+                fill="white"
+              />
+            </svg>
+          </div>
         </div>
 
         <div className="w-full flex h-[196px] relative z-10 max-w-[1920px] mx-auto">
@@ -152,7 +171,12 @@ H728.5H507H0V0Z" fill="white" />
       </div>
 
       {/* ── DESKTOP STICKY BAR (shown when scrolled) ── */}
-      <div className="sticky-header">
+      <div className="sticky-header"
+        style={{
+          opacity: stickyOpacity,
+          pointerEvents: stickyOpacity < 0.1 ? 'none' : 'auto',
+          transition: 'opacity 0.1s linear',
+        }}>
         <div className="sticky-header-inner">
           {/* Left nav */}
           <nav className="sticky-nav sticky-nav-left">
