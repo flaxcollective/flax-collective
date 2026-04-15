@@ -26,13 +26,14 @@ header {
 }
 
 /* ─── LOGO CENTER DROP ─── */
-.header-logo-img {
-    width: auto;
-    object-fit: contain;
-    display: block;
-    margin-top: -10px;
+.header-logo-center {
+    width: 270px !important;
 }
 
+.header-logo-img {
+    width: 258px;
+    max-width: 258px;
+}
 .header-logo-tagline {
     font-family: 'Montserrat', sans-serif;
     font-size: 10px;
@@ -355,55 +356,3 @@ header {
     cursor: pointer;
 }
 
-/* ─── LOGO RESPONSIVE SCALING ─── */
-
-/* Between 1024px and 1560px — logo is too tall for the curve */
-@media (max-width: 1560px) {
-    .header-logo-img {
-        max-height: 220px;
-        width: auto;
-    }
-
-    .header-logo-center {
-        width: 320px !important;
-    }
-}
-
-@media (max-width: 1280px) {
-    .header-logo-img {
-        max-height: 190px;
-        width: auto;
-    }
-
-    .header-logo-center {
-        width: 280px !important;
-    }
-
-    /* Tighten nav gaps on smaller desktops */
-    .header-nav-left {
-        padding-right: 30px;
-    }
-
-    .header-nav-right {
-        padding-left: 30px;
-    }
-}
-
-@media (max-width: 1100px) {
-    .header-logo-img {
-        max-height: 170px;
-        width: auto;
-    }
-
-    .header-logo-center {
-        width: 240px !important;
-    }
-
-    .header-nav-left {
-        padding-right: 20px;
-    }
-
-    .header-nav-right {
-        padding-left: 20px;
-    }
-}

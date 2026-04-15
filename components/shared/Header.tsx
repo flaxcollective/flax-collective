@@ -72,25 +72,28 @@ export default function Header() {
 
       {/* ── DESKTOP: Original SVG shape header (visible when NOT scrolled) ── */}
       <div className="desktop-header hidden lg:block w-full relative header-container">
-        <div className="desktop-svg-bg absolute top-0 left-0 w-full h-[320px] z-0 pointer-events-none">
+        <div className="desktop-svg-bg absolute top-0 left-0 w-full h-[320px] overflow-hidden">
           <svg
             width="100%"
             height="320"
             viewBox="0 0 1920 320"
-            preserveAspectRatio="none"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ width: '100%', minWidth: '100%', display: 'block' }}
+            preserveAspectRatio="xMidYMin slice"
           >
             <g filter="url(#filter0_d_4743_3203)">
-              <path d="M0 0H1920V196H1413.5H1193.5H1153.95C1125.78 196 1102.37 217.718 1100.26 245.811C1098.99 262.837 1084.8 276 1067.73 276H961H862.094C839.519 276 820.798 258.522 819.25 236C817.702 213.478 798.981 196 776.406 196H728.5H507H0V0Z" fill="white" />
+              <path d="M0 0H1920V196H1413.5H1193.5H1170
+C1130 196 1100 220 1100 245
+C1100 265 1080 280 1050 280
+H870
+C840 280 820 265 820 245
+C820 220 790 196 750 196
+H728.5H507H0V0Z" fill="white" />
             </g>
             <defs>
               <filter id="filter0_d_4743_3203" x="-36" y="-36" width="2000" height="356" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
                 <feFlood floodOpacity="0" result="BackgroundImageFix" />
                 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                 <feOffset dx="4" dy="4" />
-                <feGaussianBlur stdDeviation="20" />
+                <feGaussianBlur stdDeviation="12" />
                 <feComposite in2="hardAlpha" operator="out" />
                 <feColorMatrix type="matrix" values="0 0 0 0 0.184314 0 0 0 0 0.243137 0 0 0 0 0.337255 0 0 0 0.25 0" />
                 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_4743_3203" />
