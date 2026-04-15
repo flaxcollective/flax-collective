@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import "@/app/styles/modal.css";
 
 interface StudentModalProps {
@@ -8,65 +8,165 @@ interface StudentModalProps {
   onClose: () => void;
 }
 
+type Status = "idle" | "loading" | "success" | "error";
+
+const defaultForm = {
+  firstName: "",
+  lastName: "",
+  mobile: "",
+  state: "",
+  city: "",
+  course: "",
+  consent: false,
+};
+
 export default function StudentModal({ isOpen, onClose }: StudentModalProps) {
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [form, setForm] = useState(defaultForm);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
+      const timer = setTimeout(() => {
+        setStatus("idle");
+        setErrorMsg("");
+        setForm(defaultForm);
+      }, 300);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, type } = e.target;
+    const value = type === "checkbox"
+      ? (e.target as HTMLInputElement).checked
+      : e.target.value;
+
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/enrollment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json() as { success: boolean; message?: string };
+
+      if (data.success) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setErrorMsg(data.message ?? "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error("Enrollment submit error:", err);
+      setStatus("error");
+      setErrorMsg("Network error. Please check your connection and try again.");
+    }
+  };
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close-btn" onClick={onClose}>&times;</button>
-        <h2 className="modal-title">Start Your Enrollment Process</h2>
-        
-        <form className="modal-form" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
-          <div className="modal-grid-2">
-            <div className="modal-input-group">
-              <label>Your First Name</label>
-              <input type="text" placeholder="Enter Your First Name" required />
-            </div>
-            <div className="modal-input-group">
-              <label>Your Last Name</label>
-              <input type="text" placeholder="Enter Your Last Name" required />
-            </div>
-            <div className="modal-input-group">
-              <label>Your Mobile Number</label>
-              <input type="tel" placeholder="Enter Your Mobile Number" required />
-            </div>
-            <div className="modal-input-group">
-              <label>Select State</label>
-              <input type="text" placeholder="Enter Your State" required />
-            </div>
-            <div className="modal-input-group">
-              <label>Select City</label>
-              <input type="text" placeholder="Enter Your City" required />
-            </div>
-            <div className="modal-input-group">
-              <label>Course</label>
-              <select required defaultValue="">
-                <option value="" disabled hidden>Course You Are Interested In:</option>
-                <option value="basic">Basic Hospitality</option>
-                <option value="advanced">Advanced Management</option>
-                <option value="culinary">Culinary Arts</option>
-              </select>
-            </div>
+        <button className="modal-close-btn" onClick={onClose} type="button">&times;</button>
+
+        {status === "success" ? (
+          <div className="modal-success">
+            <div className="modal-success-icon">✓</div>
+            <h2 className="modal-success-title">Enrollment Submitted!</h2>
+            <p className="modal-success-text">
+              Thank you for your interest. Our team will reach out to you shortly.
+            </p>
+            <button className="modal-submit-btn" onClick={onClose} type="button">
+              Close
+            </button>
           </div>
-          
-          <div className="modal-checkbox-group">
-            <input type="checkbox" id="student-consent" required />
-            <label htmlFor="student-consent">
-              I Agree To Receive Updates And Notifications Via Email, SMS, WhatsApp, Or Call. This Consent Overrides My Communication Preferences, Including DND / NDNC.
-            </label>
-          </div>
-          
-          <button type="submit" className="modal-submit-btn">Submit Now</button>
-        </form>
+        ) : (
+          <>
+            <h2 className="modal-title">Start Your Enrollment Process</h2>
+
+            <form className="modal-form" onSubmit={handleSubmit}>
+              <div className="modal-grid-2">
+                <div className="modal-input-group">
+                  <label>Your First Name</label>
+                  <input name="firstName" type="text" placeholder="Enter Your First Name" value={form.firstName} onChange={handleChange} required />
+                </div>
+                <div className="modal-input-group">
+                  <label>Your Last Name</label>
+                  <input name="lastName" type="text" placeholder="Enter Your Last Name" value={form.lastName} onChange={handleChange} required />
+                </div>
+                <div className="modal-input-group">
+                  <label>Your Mobile Number</label>
+                  <input name="mobile" type="tel" placeholder="Enter Your Mobile Number" value={form.mobile} onChange={handleChange} required />
+                </div>
+                <div className="modal-input-group">
+                  <label>State</label>
+                  <input name="state" type="text" placeholder="Enter Your State" value={form.state} onChange={handleChange} required />
+                </div>
+                <div className="modal-input-group">
+                  <label>City</label>
+                  <input name="city" type="text" placeholder="Enter Your City" value={form.city} onChange={handleChange} required />
+                </div>
+                <div className="modal-input-group">
+                  <label>Course</label>
+                  <select name="course" value={form.course} onChange={handleChange} required>
+                    <option value="" disabled hidden>Course You Are Interested In:</option>
+                    <option value="HPF">Hospitality Professional Foundations (HPF)</option>
+                    <option value="HOSC">Hotel Operations & Systems Certification (HOSC)</option>
+                    <option value="HCPS">Hospitality Communication & Professional Skills (HCPS)</option>
+                    <option value="IGEC">International Guest Experience Certification (IGEC)</option>
+                    <option value="CSIPB">Career Success & International Placement Bootcamp (CSIPB)</option>
+                    <option value="PSSF">Professional Skills & Soft Skills Foundation (PSSF)</option>
+                    <option value="RESM">Real Estate Sales & Management (RESM)</option>
+                    <option value="BSLHC">Butler Service & Luxury Hospitality Certification (BSLHC)</option>
+                    <option value="PBGEC">Professional Bartending & Guest Engagement (PBGEC)</option>
+                    <option value="CFHC">Childcare & Family Guest Services Certification (CFHC)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="modal-checkbox-group">
+                <input
+                  type="checkbox"
+                  id="student-consent"
+                  name="consent"
+                  checked={form.consent}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="student-consent">
+                  I Agree To Receive Updates And Notifications Via Email, SMS, WhatsApp, Or Call.
+                  This Consent Overrides My Communication Preferences, Including DND / NDNC.
+                </label>
+              </div>
+
+              {status === "error" && (
+                <p className="modal-error-msg">{errorMsg}</p>
+              )}
+
+              <button type="submit" className="modal-submit-btn" disabled={status === "loading"}>
+                {status === "loading" ? (
+                  <span className="modal-loading-text">
+                    <span className="modal-spinner" />
+                    Submitting...
+                  </span>
+                ) : "Submit Now"}
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </div>
   );

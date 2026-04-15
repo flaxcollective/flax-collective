@@ -1,11 +1,11 @@
 "use client";
 import "@/app/styles/home/home-services.css";
-import { useState } from 'react';
-import EmployerModal from '../shared/EmployerModal';
 
-export default function HomeServices() {
-  const [isEmployerModalOpen, setIsEmployerModalOpen] = useState(false);
+interface HomeServicesProps {
+  onHireTalent: () => void;
+}
 
+export default function HomeServices({ onHireTalent }: HomeServicesProps) {
   return (
     <section id="services" className="home-services-section">
       <div className="services-container service-for-emp">
@@ -128,26 +128,14 @@ export default function HomeServices() {
         </div>
 
         <div className="sfe-button-container">
-          <button onClick={() => setIsEmployerModalOpen(true)} className="sfe-btn cursor-pointer">
+          <button onClick={onHireTalent} className="sfe-btn cursor-pointer">
             Hire Pre-Screened Talent
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
         </div>
-
-        {/* <div className="sfe-recruitment mt-14">
-          <h3 className="sfe-recruitment-heading">Recruitment Approach</h3>
-          <p className="sfe-rec-text">
-            Candidates Are Introduced Only After Undergoing <strong>Professional Development, Screening, And Evaluation,</strong> Ensuring Alignment With Employer Expectations.
-          </p>
-          <p className="sfe-rec-text">
-            Our <strong>Pay-After-Joining Recruitment Model</strong> Allows Organizations To Engage With Confidence, Knowing That Placement Fees Are Applied Only After A Candidate Successfully Joins The Team.
-          </p>
-        </div> */}
       </div>
-
-      <EmployerModal isOpen={isEmployerModalOpen} onClose={() => setIsEmployerModalOpen(false)} />
     </section>
   );
 }

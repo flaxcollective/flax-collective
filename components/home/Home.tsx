@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import HomeHero from "@/components/home/HomeHero";
 import HomeWhyFlex from "@/components/home/HomeWhyFlex";
 import HomeAbout from "@/components/home/HomeAbout";
@@ -10,11 +11,16 @@ import HomeMissionVission from "./HomeMissionVission";
 import HomePrograms from "@/components/home/HomePrograms";
 import HomeServices from "@/components/home/HomeServices";
 import AnimateOnScroll from "@/components/shared/AnimateOnScroll";
+import StudentModal from "@/components/shared/StudentModal";
+import EmployerModal from "@/components/shared/EmployerModal";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Home() {
   // Activate scroll observer once for the whole page
   useScrollAnimation();
+
+  const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
+  const [isEmployerModalOpen, setIsEmployerModalOpen] = useState(false);
 
   return (
     <>
@@ -43,7 +49,7 @@ export default function Home() {
 
       {/* ── PROGRAMS ── */}
       <AnimateOnScroll animation="slide-up" delay={100}>
-        <HomePrograms />
+        <HomePrograms onApplyNow={() => setIsStudentModalOpen(true)} />
       </AnimateOnScroll>
 
       {/* ── MISSION / VISION ── */}
@@ -53,7 +59,7 @@ export default function Home() {
 
       {/* ── SERVICES ── */}
       <AnimateOnScroll animation="fade-up" delay={100}>
-        <HomeServices />
+        <HomeServices onHireTalent={() => setIsEmployerModalOpen(true)} />
       </AnimateOnScroll>
 
       {/* ── GLOBAL FOOTPRINT ── */}
@@ -65,6 +71,16 @@ export default function Home() {
       <AnimateOnScroll animation="fade-up" delay={200}>
         <HomeContectUs />
       </AnimateOnScroll>
+
+      {/* ── MODALS (Rendered at root for absolute z-index and centering) ── */}
+      <StudentModal 
+        isOpen={isStudentModalOpen} 
+        onClose={() => setIsStudentModalOpen(false)} 
+      />
+      <EmployerModal 
+        isOpen={isEmployerModalOpen} 
+        onClose={() => setIsEmployerModalOpen(false)} 
+      />
     </>
   );
 }

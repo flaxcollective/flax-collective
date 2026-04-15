@@ -1,7 +1,6 @@
 "use client";
 import "@/app/styles/home/home-programs.css";
-import React, { useState } from 'react';
-import StudentModal from '../shared/StudentModal';
+import React from 'react';
 
 const courses = [
   {
@@ -66,9 +65,11 @@ const courses = [
   }
 ];
 
-export default function HomePrograms() {
-  const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
+interface HomeProgramsProps {
+  onApplyNow: () => void;
+}
 
+export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
   return (
     <section id="programs" className="programs-section">
       <div className="programs-container">
@@ -95,7 +96,7 @@ export default function HomePrograms() {
               <div className="program-card-footer">
                 <span className="program-price">{course.price}</span>
                 <button
-                  onClick={() => setIsStudentModalOpen(true)}
+                  onClick={onApplyNow}
                   className="program-apply-btn"
                 >
                   Apply Now
@@ -172,8 +173,6 @@ export default function HomePrograms() {
         <div className="global-page-divider mt-14"></div>
 
       </div>
-
-      <StudentModal isOpen={isStudentModalOpen} onClose={() => setIsStudentModalOpen(false)} />
     </section>
   );
 }
