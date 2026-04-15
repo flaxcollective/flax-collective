@@ -59,6 +59,7 @@
   margin-top: 15px;
   padding: 0 10px 25px 10px;
 }
+
 .sfe-text-container-bottom {
   position: relative;
   margin-top: 15px;
@@ -273,18 +274,24 @@
   .sfe-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+
+
   }
 
   .sfe-card {
     display: flex;
     flex-direction: column;
+
   }
 
   .sfe-img-title {
     font-size: 14px;
-    padding: 14px 10px;
     line-height: 1.4;
     border-radius: 4px 4px 0 0;
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .sfe-text-container {
@@ -331,6 +338,7 @@
    REMOVE the old ≤480px and ≤640px overrides — replace with:
    ============================================================ */
 @media (max-width: 480px) {
+
   /* Keep 2-column — do NOT collapse to 1fr */
   .fs-steps-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -344,6 +352,7 @@
 }
 
 @media (max-width: 640px) {
+
   /* Keep 2-column — do NOT collapse to 1fr */
   .sfe-grid {
     grid-template-columns: repeat(2, 1fr);
