@@ -17,7 +17,6 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function Home() {
   // Activate scroll observer once for the whole page
-  useScrollAnimation();
 
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
   const [isEmployerModalOpen, setIsEmployerModalOpen] = useState(false);
@@ -27,52 +26,28 @@ export default function Home() {
       {/* ── HERO: load animations (instant, no scroll needed) ── */}
       <HomeHero />
 
-      {/* ── WHY FLAX ── */}
-      <AnimateOnScroll animation="fade-up">
         <HomeWhyFlex />
-      </AnimateOnScroll>
 
       {/* ── PROCESS ── */}
-      <AnimateOnScroll animation="fade-up" delay={100}>
         <HomeProcess />
-      </AnimateOnScroll>
 
-      {/* ── ABOUT ── */}
-      <AnimateOnScroll animation="fade-left" delay={100}>
+        {/* ── ABOUT ── */}
         <HomeAbout />
-      </AnimateOnScroll>
 
-      {/* ── FOUNDER ── */}
-      <AnimateOnScroll animation="fade-right" delay={100}>
+        {/* ── FOUNDER ── */}
         <HomeFounder />
-      </AnimateOnScroll>
 
-      {/* ── PROGRAMS ── */}
-      <AnimateOnScroll animation="slide-up" delay={100}>
+        {/* ── PROGRAMS ── */}
         <HomePrograms onApplyNow={() => setIsStudentModalOpen(true)} />
-      </AnimateOnScroll>
 
-      {/* ── MISSION / VISION ── */}
-      <AnimateOnScroll animation="scale-in" delay={100}>
         <HomeMissionVission />
-      </AnimateOnScroll>
 
-      {/* ── SERVICES ── */}
-      <AnimateOnScroll animation="fade-up" delay={100}>
         <HomeServices onHireTalent={() => setIsEmployerModalOpen(true)} />
-      </AnimateOnScroll>
 
-      {/* ── GLOBAL FOOTPRINT ── */}
-      <AnimateOnScroll animation="fade-left" delay={100}>
         <HomeGlobalFootprint />
-      </AnimateOnScroll>
 
-      {/* ── CONTACT ── */}
-      <AnimateOnScroll animation="fade-up" delay={200}>
         <HomeContectUs />
-      </AnimateOnScroll>
 
-      {/* ── MODALS (Rendered at root for absolute z-index and centering) ── */}
       <StudentModal 
         isOpen={isStudentModalOpen} 
         onClose={() => setIsStudentModalOpen(false)} 
