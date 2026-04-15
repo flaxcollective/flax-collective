@@ -193,12 +193,16 @@ export default function Header() {
       </div>
 
       {/* ── MOBILE HEADER BAR ── */}
-      <div className="mobile-header lg:hidden">
+      <div className="mobile-header lg:hidden sticky top-0 z-50">
+        {/* Spacer — balances the right-side hamburger */}
+        <div className="mobile-header-spacer" />
+
         <div className="mobile-logo">
           <Link href="/">
             <img src="/assets/images/flex-collective-logo.png" alt="Flax Collective" />
           </Link>
         </div>
+
         <div className="mobile-menu">
           <button onClick={toggleMenu} aria-label="Toggle Menu">
             <span className={`line l1 ${isMenuOpen ? 'active' : ''}`}></span>
@@ -207,7 +211,6 @@ export default function Header() {
           </button>
         </div>
       </div>
-
       {/* ── MOBILE SIDE PANEL ── */}
       <div className={`mobile-nav-panel lg:hidden ${isMenuOpen ? 'open' : ''}`}>
         <button className="mobile-nav-close" onClick={() => setIsMenuOpen(false)} aria-label="Close Menu">

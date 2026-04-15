@@ -213,12 +213,14 @@
    RESPONSIVE — Mobile (≤ 768px)
    ============================================================ */
 @media (max-width: 768px) {
-  .home-hero{
+  .home-hero {
     padding-bottom: 20px;
   }
-  .home-hero-bottom-text h2{
-    font-size:28px;
+
+  .home-hero-bottom-text h2 {
+    font-size: 28px;
   }
+
   .home-hero {
     min-height: auto;
     margin-top: 2rem;
@@ -306,19 +308,19 @@
     border-radius: 8px;
     justify-content: center;
     white-space: nowrap;
-    background: transparent;
-    color: #2F3E56;
+    background: #2F3E56;
     border: none;
+    color: #FFF;
   }
 
   .home-hero-btn-program:hover {
-    background: transparent;
+    background: #2F3E56;
     color: #1e2d40;
     transform: none;
   }
 
   .home-hero-btn-program svg path {
-    stroke: #2F3E56;
+    stroke: #FFF;
   }
 
   /* Tag Pills — left-aligned */
