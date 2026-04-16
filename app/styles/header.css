@@ -91,7 +91,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    height: 190px;
+    height: 145px;
     background: #fff;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
     display: flex;
@@ -113,7 +113,7 @@ header {
 
 /* Keep header container height stable to prevent layout shifts */
 .header-scrolled {
-    height: 190px;
+    height: 140px;
     /* Keep same as base height to avoid jump */
 }
 
@@ -359,4 +359,11 @@ header {
     background: rgba(0, 0, 0, 0.35);
     z-index: 45;
     cursor: pointer;
+}
+
+
+@media (max-width: 1024px) {
+    .header-scrolled {
+        height: 0px;
+    }
 }
