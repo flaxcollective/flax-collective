@@ -40,12 +40,7 @@ export async function POST(req: NextRequest) {
 
     entries.push(newEntry);
 
-    // Ensure /data folder exists
-    await fs.mkdir(path.join(process.cwd(), "data"), { recursive: true });
-
-    // Write back to file
-    await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2), "utf-8");
-
+   console.log("Form data:", body);
     console.log("[ENROLLMENT SAVED]", newEntry);
 
     return NextResponse.json({ success: true, message: "Enrollment submitted successfully." });
