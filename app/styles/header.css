@@ -2,7 +2,9 @@
 header {
     height: 196px;
     background: white;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 50;
     width: 100%;
 }
@@ -34,6 +36,7 @@ header {
     width: 258px;
     max-width: 258px;
 }
+
 .header-logo-tagline {
     font-family: 'Montserrat', sans-serif;
     font-size: 10px;
@@ -88,7 +91,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    height: 150px;
+    height: 190px;
     background: #fff;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
     display: flex;
@@ -108,17 +111,19 @@ header {
     transform: translateY(0);
 }
 
-/* Shrink header height when scrolled so it doesn't block content */
+/* Keep header container height stable to prevent layout shifts */
 .header-scrolled {
-    height: 70px;
+    height: 196px;
+    /* Keep same as base height to avoid jump */
 }
 
 
-/* Also hide the original SVG header when scrolled */
+/* Hide the original SVG header when scrolled - using visibility to avoid layout recalculation */
 .header-scrolled .desktop-header {
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
 }
 
 .sticky-header-inner {
@@ -355,4 +360,3 @@ header {
     z-index: 45;
     cursor: pointer;
 }
-

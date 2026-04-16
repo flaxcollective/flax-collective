@@ -6,8 +6,8 @@
   position: relative;
   width: 100%;
   height: auto;
-  margin-top: 112px;
-  /* Accounts for fixed 196px white top area */
+  margin-top: 320px;
+  /* Matches the fixed 196px header height */
   background-color: #F4F1EA;
   display: flex;
   flex-direction: column;

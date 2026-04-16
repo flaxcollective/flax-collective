@@ -25,7 +25,7 @@ export default function Header() {
     const handleScroll = () => {
       const y = window.scrollY;
       setScrollY(y);
-      setIsScrolled(y > 180);
+      setIsScrolled(y > 200); // Wait for fade to complete before toggling state
 
       const sections = ['services', 'programs', 'contact'];
       let current = '';
