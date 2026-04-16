@@ -113,7 +113,7 @@ header {
 
 /* Keep header container height stable to prevent layout shifts */
 .header-scrolled {
-    height: 196px;
+    height: 190px;
     /* Keep same as base height to avoid jump */
 }
 
