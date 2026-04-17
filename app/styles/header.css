@@ -1,19 +1,11 @@
-/* ─── HEADER BASE ─── */
 header {
-    height: 196px;
+    height: 145px;
     background: white;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 50;
     width: 100%;
-}
-
-.header-container {
-    height: 276px;
-    display: flex;
-    align-items: flex-start;
-    position: relative;
 }
 
 /* ─── DESKTOP SPLIT LAYOUT ─── */
@@ -84,10 +76,9 @@ header {
     color: #6E7C3A;
 }
 
-/* ─── STICKY HEADER ─── */
+/* ─── DESKTOP HEADER ─── */
 .sticky-header {
     position: fixed;
-    /* ← was absolute, must be fixed */
     top: 0;
     left: 0;
     width: 100%;
@@ -95,35 +86,19 @@ header {
     background: #fff;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
     display: flex;
-    /* ← always flex, control visibility via opacity/transform */
     align-items: center;
     justify-content: center;
     z-index: 60;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-100%);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .header-scrolled .sticky-header {
-    opacity: 1;
-    pointer-events: all;
-    transform: translateY(0);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
 }
 
 /* Keep header container height stable to prevent layout shifts */
 .header-scrolled {
-    height: 140px;
-    /* Keep same as base height to avoid jump */
-}
-
-
-/* Hide the original SVG header when scrolled - using visibility to avoid layout recalculation */
-.header-scrolled .desktop-header {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s;
+    height: 145px;
 }
 
 .sticky-header-inner {

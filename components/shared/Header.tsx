@@ -45,11 +45,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const FADE_START = 100;
-  const FADE_END = 200;
-  const progress = Math.min(1, Math.max(0, (scrollY - FADE_START) / (FADE_END - FADE_START)));
-  const svgOpacity = 1 - progress;
-  const stickyOpacity = progress;
 
 
   const navLinksLeft = [
@@ -79,104 +74,8 @@ export default function Header() {
   return (
     <header className={`fixed top-0 left-0 w-full z-50 header-main ${isScrolled ? 'header-scrolled' : ''}`}>
 
-      {/* ── DESKTOP: Original SVG shape header (visible when NOT scrolled) ── */}
-      <div className="desktop-header hidden lg:block w-full relative header-container" style={{
-        opacity: svgOpacity,
-        pointerEvents: svgOpacity < 0.1 ? 'none' : 'auto',
-        transition: 'opacity 0.1s linear',
-      }}>
 
-        <div className="desktop-svg-bg absolute top-0 left-0 w-full h-[320px] overflow-hidden">
-          <div
-            className="absolute top-0 left-0 w-full h-full"
-            style={{ filter: "drop-shadow(0 6px 16px rgba(47, 62, 86, 0.18))" }}
-          >
-            {/* Full-width white header bar */}
-            <div
-              className="absolute top-0 left-0 w-full bg-white"
-              style={{ height: 196 }}
-            />
-
-            {/* Fixed-size centered notch — calc ensures perfect center at all screen sizes */}
-            <svg
-              style={{
-                position: "absolute",
-                top: 130,
-                left: "calc(50% - 210px)",
-              }}
-              width="420"
-              height="150"
-              viewBox="0 0 420 150"
-            >
-              <path
-                d="M0 66
-           C40 66 70 90 70 115
-           C70 135 90 150 120 150
-           H300
-           C330 150 350 135 350 115
-           C350 90 380 66 420 66
-           V0 H0 Z"
-                fill="white"
-              />
-            </svg>
-          </div>
-        </div>
-
-        <div className="w-full flex h-[196px] relative z-10 max-w-[1920px] mx-auto">
-          {/* Nav Left */}
-          <div className="header-nav-left flex-1 flex items-end justify-end mb-10">
-            <nav className="flex items-center gap-10">
-              {navLinksLeft.map((link) => {
-                const isActive = (link.hash === '' && activeHash === '') || (link.hash !== '' && activeHash === link.hash);
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.hash, link.href)}
-                    className={`transition-colors duration-200 cursor-pointer nav-link ${isActive ? 'active' : ''}`}
-                  >
-                    {link.label}
-                  </a>
-                );
-              })}
-            </nav>
-          </div>
-
-          {/* Logo Center */}
-          <div className="header-logo-center flex-none flex justify-center items-start w-[400px]">
-            <Link href="/" className="logo-link-responsive flex justify-center items-start mt-4" onClick={(e) => handleNavClick(e, '', '/')}>
-              <img src="/assets/images/flex-collective-logo.png" alt="Flax Collective" className="header-logo-img" />
-            </Link>
-          </div>
-
-          {/* Nav Right */}
-          <div className="header-nav-right flex-1 flex items-end justify-start mb-10">
-            <nav className="flex items-center gap-10">
-              {navLinksRight.map((link) => {
-                const isActive = activeHash === link.hash;
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.hash, link.href)}
-                    className={`transition-colors duration-200 cursor-pointer nav-link ${isActive ? 'active' : ''}`}
-                  >
-                    {link.label}
-                  </a>
-                );
-              })}
-            </nav>
-          </div>
-        </div>
-      </div>
-
-      {/* ── DESKTOP STICKY BAR (shown when scrolled) ── */}
-      <div className="sticky-header"
-        style={{
-          opacity: stickyOpacity,
-          pointerEvents: stickyOpacity < 0.1 ? 'none' : 'auto',
-          transition: 'opacity 0.1s linear',
-        }}>
+      <div className="sticky-header">
         <div className="sticky-header-inner">
           {/* Left nav */}
           <nav className="sticky-nav sticky-nav-left">
