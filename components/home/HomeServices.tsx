@@ -142,7 +142,7 @@ export default function HomeServices({ onHireTalent }: HomeServicesProps) {
 
       </section>
 
-   
+    
 
     </>
 
