@@ -2,16 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 
-const DATA_FILE = path.join(process.cwd(), "data", "employers.json");
+const DATA_FILE = path.join(process.cwd(), "data", "contacts.json");
 const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_WEBAPP_URL;
-
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json() as Record<string, unknown>;
-    const { fullName, companyName, email, phone, jobRole, candidatesRequired, location, employmentType } = body;
+    const { name, mobile, email, message } = body;
 
-    if (!fullName || !companyName || !email || !phone || !jobRole || !candidatesRequired || !location || !employmentType) {
+    if (!name || !mobile || !email || !message) {
       return NextResponse.json(
         { success: false, message: "All fields are required." },
         { status: 400 }
@@ -31,24 +30,19 @@ export async function POST(req: NextRequest) {
     const newEntry = {
       id: Date.now(),
       submittedAt: new Date().toISOString(),
-      fullName,
-      companyName,
+      name,
+      mobile,
       email,
-      phone,
-      jobRole,
-      candidatesRequired,
-      location,
-      employmentType,
+      message,
     };
 
     entries.push(newEntry);
 
-    // Ensure /data folder exists
+    // Save locally
     await fs.mkdir(path.join(process.cwd(), "data"), { recursive: true });
-
-    // Write back to file
     await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2), "utf-8");
 
+    // Send to Google Sheets
     if (GOOGLE_SHEET_URL) {
       try {
         await fetch(GOOGLE_SHEET_URL, {
@@ -56,7 +50,7 @@ export async function POST(req: NextRequest) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...newEntry,
-            sheetName: "EmployerSubmissions"
+            sheetName: "ContactSubmissions"
           }),
         });
       } catch (sheetErr) {
@@ -65,9 +59,10 @@ export async function POST(req: NextRequest) {
     } else {
       console.warn("[GOOGLE SHEETS] No URL configured in .env.local");
     }
-    return NextResponse.json({ success: true, message: "Hiring request submitted successfully." });
+
+    return NextResponse.json({ success: true, message: "Message sent successfully." });
   } catch (err) {
-    console.error("[EMPLOYER ERROR]", err);
+    console.error("[CONTACT ERROR]", err);
     return NextResponse.json(
       { success: false, message: "Server error. Please try again." },
       { status: 500 }
