@@ -53,9 +53,9 @@ export default function HomeProcess() {
           ))}
         </div>
 
-        <div className="global-page-divider mt-14"></div>
+        <div className="global-page-divider mt-8 sm:mt-10 md:mt-16"></div>
 
-        <div className="process-quote-section mt-20">
+        <div className="process-quote-section mt-6 sm:mt-8 md:mt-12">
           <h2>Opportunities</h2>
           <div className="opportunities-layout">
             <div className="opportunities-cards">

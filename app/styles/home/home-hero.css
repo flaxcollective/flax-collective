@@ -111,6 +111,7 @@
   flex-wrap: wrap;
   gap: 0.6rem;
   margin-top: 0.5rem;
+  justify-content: center;
 }
 
 .hero-btn-sec-2 a {
@@ -200,10 +201,24 @@
   line-height: normal;
   text-transform: capitalize;
   text-align: center;
+  white-space: nowrap;
 }
 
 .home-hero-mobile-img {
   display: none;
+}
+
+@media (max-width:1320px) {
+  .home-hero-bottom-text h2 {
+        font-size: 60px;
+      }
+  
+}
+@media (max-width:992px) {
+  .home-hero-bottom-text h2 {
+        font-size: 45px;
+      }
+  
 }
 
 /* ============================================================
@@ -261,6 +276,7 @@
     margin-bottom: 1rem;
     text-align: left;
     text-align: center;
+    padding-top: 15px;
   }
 
   .home-hero-desc {
@@ -364,6 +380,7 @@
    ============================================================ */
 @media (max-width: 480px) {
   .home-hero-content h1 {
+    padding-top: 20px;
     font-size: 28px;
     line-height: 1.25;
   }

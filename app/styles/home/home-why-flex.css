@@ -165,6 +165,16 @@
   color: #666666;
 }
 
+/* responsive */
+
+@media (max-width:1205px) {
+  .why-flex-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+   }
+  
+}
+
 
 @media (max-width: 768px) {
   .why-flex-container {

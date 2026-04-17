@@ -28,7 +28,7 @@
   margin-top: 16px;
 }
 
-.cp-text strong{
+.cp-text strong {
   color: #736A2F;
 }
 
@@ -146,34 +146,8 @@
   margin-bottom: 12px;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .cp-areas-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
-  .fs-steps-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
-  .fe-gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .cp-areas-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .fs-steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .fe-gallery {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* ─── PROGRAMS ──────────────────────────────────────────── */
 .programs-section {
@@ -300,6 +274,7 @@
   line-height: 20px;
   /* 125% */
   text-transform: capitalize;
+  white-space: nowrap;
 }
 
 .program-apply-btn {
@@ -320,14 +295,73 @@
   background: #1e2d40;
 }
 
+/* Responsive */
+
+@media (max-width:1340px) {
+  .programs-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+
+  }
+    .programs-grid .program-card:last-child {
+    grid-column: 1 / -1;
+    max-width: 205px;
+    margin: 0 auto;
+  }
+
+}
+
+
+
+@media (max-width: 1024px) {
+
+
+  .fs-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .fe-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width:992px) {
+  .programs-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+
+  }
+
+  .programs-container {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .program-card-footer {
+ 
+    flex-direction: column;
+    justify-content: center;
+}
+
+}
+
+
+
+
+
+
 /* ============================================================
    RESPONSIVE — Mobile (≤ 768px)
    ============================================================ */
 @media (max-width: 768px) {
 
+ .programs-grid .program-card:last-child {
+    grid-column: auto;
+    margin: 0;
+    max-width: 100%;
+  }
+
   /* Container */
   .programs-section {
-    padding: 30px 0 0;
+    padding: 10px 0 0;
   }
 
   .programs-container {
@@ -359,9 +393,11 @@
 
   /* 2-column course grid — matches screenshot */
   .programs-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr) !important;
     gap: 12px;
   }
+
+
 
   /* Card */
   .program-card {
@@ -405,11 +441,9 @@
 
   /* Footer: price left, button right — side by side */
   .program-card-footer {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-top: auto;
+  
   }
 
   .program-price {
@@ -420,6 +454,7 @@
   }
 
   .program-apply-btn {
+    max-width: 140px !important;
     font-size: 11px;
     font-weight: 600;
     padding: 8px 12px;
@@ -471,6 +506,25 @@
     font-size: 13px;
     line-height: 1.7;
     text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+
+   .programs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  .cp-areas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fs-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fe-gallery {
+    grid-template-columns: 1fr;
   }
 }
 

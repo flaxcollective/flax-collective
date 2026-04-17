@@ -39,7 +39,7 @@ export default function HomeMissionVission() {
              
 
                 {/* ── CARD ─────────────────────────────────────────── */}
-                <div className="mv-card mt-30">
+                <div className="mv-card mt-3.5 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-8 2xl:mt-10">
 
                     {/* VISION ROW */}
                     <div className="mv-row">
