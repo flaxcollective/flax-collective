@@ -1,7 +1,6 @@
 /* ============================================================
    ANIMATIONS — animations.css
    ============================================================ */
-
 /* ─── KEYFRAMES ─── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(40px); }
