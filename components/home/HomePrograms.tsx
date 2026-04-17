@@ -66,7 +66,7 @@ const courses = [
 ];
 
 interface HomeProgramsProps {
-  onApplyNow: () => void;
+  onApplyNow: (courseTitle: string) => void;
 }
 
 export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
@@ -96,7 +96,7 @@ export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
               <div className="program-card-footer">
                 <span className="program-price">{course.price}</span>
                 <button
-                  onClick={onApplyNow}
+                  onClick={() => onApplyNow(course.title)}
                   className="program-apply-btn"
                 >
                   Apply Now

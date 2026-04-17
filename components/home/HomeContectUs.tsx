@@ -1,19 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import "@/app/styles/home/home-contact.css";
+import { countries } from "@/data/countries";
 
 export default function HomeContectUs() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState({
     name: "",
+    countryCode: "+91",
     mobile: "",
     email: "",
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -33,7 +35,7 @@ export default function HomeContectUs() {
 
       if (data.success) {
         setStatus("success");
-        setForm({ name: "", mobile: "", email: "", message: "" });
+        setForm({ name: "", countryCode: "+91", mobile: "", email: "", message: "" });
       } else {
         setStatus("error");
         setErrorMsg(data.message ?? "Something went wrong. Please try again.");
@@ -117,14 +119,37 @@ export default function HomeContectUs() {
                 onChange={handleChange} 
                 required 
               />
-              <input 
-                name="mobile" 
-                type="text" 
-                placeholder="Mobile No." 
-                value={form.mobile} 
-                onChange={handleChange} 
-                required 
-              />
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '15px' }}>
+                <select 
+                  name="countryCode" 
+                  value={form.countryCode} 
+                  onChange={handleChange} 
+                  style={{ 
+                    width: '120px', 
+                    padding: '12px', 
+                    borderRadius: '5px', 
+                    border: '1px solid #ddd',
+                    background: '#fff',
+                    fontFamily: 'Montserrat',
+                    fontSize: '14px',
+                    flexShrink: 0,
+                    appearance: 'auto'
+                  }}
+                >
+                  {countries.map(c => (
+                    <option key={c.iso + c.code} value={c.code}>{c.iso} ({c.code})</option>
+                  ))}
+                </select>
+                <input 
+                  name="mobile" 
+                  type="text" 
+                  placeholder="Mobile No." 
+                  value={form.mobile} 
+                  onChange={handleChange} 
+                  required 
+                  style={{ margin: 0, flex: 1 }}
+                />
+              </div>
               <input 
                 name="email" 
                 type="email" 

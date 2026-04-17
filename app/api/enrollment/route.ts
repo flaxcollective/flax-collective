@@ -9,9 +9,14 @@ const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_WEBAPP_URL;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json() as Record<string, unknown>;
-    const { firstName, lastName, mobile, state, city, course } = body;
+    let { firstName, lastName, email, countryCode, mobile, country, state, city, course } = body;
 
-    if (!firstName || !lastName || !mobile || !state || !city || !course) {
+    // Ensure countryCode has +
+    if (typeof countryCode === 'string' && countryCode && !countryCode.startsWith('+')) {
+      countryCode = '+' + countryCode;
+    }
+
+    if (!firstName || !lastName || !email || !countryCode || !mobile || !country || !state || !city || !course) {
       return NextResponse.json(
         { success: false, message: "All fields are required." },
         { status: 400 }
@@ -34,7 +39,10 @@ export async function POST(req: NextRequest) {
       submittedAt: new Date().toISOString(),
       firstName,
       lastName,
+      email,
+      countryCode,
       mobile,
+      country,
       state,
       city,
       course,
@@ -53,6 +61,7 @@ export async function POST(req: NextRequest) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...newEntry,
+            countryCode: `'${newEntry.countryCode}`, // Prefix with ' to preserve + in Google Sheets
             sheetName: "StudentSubmissions"
           }),
         });

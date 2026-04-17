@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "@/app/styles/modal.css";
+import { countries } from '@/data/countries';
 
 interface EmployerModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ const defaultForm = {
   fullName: "",
   companyName: "",
   email: "",
+  countryCode: "+91",
   phone: "",
   jobRole: "",
   candidatesRequired: "",
@@ -109,13 +111,25 @@ export default function EmployerModal({ isOpen, onClose }: EmployerModalProps) {
                   <label>Company Name</label>
                   <input name="companyName" type="text" placeholder="Enter Your Company Name" value={form.companyName} onChange={handleChange} required />
                 </div>
-                <div className="modal-input-group">
-                  <label>Work Email</label>
+                 <div className="modal-input-group">
+                  <label>Email</label>
                   <input name="email" type="email" placeholder="Enter Your Email" value={form.email} onChange={handleChange} required />
                 </div>
                 <div className="modal-input-group">
                   <label>Phone Number</label>
-                  <input name="phone" type="tel" placeholder="Enter Phone Number" value={form.phone} onChange={handleChange} required />
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <select 
+                      name="countryCode" 
+                      value={form.countryCode} 
+                      onChange={handleChange} 
+                      style={{ width: '100px', flexShrink: 0 }}
+                    >
+                      {countries.map(c => (
+                        <option key={c.iso + c.code} value={c.code}>{c.iso} ({c.code})</option>
+                      ))}
+                    </select>
+                    <input name="phone" type="tel" placeholder="Enter Phone Number" value={form.phone} onChange={handleChange} required />
+                  </div>
                 </div>
                 <div className="modal-input-group">
                   <label>Job Role</label>
@@ -137,12 +151,10 @@ export default function EmployerModal({ isOpen, onClose }: EmployerModalProps) {
                 <div className="modal-input-group">
                   <label>Location For Job</label>
                   <select name="location" value={form.location} onChange={handleChange} required>
-                    <option value="" disabled hidden>Choose The Location</option>
-                    <option value="dubai">Dubai</option>
-                    <option value="india">India</option>
-                    <option value="london">London</option>
-                    <option value="singapore">Singapore</option>
-                    <option value="other">Other</option>
+                    <option value="" disabled hidden>Choose The Country</option>
+                    {countries.map(c => (
+                      <option key={c.name} value={c.name}>{c.name}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="modal-input-group">

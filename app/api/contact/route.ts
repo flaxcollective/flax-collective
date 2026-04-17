@@ -8,9 +8,14 @@ const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_WEBAPP_URL;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json() as Record<string, unknown>;
-    const { name, mobile, email, message } = body;
+    let { name, countryCode, mobile, email, message } = body;
 
-    if (!name || !mobile || !email || !message) {
+    // Ensure countryCode has +
+    if (typeof countryCode === 'string' && countryCode && !countryCode.startsWith('+')) {
+      countryCode = '+' + countryCode;
+    }
+
+    if (!name || !countryCode || !mobile || !email || !message) {
       return NextResponse.json(
         { success: false, message: "All fields are required." },
         { status: 400 }
@@ -31,6 +36,7 @@ export async function POST(req: NextRequest) {
       id: Date.now(),
       submittedAt: new Date().toISOString(),
       name,
+      countryCode,
       mobile,
       email,
       message,
@@ -50,6 +56,7 @@ export async function POST(req: NextRequest) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...newEntry,
+            countryCode: `'${newEntry.countryCode}`, // Prefix with ' to preserve + in Google Sheets
             sheetName: "ContactSubmissions"
           }),
         });
