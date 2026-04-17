@@ -47,17 +47,13 @@ export default function Header() {
 
 
 
-  const navLinksLeft = [
-    { label: 'HOME', href: '/', hash: '' },
-    { label: 'SERVICES', href: '#services', hash: '#services' },
+  const navLinks = [
+    { label: "HOME", href: "/", hash: "" },
+    { label: "SERVICES", href: "#services", hash: "#services" },
+    { label: "COURSES", href: "#programs", hash: "#programs" },
+    { label: "CONTACT US", href: "#contact", hash: "#contact" },
   ];
 
-  const navLinksRight = [
-    { label: 'COURSES', href: '#programs', hash: '#programs' },
-    { label: 'CONTACT US', href: '#contact', hash: '#contact' },
-  ];
-
-  const navLinks = [...navLinksLeft, ...navLinksRight];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string, href: string) => {
     setIsMenuOpen(false);
@@ -77,38 +73,28 @@ export default function Header() {
 
       <div className="sticky-header">
         <div className="sticky-header-inner">
-          {/* Left nav */}
-          <nav className="sticky-nav sticky-nav-left">
-            {navLinksLeft.map((link) => {
-              const isActive = (link.hash === '' && activeHash === '') || (link.hash !== '' && activeHash === link.hash);
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.hash, link.href)}
-                  className={`nav-link cursor-pointer ${isActive ? 'active' : ''}`}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-          </nav>
 
-          {/* Logo */}
+             {/* Logo */}
           <Link href="/" onClick={(e) => handleNavClick(e, '', '/')} className="sticky-logo">
             <img src="/assets/images/flex-collective-logo.png" alt="Flax Collective" />
           </Link>
+          {/* Left nav */}
+          <nav className="sticky-nav">
+            {navLinks.map((link) => {
+              const isActive =
+                (link.hash === "" && activeHash === "") ||
+                (link.hash !== "" && activeHash === link.hash);
 
-          {/* Right nav */}
-          <nav className="sticky-nav sticky-nav-right">
-            {navLinksRight.map((link) => {
-              const isActive = activeHash === link.hash;
               return (
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={(e) => handleNavClick(e, link.hash, link.href)}
-                  className={`nav-link cursor-pointer ${isActive ? 'active' : ''}`}
+                  onClick={(e) =>
+                    handleNavClick(e, link.hash, link.href)
+                  }
+                  className={`nav-link cursor-pointer ${
+                    isActive ? "active" : ""
+                  }`}
                 >
                   {link.label}
                 </a>

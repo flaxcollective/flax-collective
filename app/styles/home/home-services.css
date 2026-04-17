@@ -41,10 +41,12 @@
 .sfe-card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 
 .sfe-img-title {
+  
   background: #2F3E56;
   color: #fff;
   font-family: "Source Serif 4", Georgia, serif;
@@ -207,7 +209,47 @@
 }
 
 
+@media (max-width:1440px) {
+ 
+   .sfe-img-title{
+    max-width: 100%;
+    height: 120px ;
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+  }
+  
+}
 
+@media (max-width:1024px) {
+.cp-areas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* important */
+    gap: 20px;
+  }
+
+  .cp-area-card {
+    width: calc(33.33% - 20px); /* 3 per row */
+  }
+   .sfe-img-title{
+    max-width: 100%;
+    height: 120px ;
+    display: flex;
+    align-items: center;
+  }
+  
+}
+
+@media (max-width:992px) {
+ 
+  .fs-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+    display: grid;
+}  
+}
 
 /* ============================================================
    RESPONSIVE — Mobile (≤ 768px)
@@ -277,6 +319,9 @@
 
 
   }
+   .cp-area-card {
+    width: calc(50% - 20px); /* 2 per row */
+  }
 
   .sfe-card {
     display: flex;
@@ -297,6 +342,10 @@
   .sfe-text-container {
     margin-top: 10px;
     padding: 0 8px 20px 8px;
+  }
+   .sfe-img-title{
+    max-width: 100%;
+    height: 60px ;
   }
 
   .sfe-text-container p {
@@ -332,11 +381,37 @@
     text-align: justify;
     margin-top: 0.75rem;
   }
+   /* .cp-areas-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .cp-areas-grid .cp-area-card {
+    grid-column: auto !important;
+    justify-self: auto !important;
+  }
+
+.cp-areas-grid .cp-area-card:last-child {
+  grid-column: 1 / -1 !important;  
+  max-width: 300px;
+  margin: 0 auto;
+} */
+  
 }
 
 /* ============================================================
    REMOVE the old ≤480px and ≤640px overrides — replace with:
    ============================================================ */
+
+@media (max-width: 640px) {
+
+  /* Keep 2-column — do NOT collapse to 1fr */
+  .sfe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cp-areas-grid {
+ 
+    gap: 8px;
+  }
+}
 @media (max-width: 480px) {
 
   /* Keep 2-column — do NOT collapse to 1fr */
@@ -348,13 +423,5 @@
   .fs-step-label {
     font-size: 13px;
     line-height: 20px;
-  }
-}
-
-@media (max-width: 640px) {
-
-  /* Keep 2-column — do NOT collapse to 1fr */
-  .sfe-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }

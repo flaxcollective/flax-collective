@@ -35,7 +35,7 @@ export default function HomeWhyFlex() {
     <section className="why-flex">
       <div className="why-flex-container">
 
-        <h2>Why Flax Collective</h2>
+        <h2 className="text-nowrap">Why Flax Collective</h2>
 {/* 
         <p className="why-flex-subtext">
           Successful recruitment requires more than matching resumes with job openings.
@@ -45,7 +45,7 @@ export default function HomeWhyFlex() {
           Our process emphasizes professional readiness, structured evaluation, and responsible recruitment practices.
         </p> */}
 
-        <div className="why-flex-grid mt-16">
+        <div className="why-flex-grid mt-6 sm:mt-8 md:mt-12">
           {whyFlexData.map((item, idx) => (
             <div key={idx} className="why-flex-card">
               <div className="why-flex-icon">

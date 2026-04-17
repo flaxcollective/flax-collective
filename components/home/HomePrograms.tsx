@@ -165,7 +165,7 @@ export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
             </div>
           </div>
 
-          <p className="cp-text cp-text--small">
+          <p className="cp-text cp-text--small pt-7">
             Courses Are delivered through <strong>online learning modules, interactive sessions and in person.</strong> 
           </p>
         </div>

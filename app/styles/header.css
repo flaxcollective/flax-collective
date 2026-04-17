@@ -103,9 +103,9 @@ header {
 
 .sticky-header-inner {
     width: 100%;
-    max-width: 1920px;
+    max-width: 1296px; 
     margin: 0 auto;
-    padding: 0 60px;
+    padding: 0 24px; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -118,7 +118,6 @@ header {
     display: flex;
     align-items: center;
     gap: 40px;
-    flex: 1;
 }
 
 .sticky-nav-left {

@@ -1,8 +1,6 @@
 /* ============================================================
    ANIMATIONS — animations.css
-   Import this in your global CSS or layout.tsx
    ============================================================ */
-
 /* ─── KEYFRAMES ─── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(40px); }
