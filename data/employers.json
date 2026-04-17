@@ -34,29 +34,5 @@
     "candidatesRequired": "123123213",
     "location": "india",
     "employmentType": "parttime"
-  },
-  {
-    "id": 1776419679925,
-    "submittedAt": "2026-04-17T09:54:39.925Z",
-    "fullName": "234",
-    "companyName": "234",
-    "email": "sdf@gmai.com",
-    "phone": "3432432423",
-    "jobRole": "receptionist",
-    "candidatesRequired": "234234",
-    "location": "london",
-    "employmentType": "parttime"
-  },
-  {
-    "id": 1776420258145,
-    "submittedAt": "2026-04-17T10:04:18.145Z",
-    "fullName": "qqqqqqqq",
-    "companyName": "qq",
-    "email": "sdf@gmai.com",
-    "phone": "452344",
-    "jobRole": "housekeeping",
-    "candidatesRequired": "2432",
-    "location": "india",
-    "employmentType": "fulltime"
   }
 ]
