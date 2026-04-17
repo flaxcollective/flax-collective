@@ -1,51 +1,55 @@
 "use client";
 import "@/app/styles/header.css";
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Header() {
-  const pathname = usePathname();
-  const [activeHash, setActiveHash] = useState('');
+  const [activeHash, setActiveHash] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [isClickScrolling, setIsClickScrolling] = useState(false); // ✅ NEW
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  // Lock body scroll
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
   }, [isMenuOpen]);
 
+  // ✅ Scroll Spy (FIXED)
   useEffect(() => {
     const handleScroll = () => {
       const y = window.scrollY;
-      setScrollY(y);
-      setIsScrolled(y > 200); // Wait for fade to complete before toggling state
+      setIsScrolled(y > 200);
 
-      const sections = ['services', 'programs', 'contact'];
-      let current = '';
+      const sections = ["services", "programs", "contact"];
+      let current = "";
+
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 150) current = `#${section}`;
+
+          // ✅ Accurate detection
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            current = `#${section}`;
+          }
         }
       }
-      if (y < 100) current = '';
-      setActiveHash(current);
+
+      if (y < 100) current = "";
+
+      // ✅ Prevent flicker during click scroll
+      if (!isClickScrolling) {
+        setActiveHash(current);
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isClickScrolling]);
 
   const navLinks = [
     { label: "HOME", href: "/", hash: "" },
@@ -54,31 +58,93 @@ export default function Header() {
     { label: "CONTACT US", href: "#contact", hash: "#contact" },
   ];
 
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string, href: string) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    hash: string,
+    href: string
+  ) => {
     setIsMenuOpen(false);
+
     if (hash) {
+      setIsClickScrolling(true);
+      setActiveHash(hash);
+
       e.preventDefault();
       const el = document.querySelector(hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    } else if (href === '/') {
+
+      if (el) {
+        const width = window.innerWidth;
+
+        let offset = 130;
+
+        // ✅ Mobile
+        if (width < 768) {
+          offset = 100;
+        }
+
+        // ✅ Tablet
+        else if (width >= 768 && width < 1024) {
+          offset = 115;
+        }
+
+        // ✅ Desktop
+        else {
+          offset = 130;
+        }
+
+        // ✅ Extra for SERVICES only
+        if (hash === "#services") {
+          if (width < 768) offset = 140;
+          else if (width < 1024) offset = 160;
+          else offset = 200;
+        }
+
+        const top =
+          el.getBoundingClientRect().top + window.scrollY - offset;
+
+        window.scrollTo({
+          top,
+          behavior: "smooth",
+        });
+
+        setTimeout(() => {
+          setIsClickScrolling(false);
+        }, 800);
+      }
+    } else if (href === "/") {
+      setIsClickScrolling(true);
+      setActiveHash("");
+
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      setTimeout(() => {
+        setIsClickScrolling(false);
+      }, 800);
     }
   };
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 header-main ${isScrolled ? 'header-scrolled' : ''}`}>
-
-
+    <header
+      className={`fixed top-0 left-0 w-full z-50 header-main ${isScrolled ? "header-scrolled" : ""
+        }`}
+    >
+      {/* DESKTOP HEADER */}
       <div className="sticky-header">
         <div className="sticky-header-inner">
-
-             {/* Logo */}
-          <Link href="/" onClick={(e) => handleNavClick(e, '', '/')} className="sticky-logo">
-            <img src="/assets/images/flex-collective-logo.png" alt="Flax Collective" />
+          {/* Logo */}
+          <Link
+            href="/"
+            onClick={(e) => handleNavClick(e, "", "/")}
+            className="sticky-logo"
+          >
+            <img
+              src="/assets/images/flex-collective-logo.png"
+              alt="Flax Collective"
+            />
           </Link>
-          {/* Left nav */}
+
+          {/* Nav */}
           <nav className="sticky-nav">
             {navLinks.map((link) => {
               const isActive =
@@ -92,9 +158,8 @@ export default function Header() {
                   onClick={(e) =>
                     handleNavClick(e, link.hash, link.href)
                   }
-                  className={`nav-link cursor-pointer ${
-                    isActive ? "active" : ""
-                  }`}
+                  className={`nav-link cursor-pointer ${isActive ? "active" : ""
+                    }`}
                 >
                   {link.label}
                 </a>
@@ -104,39 +169,48 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ── MOBILE HEADER BAR ── */}
+      {/* MOBILE HEADER */}
       <div className="mobile-header lg:hidden sticky top-0 z-50">
-        {/* Spacer — balances the right-side hamburger */}
         <div className="mobile-header-spacer" />
 
         <div className="mobile-logo">
           <Link href="/">
-            <img src="/assets/images/flex-collective-logo.png" alt="Flax Collective" />
+            <img
+              src="/assets/images/flex-collective-logo.png"
+              alt="Flax Collective"
+            />
           </Link>
         </div>
 
         <div className="mobile-menu">
           <button onClick={toggleMenu} aria-label="Toggle Menu">
-            <span className={`line l1 ${isMenuOpen ? 'active' : ''}`}></span>
-            <span className={`line l2 ${isMenuOpen ? 'active' : ''}`}></span>
-            <span className={`line l3 ${isMenuOpen ? 'active' : ''}`}></span>
+            <span className={`line l1 ${isMenuOpen ? "active" : ""}`} />
+            <span className={`line l2 ${isMenuOpen ? "active" : ""}`} />
+            <span className={`line l3 ${isMenuOpen ? "active" : ""}`} />
           </button>
         </div>
       </div>
-      {/* ── MOBILE SIDE PANEL ── */}
-      <div className={`mobile-nav-panel lg:hidden ${isMenuOpen ? 'open' : ''}`}>
-        <button className="mobile-nav-close" onClick={() => setIsMenuOpen(false)} aria-label="Close Menu">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="1" y1="1" x2="19" y2="19" stroke="#333" strokeWidth="2" strokeLinecap="round" />
-            <line x1="19" y1="1" x2="1" y2="19" stroke="#333" strokeWidth="2" strokeLinecap="round" />
-          </svg>
+
+      {/* MOBILE PANEL */}
+      <div
+        className={`mobile-nav-panel lg:hidden ${isMenuOpen ? "open" : ""
+          }`}
+      >
+        <button
+          className="mobile-nav-close"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          ✕
         </button>
+
         <nav className="mobile-nav-links">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              onClick={(e) => handleNavClick(e, link.hash, link.href)}
+              onClick={(e) =>
+                handleNavClick(e, link.hash, link.href)
+              }
               className="mobile-nav-item"
             >
               {link.label}
@@ -145,11 +219,13 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* ── BACKDROP ── */}
+      {/* BACKDROP */}
       {isMenuOpen && (
-        <div className="mobile-nav-backdrop lg:hidden" onClick={() => setIsMenuOpen(false)} />
+        <div
+          className="mobile-nav-backdrop lg:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        />
       )}
-
     </header>
   );
 }
