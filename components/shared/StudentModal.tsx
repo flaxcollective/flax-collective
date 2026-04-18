@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "@/app/styles/modal.css";
+import { countries } from '@/data/countries';
 
 interface StudentModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialCourse?: string;
 }
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -13,14 +15,17 @@ type Status = "idle" | "loading" | "success" | "error";
 const defaultForm = {
   firstName: "",
   lastName: "",
+  email: "",
+  countryCode: "+91",
   mobile: "",
+  country: "",
   state: "",
   city: "",
   course: "",
   consent: false,
 };
 
-export default function StudentModal({ isOpen, onClose }: StudentModalProps) {
+export default function StudentModal({ isOpen, onClose, initialCourse }: StudentModalProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState(defaultForm);
@@ -28,6 +33,9 @@ export default function StudentModal({ isOpen, onClose }: StudentModalProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      if (initialCourse) {
+        setForm(prev => ({ ...prev, course: initialCourse }));
+      }
     } else {
       document.body.style.overflow = 'unset';
       const timer = setTimeout(() => {
@@ -37,7 +45,7 @@ export default function StudentModal({ isOpen, onClose }: StudentModalProps) {
       }, 300);
       return () => clearTimeout(timer);
     }
-  }, [isOpen]);
+  }, [isOpen, initialCourse]);
 
   if (!isOpen) return null;
 
@@ -108,8 +116,33 @@ export default function StudentModal({ isOpen, onClose }: StudentModalProps) {
                   <input name="lastName" type="text" placeholder="Enter Your Last Name" value={form.lastName} onChange={handleChange} required />
                 </div>
                 <div className="modal-input-group">
+                  <label>Your Email</label>
+                  <input name="email" type="email" placeholder="Enter Your Email" value={form.email} onChange={handleChange} required />
+                </div>
+                <div className="modal-input-group">
                   <label>Your Mobile Number</label>
-                  <input name="mobile" type="tel" placeholder="Enter Your Mobile Number" value={form.mobile} onChange={handleChange} required />
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <select 
+                      name="countryCode" 
+                      value={form.countryCode} 
+                      onChange={handleChange} 
+                      style={{ width: '100px', flexShrink: 0 }}
+                    >
+                      {countries.map(c => (
+                        <option key={c.iso + c.code} value={c.code}>{c.iso} ({c.code})</option>
+                      ))}
+                    </select>
+                    <input name="mobile" type="tel" placeholder="Mobile Number" value={form.mobile} onChange={handleChange} required />
+                  </div>
+                </div>
+                <div className="modal-input-group">
+                  <label>Country</label>
+                  <select name="country" value={form.country} onChange={handleChange} required>
+                    <option value="" disabled hidden>Choose Your Country</option>
+                    {countries.map(c => (
+                      <option key={c.name} value={c.name}>{c.name}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="modal-input-group">
                   <label>State</label>
@@ -123,16 +156,16 @@ export default function StudentModal({ isOpen, onClose }: StudentModalProps) {
                   <label>Course</label>
                   <select name="course" value={form.course} onChange={handleChange} required>
                     <option value="" disabled hidden>Course You Are Interested In:</option>
-                    <option value="HPF">Hospitality Professional Foundations (HPF)</option>
-                    <option value="HOSC">Hotel Operations & Systems Certification (HOSC)</option>
-                    <option value="HCPS">Hospitality Communication & Professional Skills (HCPS)</option>
-                    <option value="IGEC">International Guest Experience Certification (IGEC)</option>
-                    <option value="CSIPB">Career Success & International Placement Bootcamp (CSIPB)</option>
-                    <option value="PSSF">Professional Skills & Soft Skills Foundation (PSSF)</option>
-                    <option value="RESM">Real Estate Sales & Management (RESM)</option>
-                    <option value="BSLHC">Butler Service & Luxury Hospitality Certification (BSLHC)</option>
-                    <option value="PBGEC">Professional Bartending & Guest Engagement (PBGEC)</option>
-                    <option value="CFHC">Childcare & Family Guest Services Certification (CFHC)</option>
+                    <option value="Hospitality Professional Foundations (HPF)">Hospitality Professional Foundations (HPF)</option>
+                    <option value="Hotel Operations & Systems Certification (HOSC)">Hotel Operations & Systems Certification (HOSC)</option>
+                    <option value="Hospitality Communication & Professional Skills (HCPS)">Hospitality Communication & Professional Skills (HCPS)</option>
+                    <option value="International Guest Experience Certification (IGEC)">International Guest Experience Certification (IGEC)</option>
+                    <option value="Career Success & International Placement Bootcamp (CSIPB)">Career Success & International Placement Bootcamp (CSIPB)</option>
+                    <option value="Professional Skills & Soft Skills Foundation (PSSF)">Professional Skills & Soft Skills Foundation (PSSF)</option>
+                    <option value="Real Estate Sales & Management (RESM)">Real Estate Sales & Management (RESM)</option>
+                    <option value="Butler Service & Luxury Hospitality Certification (BSLHC)">Butler Service & Luxury Hospitality Certification (BSLHC)</option>
+                    <option value="Professional Bartending & Guest Engagement (PBGEC)">Professional Bartending & Guest Engagement (PBGEC)</option>
+                    <option value="Childcare & Family Guest Services Certification (CFHC)">Childcare & Family Guest Services Certification (CFHC)</option>
                   </select>
                 </div>
               </div>

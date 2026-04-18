@@ -3,13 +3,20 @@ import { promises as fs } from "fs";
 import path from "path";
 
 const DATA_FILE = path.join(process.cwd(), "data", "enrollments.json");
+const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_WEBAPP_URL;
+
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json() as Record<string, unknown>;
-    const { firstName, lastName, mobile, state, city, course } = body;
+    let { firstName, lastName, email, countryCode, mobile, country, state, city, course } = body;
 
-    if (!firstName || !lastName || !mobile || !state || !city || !course) {
+    // Ensure countryCode has +
+    if (typeof countryCode === 'string' && countryCode && !countryCode.startsWith('+')) {
+      countryCode = '+' + countryCode;
+    }
+
+    if (!firstName || !lastName || !email || !countryCode || !mobile || !country || !state || !city || !course) {
       return NextResponse.json(
         { success: false, message: "All fields are required." },
         { status: 400 }
@@ -32,7 +39,10 @@ export async function POST(req: NextRequest) {
       submittedAt: new Date().toISOString(),
       firstName,
       lastName,
+      email,
+      countryCode,
       mobile,
+      country,
       state,
       city,
       course,
@@ -40,14 +50,27 @@ export async function POST(req: NextRequest) {
 
     entries.push(newEntry);
 
-    // Ensure /data folder exists
     await fs.mkdir(path.join(process.cwd(), "data"), { recursive: true });
 
-    // Write back to file
     await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2), "utf-8");
 
-    console.log("[ENROLLMENT SAVED]", newEntry);
-
+    if (GOOGLE_SHEET_URL) {
+      try {
+        await fetch(GOOGLE_SHEET_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...newEntry,
+            countryCode: `'${newEntry.countryCode}`, // Prefix with ' to preserve + in Google Sheets
+            sheetName: "StudentSubmissions"
+          }),
+        });
+      } catch (sheetErr) {
+        console.error("[GOOGLE SHEETS ERROR]", sheetErr);
+      }
+    } else {
+      console.warn("[GOOGLE SHEETS] No URL configured in .env.local");
+    }
     return NextResponse.json({ success: true, message: "Enrollment submitted successfully." });
   } catch (err) {
     console.error("[ENROLLMENT ERROR]", err);

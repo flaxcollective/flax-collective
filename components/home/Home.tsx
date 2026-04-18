@@ -19,7 +19,13 @@ export default function Home() {
   // Activate scroll observer once for the whole page
 
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState("");
   const [isEmployerModalOpen, setIsEmployerModalOpen] = useState(false);
+
+  const handleApplyNow = (course: string) => {
+    setSelectedCourse(course);
+    setIsStudentModalOpen(true);
+  };
 
   return (
     <>
@@ -38,7 +44,7 @@ export default function Home() {
         <HomeFounder />
 
         {/* ── PROGRAMS ── */}
-        <HomePrograms onApplyNow={() => setIsStudentModalOpen(true)} />
+        <HomePrograms onApplyNow={handleApplyNow} />
 
         <HomeMissionVission />
 
@@ -50,7 +56,11 @@ export default function Home() {
 
       <StudentModal 
         isOpen={isStudentModalOpen} 
-        onClose={() => setIsStudentModalOpen(false)} 
+        onClose={() => {
+          setIsStudentModalOpen(false);
+          setSelectedCourse("");
+        }}
+        initialCourse={selectedCourse}
       />
       <EmployerModal 
         isOpen={isEmployerModalOpen} 
