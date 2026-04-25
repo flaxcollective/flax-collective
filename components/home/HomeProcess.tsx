@@ -43,9 +43,9 @@ export default function HomeProcess() {
         <div className="process-grid">
           {processData.map((item, idx) => (
             <div key={idx} className="process-card">
-              <div className="process-step">
+              <div className="process-step text-white">
                 <span>STEP</span>
-                <strong>{item.step}</strong>
+                <strong className="text-white">{item.step}</strong>
               </div>
               <h3>{item.title}</h3>
               <p>{item.desc}</p>
@@ -53,9 +53,9 @@ export default function HomeProcess() {
           ))}
         </div>
 
-        <div className="global-page-divider mt-8 sm:mt-10 md:mt-16"></div>
+        {/* <div className="global-page-divider mt-8 sm:mt-10 md:mt-16"></div> */}
 
-        <div className="process-quote-section mt-6 sm:mt-8 md:mt-12">
+        {/* <div className="process-quote-section mt-6 sm:mt-8 md:mt-12">
           <h2>Opportunities</h2>
           <div className="opportunities-layout">
             <div className="opportunities-cards">
@@ -76,7 +76,7 @@ export default function HomeProcess() {
               <img src="/assets/images/opportunities.png" alt="Opportunities illustration" />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="global-page-divider mt-14"></div>
       </div>

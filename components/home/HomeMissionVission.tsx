@@ -1,6 +1,9 @@
 "use client";
 import "@/app/styles/home/home-mission-vision.css";
 import { useState } from "react";
+import { MdRemoveRedEye } from "react-icons/md";
+import { TbTargetArrow } from "react-icons/tb";
+import { IoDiamondOutline } from "react-icons/io5";
 
 const values = [
     {
@@ -30,27 +33,17 @@ export default function HomeMissionVission() {
 
     return (
         <section className="mv-section">
-            <div className="mv-container">
+            <div className="mv-container max-w-7xl mx-auto px-4 md:px-6 lg:px-8 ">
 
-                     {/* ── CERTIFICATION PROGRAMS ──────────────────────── */}
-                
-
-
-             
-
-                {/* ── CARD ─────────────────────────────────────────── */}
-                <div className="mv-card mt-3.5 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-8 2xl:mt-10">
+                  
+                       {/* ── CARD ─────────────────────────────────────────── */}
+                <div className="mv-card">
 
                     {/* VISION ROW */}
                     <div className="mv-row">
                         <div className="mv-icon-wrap">
-                            {/* Eye icon */}
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                                width="26" height="26">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                <circle cx="12" cy="12" r="3" />
-                            </svg>
+                         
+                          <MdRemoveRedEye className="eye-icon" />
                         </div>
                         <div className="mv-row-body">
                             <h3 className="mv-row-title">Our Vision</h3>
@@ -65,18 +58,7 @@ export default function HomeMissionVission() {
                     {/* MISSION ROW */}
                     <div className="mv-row">
                         <div className="mv-icon-wrap">
-                            {/* Target icon */}
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                                width="26" height="26">
-                                <circle cx="12" cy="12" r="10" />
-                                <circle cx="12" cy="12" r="6" />
-                                <circle cx="12" cy="12" r="2" />
-                                <line x1="12" y1="2" x2="12" y2="5" />
-                                <line x1="12" y1="19" x2="12" y2="22" />
-                                <line x1="2" y1="12" x2="5" y2="12" />
-                                <line x1="19" y1="12" x2="22" y2="12" />
-                            </svg>
+                            <TbTargetArrow className="target-icon" />
                         </div>
                         <div className="mv-row-body">
                             <h3 className="mv-row-title">Our Mission</h3>
@@ -91,14 +73,7 @@ export default function HomeMissionVission() {
                     {/* VALUES ROW */}
                     <div className="mv-row mv-values-header-row">
                         <div className="mv-icon-wrap mv-icon-wrap--green">
-                            {/* Diamond icon */}
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                                width="26" height="26">
-                                <path d="M6 3h12l4 6-10 13L2 9z" />
-                                <path d="M2 9h20" />
-                                <path d="M6 3l4 6m8-6l-4 6" />
-                            </svg>
+                          <IoDiamondOutline className="diamond-icon" />
                         </div>
                         <button
                             className="mv-values-toggle"
@@ -140,7 +115,7 @@ export default function HomeMissionVission() {
 
                 </div>
 
-                <div className="global-page-divider mt-14"></div>
+                <div className="global-page-divider mt-16"></div>
 
            
 

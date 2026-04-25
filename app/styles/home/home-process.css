@@ -64,11 +64,13 @@
   font-size: 10px;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  opacity: 0.8;
+ 
+  color: #ffffff;
 }
 
 .process-step strong {
   font-size: 18px;
+  color: #ffffff;
 }
 
 /* TITLE */
@@ -88,7 +90,7 @@
 
 /* ─── PROCESS ────────────────────────────────────────────── */
 .process-section {
-  padding: 4rem 0;
+
   background: #F4F1EA;
 }
 
@@ -176,7 +178,7 @@
 
 .process-quote-section h2 {
   color: #2F3E56;
-  text-align: center;
+ 
   font-family: "Source Serif 4";
   font-size: 42px;
   font-style: normal;
@@ -184,7 +186,7 @@
   line-height: normal;
   text-transform: capitalize;
   text-align: left;
-  margin-bottom: 2rem;
+ 
 }
 
 
@@ -365,6 +367,7 @@
 
   .process-step strong {
     font-size: 14px;
+    color:#fff !important;
   }
 
   .process-card h3 {
@@ -401,14 +404,14 @@
 
   .process-quote-section-content-1 h2,
   .process-quote-section-content-2 h2 {
-    font-size: 20px;
+    font-size: 14px;
     margin-bottom: 8px;
   }
 
   .process-quote-section-content-1 p,
   .process-quote-section-content-2 p {
-    font-size: 13px;
-    line-height: 24px;
+    font-size: 10px;
+    line-height: 16px;
   }
 
   .opportunities-cards {

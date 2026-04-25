@@ -1,7 +1,7 @@
 /* SECTION */
 .contact-section {
-  background: #fff;
-  padding: 100px 20px;
+  background: #f4f1ea;
+   padding: 100px 20px;
   scroll-margin-top: 130px;
 }
 
@@ -16,7 +16,7 @@
 
 /* LEFT */
 .contact-left {
-  flex: 1;
+  flex: 1.5;
 }
 
 /* TITLE (SAME STYLE) */
@@ -95,20 +95,21 @@
 .contact-right form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 /* INPUTS (MATCH CARD BG TONE) */
 .contact-right input,
 .contact-right textarea {
   width: 100%;
-  background: #F0F0F0;
+  background: #2F3E56;
   border: none;
   border-radius: 8px;
   padding: 16px;
   font-family: Montserrat;
   font-size: 14px;
   outline: none;
+  border: 1px solid #FFFFFF;
 }
 
 /* TEXTAREA */
@@ -121,8 +122,8 @@
 
 /* BUTTON (MATCH GREEN THEME) */
 .contact-right button {
-  background: #2F3E56;
-  color: #fff;
+  background: #FFFFFF;
+  color: #2F3E56;
   border: none;
   border-radius: 8px;
   padding: 18px;
@@ -130,11 +131,9 @@
   font-family: Montserrat;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: 500;
 }
 
-.contact-right button:hover {
-  background: #5c6a2f;
-}
 
 
 /* ============================================================

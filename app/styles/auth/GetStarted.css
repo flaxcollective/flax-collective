@@ -1,0 +1,78 @@
+/* ── Background ── */
+.getstarted-bg {
+  background-color: #e9e4db;
+  height: 100vh !important;
+}
+
+/* ── Card ── */
+.getstarted-card {
+  background: #ffffff;
+  border-radius: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  margin: 24px;
+  padding: 140px 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+}
+
+/* ── Logo ── */
+.getstarted-logo {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  
+}
+
+/* ── Heading ── */
+.getstarted-heading {
+ font-size: 30px !important;
+  font-weight: 600;
+  color: #202020;
+  text-align: center;
+  line-height: 1.4;
+   margin-bottom: 40px;
+   white-space: nowrap;
+}
+
+/* ── Buttons ── */
+.getstarted-btn {
+  display: block;
+  background-color: #2F3E56;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 24px;
+  border-radius: 8px;
+
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.getstarted-btn:hover {
+  background-color: #6e7c3a;
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .getstarted-card {
+    padding: 40px 28px;
+    min-height: 380px;
+  }
+
+  .getstarted-heading {
+    font-size: 18px;
+  }
+
+  .getstarted-logo {
+    width: 76px;
+    height: 76px;
+  }
+}

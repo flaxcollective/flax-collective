@@ -1,55 +1,55 @@
-/* ============================================================
-   HOME HERO — Redesigned
-   ============================================================ */
-
+/* ─── Hero Section ───────────────────────────────────────── */
 .home-hero {
-  position: relative;
-  width: 100%;
-  height: auto;
-  margin-top: 145px;
-  /* Matches the fixed 145px header height */
-  background-color: #F4F1EA;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding-bottom: 100px;
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  z-index: 10;
+  
 }
 
+.hero-scroll-wrapper{
+  height: 180vh;
+  position: relative;
+  background: #E8E2D480;
+ 
+}
+
+
+.home-hero-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   
+}
+
+/* ─── Container ──────────────────────────────────────────── */
 .home-hero-container {
   width: 70%;
   margin: 0 auto;
 }
 
+/* ─── Top Layout ─────────────────────────────────────────── */
 .home-hero-top {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: 2rem;
 }
 
-/* ─── LEFT: Content ─────────────────────────────────────── */
-.home-hero-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  z-index: 2;
-}
-
+/* ─── Content ────────────────────────────────────────────── */
 .home-hero-content h1 {
   color: #2F3E56;
-  text-align: center;
-  font-family: "Source Serif 4";
-  font-size: 50px;
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Source Serif 4", serif;
+  font-size: 48px;
+  font-weight: 300;
   line-height: normal;
   text-transform: capitalize;
-  text-align: center;
-  margin-bottom: 2rem;
-  margin-top: 6rem;
+  padding-bottom: 40px;
 }
 
 .home-hero-desc {
@@ -67,12 +67,12 @@
   color: #2F3E56;
 }
 
-/* Mobile image — hidden on desktop */
+/* ─── Mobile Image ───────────────────────────────────────── */
 .home-hero-mobile-img {
   display: none;
 }
 
-/* ─── CTA Buttons ───────────────────────────────────────── */
+/* ─── CTA Buttons ────────────────────────────────────────── */
 .hero-btn-sec-1 {
   display: flex;
   flex-wrap: wrap;
@@ -85,8 +85,8 @@
   height: 50px;
   padding: 0 24px;
   border-radius: 8px;
-  background: #2F3E56;
-  color: #fff;
+  background: #6E7C3A26;
+  color: #2F3E56;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -95,63 +95,53 @@
   justify-content: center;
   gap: 8px;
   text-decoration: none;
-  transition: background 0.25s, transform 0.2s;
   white-space: nowrap;
+  border: none;
+  transition: background 0.25s, transform 0.2s;
+  cursor: pointer;
 }
 
-.home-hero-btn-services:hover,
+/* .home-hero-btn-services:hover,
 .home-hero-btn-program:hover {
   background: #1e2d40;
   transform: translateY(-1px);
-}
+} */
 
-/* ─── Tag Pills ─────────────────────────────────────────── */
+/* ─── Tag Pills ──────────────────────────────────────────── */
 .hero-btn-sec-2 {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.6rem;
+  white-space: nowrap;
   margin-top: 0.5rem;
-  justify-content: center;
 }
 
 .hero-btn-sec-2 a {
-  color: #FFF;
+  color: #fff;
   font-family: "Montserrat", sans-serif;
   font-size: 13px;
   font-weight: 500;
-  line-height: normal;
   text-decoration: none;
   border-radius: 100px;
-  border: 1px solid #75839b;
-  background: #75839b;
+  background: #2f3e56b3;
   padding: 8px 16px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   transition: background 0.25s, transform 0.2s;
+  cursor: default;
 }
 
-.hero-btn-sec-2 a:hover {
+/* .hero-btn-sec-2 a:hover {
   background: #626e83;
-  border-color: #626e83;
   transform: translateY(-1px);
-}
+} */
 
 .hero-btn-sec-2 a svg {
   flex-shrink: 0;
-  color: #FFF;
+  color: #fff;
 }
 
-/* ─── BOTTOM: Text & Divider ────────────────────────────── */
-.home-hero-bottom-text {
-  width: 100%;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 40px;
-}
-
+/* ─── Bottom Text ────────────────────────────────────────── */
 .home-hero-bottom-text p {
   color: #333;
   font-family: "Montserrat", sans-serif;
@@ -166,6 +156,17 @@
   color: #000;
 }
 
+.home-hero-bottom-text h2 {
+  color: #736B2E;
+  font-size: 67px;
+  font-weight: 300;
+  line-height: 1.2;
+  text-transform: capitalize;
+  white-space: nowrap;
+  margin-top: 40px;
+}
+
+/* ─── Divider ────────────────────────────────────────────── */
 .home-hero-divider {
   width: 100%;
   height: 2px;
@@ -174,7 +175,7 @@
   opacity: 0.3;
 }
 
-/* ─── RIGHT: Hero Image ─────────────────────────────────── */
+/* ─── Hero Image (Desktop) ───────────────────────────────── */
 .home-hero-image-wrap {
   flex: 1;
   display: flex;
@@ -192,60 +193,205 @@
   display: block;
 }
 
-.home-hero-bottom-text h2 {
-  color: #736B2E;
-  font-family: "Source Serif 4";
-  font-size: 90px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  text-transform: capitalize;
-  text-align: center;
-  white-space: nowrap;
+/* ─── Slider ─────────────────────────────────────────────── */
+.slider-carosel {
+  background-color: #F4F1EA;
 }
 
-.home-hero-mobile-img {
-  display: none;
+
+.hero-logo {
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.9s ease-in-out;
+}
+
+/* SCROLL STATE */
+body.scrolled .hero-logo {
+  transform: scale(0.3) translateY(-120px);
+  opacity: 0;
+  pointer-events: none;
+  transition-delay: 0.2s;
+}
+
+/* CONTENT */
+.home-hero-flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-logo-wrapper {
+  width: 50%;
+  transition: width 1.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease-in-out;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.home-hero-content {
+  width: 50%;
+  transition: width 1.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s ease-in-out;
+  flex-shrink: 0;
+}
+
+body.scrolled .home-hero-flex-container {
+  gap: 0;
+}
+
+body.scrolled .hero-logo-wrapper {
+  width: 0%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.scrolled .home-hero-content {
+  position: relative;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  transition-delay: 0.2s;
+}
+
+/* BUTTON SECTION */
+.hero-btn-sec-2 {
+  transition: all 0.6s ease;
+}
+
+body.scrolled .hero-btn-sec-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition-delay: 0.6s ease;
+}
+
+/* BOTTOM TEXT */
+.home-hero-bottom-text {
+  transition: all 0.6s ease;
+}
+
+body.scrolled .home-hero-bottom-text {
+  text-align: center;
+  opacity: 1;
+  transition-delay: 0.5s;
+  transform: translateY(-10px);
+}
+
+/* HEADER LOGO */
+.header-logo {
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+  transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 0.5s ease;
+}
+
+body.scrolled .header-logo {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  transition-delay: 0.6s;
+}
+
+body.scrolled .header-logo {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  transition-delay: 0.6s;
+}
+
+/* ─── Responsive: 1600px ─────────────────────────────────── */
+@media (max-width: 1600px) {
+  .home-hero-bottom-text h2 {
+    white-space: normal;
+  }
+
+  .hero-btn-sec-2 {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
 }
 
 @media (max-width:1320px) {
-  .home-hero-bottom-text h2 {
-        font-size: 60px;
-      }
-  
-}
-@media (max-width:992px) {
-  .home-hero-bottom-text h2 {
-        font-size: 45px;
-      }
-  
-}
-
-/* ============================================================
-   RESPONSIVE — Mobile (≤ 768px)
-   ============================================================ */
-
-@media (max-width: 1024px) {
-  .home-hero {
-    margin-top: 140px;
+  .hero-logo{
+    width: 85%;
+    margin: 0 auto;
   }
-}
-
-/* ============================================================
-   RESPONSIVE — Mobile (≤ 768px)
-   ============================================================ */
-@media (max-width: 768px) {
-  .home-hero {
-    padding-bottom: 20px;
+   .home-hero-content h1 {
+    font-size: 48px;
+  }
+   .home-hero-bottom-text h2{
+    font-size: 53px;
   }
 
-  .home-hero-bottom-text h2 {
+ 
+}
+
+/* ─── Responsive: 1120px ─────────────────────────────────── */
+@media (max-width: 1120px) {
+
+    .home-hero-content h1 {
     font-size: 28px;
   }
+   .home-hero-bottom-text h2{
+    font-size: 44px;
+  }
+ 
+  .hero-scroll-wrapper {
+    height: 100vh;
+  }
+}
 
-  .home-hero {
-    min-height: auto;
-    margin-top: 5rem;
+/* ─── Responsive: 992px ──────────────────────────────────── */
+@media (max-width: 992px) {
+
+ .home-hero-content h1 {
+    text-align: center;
+    font-size: 40px;
+  }
+  .hero-btn-sec-1{
+    justify-content: center;
+  }
+  .hero-btn-sec-2{
+    justify-content: center;
+  }
+   .home-hero {
+    position: relative;
+    height: 65vh;
+  }
+  .home-hero-bottom-text h2{
+    text-align: center;
+    
+  }
+
+  .hero-scroll-wrapper {
+    height: 55vh;
+  }
+      .hero-logo {
+       display: none;
+    }
+    .hero-logo-wrapper{
+      transition: none;
+    }
+    .hero-logo-wrapper{
+      display: none;
+    }
+    .home-hero-content{
+      width: 100%;
+      margin: 0 auto;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+
+  .home-hero-content{
+    transition: none;
   }
 
   .home-hero-container {
@@ -259,103 +405,83 @@
     gap: 0;
   }
 
-  /* LEFT: Content */
+  .home-hero-flex-container {
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+  }
+
+  .hero-logo-wrapper {
+    width: 100%;
+  }
+
   .home-hero-content {
     max-width: 100%;
     width: 100%;
-    align-items: flex-start;
-    order: 1;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    order: 1;
+    transform: none !important;
+    position: static !important;
+    left: auto !important;
+    text-align: left !important;
+    transition: none !important;
   }
 
   .home-hero-content h1 {
     font-size: 34px;
     line-height: 1.25;
-    margin-bottom: 1rem;
-    text-align: left;
-    text-align: center;
     padding-top: 15px;
+  
+    text-align: center;
   }
 
   .home-hero-desc {
-    font-size: 14px;
-    line-height: 1.75;
     max-width: 100%;
-    margin-bottom: 0;
     text-align: left;
     padding: 0;
+    margin-bottom: 0;
   }
 
-  /* Mobile hero image — shown between desc and buttons */
   .home-hero-mobile-img {
     display: block;
     width: 100%;
-    margin: 1.25rem 0;
   }
 
-  /* Hide the image-wrap (desktop image) on mobile */
-  .home-hero-image-wrap {
-    display: none;
-  }
-
-  /* CTA Buttons — side by side, matching screenshot */
   .hero-btn-sec-1 {
     flex-direction: row;
     flex-wrap: nowrap;
-    width: 100%;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 1rem;
     justify-content: center;
-    margin-top: 1.5rem;
+    width: 100%;
+    gap: 12px;
+    
   }
 
-  .home-hero-btn-services {
+  .home-hero-btn-services,
+  .home-hero-btn-program {
     flex: 0 0 auto;
     height: 48px;
     padding: 0 20px;
     font-size: 14px;
-    border-radius: 8px;
-    justify-content: center;
     white-space: nowrap;
-  }
-
-  /* "View Programs" — ghost/text style on mobile */
-  .home-hero-btn-program {
-    flex: 0 0 auto;
-    height: 48px;
-    padding: 0 12px;
-    font-size: 14px;
-    border-radius: 8px;
-    justify-content: center;
-    white-space: nowrap;
-    background: #2F3E56;
-    border: none;
-    color: #FFF;
   }
 
   .home-hero-btn-program:hover {
     background: #2F3E56;
-    color: #1e2d40;
     transform: none;
+    color: #fff;
   }
 
   .home-hero-btn-program svg path {
-    stroke: #FFF;
+    stroke: #fff;
   }
 
-  /* Tag Pills — left-aligned */
   .hero-btn-sec-2 {
-    justify-content: flex-start;
-    gap: 8px;
-    width: 100%;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-top: 2rem;
-    display: flex;
     justify-content: center;
+    width: 100%;
+    gap: 8px;
+    margin-top: 2rem;
+    margin-bottom: 0;
   }
 
   .hero-btn-sec-2 a {
@@ -363,36 +489,51 @@
     padding: 7px 14px;
   }
 
-  /* Bottom text — left-aligned */
   .home-hero-bottom-text {
-    text-align: left;
+    text-align: center;
     margin-top: 32px;
   }
 
   .home-hero-bottom-text p {
     font-size: 14px;
-    line-height: 1.8;
+  }
+
+  .home-hero-bottom-text h2 {
+    font-size: 28px;
+  }
+
+  .hero-logo,
+  .header-logo {
+    display: none !important;
+  }
+
+   .home-hero {
+    position: relative;
+    height: 80vh;
+  }
+
+  .hero-scroll-wrapper {
+    height: 75vh;
   }
 }
 
-/* ============================================================
-   RESPONSIVE — Small Mobile (≤ 480px)
-   ============================================================ */
+/* ─── Responsive: 480px ──────────────────────────────────── */
 @media (max-width: 480px) {
+
+  
   .home-hero-content h1 {
-    padding-top: 20px;
     font-size: 28px;
-    line-height: 1.25;
+    padding-top: 20px;
   }
 
-  .home-hero-btn-services {
+  .home-hero-btn-services,
+  .home-hero-btn-program {
     height: 46px;
     font-size: 13px;
     padding: 0 16px;
   }
 
-  .home-hero-btn-program {
-    height: 46px;
-    font-size: 13px;
+  .body.scrolled{
+    transition: none;
   }
 }

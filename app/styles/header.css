@@ -208,6 +208,7 @@ header {
     cursor: pointer;
 }
 
+
 .line {
     width: 24px;
     height: 2px;
@@ -230,26 +231,7 @@ header {
 
 
 
-/* ─── RESPONSIVE ─── */
-@media (max-width: 1024px) {
 
-    header,
-    .header-container {
-        height: 70px;
-    }
-
-    .desktop-header {
-        display: none !important;
-    }
-
-    .sticky-header {
-        display: none !important;
-    }
-
-    .mobile-header {
-        display: flex !important;
-    }
-}
 
 /* ═══════════════════════════════════════════════
    MOBILE SIDE PANEL
@@ -298,11 +280,10 @@ header {
 }
 
 .mobile-nav-links {
-    display: flex;
-    flex-direction: column;
+   
     width: 100%;
     margin-top: 24px;
-    flex: 1;
+   
 }
 
 .mobile-nav-item {
@@ -337,9 +318,109 @@ header {
     cursor: pointer;
 }
 
+/* Parent gap fix */
+.auth-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+/* SIGN UP (Outline only) */
+.auth-header .sign-item {
+  border: 1px solid #736A2F;
+  background: transparent;
+  color: #736A2F;
+
+  padding: 10px 29px;
+  border-radius: 999px;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  transition: all 0.3s ease;
+}
+
+/* SIGN UP HOVER (fill effect) */
+.auth-header .sign-item:hover {
+  background: #2f3e56;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+
+/* LOGIN (15% background as per Figma) */
+.auth-header .login-item {
+  background-color: rgba(110, 124, 58, 0.15); /* 15% */
+  color: #6E7C3A;
+
+  padding: 10px 29px;
+  border-radius: 999px;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  transition: all 0.3s ease;
+}
+
+/* LOGIN HOVER (solid) */
+.auth-header .login-item:hover {
+  background-color: #6E7C3A;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+
+    header,
+    .header-container {
+        height: 70px;
+    }
+
+    .desktop-header {
+        display: none !important;
+    }
+
+    .sticky-header {
+        display: none !important;
+    }
+
+    .mobile-header {
+        display: flex !important;
+    }
+}
+
 
 @media (max-width: 1024px) {
     .header-scrolled {
         height: 0px;
     }
+}
+
+@media (max-width: 767px) {
+    .header-scrolled{
+        transition: none;
+    }
+    .auth-header{
+        flex-direction: row;
+    }
+    .auth-header .sign-item{
+        font-size: 10px;
+    }
+    .auth-header .login-item{
+        font-size: 10px;
+        display: flex;
+    }
+    
 }

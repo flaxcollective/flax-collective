@@ -1,229 +1,162 @@
 "use client";
 import "@/app/styles/header.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { MdLogin } from "react-icons/md";
+
+const navLinks = [
+  { label: "HOME", href: "/" },
+  { label: "SERVICES", href: "/services" },
+  { label: "PROGRAM", href: "/programs" },
+  { label: "CONTACT US", href: "/contact" },
+];
 
 export default function Header() {
-  const [activeHash, setActiveHash] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isClickScrolling, setIsClickScrolling] = useState(false); // ✅ NEW
+  const pathname = usePathname();
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  // Lock body scroll
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isMenuOpen]);
 
-  // ✅ Scroll Spy (FIXED)
+  // Handle header scroll state
   useEffect(() => {
-    const handleScroll = () => {
-      const y = window.scrollY;
-      setIsScrolled(y > 200);
-
-      const sections = ["services", "programs", "contact"];
-      let current = "";
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-
-          // ✅ Accurate detection
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            current = `#${section}`;
-          }
-        }
+    const handleScroll = () => {    
+      if (window.innerWidth < 992) {
+        setIsScrolled(false);
+        document.body.classList.remove("scrolled");
+        return;
+      }
+      if (pathname !== "/") {
+        setIsScrolled(true);
+        document.body.classList.add("scrolled");
+        return;
       }
 
-      if (y < 100) current = "";
-
-      // ✅ Prevent flicker during click scroll
-      if (!isClickScrolling) {
-        setActiveHash(current);
-      }
+      const scrolled = window.scrollY > 150;
+      setIsScrolled(scrolled);
+      document.body.classList.toggle("scrolled", scrolled);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isClickScrolling]);
+  }, [pathname]);
 
-  const navLinks = [
-    { label: "HOME", href: "/", hash: "" },
-    { label: "SERVICES", href: "#services", hash: "#services" },
-    { label: "COURSES", href: "#programs", hash: "#programs" },
-    { label: "CONTACT US", href: "#contact", hash: "#contact" },
-  ];
-
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    hash: string,
-    href: string
-  ) => {
-    setIsMenuOpen(false);
-
-    if (hash) {
-      setIsClickScrolling(true);
-      setActiveHash(hash);
-
-      e.preventDefault();
-      const el = document.querySelector(hash);
-
-      if (el) {
-        const width = window.innerWidth;
-
-        let offset = 130;
-
-        // ✅ Mobile
-        if (width < 768) {
-          offset = 100;
-        }
-
-        // ✅ Tablet
-        else if (width >= 768 && width < 1024) {
-          offset = 115;
-        }
-
-        // ✅ Desktop
-        else {
-          offset = 130;
-        }
-
-        // ✅ Extra for SERVICES only
-        if (hash === "#services") {
-          if (width < 768) offset = 140;
-          else if (width < 1024) offset = 160;
-          else offset = 200;
-        }
-
-        const top =
-          el.getBoundingClientRect().top + window.scrollY - offset;
-
-        window.scrollTo({
-          top,
-          behavior: "smooth",
-        });
-
-        setTimeout(() => {
-          setIsClickScrolling(false);
-        }, 800);
-      }
-    } else if (href === "/") {
-      setIsClickScrolling(true);
-      setActiveHash("");
-
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-
-      setTimeout(() => {
-        setIsClickScrolling(false);
-      }, 800);
-    }
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 header-main ${isScrolled ? "header-scrolled" : ""
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 header-main ${isScrolled ? "header-scrolled" : ""
         }`}
     >
       {/* DESKTOP HEADER */}
-      <div className="sticky-header">
-        <div className="sticky-header-inner">
-          {/* Logo */}
-          <Link
-            href="/"
-            onClick={(e) => handleNavClick(e, "", "/")}
-            className="sticky-logo"
-          >
+      <div className="sticky-header hidden lg:block">
+        <div className="sticky-header-inner flex items-center justify-between">
+
+          {/*  Logo */}
+          <Link href="/" className="header-logo transition-all duration-700">
             <img
-              src="/assets/images/flex-collective-logo.png"
+              src="/assets/images/logo/flax-square-logo.png"
               alt="Flax Collective"
+              className="w-[120px] h-auto"
             />
           </Link>
 
-          {/* Nav */}
-          <nav className="sticky-nav">
-            {navLinks.map((link) => {
-              const isActive =
-                (link.hash === "" && activeHash === "") ||
-                (link.hash !== "" && activeHash === link.hash);
-
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) =>
-                    handleNavClick(e, link.hash, link.href)
-                  }
-                  className={`nav-link cursor-pointer ${isActive ? "active" : ""
-                    }`}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
+          <nav className="sticky-nav flex-1 flex justify-center">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`nav-link cursor-pointer ${pathname === link.href ? "active" : ""
+                  }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
+
+          <div className="auth-header">
+            <button className="sign-item">SIGN UP</button>
+            <button className="login-item flex gap-1">
+              LOGIN <MdLogin className="text-md" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* MOBILE HEADER */}
-      <div className="mobile-header lg:hidden sticky top-0 z-50">
+      {/* MOBILE HEADER BAR */}
+      <div className="mobile-header mobile-menu lg:hidden sticky top-0 z-50">
         <div className="mobile-header-spacer" />
-
         <div className="mobile-logo">
-          <Link href="/">
+          <Link href="/" onClick={closeMenu}>
             <img
-              src="/assets/images/flex-collective-logo.png"
+              src="/assets/images/logo/flax-square-logo.png"
               alt="Flax Collective"
             />
           </Link>
         </div>
-
-        <div className="mobile-menu">
-          <button onClick={toggleMenu} aria-label="Toggle Menu">
-            <span className={`line l1 ${isMenuOpen ? "active" : ""}`} />
-            <span className={`line l2 ${isMenuOpen ? "active" : ""}`} />
-            <span className={`line l3 ${isMenuOpen ? "active" : ""}`} />
-          </button>
-        </div>
+        <button
+          className="mobile-menu"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          aria-label="Toggle Menu"
+          aria-expanded={isMenuOpen}
+        >
+          <span className={`line l1 ${isMenuOpen ? "active" : ""}`} />
+          <span className={`line l2 ${isMenuOpen ? "active" : ""}`} />
+          <span className={`line l3 ${isMenuOpen ? "active" : ""}`} />
+        </button>
       </div>
 
-      {/* MOBILE PANEL */}
+      {/* MOBILE NAV PANEL */}
       <div
-        className={`mobile-nav-panel lg:hidden ${isMenuOpen ? "open" : ""
-          }`}
+        className={`mobile-nav-panel lg:hidden ${isMenuOpen ? "open" : ""}`}
+        aria-hidden={!isMenuOpen}
       >
         <button
           className="mobile-nav-close"
-          onClick={() => setIsMenuOpen(false)}
+          onClick={closeMenu}
+          aria-label="Close Menu"
         >
           ✕
         </button>
 
         <nav className="mobile-nav-links">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              onClick={(e) =>
-                handleNavClick(e, link.hash, link.href)
-              }
-              className="mobile-nav-item"
+              onClick={closeMenu}
+              className={`mobile-nav-item ${pathname === link.href ? "active" : ""
+                }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
+
+
+        <div className="auth-header mt-6 flex flex-col gap-3 px-4">
+          <button className="sign-item">SIGN UP</button>
+          <button className="login-item ">
+            LOGIN <MdLogin />
+          </button>
+        </div>
       </div>
 
       {/* BACKDROP */}
       {isMenuOpen && (
         <div
           className="mobile-nav-backdrop lg:hidden"
-          onClick={() => setIsMenuOpen(false)}
+          onClick={closeMenu}
+          aria-hidden="true"
         />
       )}
     </header>

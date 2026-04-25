@@ -14,11 +14,11 @@ interface HomeServicesProps {
 export default function HomeServices({ onHireTalent }: HomeServicesProps) {
   return (
     <>
-      <section id="services" className="home-services-section">
-        <div className="services-container service-for-emp">
+      <section className="home-services-section ">
+        <div className="services-container service-for-emp max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           {/* ── FOR STUDENTS ────────────────────────────────── */}
-          <div className="cp-section">
-            <h2 className="cp-heading">For Students</h2>
+          <div className="cp-section py-16 md:py-20">
+            <h2 className="text-4xl md:text-5xl font-medium text-[#2F3E56] font-serif tracking-tight mb-6">For Students</h2>
             <p className="cp-text">
               Flax Collective provides a structured pathway for graduate students and working professionals who aspire to upgrade their careers in global markets. Our program is designed to guide candidates through professional preparation before introducing them to employment opportunities.
             </p>
@@ -29,55 +29,55 @@ export default function HomeServices({ onHireTalent }: HomeServicesProps) {
                 <span className="fs-step-icon">
                   <img src="/assets/icons/iapr.png" alt="Application" width={36} height={36} />
                 </span>
-                <p className="fs-step-label">Initial Application And Profile Review</p>
+                <p className="fs-step-label">Application and Profile Review</p>
               </div>
 
               <div className="fs-step-card">
                 <span className="fs-step-icon">
                   <img src="/assets/icons/ccpg.png" alt="Counselling" width={36} height={36} />
                 </span>
-                <p className="fs-step-label">Career Counselling And Professional Guidance</p>
+                <p className="fs-step-label"> Career Counselling and Professional Guidance</p>
               </div>
 
               <div className="fs-step-card">
                 <span className="fs-step-icon">
                   <img src="/assets/icons/ectpwr.png" alt="Certification" width={36} height={36} />
                 </span>
-                <p className="fs-step-label">Enrollment In Certification Or Training Programs Where Required</p>
+                <p className="fs-step-label"> Enrollment in Certification or Training Programs</p>
               </div>
 
               <div className="fs-step-card">
                 <span className="fs-step-icon">
                   <img src="/assets/icons/psdw.png" alt="Workshops" width={36} height={36} />
                 </span>
-                <p className="fs-step-label">Participation In Skill Development Workshops</p>
+                <p className="fs-step-label">Participation in skill development workshops</p>
               </div>
 
               <div className="fs-step-card">
                 <span className="fs-step-icon">
                   <img src="/assets/icons/csip.png" alt="Screening" width={36} height={36} />
                 </span>
-                <p className="fs-step-label">Candidate Screening And Interview Preparation</p>
+                <p className="fs-step-label"> Candidate screening and interview preparation</p>
               </div>
 
               <div className="fs-step-card">
                 <span className="fs-step-icon">
                   <img src="/assets/icons/iphe.png" alt="Employers" width={36} height={36} />
                 </span>
-                <p className="fs-step-label">Introduction To Potential Employers</p>
+                <p className="fs-step-label"> Introduction to potential employers</p>
               </div>
 
             </div>
 
             <p className="cp-text cp-text--small">
-              Our Goal Is To Help Aspiring Professionals Develop The <strong>Skills, Confidence, And Industry Awareness Required To Succeed In Global Environments.</strong>
+              Our Goal Is To Help Aspiring Professionals Develop The <strong> Skills, Confidence, And Industry Awareness Required To Succeed In Global Environments.</strong>
             </p>
           </div>
 
           {/* ── FOR EMPLOYERS ───────────────────────────────── */}
           <div className="cp-section">
-            <h2 className="cp-heading">For Employers</h2>
-            <p className="cp-text">
+            <h2 className="cp-heading text-4xl md:text-5xl font-medium text-[#2F3E56] font-serif tracking-tight mb-6">For Employers</h2>
+            <p className="cp-text pb-2.5">
               Flax Collective supports organizations by providing access to <strong>trained and pre-screened professionals prepared for excellence.</strong>
             </p>
             <p className="cp-text">
@@ -85,10 +85,7 @@ export default function HomeServices({ onHireTalent }: HomeServicesProps) {
             </p>
           </div>
 
-          <p className="sfe-subtitle">
-            Access trained, pre-screened professionals prepared to meet international standards.
-          </p>
-          <div className="sfe-grid mt-10">
+          <div className="sfe-grid max-w-5xl mx-auto mt-10">
             {/* Card 1 */}
             <div className="sfe-card">
               <div className="sfe-text-container-top">
@@ -123,7 +120,7 @@ export default function HomeServices({ onHireTalent }: HomeServicesProps) {
             </div>
 
             {/* Card 4 */}
-            <div className="sfe-card">
+            {/* <div className="sfe-card">
               <div className="sfe-text-container-top">
               </div>
               <div className="sfe-img-container">
@@ -131,7 +128,7 @@ export default function HomeServices({ onHireTalent }: HomeServicesProps) {
               </div>
               <div className="sfe-text-container-bottom">
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="sfe-button-container">

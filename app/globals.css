@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
 @theme inline {
   --color-primary: #6E7C3A;
   --color-primary-dark: #5a6630;
@@ -33,9 +37,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-source-serif-4), serif;
+  font-family: var(--font-source-serif-4), serif !important;
   line-height: 1.2;
-  color: #2F3E56;
+
+ 
 }
 
 a {
@@ -53,3 +58,28 @@ a {
   width: 100%;
 }   
 
+ strong {
+    color: #736a2f;
+}
+
+.sets_program{
+  background: rgba(110, 124, 58, 0.15);
+  margin:40px 60px !important;
+  border-radius: 30px;
+
+}
+
+.primary_btn {
+  background-color: #2F3E56;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 24px; 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer !important;
+}

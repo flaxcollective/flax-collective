@@ -1,10 +1,10 @@
 import "@/app/styles/home/home-founder.css";
 export default function HomeFounder() {
   return (
-    <section className="home-founder-section">
-      <div className="home-founder-section-container ">
-        <div className="mb-12">
-          <h2 className="text-4xl font-serif font-bold text-gray-900 mb-6">
+    <section className="home-founder-section pb-16 md:pb-16">
+      <div className="home-founder-section-container max-w-7xl mx-auto  px-4 md:px-6 lg:px-8 ">
+        <div className="mb-10">
+          <h2 className="founder-heading">
             Founder’s Message
           </h2>
         </div>
