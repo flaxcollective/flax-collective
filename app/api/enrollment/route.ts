@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
+import { getDb } from "@/lib/mongodb";
 
-const DATA_FILE = path.join(process.cwd(), "data", "enrollments.json");
+export const runtime = "nodejs";
+
 const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_WEBAPP_URL;
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,8 +11,8 @@ export async function POST(req: NextRequest) {
     let { firstName, lastName, email, countryCode, mobile, country, state, city, course } = body;
 
     // Ensure countryCode has +
-    if (typeof countryCode === 'string' && countryCode && !countryCode.startsWith('+')) {
-      countryCode = '+' + countryCode;
+    if (typeof countryCode === "string" && countryCode && !countryCode.startsWith("+")) {
+      countryCode = "+" + countryCode;
     }
 
     if (!firstName || !lastName || !email || !countryCode || !mobile || !country || !state || !city || !course) {
@@ -23,20 +22,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Read existing data
-    let entries: unknown[] = [];
-    try {
-      const raw = await fs.readFile(DATA_FILE, "utf-8");
-      entries = JSON.parse(raw) as unknown[];
-    } catch {
-      // File doesn't exist yet — start fresh
-      entries = [];
-    }
-
-    // Append new entry
     const newEntry = {
-      id: Date.now(),
-      submittedAt: new Date().toISOString(),
+      submittedAt: new Date(),
       firstName,
       lastName,
       email,
@@ -48,11 +35,8 @@ export async function POST(req: NextRequest) {
       course,
     };
 
-    entries.push(newEntry);
-
-    await fs.mkdir(path.join(process.cwd(), "data"), { recursive: true });
-
-    await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2), "utf-8");
+    const db = await getDb();
+    await db.collection("enrollments").insertOne(newEntry);
 
     if (GOOGLE_SHEET_URL) {
       try {
@@ -61,16 +45,15 @@ export async function POST(req: NextRequest) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...newEntry,
-            countryCode: `'${newEntry.countryCode}`, // Prefix with ' to preserve + in Google Sheets
-            sheetName: "StudentSubmissions"
+            countryCode: `'${countryCode}`,
+            sheetName: "StudentSubmissions",
           }),
         });
       } catch (sheetErr) {
         console.error("[GOOGLE SHEETS ERROR]", sheetErr);
       }
-    } else {
-      console.warn("[GOOGLE SHEETS] No URL configured in .env.local");
     }
+
     return NextResponse.json({ success: true, message: "Enrollment submitted successfully." });
   } catch (err) {
     console.error("[ENROLLMENT ERROR]", err);

@@ -1,30 +1,22 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { promises as fs } from "fs";
-import path from "path";
+import { getDb } from "@/lib/mongodb";
 
-const dataDir = path.join(process.cwd(), "data");
-const filePath = path.join(dataDir, "customCourses.json");
+export const runtime = "nodejs";
 
-async function ensureFile() {
-  try {
-    await fs.access(filePath);
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true });
-    await fs.writeFile(filePath, "[]");
-  }
+function getTokenFromCookie(req: Request): string | null {
+  const cookie = req.headers.get("cookie") || "";
+  return (
+    cookie
+      .split("; ")
+      .find((c) => c.startsWith("token="))
+      ?.split("=")[1] ?? null
+  );
 }
-
 
 export async function GET(req: Request) {
   try {
-    await ensureFile();
-
-    const cookie = req.headers.get("cookie") || "";
-    const token = cookie
-      .split("; ")
-      .find((c) => c.startsWith("token="))
-      ?.split("=")[1];
+    const token = getTokenFromCookie(req);
 
     if (!token) {
       return NextResponse.json({ courses: [] }, { status: 401 });
@@ -37,32 +29,21 @@ export async function GET(req: Request) {
       return NextResponse.json({ courses: [] }, { status: 401 });
     }
 
-    const fileData = await fs.readFile(filePath, "utf8");
-    const data = JSON.parse(fileData);
-
-    const userData = data.find((d: any) => d.userId === user.id);
+    const db = await getDb();
+    const record = await db.collection("customCourses").findOne({ userId: user.id });
 
     return NextResponse.json({
-      courses: userData?.courses || [],
+      courses: record?.courses || [],
     });
-
   } catch (error) {
     console.error("GET ERROR:", error);
     return NextResponse.json({ courses: [] }, { status: 500 });
   }
 }
 
-
-
 export async function POST(req: Request) {
   try {
-    await ensureFile();
-
-    const cookie = req.headers.get("cookie") || "";
-    const token = cookie
-      .split("; ")
-      .find((c) => c.startsWith("token="))
-      ?.split("=")[1];
+    const token = getTokenFromCookie(req);
 
     if (!token) {
       return NextResponse.json({ success: false }, { status: 401 });
@@ -78,28 +59,21 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { courses } = body;
 
-    const fileData = await fs.readFile(filePath, "utf8");
-    let data = JSON.parse(fileData);
-
-    const index = data.findIndex((d: any) => d.userId === user.id);
-
-    const entry = {
-      userId: user.id,
-      email: user.email,
-      courses,
-      updatedAt: new Date().toISOString(),
-    };
-
-    if (index !== -1) {
-      data[index] = entry;
-    } else {
-      data.push(entry);
-    }
-
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+    const db = await getDb();
+    await db.collection("customCourses").updateOne(
+      { userId: user.id },
+      {
+        $set: {
+          userId: user.id,
+          email: user.email,
+          courses,
+          updatedAt: new Date().toISOString(),
+        },
+      },
+      { upsert: true }
+    );
 
     return NextResponse.json({ success: true });
-
   } catch (error) {
     console.error("POST ERROR:", error);
     return NextResponse.json({ success: false }, { status: 500 });

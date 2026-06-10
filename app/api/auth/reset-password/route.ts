@@ -1,10 +1,8 @@
-
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { promises as fs } from "fs";
-import path from "path";
+import { getDb } from "@/lib/mongodb";
 
-const filePath = path.join(process.cwd(), "data", "signup.json");
+export const runtime = "nodejs";
 
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
@@ -20,7 +18,6 @@ export async function POST(req: Request) {
       );
     }
 
-        // ✅ Validate password strength
     if (!passwordRegex.test(password)) {
       return NextResponse.json(
         {
@@ -32,33 +29,18 @@ export async function POST(req: Request) {
       );
     }
 
-    
-    let users = [];
-    try {
-      const fileData = await fs.readFile(filePath, "utf-8");
-      users = JSON.parse(fileData);
-    } catch (err) {
-      return NextResponse.json(
-        { success: false, message: "User data not found" },
-        { status: 500 }
-      );
-    }
+    const db = await getDb();
+    const users = db.collection("users");
 
-    // Find user (case insensitive)
-    const userIndex = users.findIndex(
-      (u: any) => u.email?.toLowerCase() === email.toLowerCase()
-    );
+    const user = await users.findOne({ email: email.toLowerCase().trim() });
 
-    if (userIndex === -1) {
+    if (!user) {
       return NextResponse.json(
         { success: false, message: "User not found" },
         { status: 404 }
       );
     }
 
-    const user = users[userIndex];
-
-    // Check if OTP exists
     if (!user.otp || !user.otpExpiry) {
       return NextResponse.json(
         { success: false, message: "No OTP request found" },
@@ -66,7 +48,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Verify OTP
     if (user.otp !== otp) {
       return NextResponse.json(
         { success: false, message: "Invalid OTP" },
@@ -74,7 +55,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check OTP expiry
     if (Date.now() > user.otpExpiry) {
       return NextResponse.json(
         { success: false, message: "OTP has expired" },
@@ -82,16 +62,15 @@ export async function POST(req: Request) {
       );
     }
 
-    // Hash new password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Update user
-    users[userIndex].password = hashedPassword;
-    users[userIndex].otp = null;
-    users[userIndex].otpExpiry = null;
-
-    // Save updated data
-    await fs.writeFile(filePath, JSON.stringify(users, null, 2));
+    await users.updateOne(
+      { email: email.toLowerCase().trim() },
+      {
+        $set: { password: hashedPassword, updatedAt: new Date().toISOString() },
+        $unset: { otp: "", otpExpiry: "" },
+      }
+    );
 
     return NextResponse.json({
       success: true,
