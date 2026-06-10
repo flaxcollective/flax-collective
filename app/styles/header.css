@@ -148,7 +148,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 100vw;
+   
     overflow: hidden;
     height: 100px;
     padding: 0 16px;
@@ -375,7 +375,7 @@
   transition: all 0.3s ease;
 }
 
-/* SIGN UP HOVER (fill effect) */
+
 .auth-header .sign-item:hover {
   background: #2f3e56;
   color: #fff;
@@ -383,7 +383,7 @@
 }
 
 
-/* LOGIN (15% background as per Figma) */
+
 .auth-header .login-item {
   background-color: rgba(110, 124, 58, 0.15); /* 15% */
   color: #6E7C3A;
@@ -428,14 +428,13 @@
     .mobile-header {
         display: flex !important;
     }
-}
-
-
-@media (max-width: 1024px) {
     .header-scrolled {
         height: 0px;
     }
 }
+
+
+
 
 @media (max-width: 767px) {
     .header-scrolled{
