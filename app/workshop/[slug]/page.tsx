@@ -70,18 +70,7 @@ export default async function EventDetails({
                             {event.location}
                         </p>
 
-                        {event.description && (
-                            <div className="space-y-4">
-                                {event.description.map((item, index) => (
-                                    <p
-                                        key={index}
-                                        className="text-sm md:text-base leading-6 text-text-dark"
-                                    >
-                                        {item}
-                                    </p>
-                                ))}
-                            </div>
-                        )}
+                       
                     </div>
 
                 </div>

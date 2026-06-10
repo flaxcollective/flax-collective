@@ -38,8 +38,8 @@ export default function Home() {
       <HomeHero />
       <HomeSlider/>
 
-      <WhatWeDo/>
-      <Whyflax/>
+      {/* <WhatWeDo/>
+      <Whyflax/> */}
 
       {/* 
           <HomeWhyFlex />
@@ -59,7 +59,7 @@ export default function Home() {
 
       <HomeMissionVission />
 
-      <HomeServices onHireTalent={() => setIsEmployerModalOpen(true)} />
+      {/* <HomeServices onHireTalent={() => setIsEmployerModalOpen(true)} /> */}
 
       <HomeGlobalFootprint />
 

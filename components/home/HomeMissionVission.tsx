@@ -7,24 +7,24 @@ import { IoDiamondOutline } from "react-icons/io5";
 
 const values = [
     {
-        title: "Integrity",
-        desc: "We maintain transparency and fairness in every stage of our training and recruitment process.",
+        title: "Learn with Purpose",
+        desc: "We champion learning that is practical, relevant, and transformative.",
     },
     {
-        title: "Excellence",
-        desc: "We prepare candidates to meet the highest standards of professional service.",
+        title: "Connect Meaningfully",
+        desc: "We foster relationships between education, industry, and opportunity.",
     },
     {
-        title: "Opportunity",
-        desc: "We believe talented individuals deserve access to global career pathways.",
+        title: "Pursue Excellence",
+        desc: "We strive for quality, professionalism, and continuous improvement in everything we do.",
     },
     {
-        title: "Responsibility",
-        desc: "We are committed to ethical recruitment practices that protect and empower both candidates and employers.",
+        title: "Grow Continuously",
+        desc: "We encourage curiosity, adaptability, and lifelong development.",
     },
     {
-        title: "Partnership",
-        desc: "We build long-term relationships with institutions, employers, and professionals based on trust and shared growth.",
+        title: "Create Impact",
+        desc: "We measure success by the opportunities, confidence, and outcomes we help create.",
     },
 ];
 
@@ -33,7 +33,7 @@ export default function HomeMissionVission() {
 
     return (
         <section className="mv-section">
-            <div className="mv-container max-w-7xl mx-auto px-4 md:px-6 lg:px-8 ">
+            <div className="mv-container max-w-7xl mx-auto pb-20 px-4 md:px-6 lg:px-8 ">
 
                   
                        {/* ── CARD ─────────────────────────────────────────── */}
@@ -46,9 +46,9 @@ export default function HomeMissionVission() {
                           <MdRemoveRedEye className="eye-icon" />
                         </div>
                         <div className="mv-row-body">
-                            <h3 className="mv-row-title">Our Vision</h3>
+                            <h3 className="mv-row-title">Vision</h3>
                             <p className="mv-row-text">
-                               To become a trusted bridge between talent and opportunity, enabling skilled professionals to build global careers while supporting organizations in developing high-performing teams.
+                               To create pathways between learning and opportunity by connecting education, industry, and careers.
                             </p>
                         </div>
                     </div>
@@ -61,9 +61,9 @@ export default function HomeMissionVission() {
                             <TbTargetArrow className="target-icon" />
                         </div>
                         <div className="mv-row-body">
-                            <h3 className="mv-row-title">Our Mission</h3>
+                            <h3 className="mv-row-title">Mission</h3>
                             <p className="mv-row-text">
-                                To prepare professionals for international careers through structured training, professional guidance, and responsible recruitment practices while providing employers with access to reliable, job-ready talent.
+                             To empower individuals through experiential learning, industry-led programmes, educational guidance, and career opportunities that prepare them for a rapidly evolving world.
                             </p>
                         </div>
                     </div>
@@ -80,7 +80,7 @@ export default function HomeMissionVission() {
                             onClick={() => setValuesOpen((o) => !o)}
                             aria-expanded={valuesOpen}
                         >
-                            <span className="mv-row-title">Our Values</span>
+                            <span className="mv-row-title">Values</span>
                             <svg
                                 className={`mv-chevron ${valuesOpen ? "mv-chevron--open" : ""}`}
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -115,7 +115,7 @@ export default function HomeMissionVission() {
 
                 </div>
 
-                <div className="global-page-divider mt-16"></div>
+                {/* <div className="global-page-divider mt-16"></div> */}
 
            
 
