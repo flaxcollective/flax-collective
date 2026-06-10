@@ -1,81 +1,126 @@
-import React from "react";
-import '@/app/styles/events.css'
+"use client";
+
+import { useState } from "react";
 import { IoTimeOutline } from "react-icons/io5";
-import Link from "next/link";
+import { IoClose } from "react-icons/io5";
+import "@/app/styles/events.css";
+
 export const events = [
-    {
-        slug: "ai-powered-productivity-masterclass",
-        date: "May 06, 2026",
-        title: "2-Day Real Estate Capability Enhancement Workshop",
-        location: "Sahibzada Ajit Singh Nagar (Mohali)",
-        image: "/assets/images/events/2.png",
-        descimage: "/assets/images/events/2.png",
-        description: [
-            "This two-day workshop, conducted in collaboration with STJ Group, is designed to enhance the sales, leadership, and business development capabilities of real estate professionals. Participants will gain practical insights into market trends, customer engagement, negotiation strategies, and revenue growth through expert-led sessions and real-world case studies.",
-
-            "The program focuses on improving client relationships, strengthening sales performance, and adapting to evolving industry demands. Attendees will also have the opportunity to network with peers and industry experts while gaining actionable strategies that can be applied immediately in their roles.",
-
-            "Designed for Sales Executives, Managers, GMs, AGMs, and VP Sales, this workshop equips participants with the skills and knowledge needed to drive business success and achieve long-term growth.",
-
-            "Participants will tackle real-world sales challenges through interactive discussions and practical exercises. The workshop encourages strategic thinking and stronger leadership skills."
-        ]
-    }
+  {
+    slug: "real-estate-capability-enhancement-workshop",
+    date: "May 06, 2026",
+    title: "2-Day Real Estate Capability Enhancement Workshop",
+    location: "Sahibzada Ajit Singh Nagar (Mohali)",
+    images: [
+      "/assets/images/events/1.png",
+      "/assets/images/events/2.png",
+      "/assets/images/events/3.png",
+      "/assets/images/events/4.png",
+      "/assets/images/events/5.png",
+      "/assets/images/events/6.png",
+      "/assets/images/events/flaxdescimg.png",
+    ],
+  },
 ];
 
 export default function EventsCard() {
+  const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
 
+  return (
+    <>
+      <section className="py-8 md:py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          {events.map((event, index) => (
+            <div
+              key={index}
+              className="border border-[#d9d9d9] rounded-[28px] p-6 md:p-8"
+            >
+              {/* Images Row */}
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                {event.images.slice(0, 7).map((img, i) => (
+                  <div
+                    key={i}
+                    className="w-[110px] h-[80px] md:w-[130px] md:h-[90px] overflow-hidden rounded-xl"
+                  >
+                    <img
+                      src={img}
+                      alt={`Workshop ${i + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
 
-    return (
-        <section className="flax-eventsCard py-8 md:py-12">
-            <div className="max-w-7xl mx-auto px-4">
+              {/* Content */}
+              <div className="text-center">
+                <h2 className="text-xl md:text-[22px] font-semibold text-text-dark mb-3.5">
+                  {event.title}
+                </h2>
 
-                {/* Events Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {events.map((event, index) => (
-                        <div
-                            key={index}
-                            className="flax-card-border rounded-2xl p-0 md:p-5  flex flex-col md:flex-row md:items-center md:justify-between gap-4 hover:shadow-lg transition-all duration-300"
-                        >
-
-                            <div className="w-full h-auto md:w-48 md:min-h-52 shrink-0 order-1 md:order-2">
-                                <img
-                                    src={event.image}
-                                    alt={event.title}
-                                    className="w-full h-full object-cover rounded-md"
-                                />
-                            </div>
-                            <div className="flex-1 news-eventsbtn order-2 md:order-1">
-                                <p className="text-xs md:text-base flex items-center gap-1 text-text-body mb-1 md:mb-5">
-                                    <span> <IoTimeOutline /></span>
-                                    {event.date}
-                                </p>
-
-                                <h3 className="text-sm md:text-2xl font-semibold text-text-dark mb-1.5 md:mb-2.5 line-clamp-2">
-                                    {event.title}
-                                </h3>
-
-                                <p className="text-xs md:text-sm font-medium text-text-dark mb-4 md:mb-14">
-                                    {event.location}
-                                </p>
-
-                                <Link
-                                    href={`/workshop/${event.title
-                                        .toLowerCase()
-                                        .replace(/[^a-z0-9\s-]/g, "")
-                                        .replace(/\s+/g, "-")}`}
-                                    className="bg-navy inline-block cursor-pointer hover:bg-slate-900 text-white text-base leading-6 px-6 py-2.5 rounded-lg"
-                                >
-                                    Read More
-                                </Link>
-                            </div>
-
-
-                        </div>
-                    ))}
+                <div className="flex items-center justify-center gap-2 text-text-body mb-3.5">
+                  <IoTimeOutline className="text-lg" />
+                  <span>{event.date}</span>
                 </div>
 
-            
+                <p className="text-text-dark text-sm font-medium mb-3.5">
+                  {event.location}
+                </p>
+
+                <button
+                  onClick={() => setSelectedEvent(event)}
+                  className="bg-navy text-white px-6 py-2.5 cursor-pointer rounded-lg"
+                >
+                  View More
+                </button>
+              </div>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+      </section>
+
+      {/* Modal */}
+      {selectedEvent && (
+        <div className="fixed inset-0 z-[9999]  flex items-center justify-center p-4">
+          <div className="relative w-full max-w-6xl bg-navy  rounded-[40px] p-5 md:p-8">
+
+            {/* Close */}
+            <button
+              onClick={() => setSelectedEvent(null)}
+              className="absolute right-4 top-4 bg-white cursor-pointer rounded-lg w-10 h-10 flex items-center justify-center text-[#334766]"
+            >
+              <IoClose size={24} />
+            </button>
+
+            {/* Images */}
+            <div className="flex flex-wrap justify-center gap-4 md:gap-5">
+              {selectedEvent.images.map((img, index) => (
+                <div
+                  key={index}
+                  className="overflow-hidden rounded-2xl"
+                >
+                  <img
+                    src={img}
+                    alt={`Event ${index + 1}`}
+                    className="w-[170px] md:w-[240px] h-[120px] md:h-[170px] object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Content */}
+            <div className="text-center mt-6">
+              <h2 className="text-white text-[22px] font-semibold pb-3.5">
+                {selectedEvent.title}
+              </h2>
+
+              <div className="flex items-center justify-center gap-2 text-white">
+                <IoTimeOutline />
+                <span>{selectedEvent.date}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }

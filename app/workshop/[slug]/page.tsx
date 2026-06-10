@@ -17,11 +17,12 @@ export default async function EventDetails({
 
     const event = events.find(
         (item) =>
-            item.title
+            item.slug
                 .toLowerCase()
                 .replace(/[^a-z0-9\s-]/g, "")
                 .replace(/\s+/g, "-") === slug
     );
+
 
     if (!event) {
         notFound();
@@ -37,7 +38,7 @@ export default async function EventDetails({
                         <h3 className="pb-3.5 text-xl md:text-5xl lg:text-6xl font-semibold md:font-light leading-24">
                             {event.title}
                         </h3>
-                           <p className="flex items-center justify-center gap-2 text-text-dark text-sm md:text-lg mb-5">
+                        <p className="flex items-center justify-center gap-2 text-text-dark text-sm md:text-lg mb-5">
                             <IoTimeOutline className="text-lg" />
                             {event.date}
                         </p>
@@ -53,66 +54,49 @@ export default async function EventDetails({
                     {/* Left Image */}
                     <div className="flaxieventsimg">
                         <img
-                            src={event.descimage}
+                            src={event.images?.[0]}
                             alt={event.title}
-                            className=""
+                            className="w-full rounded-lg"
                         />
                     </div>
 
                     {/* Right Content */}
                     <div>
-                        {/* <p className="flex items-center gap-2 text-text-dark text-sm md:text-lg mb-5">
-                            <IoTimeOutline className="text-lg" />
-                            {event.date}
-                        </p> */}
+                        <h2 className="text-2xl font-semibold mb-4">
+                            {event.title}
+                        </h2>
 
-                        <div className="space-y-4">
-                            {event.description?.map((item, index) => (
-                                <p
-                                    key={index}
-                                    className="text-xs md:text-base leading-4 md:leading-6 text-text-dark text-justify"
-                                >
-                                    {item}
-                                </p>
-                            ))}
-                        </div>
+                        <p className="text-base text-gray-600 mb-4">
+                            {event.location}
+                        </p>
+
+                        {event.description && (
+                            <div className="space-y-4">
+                                {event.description.map((item, index) => (
+                                    <p
+                                        key={index}
+                                        className="text-sm md:text-base leading-6 text-text-dark"
+                                    >
+                                        {item}
+                                    </p>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                 </div>
             </section>
 
-            <section className=" max-w-7xl mx-auto  px-4 image-grid py-8">
+            <section className="max-w-7xl mx-auto px-4 py-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <img
-                        src="/assets/images/events/1.png"
-                        alt="Image 1"
-                        className="w-full h-48 object-cover rounded-lg"
-                    />
-                    <img
-                        src="/assets/images/events/2.png"
-                        alt="Image 2"
-                        className="w-full h-48 object-cover rounded-lg"
-                    />
-                    <img
-                        src="/assets/images/events/3.png"
-                        alt="Image 3"
-                        className="w-full h-48 object-cover rounded-lg"
-                    />
-                    <img
-                        src="/assets/images/events/4.png"
-                        alt="Image 4"
-                        className="w-full h-48 object-cover rounded-lg"
-                    />
-                    <img
-                        src="/assets/images/events/5.png"
-                        alt="Image 5"
-                        className="w-full h-48 object-cover rounded-lg"
-                    />
-                    <img
-                        src="/assets/images/events/6.png"
-                        alt="Image 6"
-                        className="w-full h-48 object-cover rounded-lg"
-                    />
+                    {event.images?.map((image, index) => (
+                        <img
+                            key={index}
+                            src={image}
+                            alt={`Event ${index + 1}`}
+                            className="w-full h-48 object-cover rounded-lg"
+                        />
+                    ))}
                 </div>
             </section>
             <Footer />
