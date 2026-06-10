@@ -10,7 +10,7 @@ const services = [
     },
     {
         icon: "/assets/icons/service-icon/book-1.svg",
-        title: "Learn Experiences",
+        title: "Learning Experiences",
         desc: "Thoughtfully curated programmes that transform learning into meaningful growth.",
     },
     {

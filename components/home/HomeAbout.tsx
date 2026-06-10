@@ -10,19 +10,19 @@ export default function HomeAbout() {
           <h2>About Us</h2>
 
           <p className="about-intro text-left">
-           FLAX Collective is a modern talent development firm dedicated to elevating individuals across industries through structured learning, real-world insight, and meaningful opportunities.
+           Flax Collective is an educational and industry engagement platform redefining how learning is experienced.
           </p>
 
 
           <div className="about-grid">
             <div className="about-text">
               <p>
-              We specialize in in-person seminars and interactive training sessions that focus on <strong> upskilling, professional growth, and confidence-building.</strong>  Complementing this, our virtual courses offer accessible, high-quality learning designed for today’s dynamic workforce.
+             By bridging the gap between academia and industry, we create immersive opportunities that enable learners to gain insight, build capability, and explore future possibilities beyond traditional education.
               </p>
               <p>
-                At our core, FLAX Collective aims to bridge the gap between potential and opportunity—guiding individuals not only in developing their capabilities, but also in securing the right career placements to match their growth.
+               Through thoughtfully designed programmes, strategic partnerships, and experiential learning initiatives, we empower individuals to develop the skills, awareness, and confidence required to thrive in a rapidly changing world.
               </p>
-              <p>With a strong emphasis on practical knowledge, industry relevance, and personal development, we are building a community where ambition is refined into achievement.</p>
+              <p>At the heart of Flax is a commitment to meaningful learning—where knowledge meets experience, and potential becomes opportunity.</p>
             
             </div>
           </div>

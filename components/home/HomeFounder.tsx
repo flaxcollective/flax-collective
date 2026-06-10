@@ -13,18 +13,21 @@ export default function HomeFounder() {
           <div className="flex flex-col founder-text-container">
             <div className="founder-text">
               <p className="mb-4 founder-text-sub">
-                At Flax Collective, we believe that exceptional work ethic is shaped by exceptional individuals.
+                Education has always been about more than acquiring knowledge—it is about discovering possibilities, building confidence, and preparing for the future.
               </p>
               <p className="mb-4">
-               Across global markets, there is no shortage of talent—only a gap between potential and readiness. Many aspiring professionals possess the ambition to succeed on the international stage, while organizations seek individuals who not only meet expectations, but consistently exceed them. Flax Collective was established to bridge this gap with purpose and precision.
+                Flax Collective was created from a simple belief: that meaningful learning happens when knowledge is connected to real-world experience. While classrooms provide a strong foundation, exposure to industry, practical insights, and human connections are what truly bring learning to life.
               </p>
               <p className="mb-4">
-              Our philosophy is anchored in preparation, professionalism, and enduring partnerships. Through curated counselling, specialized certification programs, and immersive industry training, we develop individuals who are not only qualified, but truly equipped to deliver at global standards from day one.
+                Our vision is to create opportunities that inspire curiosity, encourage exploration, and help individuals gain a deeper understanding of the world beyond academics. Through workshops, industry engagement, and collaborative experiences, we aim to bridge the gap between education and opportunity.
+              </p>
+              <p className="mb-4">
+                As we continue to grow, our commitment remains unchanged—to empower learners with experiences that are relevant, enriching, and transformative.
               </p>
               <p className="mb-10">
-               Integrity and transparency remain at the core of everything we do. Flax Collective is committed to creating meaningful, lasting connections—empowering professionals to build distinguished global careers, while enabling organizations to strengthen their teams with confident, capable, and future-ready talent.
+                Thank you for being part of this journey.
               </p>
-            
+
             </div>
             <div className="founder-text">
               <img

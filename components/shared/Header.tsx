@@ -106,7 +106,7 @@ export default function Header() {
 
           <div className="auth-header flex gap-3 items-center">
 
-            {user ? (
+            {/* {user ? (
               <>
                 <Link
                   href={
@@ -139,7 +139,17 @@ export default function Header() {
                   </button>
                 </Link>
               </>
-            )}
+            )} */}
+        {/* 
+            <Link href="/auth/signup">
+              <button className="sign-item">SIGN UP</button>
+            </Link> */}
+
+            {/* <Link href="/auth/login">
+              <button className="login-item flex items-center gap-1">
+                LOGIN <MdLogin />
+              </button>
+            </Link> */}
           </div>
         </div>
       </div>

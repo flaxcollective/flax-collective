@@ -48,13 +48,14 @@ const LoginForm = () => {
         return;
       }
       setUser(data.user);
-      if (from === "custom" && callbackUrl) {
-        router.push("/programs#custom-course");
-      } else if (data.user?.usertype === "admin") {
-        router.push("/admin-dashboard");
-      } else {
-        router.push("/");
-      }
+      // if (from === "custom" && callbackUrl) {
+      //   router.push("/programs#custom-course");
+      // } else if (data.user?.usertype === "admin") {
+      //   router.push("/admin-dashboard");
+      // } else {
+      //   router.push("/");
+      // }
+      alert("Login successful!");
 
     } catch (error) {
       console.error("Login error:", error);
