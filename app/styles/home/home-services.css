@@ -2,11 +2,20 @@
 
 .home-services-section {
   padding-bottom: 5rem;
+  background-color: #f4f1ea ;
 }
 
-.service-for-emp {
-  width: 70%;
-  margin: 0 auto;
+.cp-text{
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: justify;
+  color: #666666;
+
 }
 
 
@@ -33,8 +42,10 @@
 }
 
 .sfe-grid {
+ 
+
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
 
@@ -53,7 +64,7 @@
   font-size: 17px;
   font-weight: 500;
   text-align: center;
-  padding: 20px 15px;
+  padding: 15px 15px;
 }
 
 .sfe-text-container-top {
@@ -65,7 +76,7 @@
 .sfe-text-container-bottom {
   position: relative;
   margin-top: 15px;
-  padding: 0 10px 25px 10px;
+  padding: 0 10px 15px;
 }
 
 .sfe-text-container p {
@@ -81,7 +92,7 @@
   content: "";
   position: absolute;
   left: 0;
-  bottom: 30px;
+  bottom: 10px;
   right: 0;
   height: 15px;
   border-top: 4px solid #2F3E56;
@@ -109,8 +120,8 @@
 }
 
 .sfe-btn {
-  background: #2F3E56;
-  color: #fff;
+  background: #6e7c3a26;
+  color: #736A2F;
   font-family: Montserrat, sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -121,10 +132,11 @@
   gap: 10px;
   transition: background 0.3s;
 }
-
 .sfe-btn:hover {
-  background: #5a6630;
+  background-color: #736A2F ;
+  color: #fff;
 }
+
 
 .sfe-recruitment h3 {
   color: #2F3E56;
@@ -208,12 +220,71 @@
   text-transform: capitalize;
 }
 
+/* 
+.timeline-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 400px;
+}
+
+
+.timeline-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/assets/images/services/stu-line.png') no-repeat center;
+  background-size: contain;
+}
+
+
+.step {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.step1 { left: 7%;  top: -5%; }
+.step2 { left: 44%; top: -5%; }
+.step3 { right: 10%; top: -5%; }
+
+.step4 { left: 5%; bottom: -22%; }
+.step5 { left: 45%; bottom: -22%; }
+.step6 { right: 10%; bottom: -22%; }
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #6E7C3A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  margin-bottom: 8px;
+}
+.circle svg{
+  color: #6E7C3A99 ;
+}
+
+
+.step-text {
+  font-size: 18px;
+  max-width: 180px;
+  font-weight: 600;
+  color: #000000;
+} */
+
 
 @media (max-width:1440px) {
  
    .sfe-img-title{
     max-width: 100%;
-    height: 120px ;
+   
     display: flex;
     justify-content: center !important;
     align-items: center;
@@ -225,18 +296,37 @@
 .cp-areas-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* important */
+    justify-content: center;
     gap: 20px;
   }
 
   .cp-area-card {
-    width: calc(33.33% - 20px); /* 3 per row */
+    width: calc(33.33% - 20px); 
   }
    .sfe-img-title{
     max-width: 100%;
-    height: 120px ;
+  
     display: flex;
     align-items: center;
+  }
+
+    .timeline-wrapper {
+    height: auto;
+  }
+
+  .timeline-wrapper::before {
+    display: none; 
+  }
+
+  .step {
+    position: static;
+    margin-bottom: 30px;
+  }
+
+  .timeline-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
   }
   
 }
@@ -267,8 +357,8 @@
   }
 
   .cp-text {
-    font-size: 14px;
-    line-height: 1.75;
+    font-size: 12px;
+    line-height: 24px;
     text-align: justify;
     margin-bottom: 10px;
   }
@@ -328,12 +418,16 @@
     flex-direction: column;
 
   }
+    .sfe-card:last-child {
+  grid-column: 1 / -1;   /* full width */
+  justify-self: center;
+}
 
   .sfe-img-title {
     font-size: 14px;
     line-height: 1.4;
     border-radius: 4px 4px 0 0;
-    min-height: 80px;
+    min-height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -362,7 +456,7 @@
 
   .sfe-btn {
     font-size: 13px;
-    padding: 13px 24px;
+    padding: 13px 10px;
   }
 
   /* Recruitment Approach */
@@ -423,5 +517,17 @@
   .fs-step-label {
     font-size: 13px;
     line-height: 20px;
+  }
+}
+
+
+
+
+@media (max-width: 640px) {
+  .timeline-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .home-services-section {
+    padding-bottom:20px;
   }
 }

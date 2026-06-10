@@ -35,7 +35,7 @@
   font-weight: 500;
   line-height: 1.7;
   color: #444;
-  max-width: 600px;
+  max-width: 800px;
   margin-bottom: 4px;
 }
 
@@ -202,6 +202,13 @@
   /* Show tagline, hide inquiry text */
   .footer-tagline {
     display: block;
+    color: #666;
+    max-width: 300px;
+    margin-bottom: 10px;
+    font-family: Montserrat, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
   }
 
   .footer-inquiry-text,

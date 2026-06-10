@@ -1,0 +1,62 @@
+.events-deskbg {
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.events-desktop h3 {
+    color: #2F3E56 !important;
+
+}
+
+.events-desktop p {
+    color: #666666 !important;
+}
+
+.flax-card-border {
+    border: 1px solid #d9d9d9;
+}
+
+.flaxieventsimg {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+}
+
+.flaxieventsimg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+@media (max-width:768px) {
+    .flax-card-border {
+        border: none;
+    }
+
+}
+
+@media (max-width:575px) {
+    .events-deskbg {
+        background: transparent;
+        background-size: 40px 40px;
+    }
+
+    .events-desktop h3 {
+        text-align: left;
+        font-size: 20px;
+        line-height: 32px;
+
+    }
+
+    .events-desktop p {
+        text-align: left;
+        font-size: 12px;
+        line-height: 24px;
+    }
+
+
+}

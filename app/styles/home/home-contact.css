@@ -1,14 +1,15 @@
 /* SECTION */
 .contact-section {
-  background: #fff;
+  background: #f4f1ea;
   padding: 100px 20px;
   scroll-margin-top: 130px;
 }
 
+
+
 /* CONTAINER */
 .contact-container {
-  width: 70%;
-  margin: 0 auto;
+
   display: flex;
   justify-content: space-between;
   gap: 60px;
@@ -16,7 +17,7 @@
 
 /* LEFT */
 .contact-left {
-  flex: 1;
+  flex: 1.5;
 }
 
 /* TITLE (SAME STYLE) */
@@ -34,7 +35,7 @@
 /* SUBTEXT (SAME STYLE) */
 .contact-subtext {
   color: #666;
-  text-align: justify;
+  text-align: left;
   font-family: Montserrat;
   font-size: 16px;
   font-style: normal;
@@ -95,20 +96,21 @@
 .contact-right form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 /* INPUTS (MATCH CARD BG TONE) */
 .contact-right input,
 .contact-right textarea {
   width: 100%;
-  background: #F0F0F0;
+  background: #2F3E56;
   border: none;
   border-radius: 8px;
   padding: 16px;
   font-family: Montserrat;
   font-size: 14px;
   outline: none;
+  border: 1px solid #FFFFFF;
 }
 
 /* TEXTAREA */
@@ -117,24 +119,64 @@
   resize: none;
 }
 
+.contact-right select {
+  appearance: none;
+}
+
+.select-wrapper {
+  position: relative;
+
+}
+
+.custom-select {
+  width: 100%;
+  padding: 12px 35px 12px 12px;
+  border-radius: 8px;
+  background: #2F3E56;
+  color: white;
+  border: 1px solid white;
+  outline: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Custom Arrow */
+.select-wrapper::after {
+  content: "\f0d7";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  pointer-events: none;
+  font-size: 14px;
+}
 
 
 /* BUTTON (MATCH GREEN THEME) */
 .contact-right button {
-  background: #2F3E56;
-  color: #fff;
+  background: #FFFFFF;
+  color: #2F3E56;
   border: none;
   border-radius: 8px;
-  padding: 18px;
+  padding: 12px 10px;
   font-size: 16px;
   font-family: Montserrat;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: 500;
 }
 
 .contact-right button:hover {
-  background: #5c6a2f;
+  color: #FFFFFF;
+  background: #6e7c3a;
+
 }
+
 
 
 /* ============================================================
@@ -142,7 +184,18 @@
    ============================================================ */
 @media (max-width: 1024px) {
   .contact-container {
-    width: 70%;
+    width: 90%;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .contact-container {
+    width: 90%;
+  }
+
+  .contact-section {
+    padding: 40px 0;
   }
 }
 
@@ -151,7 +204,7 @@
    ============================================================ */
 @media (max-width: 768px) {
   .contact-section {
-    padding: 40px 0;
+    padding: 30px 0;
   }
 
   .contact-container {
@@ -205,8 +258,8 @@
 
   .contact-right input,
   .contact-right textarea {
-    padding: 14px 16px;
-    font-size: 14px;
+    padding: 10px 10px;
+    font-size: 12px;
     border-radius: 8px;
   }
 
@@ -216,7 +269,7 @@
 
   /* Submit button — full width, prominent */
   .contact-right button {
-    padding: 16px;
+    padding: 10px;
     font-size: 15px;
     border-radius: 8px;
     width: 100%;
@@ -228,11 +281,18 @@
    ============================================================ */
 @media (max-width: 400px) {
   .contact-left h2 {
-    font-size: 24px;
+    font-size: 20px;
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 10px;
   }
 
   .contact-subtext {
-    font-size: 13px;
-    line-height: 24px;
+    font-size: 12px;
+    line-height: 22px;
+    text-align: center;
+  }
+  .whyitemconnect li{
+    font-size: 10px;
   }
 }

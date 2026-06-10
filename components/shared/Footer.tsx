@@ -13,15 +13,22 @@ export default function Footer() {
 
         {/* Mobile-only tagline */}
         <p className="footer-tagline">
-          Strategic Consultancy For Sustainable Growth &amp; Measurable Success
+          For inquiries regarding certification programs, recruitment opportunities, or employer partnerships, please contact the Flax Collective team.
         </p>
 
         {/* Desktop-only inquiry text */}
-        <p className="footer-inquiry-text">
-          For Inquiries Regarding{' '}
-          <strong>Certification Programs, Recruitment Opportunities, Or Employer Partnerships,</strong>
-        </p>
-        <p className="footer-please-text">Please Contact The Flax Collective Team.</p>
+        <div className="footer-inquiry-text">
+          <p>
+            For inquiries regarding
+            <strong> certification programs, recruitment opportunities, or employer</strong>
+          </p>
+
+          <p className="footer-please-text">
+            <strong>partnerships, </strong>
+            Please Contact The Flax Collective Team.
+          </p>
+        </div>
+
 
         {/* Email */}
         <div className="footer-email">
@@ -70,7 +77,7 @@ export default function Footer() {
             <Link href="#">Refund Policy</Link>
           </div>
 
-          <p className="footer-copy">© 2026 FLAX Collective. All Rights Reserved.</p>
+          <p className="footer-copy"> © {new Date().getFullYear()} FLAX Collective. All Rights Reserved.</p>
         </div>
 
       </div>

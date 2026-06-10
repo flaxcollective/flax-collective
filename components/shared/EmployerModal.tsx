@@ -179,7 +179,7 @@ export default function EmployerModal({ isOpen, onClose }: EmployerModalProps) {
                 />
                 <label htmlFor="emp-consent">
                   I Agree To Receive Updates And Notifications Via Email, SMS, WhatsApp, Or Call.
-                  This Consent Overrides My Communication Preferences.
+                  This Consent Overrides My Communication Preferences .
                 </label>
               </div>
 

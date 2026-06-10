@@ -3,10 +3,6 @@
   background: #F4F1EA;
 }
 
-.home-founder-section-container {
-  width: 70%;
-  margin: 1rem auto;
-}
 
 .founder-label {
   font-size: 11px;
@@ -19,10 +15,8 @@
 
 .founder-heading {
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 500;
   color: #2F3E56;
-  font-family: Georgia, serif;
-  margin-bottom: 1.5rem;
   line-height: 1.2;
 }
 
@@ -93,6 +87,25 @@
   height: 360px;
 }
 
+.founder-text h2{
+  font-family: Montserrat !important;
+font-weight: 800;
+font-style: ExtraBold;
+font-size: 20px;
+
+text-align: justify;
+color: #666666;
+
+}
+
+.founder-text p{
+font-family: Montserrat;
+font-weight: 500;
+font-style: Medium;
+font-size: 16px;
+color: #666666;
+
+ }
 
 @media (max-width: 1024px) {
   .home-founder-section-container {
@@ -111,20 +124,16 @@
     padding: 0 5%;
   }
 
-  .home-founder-section-container h2 {
-    font-size: 30px;
-   
-  }
 
   .founder-heading {
-    font-size: 30px;
-    margin-bottom: 16px;
+    font-size: 20px;
+    margin-bottom: 10px;
   }
 
   .founder-text p {
-    font-size: 14px;
-    line-height: 26px;
-    margin-bottom: 14px;
+    font-size: 12px;
+    line-height: 24px;
+    margin-bottom: 10px;
     text-align: justify;
   }
 }

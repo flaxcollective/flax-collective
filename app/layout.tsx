@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Montserrat, Source_Serif_4 } from "next/font/google";
+import { Montserrat, Source_Serif_4, Inter } from "next/font/google";
 import "./globals.css";
 import "./styles/shared.css";
 import "./styles/animations.css";
+import { cn } from "@/lib/utils";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { AuthProvider } from "@/context/AuthContext";
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -30,10 +35,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${sourceSerif.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", montserrat.variable, sourceSerif.variable, "font-sans", inter.variable)}
     >
-      <body className="min-h-full flex flex-col w-full overflow-x-hidden">
-        {children}
+      <body className="min-h-full flex flex-col w-full overflow-x-hidden" >
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

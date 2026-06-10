@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp f:/flax-collective/components/home/*.tsx f:/flax-collective/src/modules/home/components/)",
+      "Bash(cp f:/flax-collective/components/program/*.tsx f:/flax-collective/src/modules/programs/components/)",
+      "Bash(cp f:/flax-collective/components/services/*.tsx f:/flax-collective/src/modules/services/components/)",
+      "Bash(cp f:/flax-collective/components/contact/*.tsx f:/flax-collective/src/modules/contact/components/)",
+      "Bash(cp -r \"f:/flax-collective/hooks/.\" \"f:/flax-collective/src/hooks/\")",
+      "Bash(cp -r \"f:/flax-collective/styles/.\" \"f:/flax-collective/src/styles/\")"
+    ]
+  }
+}

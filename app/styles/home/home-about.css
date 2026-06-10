@@ -1,12 +1,6 @@
 .about-section {
   background: #F4F1EA;
-  padding: 30px 0px;
-}
 
-
-.about-container {
-  width: 70%;
-  margin: 0 auto;
 }
 
 
@@ -25,7 +19,7 @@
   font-size: 16px;
   line-height: 28px;
   color: #666;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   font-weight: 500;
 }
 
@@ -93,14 +87,14 @@
   }
 
   .about-container h2 {
-    font-size: 30px;
-    margin-bottom: 16px;
+    font-size: 20px;
+    margin-bottom: 10px;
   }
 
   .about-intro {
-    font-size: 14px;
-    line-height: 26px;
-    margin-bottom: 24px;
+    font-size: 12px;
+    line-height: 24px;
+    margin-bottom: 8px;
     text-align: justify;
   }
 
@@ -120,9 +114,12 @@
   }
 
   .about-text p {
-    font-size: 14px;
-    line-height: 26px;
-    margin-bottom: 14px;
+    font-size: 12px;
+    line-height: 24px;
+    margin-bottom: 8px;
     text-align: justify;
+  }
+  .global-page-divider{
+    display: none;
   }
 }
