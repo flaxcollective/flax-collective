@@ -10,8 +10,8 @@ import { CgMenuRight } from "react-icons/cg";
 const navLinks = [
   { label: "HOME", href: "/" },
   { label: "SERVICES", href: "/services" },
-  { label: "PROGRAM", href: "/programs" },
-  { label: "WORKSHOP", href: "/workshop" },
+  { label: "PROGRAMS", href: "/programs" },
+  { label: "WORKSHOPS", href: "/workshop" },
   { label: "CONTACT US", href: "/contact" },
 ];
 
@@ -106,7 +106,9 @@ export default function Header() {
           </nav>
 
           <div className="auth-header flex gap-3 items-center">
-
+            <Link href="/auth/signup">
+              <button className="sign-item">SIGN UP</button>
+            </Link>
             {/* {user ? (
               <>
                 <Link
@@ -141,10 +143,8 @@ export default function Header() {
                 </Link>
               </>
             )} */}
-        {/* 
-            <Link href="/auth/signup">
-              <button className="sign-item">SIGN UP</button>
-            </Link> */}
+            {/* 
+           */}
 
             {/* <Link href="/auth/login">
               <button className="login-item flex items-center gap-1">
@@ -167,7 +167,7 @@ export default function Header() {
           className="mobile-menu"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-         <CgMenuRight  className="text-3xl" />
+          <CgMenuRight className="text-3xl" />
         </button>
         {/* ── MOBILE SIDE PANEL ── */}
         <div className={`mobile-nav-panel lg:hidden ${isMenuOpen ? 'open' : ''}`}>
@@ -191,7 +191,13 @@ export default function Header() {
 
             {/* MOBILE AUTH BUTTONS */}
             <div className="mobile-auth-buttons">
-              {user ? (
+
+              <Link href="/auth/signup" onClick={closeMenu}>
+                <button className="mobile-auth-btn sign">
+                  SIGN UP
+                </button>
+              </Link>
+              {/* {user ? (
                 <>
                   <Link
                     href={
@@ -230,7 +236,7 @@ export default function Header() {
                     </button>
                   </Link>
                 </>
-              )}
+              )} */}
             </div>
           </nav>
         </div>
