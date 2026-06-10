@@ -5,6 +5,14 @@ import { IoTimeOutline } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import "@/app/styles/events.css";
 
+type EventType = {
+  slug: string;
+  date: string;
+  title: string;
+  location: string;
+  images: string[];
+};
+
 export const events = [
   {
     slug: "real-estate-capability-enhancement-workshop",
@@ -24,7 +32,8 @@ export const events = [
 ];
 
 export default function EventsCard() {
-  const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
+  const [selectedEvent, setSelectedEvent] =
+  useState<(typeof events)[number] | null>(null);
 
   return (
     <>
