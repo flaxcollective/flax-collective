@@ -3,12 +3,15 @@
 import React, { useState } from "react";
 import "@/app/styles/home/home-contact.css";
 import { countries } from "@/data/countries";
+<<<<<<< HEAD
 import { HiOutlineMail } from "react-icons/hi";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import { ChevronDown } from "lucide-react";
 
 import { GoCheckCircleFill } from "react-icons/go";
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 export default function HomeContectUs() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -19,7 +22,10 @@ export default function HomeContectUs() {
     mobile: "",
     email: "",
     message: "",
+<<<<<<< HEAD
     service: "",
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -42,7 +48,11 @@ export default function HomeContectUs() {
 
       if (data.success) {
         setStatus("success");
+<<<<<<< HEAD
         setForm({ name: "", countryCode: "+91", mobile: "", email: "", message: "", service: "" });
+=======
+        setForm({ name: "", countryCode: "+91", mobile: "", email: "", message: "" });
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
       } else {
         setStatus("error");
         setErrorMsg(data.message ?? "Something went wrong. Please try again.");
@@ -56,15 +66,24 @@ export default function HomeContectUs() {
 
   return (
     <section id="contact" className="contact-section">
+<<<<<<< HEAD
       <div className="contact-container max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* LEFT */}
         <div className="contact-left">
           <h2 >Contact Us</h2>
+=======
+      <div className="contact-container">
+
+        {/* LEFT */}
+        <div className="contact-left">
+          <h2>Contact Us</h2>
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
           <p className="contact-subtext">
             For inquiries regarding <span>certification programs, recruitment opportunities, or employer partnerships,</span> please contact the Flax Collective team.
           </p>
+<<<<<<< HEAD
 
           <div className="">
             <p className="text-xs md:text-base flex items-center text-navy justify-center md:justify-self-start font-medium gap-1 py-2 md:py-4">
@@ -129,12 +148,45 @@ export default function HomeContectUs() {
               padding: "40px",
               borderRadius: "12px",
               textAlign: "center"
+=======
+          <p className="contact-subtext mt-3">
+            We look forward to supporting professionals and organizations in building the future.
+          </p>
+
+          <div className="contact-points">
+            <div className="contact-point">
+              <span className="contact-check">
+                <img src="/assets/icons/begin-your-journey-icon-check-1.png" alt="Check" className="w-5 h-5 object-contain" />
+              </span>
+              <p>24/7 Full Time Support</p>
+            </div>
+
+            <div className="contact-point">
+              <span className="contact-check">
+                <img src="/assets/icons/begin-your-journey-icon-check-2.png" alt="Check" className="w-5 h-5 object-contain" />
+              </span>
+              <p>Available Worldwide</p>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT */}
+        <div className="contact-right">
+          {status === "success" ? (
+            <div className="contact-success-box" style={{ 
+              background: "#f8fdf4", 
+              border: "1px solid #6e7c3a", 
+              padding: "40px", 
+              borderRadius: "12px", 
+              textAlign: "center" 
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
             }}>
               <div style={{ fontSize: "48px", color: "#6e7c3a", marginBottom: "15px" }}>✓</div>
               <h3 style={{ color: "#2F3E56", marginBottom: "10px", fontFamily: "Source Serif 4" }}>Message Sent!</h3>
               <p style={{ color: "#666", fontFamily: "Montserrat", fontSize: "14px" }}>
                 Thank you for reaching out. Our team will get back to you shortly.
               </p>
+<<<<<<< HEAD
               <button
                 onClick={() => setStatus("idle")}
                 style={{
@@ -145,12 +197,25 @@ export default function HomeContectUs() {
                   padding: "10px 20px",
                   borderRadius: "5px",
                   cursor: "pointer"
+=======
+              <button 
+                onClick={() => setStatus("idle")} 
+                style={{ 
+                  marginTop: "20px", 
+                  background: "#2F3E56", 
+                  color: "#fff", 
+                  border: "none", 
+                  padding: "10px 20px", 
+                  borderRadius: "5px", 
+                  cursor: "pointer" 
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
                 }}
               >
                 Send Another
               </button>
             </div>
           ) : (
+<<<<<<< HEAD
             <form onSubmit={handleSubmit} className=" bg-[#2F3E56] p-6 md:p-8 rounded-2xl shadow-xl text-white">
 
               <h2 className="text-base md:text-2xl font-semibold leading-6 pb-2 md:pb-5  text-[#F4F1EA]">
@@ -254,6 +319,62 @@ export default function HomeContectUs() {
                 onChange={handleChange}
                 className="w-full p-3 rounded-lg bg-white/10 placeholder-gray-300 border border-white/20 focus:outline-none text-white"
                 required
+=======
+            <form onSubmit={handleSubmit}>
+              <input 
+                name="name" 
+                type="text" 
+                placeholder="Name" 
+                value={form.name} 
+                onChange={handleChange} 
+                required 
+              />
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '15px' }}>
+                <select 
+                  name="countryCode" 
+                  value={form.countryCode} 
+                  onChange={handleChange} 
+                  style={{ 
+                    width: '120px', 
+                    padding: '12px', 
+                    borderRadius: '5px', 
+                    border: '1px solid #ddd',
+                    background: '#fff',
+                    fontFamily: 'Montserrat',
+                    fontSize: '14px',
+                    flexShrink: 0,
+                    appearance: 'auto'
+                  }}
+                >
+                  {countries.map(c => (
+                    <option key={c.iso + c.code} value={c.code}>{c.iso} ({c.code})</option>
+                  ))}
+                </select>
+                <input 
+                  name="mobile" 
+                  type="text" 
+                  placeholder="Mobile No." 
+                  value={form.mobile} 
+                  onChange={handleChange} 
+                  required 
+                  style={{ margin: 0, flex: 1 }}
+                />
+              </div>
+              <input 
+                name="email" 
+                type="email" 
+                placeholder="Email" 
+                value={form.email} 
+                onChange={handleChange} 
+                required 
+              />
+              <textarea 
+                name="message" 
+                placeholder="Message" 
+                value={form.message} 
+                onChange={handleChange} 
+                required 
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
               ></textarea>
 
               {status === "error" && (

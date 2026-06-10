@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ─── Hero Section ───────────────────────────────────────── */
 .home-hero {
   position: sticky;
@@ -28,17 +29,40 @@
 }
 
 /* ─── Container ──────────────────────────────────────────── */
+=======
+/* ============================================================
+   HOME HERO — Redesigned
+   ============================================================ */
+
+.home-hero {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-top: 145px;
+  /* Matches the fixed 145px header height */
+  background-color: #F4F1EA;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 100px;
+}
+
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .home-hero-container {
   width: 70%;
   margin: 0 auto;
 }
 
+<<<<<<< HEAD
 /* ─── Top Layout ─────────────────────────────────────────── */
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .home-hero-top {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+<<<<<<< HEAD
 }
 
 /* ─── Content ────────────────────────────────────────────── */
@@ -50,6 +74,33 @@
   line-height: normal;
   text-transform: capitalize;
   padding-bottom: 40px;
+=======
+  gap: 2rem;
+}
+
+/* ─── LEFT: Content ─────────────────────────────────────── */
+.home-hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 2;
+}
+
+.home-hero-content h1 {
+  color: #2F3E56;
+  text-align: center;
+  font-family: "Source Serif 4";
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 6rem;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .home-hero-desc {
@@ -67,12 +118,20 @@
   color: #2F3E56;
 }
 
+<<<<<<< HEAD
 /* ─── Mobile Image ───────────────────────────────────────── */
+=======
+/* Mobile image — hidden on desktop */
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .home-hero-mobile-img {
   display: none;
 }
 
+<<<<<<< HEAD
 /* ─── CTA Buttons ────────────────────────────────────────── */
+=======
+/* ─── CTA Buttons ───────────────────────────────────────── */
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .hero-btn-sec-1 {
   display: flex;
   flex-wrap: wrap;
@@ -85,8 +144,13 @@
   height: 50px;
   padding: 0 24px;
   border-radius: 8px;
+<<<<<<< HEAD
   background: #6E7C3A26;
   color: #2F3E56;
+=======
+  background: #2F3E56;
+  color: #fff;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -95,14 +159,20 @@
   justify-content: center;
   gap: 8px;
   text-decoration: none;
+<<<<<<< HEAD
   white-space: nowrap;
   border: none;
   transition: background 0.25s, transform 0.2s;
   cursor: pointer;
+=======
+  transition: background 0.25s, transform 0.2s;
+  white-space: nowrap;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .home-hero-btn-services:hover,
 .home-hero-btn-program:hover {
+<<<<<<< HEAD
   background: #6e7c3a;
   transform: translateY(-1px);
   color: #fff;
@@ -124,11 +194,37 @@
   text-decoration: none;
   border-radius: 100px;
   background: #2f3e56b3;
+=======
+  background: #1e2d40;
+  transform: translateY(-1px);
+}
+
+/* ─── Tag Pills ─────────────────────────────────────────── */
+.hero-btn-sec-2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.hero-btn-sec-2 a {
+  color: #FFF;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  border-radius: 100px;
+  border: 1px solid #75839b;
+  background: #75839b;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   padding: 8px 16px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   transition: background 0.25s, transform 0.2s;
+<<<<<<< HEAD
   cursor: default;
 }
 
@@ -143,6 +239,31 @@
 }
 
 /* ─── Bottom Text ────────────────────────────────────────── */
+=======
+}
+
+.hero-btn-sec-2 a:hover {
+  background: #626e83;
+  border-color: #626e83;
+  transform: translateY(-1px);
+}
+
+.hero-btn-sec-2 a svg {
+  flex-shrink: 0;
+  color: #FFF;
+}
+
+/* ─── BOTTOM: Text & Divider ────────────────────────────── */
+.home-hero-bottom-text {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 40px;
+}
+
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .home-hero-bottom-text p {
   color: #333;
   font-family: "Montserrat", sans-serif;
@@ -157,6 +278,7 @@
   color: #000;
 }
 
+<<<<<<< HEAD
 .home-hero-bottom-text h2 {
   color: #736B2E;
   font-size: 67px;
@@ -168,6 +290,8 @@
 }
 
 /* ─── Divider ────────────────────────────────────────────── */
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .home-hero-divider {
   width: 100%;
   height: 2px;
@@ -176,7 +300,11 @@
   opacity: 0.3;
 }
 
+<<<<<<< HEAD
 /* ─── Hero Image (Desktop) ───────────────────────────────── */
+=======
+/* ─── RIGHT: Hero Image ─────────────────────────────────── */
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .home-hero-image-wrap {
   flex: 1;
   display: flex;
@@ -194,6 +322,7 @@
   display: block;
 }
 
+<<<<<<< HEAD
 /* ─── Slider ─────────────────────────────────────────────── */
 .slider-carosel {
   background-color: #F4F1EA;
@@ -396,6 +525,62 @@ body.scrolled .header-logo {
 
   .home-hero-content{
     transition: none;
+=======
+.home-hero-bottom-text h2 {
+  color: #736B2E;
+  font-family: "Source Serif 4";
+  font-size: 90px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: capitalize;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.home-hero-mobile-img {
+  display: none;
+}
+
+@media (max-width:1320px) {
+  .home-hero-bottom-text h2 {
+        font-size: 60px;
+      }
+  
+}
+@media (max-width:992px) {
+  .home-hero-bottom-text h2 {
+        font-size: 45px;
+      }
+  
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .home-hero {
+    margin-top: 140px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .home-hero {
+    padding-bottom: 20px;
+  }
+
+  .home-hero-bottom-text h2 {
+    font-size: 28px;
+  }
+
+  .home-hero {
+    min-height: auto;
+    margin-top: 5rem;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 
   .home-hero-container {
@@ -409,6 +594,7 @@ body.scrolled .header-logo {
     gap: 0;
   }
 
+<<<<<<< HEAD
   .home-hero-flex-container {
     flex-direction: column;
     width: 100%;
@@ -430,11 +616,23 @@ body.scrolled .header-logo {
     left: auto !important;
     text-align: left !important;
     transition: none !important;
+=======
+  /* LEFT: Content */
+  .home-hero-content {
+    max-width: 100%;
+    width: 100%;
+    align-items: flex-start;
+    order: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 
   .home-hero-content h1 {
     font-size: 34px;
     line-height: 1.25;
+<<<<<<< HEAD
     padding-top: 15px;
   
     text-align: center;
@@ -463,10 +661,53 @@ body.scrolled .header-logo {
 
   .home-hero-btn-services,
   .home-hero-btn-program {
+=======
+    margin-bottom: 1rem;
+    text-align: left;
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  .home-hero-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    max-width: 100%;
+    margin-bottom: 0;
+    text-align: left;
+    padding: 0;
+  }
+
+  /* Mobile hero image — shown between desc and buttons */
+  .home-hero-mobile-img {
+    display: block;
+    width: 100%;
+    margin: 1.25rem 0;
+  }
+
+  /* Hide the image-wrap (desktop image) on mobile */
+  .home-hero-image-wrap {
+    display: none;
+  }
+
+  /* CTA Buttons — side by side, matching screenshot */
+  .hero-btn-sec-1 {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .home-hero-btn-services {
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     flex: 0 0 auto;
     height: 48px;
     padding: 0 20px;
     font-size: 14px;
+<<<<<<< HEAD
     white-space: nowrap;
   }
 
@@ -486,6 +727,47 @@ body.scrolled .header-logo {
     gap: 8px;
     margin-top: 2rem;
     margin-bottom: 0;
+=======
+    border-radius: 8px;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  /* "View Programs" — ghost/text style on mobile */
+  .home-hero-btn-program {
+    flex: 0 0 auto;
+    height: 48px;
+    padding: 0 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    justify-content: center;
+    white-space: nowrap;
+    background: #2F3E56;
+    border: none;
+    color: #FFF;
+  }
+
+  .home-hero-btn-program:hover {
+    background: #2F3E56;
+    color: #1e2d40;
+    transform: none;
+  }
+
+  .home-hero-btn-program svg path {
+    stroke: #FFF;
+  }
+
+  /* Tag Pills — left-aligned */
+  .hero-btn-sec-2 {
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 
   .hero-btn-sec-2 a {
@@ -493,13 +775,20 @@ body.scrolled .header-logo {
     padding: 7px 14px;
   }
 
+<<<<<<< HEAD
   .home-hero-bottom-text {
     text-align: center;
+=======
+  /* Bottom text — left-aligned */
+  .home-hero-bottom-text {
+    text-align: left;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     margin-top: 32px;
   }
 
   .home-hero-bottom-text p {
     font-size: 14px;
+<<<<<<< HEAD
   }
 
   .home-hero-bottom-text h2 {
@@ -535,12 +824,35 @@ body.scrolled .header-logo {
 
   .home-hero-btn-services,
   .home-hero-btn-program {
+=======
+    line-height: 1.8;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Small Mobile (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .home-hero-content h1 {
+    padding-top: 20px;
+    font-size: 28px;
+    line-height: 1.25;
+  }
+
+  .home-hero-btn-services {
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     height: 46px;
     font-size: 13px;
     padding: 0 16px;
   }
 
+<<<<<<< HEAD
   .body.scrolled{
     transition: none;
+=======
+  .home-hero-btn-program {
+    height: 46px;
+    font-size: 13px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 }

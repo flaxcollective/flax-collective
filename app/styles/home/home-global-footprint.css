@@ -1,7 +1,14 @@
 /* ─── GLOBAL FOOTPRINT ───────────────────────────────────── */
+<<<<<<< HEAD
 /* .footprint-section {
     background: #E8E2D4;
   }
+=======
+.footprint-section {
+  padding: 5rem 0;
+  background: #2F3E56;
+}
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 .footprint-label {
   font-size: 11px;
@@ -60,13 +67,22 @@
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 
 /* ─── GLOBAL FOOTPRINT ───────────────────────────────────────── */
 .global-footprint-section {
+<<<<<<< HEAD
   background-color: #E8E2D4;
   padding: 40px 0;
+=======
+  background-color: #E1DACA;
+  padding: 80px 20px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .global-footprint-container {
@@ -76,13 +92,21 @@
 
 .global-footprint-title {
   color: #2F3E56;
+<<<<<<< HEAD
 
+=======
+  font-family: "Source Serif 4";
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   font-size: 42px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   text-transform: capitalize;
+<<<<<<< HEAD
   padding-bottom: 15px;
+=======
+  margin-bottom: 1rem;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .global-footprint-desc {
@@ -93,7 +117,13 @@
   font-style: normal;
   font-weight: 500;
   line-height: 30px;
+<<<<<<< HEAD
 
+=======
+  /* 187.5% */
+  text-transform: capitalize;
+  margin-top: 1rem;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .global-footprint-middle {
@@ -141,7 +171,18 @@
   justify-content: center;
 }
 
+<<<<<<< HEAD
 
+=======
+.global-footprint-middle-image img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+  border: 1px solid #D3D3D3;
+}
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 .global-footprint-subtitle-white {
   color: #2F3E56;
@@ -216,7 +257,11 @@
 
   .global-footprint-title {
     font-size: 28px;
+<<<<<<< HEAD
    
+=======
+    margin-bottom: 0.5rem;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 
   .global-footprint-desc {
@@ -303,6 +348,7 @@
    ============================================================ */
 @media (max-width: 400px) {
   .global-footprint-title {
+<<<<<<< HEAD
     font-size: 20px;
     line-height: 32px;
     padding: 0px !important;
@@ -317,5 +363,16 @@
   .global-footprint-subtitle-white {
     font-size: 12px;
     line-height: 24px;
+=======
+    font-size: 24px;
+  }
+
+  .global-footprint-subtitle {
+    font-size: 16px;
+  }
+
+  .global-footprint-subtitle-white {
+    font-size: 16px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 }

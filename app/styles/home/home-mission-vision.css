@@ -3,7 +3,14 @@
   background: #F4F1EA;
 }
 
+<<<<<<< HEAD
 
+=======
+.mv-container {
+  width: 70%;
+  margin: 0 auto;
+}
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 /* Header */
 .mv-header {
@@ -35,7 +42,11 @@
   background: #FFFFFF;
   border: 1px solid #e0d9ce;
   border-radius: 12px;
+<<<<<<< HEAD
   padding: 40px 55px;
+=======
+  padding: 36px 40px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 /* Row */
@@ -54,6 +65,7 @@
   border-top: 1px solid #eee8de;
   margin: 28px 0;
 }
+<<<<<<< HEAD
 .mv-icon-wrap .eye-icon{
   font-size: 50px;
   color: #2F3E56;
@@ -69,6 +81,28 @@
 }
 
 
+=======
+
+/* Icon box */
+.mv-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #2F3E56;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #2F3E56;
+}
+
+.mv-icon-wrap--green {
+  border-color: #2F3E56;
+  color: #2F3E56;
+}
+
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 /* Row body */
 .mv-row-body {
   flex: 1;
@@ -76,18 +110,31 @@
 
 .mv-row-title {
   font-family: "Source Serif 4", Georgia, serif;
+<<<<<<< HEAD
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
   color: #2F3E56;
   margin-bottom: 10px;
+=======
+  font-size: 18px;
+  font-weight: 600;
+  color: #2F3E56;
+  margin-bottom: 8px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .mv-row-text {
   font-family: Montserrat, sans-serif;
+<<<<<<< HEAD
   font-size: 12px;
   line-height: 24px;
   color: #666;
+=======
+  font-size: 13px;
+  line-height: 1.75;
+  color: #555;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   text-align: justify;
   font-weight: 500;
 }
@@ -145,10 +192,17 @@
 }
 
 .mv-value-dot {
+<<<<<<< HEAD
   width: 30px;
   height: 30px;
   border-radius: 50%;
   border: 4px solid #736A2F;
+=======
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #736A2F;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   background: #fff;
   flex-shrink: 0;
   position: relative;
@@ -158,6 +212,7 @@
 .mv-value-line {
   position: absolute;
   top: 16px;
+<<<<<<< HEAD
   bottom: -60px;
   left: 50%;
   transform: translateX(-50%);
@@ -167,6 +222,19 @@
 }
 
 
+=======
+  /* starts just below the dot */
+  bottom: -24px;
+  /* extends through padding-bottom of mv-value-item */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: #736A2F;
+  opacity: 0.3;
+}
+
+/* Value content — 3-column: title | dot-track | desc */
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .mv-value-content {
   display: grid;
   grid-template-columns: 160px 36px 1fr;
@@ -176,17 +244,28 @@
 
 .mv-value-title {
   font-family: Montserrat, sans-serif;
+<<<<<<< HEAD
   font-size: 18px;
   font-weight: 500;
+=======
+  font-size: 14px;
+  font-weight: 700;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   color: #2F3E56;
   padding-top: 0px;
 }
 
 .mv-value-desc {
   font-family: Montserrat, sans-serif;
+<<<<<<< HEAD
   font-size: 14px;
   line-height: 26px;
   color: #666666;
+=======
+  font-size: 13px;
+  line-height: 1.65;
+  color: #666;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   font-weight: 500;
 }
 
@@ -346,7 +425,11 @@
   }
 
   .mv-value-content {
+<<<<<<< HEAD
     grid-template-columns: 88px 15px 1fr;
+=======
+    grid-template-columns: 90px 20px 1fr;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     column-gap: 8px;
   }
 

@@ -86,6 +86,7 @@
     "candidatesRequired": "635322343",
     "location": "Belarus",
     "employmentType": "fulltime"
+<<<<<<< HEAD
   },
   {
     "id": 1777287030795,
@@ -99,5 +100,7 @@
     "candidatesRequired": "4254",
     "location": "Belgium",
     "employmentType": "fulltime"
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 ]

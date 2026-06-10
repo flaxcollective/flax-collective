@@ -4,38 +4,67 @@ export default function HomeProcess() {
     {
       step: "01",
       title: "Candidate Identification",
+<<<<<<< HEAD
       desc: "We identify promising graduates and professionals through institutional partnerships and career networks worldwide."
+=======
+      desc: "We identify promising graduates and professionals through institutional partnerships and global career networks."
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     },
     {
       step: "02",
       title: "Career Counselling",
+<<<<<<< HEAD
       desc: "Each candidate undergoes professional counselling to assess career goals, readiness for international employment, and industry suitability"
+=======
+      desc: "Each candidate undergoes professional counselling to assess career goals, readiness for international employment, and industry fit."
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     },
     {
       step: "03",
       title: "Certification & Skill Development",
+<<<<<<< HEAD
       desc: "Candidates participate in online certification programs and workshops focused on communication, and workplace professionalism."
+=======
+      desc: "Candidates participate in certification programs and workshops focused on international standards and workplace professionalism."
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     },
     {
       step: "04",
       title: "Screening & Evaluation",
+<<<<<<< HEAD
       desc: "Applicants are assessed through interviews, skill evaluation, and professional profiling."
     },
     {
       step: "05",
       title: "Global Employer Connections",
       desc: "Qualified candidates are introduced to employers internationally based on their skills and role requirements."
+=======
+      desc: "Applicants are assessed through interviews, skill evaluation, and structured professional profiling."
+    },
+    {
+      step: "05",
+      title: "Employer Matching",
+      desc: "Qualified candidates are introduced to potential employers based on their skills and role requirements."
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     },
     {
       step: "06",
       title: "Placement & Onboarding",
+<<<<<<< HEAD
       desc: "Once selected by an employer and successfully onboarded, the recruitment process is completed through our transparent placement structure."
+=======
+      desc: "Once selected and onboarded, the recruitment process is completed through our transparent placement structure."
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     }
   ];
 
   return (
     <section className="process-section">
+<<<<<<< HEAD
       <div className="process-container max-w-7xl mx-auto px-4">
+=======
+      <div className="process-container">
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
         <h2>Our Process</h2>
         {/* <p className="process-subtext">
           Flax Collective follows a structured pathway that prepares candidates and supports employers through a reliable recruitment process.
@@ -43,9 +72,15 @@ export default function HomeProcess() {
         <div className="process-grid">
           {processData.map((item, idx) => (
             <div key={idx} className="process-card">
+<<<<<<< HEAD
               <div className="process-step text-white">
                 <span>STEP</span>
                 <strong className="text-white">{item.step}</strong>
+=======
+              <div className="process-step">
+                <span>STEP</span>
+                <strong>{item.step}</strong>
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
               </div>
               <h3>{item.title}</h3>
               <p>{item.desc}</p>
@@ -53,9 +88,15 @@ export default function HomeProcess() {
           ))}
         </div>
 
+<<<<<<< HEAD
         {/* <div className="global-page-divider mt-8 sm:mt-10 md:mt-16"></div> */}
 
         {/* <div className="process-quote-section mt-6 sm:mt-8 md:mt-12">
+=======
+        <div className="global-page-divider mt-8 sm:mt-10 md:mt-16"></div>
+
+        <div className="process-quote-section mt-6 sm:mt-8 md:mt-12">
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
           <h2>Opportunities</h2>
           <div className="opportunities-layout">
             <div className="opportunities-cards">
@@ -76,7 +117,11 @@ export default function HomeProcess() {
               <img src="/assets/images/opportunities.png" alt="Opportunities illustration" />
             </div>
           </div>
+<<<<<<< HEAD
         </div> */}
+=======
+        </div>
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
         <div className="global-page-divider mt-14"></div>
       </div>

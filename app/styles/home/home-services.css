@@ -2,6 +2,7 @@
 
 .home-services-section {
   padding-bottom: 5rem;
+<<<<<<< HEAD
   background-color: #f4f1ea ;
 }
 
@@ -16,6 +17,13 @@
   text-align: justify;
   color: #666666;
 
+=======
+}
+
+.service-for-emp {
+  width: 70%;
+  margin: 0 auto;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 
@@ -42,10 +50,15 @@
 }
 
 .sfe-grid {
+<<<<<<< HEAD
  
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+=======
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   gap: 25px;
 }
 
@@ -64,7 +77,11 @@
   font-size: 17px;
   font-weight: 500;
   text-align: center;
+<<<<<<< HEAD
   padding: 15px 15px;
+=======
+  padding: 20px 15px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .sfe-text-container-top {
@@ -76,7 +93,11 @@
 .sfe-text-container-bottom {
   position: relative;
   margin-top: 15px;
+<<<<<<< HEAD
   padding: 0 10px 15px;
+=======
+  padding: 0 10px 25px 10px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .sfe-text-container p {
@@ -92,7 +113,11 @@
   content: "";
   position: absolute;
   left: 0;
+<<<<<<< HEAD
   bottom: 10px;
+=======
+  bottom: 30px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   right: 0;
   height: 15px;
   border-top: 4px solid #2F3E56;
@@ -120,8 +145,13 @@
 }
 
 .sfe-btn {
+<<<<<<< HEAD
   background: #6e7c3a26;
   color: #736A2F;
+=======
+  background: #2F3E56;
+  color: #fff;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   font-family: Montserrat, sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -132,11 +162,18 @@
   gap: 10px;
   transition: background 0.3s;
 }
+<<<<<<< HEAD
 .sfe-btn:hover {
   background-color: #736A2F ;
   color: #fff;
 }
 
+=======
+
+.sfe-btn:hover {
+  background: #5a6630;
+}
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 .sfe-recruitment h3 {
   color: #2F3E56;
@@ -220,6 +257,7 @@
   text-transform: capitalize;
 }
 
+<<<<<<< HEAD
 /* 
 .timeline-wrapper {
   position: relative;
@@ -279,12 +317,18 @@
   color: #000000;
 } */
 
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 @media (max-width:1440px) {
  
    .sfe-img-title{
     max-width: 100%;
+<<<<<<< HEAD
    
+=======
+    height: 120px ;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     display: flex;
     justify-content: center !important;
     align-items: center;
@@ -296,11 +340,16 @@
 .cp-areas-grid {
     display: flex;
     flex-wrap: wrap;
+<<<<<<< HEAD
     justify-content: center;
+=======
+    justify-content: center; /* important */
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     gap: 20px;
   }
 
   .cp-area-card {
+<<<<<<< HEAD
     width: calc(33.33% - 20px); 
   }
    .sfe-img-title{
@@ -328,6 +377,16 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
+=======
+    width: calc(33.33% - 20px); /* 3 per row */
+  }
+   .sfe-img-title{
+    max-width: 100%;
+    height: 120px ;
+    display: flex;
+    align-items: center;
+  }
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   
 }
 
@@ -357,8 +416,13 @@
   }
 
   .cp-text {
+<<<<<<< HEAD
     font-size: 12px;
     line-height: 24px;
+=======
+    font-size: 14px;
+    line-height: 1.75;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     text-align: justify;
     margin-bottom: 10px;
   }
@@ -418,16 +482,23 @@
     flex-direction: column;
 
   }
+<<<<<<< HEAD
     .sfe-card:last-child {
   grid-column: 1 / -1;   /* full width */
   justify-self: center;
 }
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
   .sfe-img-title {
     font-size: 14px;
     line-height: 1.4;
     border-radius: 4px 4px 0 0;
+<<<<<<< HEAD
     min-height: 45px;
+=======
+    min-height: 80px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     display: flex;
     justify-content: center;
     align-items: center;
@@ -456,7 +527,11 @@
 
   .sfe-btn {
     font-size: 13px;
+<<<<<<< HEAD
     padding: 13px 10px;
+=======
+    padding: 13px 24px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 
   /* Recruitment Approach */
@@ -519,6 +594,7 @@
     line-height: 20px;
   }
 }
+<<<<<<< HEAD
 
 
 
@@ -531,3 +607,5 @@
     padding-bottom:20px;
   }
 }
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186

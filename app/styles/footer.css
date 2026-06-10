@@ -35,7 +35,11 @@
   font-weight: 500;
   line-height: 1.7;
   color: #444;
+<<<<<<< HEAD
   max-width: 800px;
+=======
+  max-width: 600px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   margin-bottom: 4px;
 }
 
@@ -202,6 +206,7 @@
   /* Show tagline, hide inquiry text */
   .footer-tagline {
     display: block;
+<<<<<<< HEAD
     color: #666;
     max-width: 300px;
     margin-bottom: 10px;
@@ -209,6 +214,8 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 20px;
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 
   .footer-inquiry-text,

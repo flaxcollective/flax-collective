@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 .header-main {
     height: 145px;
+=======
+header {
+    height: 145px;
+    background: white;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     position: fixed;
     top: 0;
     left: 0;
@@ -81,7 +87,11 @@
     top: 0;
     left: 0;
     width: 100%;
+<<<<<<< HEAD
     height: 120px;
+=======
+    height: 145px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     background: #fff;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
     display: flex;
@@ -207,6 +217,7 @@
     cursor: pointer;
 }
 
+<<<<<<< HEAD
 .mobile-auth-buttons{
   display:flex;
   flex-direction:column;
@@ -238,6 +249,8 @@
 }
 
 
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 .line {
     width: 24px;
     height: 2px;
@@ -260,7 +273,30 @@
 
 
 
+<<<<<<< HEAD
 
+=======
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+
+    header,
+    .header-container {
+        height: 70px;
+    }
+
+    .desktop-header {
+        display: none !important;
+    }
+
+    .sticky-header {
+        display: none !important;
+    }
+
+    .mobile-header {
+        display: flex !important;
+    }
+}
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 /* ═══════════════════════════════════════════════
    MOBILE SIDE PANEL
@@ -309,10 +345,18 @@
 }
 
 .mobile-nav-links {
+<<<<<<< HEAD
    
     width: 100%;
     margin-top: 24px;
    
+=======
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 24px;
+    flex: 1;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 .mobile-nav-item {
@@ -347,6 +391,7 @@
     cursor: pointer;
 }
 
+<<<<<<< HEAD
 /* Parent gap fix */
 .auth-header {
   display: flex;
@@ -430,11 +475,14 @@
     }
 }
 
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 @media (max-width: 1024px) {
     .header-scrolled {
         height: 0px;
     }
+<<<<<<< HEAD
 }
 
 @media (max-width: 767px) {
@@ -452,4 +500,6 @@
         display: flex;
     }
     
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }

@@ -24,6 +24,7 @@
     "mobile": "sdfsdf",
     "email": "sdfsd@gmail.com",
     "message": "sdfsdf"
+<<<<<<< HEAD
   },
   {
     "id": 1777030187947,
@@ -42,5 +43,7 @@
     "mobile": "8989",
     "email": "sdfsd@gmail.com",
     "message": "ghtj"
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 ]

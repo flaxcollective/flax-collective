@@ -1,6 +1,16 @@
 .about-section {
   background: #F4F1EA;
+<<<<<<< HEAD
 
+=======
+  padding: 30px 0px;
+}
+
+
+.about-container {
+  width: 70%;
+  margin: 0 auto;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 
@@ -19,7 +29,11 @@
   font-size: 16px;
   line-height: 28px;
   color: #666;
+<<<<<<< HEAD
   margin-bottom: 30px;
+=======
+  margin-bottom: 40px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   font-weight: 500;
 }
 
@@ -87,6 +101,7 @@
   }
 
   .about-container h2 {
+<<<<<<< HEAD
     font-size: 20px;
     margin-bottom: 10px;
   }
@@ -95,6 +110,16 @@
     font-size: 12px;
     line-height: 24px;
     margin-bottom: 8px;
+=======
+    font-size: 30px;
+    margin-bottom: 16px;
+  }
+
+  .about-intro {
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 24px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     text-align: justify;
   }
 
@@ -114,6 +139,7 @@
   }
 
   .about-text p {
+<<<<<<< HEAD
     font-size: 12px;
     line-height: 24px;
     margin-bottom: 8px;
@@ -122,4 +148,11 @@
   .global-page-divider{
     display: none;
   }
+=======
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }

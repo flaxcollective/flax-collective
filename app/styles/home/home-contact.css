@@ -1,15 +1,26 @@
 /* SECTION */
 .contact-section {
+<<<<<<< HEAD
   background: #f4f1ea;
+=======
+  background: #fff;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   padding: 100px 20px;
   scroll-margin-top: 130px;
 }
 
+<<<<<<< HEAD
 
 
 /* CONTAINER */
 .contact-container {
 
+=======
+/* CONTAINER */
+.contact-container {
+  width: 70%;
+  margin: 0 auto;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   display: flex;
   justify-content: space-between;
   gap: 60px;
@@ -17,7 +28,11 @@
 
 /* LEFT */
 .contact-left {
+<<<<<<< HEAD
   flex: 1.5;
+=======
+  flex: 1;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 /* TITLE (SAME STYLE) */
@@ -35,7 +50,11 @@
 /* SUBTEXT (SAME STYLE) */
 .contact-subtext {
   color: #666;
+<<<<<<< HEAD
   text-align: left;
+=======
+  text-align: justify;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   font-family: Montserrat;
   font-size: 16px;
   font-style: normal;
@@ -96,21 +115,32 @@
 .contact-right form {
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   gap: 10px;
+=======
+  gap: 20px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 /* INPUTS (MATCH CARD BG TONE) */
 .contact-right input,
 .contact-right textarea {
   width: 100%;
+<<<<<<< HEAD
   background: #2F3E56;
+=======
+  background: #F0F0F0;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   border: none;
   border-radius: 8px;
   padding: 16px;
   font-family: Montserrat;
   font-size: 14px;
   outline: none;
+<<<<<<< HEAD
   border: 1px solid #FFFFFF;
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 }
 
 /* TEXTAREA */
@@ -119,6 +149,7 @@
   resize: none;
 }
 
+<<<<<<< HEAD
 .contact-right select {
   appearance: none;
 }
@@ -155,19 +186,30 @@
   pointer-events: none;
   font-size: 14px;
 }
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 
 /* BUTTON (MATCH GREEN THEME) */
 .contact-right button {
+<<<<<<< HEAD
   background: #FFFFFF;
   color: #2F3E56;
   border: none;
   border-radius: 8px;
   padding: 12px 10px;
+=======
+  background: #2F3E56;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 18px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   font-size: 16px;
   font-family: Montserrat;
   cursor: pointer;
   transition: 0.3s;
+<<<<<<< HEAD
   font-weight: 500;
 }
 
@@ -179,11 +221,21 @@
 
 
 
+=======
+}
+
+.contact-right button:hover {
+  background: #5c6a2f;
+}
+
+
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 /* ============================================================
    RESPONSIVE — Tablet (≤ 1024px)
    ============================================================ */
 @media (max-width: 1024px) {
   .contact-container {
+<<<<<<< HEAD
     width: 90%;
   }
 }
@@ -196,6 +248,9 @@
 
   .contact-section {
     padding: 40px 0;
+=======
+    width: 70%;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 }
 
@@ -204,7 +259,11 @@
    ============================================================ */
 @media (max-width: 768px) {
   .contact-section {
+<<<<<<< HEAD
     padding: 30px 0;
+=======
+    padding: 40px 0;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 
   .contact-container {
@@ -258,8 +317,13 @@
 
   .contact-right input,
   .contact-right textarea {
+<<<<<<< HEAD
     padding: 10px 10px;
     font-size: 12px;
+=======
+    padding: 14px 16px;
+    font-size: 14px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     border-radius: 8px;
   }
 
@@ -269,7 +333,11 @@
 
   /* Submit button — full width, prominent */
   .contact-right button {
+<<<<<<< HEAD
     padding: 10px;
+=======
+    padding: 16px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     font-size: 15px;
     border-radius: 8px;
     width: 100%;
@@ -281,6 +349,7 @@
    ============================================================ */
 @media (max-width: 400px) {
   .contact-left h2 {
+<<<<<<< HEAD
     font-size: 20px;
     line-height: 32px;
     text-align: center;
@@ -294,5 +363,13 @@
   }
   .whyitemconnect li{
     font-size: 10px;
+=======
+    font-size: 24px;
+  }
+
+  .contact-subtext {
+    font-size: 13px;
+    line-height: 24px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   }
 }

@@ -14,11 +14,14 @@ import AnimateOnScroll from "@/components/shared/AnimateOnScroll";
 import StudentModal from "@/components/shared/StudentModal";
 import EmployerModal from "@/components/shared/EmployerModal";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+<<<<<<< HEAD
 import HomeSlider from "@/components/home/HomeSlider"
 import ProcessQuote from "@/components/home/ProcessQuote";
 import GlobalService from "@/components/services/GlobalService"
 import WhatWeDo from "./WhatweDo";
 import Whyflax from "./WhyFlax";
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 export default function Home() {
   // Activate scroll observer once for the whole page
@@ -34,6 +37,7 @@ export default function Home() {
 
   return (
     <>
+<<<<<<< HEAD
       
       <HomeHero />
       <HomeSlider/>
@@ -72,15 +76,50 @@ export default function Home() {
 
       <StudentModal
         isOpen={isStudentModalOpen}
+=======
+      {/* ── HERO: load animations (instant, no scroll needed) ── */}
+      <HomeHero />
+
+        <HomeWhyFlex />
+
+      {/* ── PROCESS ── */}
+        <HomeProcess />
+
+        {/* ── ABOUT ── */}
+        <HomeAbout />
+
+        {/* ── FOUNDER ── */}
+        <HomeFounder />
+
+        {/* ── PROGRAMS ── */}
+        <HomePrograms onApplyNow={handleApplyNow} />
+
+        <HomeMissionVission />
+
+        <HomeServices onHireTalent={() => setIsEmployerModalOpen(true)} />
+
+        <HomeGlobalFootprint />
+
+        <HomeContectUs />
+
+      <StudentModal 
+        isOpen={isStudentModalOpen} 
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
         onClose={() => {
           setIsStudentModalOpen(false);
           setSelectedCourse("");
         }}
         initialCourse={selectedCourse}
       />
+<<<<<<< HEAD
       <EmployerModal
         isOpen={isEmployerModalOpen}
         onClose={() => setIsEmployerModalOpen(false)}
+=======
+      <EmployerModal 
+        isOpen={isEmployerModalOpen} 
+        onClose={() => setIsEmployerModalOpen(false)} 
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
       />
     </>
   );

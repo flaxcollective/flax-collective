@@ -122,10 +122,17 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                 <div className="modal-input-group">
                   <label>Your Mobile Number</label>
                   <div style={{ display: 'flex', gap: '8px' }}>
+<<<<<<< HEAD
                     <select 
                       name="countryCode" 
                       value={form.countryCode} 
                       onChange={handleChange} 
+=======
+                    <select
+                      name="countryCode"
+                      value={form.countryCode}
+                      onChange={handleChange}
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
                       style={{ width: '100px', flexShrink: 0 }}
                     >
                       {countries.map(c => (
@@ -181,7 +188,11 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                 />
                 <label htmlFor="student-consent">
                   I Agree To Receive Updates And Notifications Via Email, SMS, WhatsApp, Or Call.
+<<<<<<< HEAD
                   This Consent Overrides My Communication Preferences .
+=======
+                  This Consent Overrides My Communication Preferences.
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
                 </label>
               </div>
 

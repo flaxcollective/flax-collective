@@ -3,6 +3,13 @@
   background: #F4F1EA;
 }
 
+<<<<<<< HEAD
+=======
+.home-founder-section-container {
+  width: 70%;
+  margin: 1rem auto;
+}
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 .founder-label {
   font-size: 11px;
@@ -15,8 +22,15 @@
 
 .founder-heading {
   font-size: 32px;
+<<<<<<< HEAD
   font-weight: 500;
   color: #2F3E56;
+=======
+  font-weight: 700;
+  color: #2F3E56;
+  font-family: Georgia, serif;
+  margin-bottom: 1.5rem;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
   line-height: 1.2;
 }
 
@@ -87,6 +101,7 @@
   height: 360px;
 }
 
+<<<<<<< HEAD
 .founder-text h2{
   font-family: Montserrat !important;
 font-weight: 800;
@@ -106,6 +121,8 @@ font-size: 16px;
 color: #666666;
 
  }
+=======
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
 
 @media (max-width: 1024px) {
   .home-founder-section-container {
@@ -124,6 +141,7 @@ color: #666666;
     padding: 0 5%;
   }
 
+<<<<<<< HEAD
 
   .founder-heading {
     font-size: 20px;
@@ -134,6 +152,22 @@ color: #666666;
     font-size: 12px;
     line-height: 24px;
     margin-bottom: 10px;
+=======
+  .home-founder-section-container h2 {
+    font-size: 30px;
+   
+  }
+
+  .founder-heading {
+    font-size: 30px;
+    margin-bottom: 16px;
+  }
+
+  .founder-text p {
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 14px;
+>>>>>>> 70a3c600e509d3d5019cd6c5191f9e78e42e0186
     text-align: justify;
   }
 }
