@@ -33,7 +33,7 @@ export default function HomeMissionVission() {
 
     return (
         <section className="mv-section">
-            <div className="mv-container max-w-7xl mx-auto pb-20 px-4 md:px-6 lg:px-8 ">
+            <div className="mv-container max-w-7xl mx-auto pb-10 md:pb-20 px-4 md:px-6 lg:px-8 ">
 
                   
                        {/* ── CARD ─────────────────────────────────────────── */}
@@ -95,7 +95,7 @@ export default function HomeMissionVission() {
                     {valuesOpen && (
                         <div className="mv-values-list">
                             {values.map((v, i) => (
-                                <div key={i} className="mv-value-item ml-6 md:ml-10">
+                                <div key={i} className="mv-value-item ml-6">
 
                                     {/* Content */}
                                     <div className="mv-value-content">
