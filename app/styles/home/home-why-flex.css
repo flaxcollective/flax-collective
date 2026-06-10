@@ -1,0 +1,108 @@
+
+.why-flex {
+  background: #F4F1EA;
+ 
+}
+
+
+.why-flex-subtext {
+  color: #666;
+  text-align: justify;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  margin-bottom: 3rem;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+/* hover button pe ho, arrow rotate ho */
+button:hover .arrow-icon {
+  transform: rotate(45deg);
+}
+
+
+/* responsive */
+
+@media (max-width:1205px) {
+  .why-flex-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+   }
+  
+}
+
+
+@media (max-width: 768px) {
+  .why-flex-container {
+    width: 100%;
+    padding: 0 5%;
+  }
+
+  .why-flex-container h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .why-flex-subtext {
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 2rem;
+  }
+
+  /* Keep 2 columns on mobile — matches screenshot */
+  .why-flex-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .why-flex-card {
+    padding: 16px 12px;
+    border-radius: 16px;
+  }
+
+  .why-flex-icon {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 14px;
+  }
+
+  .why-flex-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .why-flex-card h3 {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+  }
+
+  .why-flex-card p {
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+
+/* Remove the old @media (max-width: 640px) block entirely — 
+   2-column grid is handled above for all mobile sizes */
+@media (max-width: 400px) {
+  .why-flex-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .why-flex-card h3 {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .why-flex-card p {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}

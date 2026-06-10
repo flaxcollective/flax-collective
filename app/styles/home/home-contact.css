@@ -1,0 +1,298 @@
+/* SECTION */
+.contact-section {
+  background: #f4f1ea;
+  padding: 100px 20px;
+  scroll-margin-top: 130px;
+}
+
+
+
+/* CONTAINER */
+.contact-container {
+
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* LEFT */
+.contact-left {
+  flex: 1.5;
+}
+
+/* TITLE (SAME STYLE) */
+.contact-left h2 {
+  color: #2F3E56;
+  font-family: "Source Serif 4";
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+}
+
+/* SUBTEXT (SAME STYLE) */
+.contact-subtext {
+  color: #666;
+  text-align: left;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  /* 187.5% */
+}
+
+.contact-subtext span {
+  color: #666;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+/* POINTS */
+.contact-points {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 2rem;
+}
+
+.contact-point {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* CHECK ICON (MATCH GREEN) */
+.contact-check {
+  width: 22px;
+  height: 22px;
+  background: #6e7c3a;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* TEXT */
+.contact-point p {
+  font-family: Montserrat;
+  font-size: 15px;
+  color: #2f3e56;
+}
+
+/* RIGHT FORM */
+.contact-right {
+  flex: 1;
+}
+
+/* FORM */
+.contact-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* INPUTS (MATCH CARD BG TONE) */
+.contact-right input,
+.contact-right textarea {
+  width: 100%;
+  background: #2F3E56;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: Montserrat;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid #FFFFFF;
+}
+
+/* TEXTAREA */
+.contact-right textarea {
+  height: 140px;
+  resize: none;
+}
+
+.contact-right select {
+  appearance: none;
+}
+
+.select-wrapper {
+  position: relative;
+
+}
+
+.custom-select {
+  width: 100%;
+  padding: 12px 35px 12px 12px;
+  border-radius: 8px;
+  background: #2F3E56;
+  color: white;
+  border: 1px solid white;
+  outline: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Custom Arrow */
+.select-wrapper::after {
+  content: "\f0d7";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  pointer-events: none;
+  font-size: 14px;
+}
+
+
+/* BUTTON (MATCH GREEN THEME) */
+.contact-right button {
+  background: #FFFFFF;
+  color: #2F3E56;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 10px;
+  font-size: 16px;
+  font-family: Montserrat;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.contact-right button:hover {
+  color: #FFFFFF;
+  background: #6e7c3a;
+
+}
+
+
+
+/* ============================================================
+   RESPONSIVE — Tablet (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .contact-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .contact-container {
+    width: 90%;
+  }
+
+  .contact-section {
+    padding: 40px 0;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 30px 0;
+  }
+
+  .contact-container {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 5%;
+    gap: 32px;
+  }
+
+  /* Heading */
+  .contact-left h2 {
+    font-size: 28px;
+    margin-bottom: 14px;
+    text-transform: none;
+  }
+
+  /* Subtext — justified, matching screenshot */
+  .contact-subtext {
+    font-size: 14px;
+    line-height: 26px;
+    text-align: justify;
+    margin-bottom: 10px;
+  }
+
+  .contact-subtext span {
+    font-size: 14px;
+    line-height: 26px;
+  }
+
+  /* Check points */
+  .contact-points {
+    gap: 12px;
+    margin-top: 1.25rem;
+  }
+
+  .contact-check {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .contact-point p {
+    font-size: 14px;
+  }
+
+  /* Form — full width, tighter gaps */
+  .contact-right form {
+    gap: 14px;
+  }
+
+  .contact-right input,
+  .contact-right textarea {
+    padding: 10px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .contact-right textarea {
+    height: 120px;
+  }
+
+  /* Submit button — full width, prominent */
+  .contact-right button {
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 8px;
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Small Mobile (≤ 400px)
+   ============================================================ */
+@media (max-width: 400px) {
+  .contact-left h2 {
+    font-size: 20px;
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .contact-subtext {
+    font-size: 12px;
+    line-height: 22px;
+    text-align: center;
+  }
+  .whyitemconnect li{
+    font-size: 10px;
+  }
+}

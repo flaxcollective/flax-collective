@@ -1,0 +1,240 @@
+.dashboard-header{
+    background-color: #2F3E56;
+}
+
+ 
+
+.dashboard-arrow {
+    position: absolute;
+    top: 0;
+}
+.sidebardashboard {
+  color: var(--text-body); 
+  transition: all 0.3s ease;
+}
+
+.sidebardashboard:hover {
+  background-color: #6e7c3a26;
+}
+
+.sidebardashboard.active {
+  background-color: #2F3E56;
+  color: #ffffff;
+}
+.learning-card{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.learning-card img{
+    width: 70px;
+    height: 70px;
+}
+
+.sidebar-container {
+  position: relative;
+  height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  width: 277px; 
+  padding: 10px;
+}
+
+.desktop-toggle {
+  position: absolute;
+  top: 20px;
+  right: -12px; 
+  z-index: 999; 
+}
+
+.desktop-toggle button {
+  background: #fff;
+  border-radius: 50%;
+  padding: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* Collapsed state */
+.sidebar-collapsed {
+  width: 80px;
+}
+
+
+.sidebar-container {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Logo container */
+.sidebar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+.logo-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+
+.logo-collapsed {
+  width: 120px;
+  height: 120px;
+}
+
+.trainer_status span{
+  background-color: #2F3E56;
+  color: #ffffff;
+}
+
+.flax-eye-icon{
+ position: relative;
+}
+.flax-eye-icon span{
+  position: absolute;
+  bottom:13px !important;
+  right: 14px !important;
+}
+.divider {
+  width: 112%;
+  padding: 18px 0;
+}
+
+.line-dark {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+}
+.all_courseDas{
+  border-bottom: 4px solid;
+}
+
+.right-tools {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Search Input Wrapper */
+.search-box {
+  position: relative;
+  width: 300px;
+}
+
+/* Input Field */
+.search-box input {
+  width: 100%;
+  height: 36px;
+  padding: 0 12px 0 32px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #f8fafc;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Focus Effect */
+.search-box input:focus {
+  border-color: #3b82f6;
+  background-color: #fff;
+}
+
+/* Search Icon */
+.search-box svg {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.filter-btn {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #f1f5f9;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background-color: #e2e8f0;
+}
+.search-box input::placeholder {
+  color: #9ca3af;
+}
+.mylearning_status{
+  background-color: #CEFFD1;
+}
+/* Not Started ke liye */
+.mylearning_status.not-started {
+  background-color: #FFD6BD;
+}
+
+
+
+@media (max-width:768px) {
+  .dashboard-header{
+    align-items: flex-start;
+  }
+
+  .dashboard-header h2{
+    margin-left: 40px;
+    
+}
+  .desktop-toggle{
+    display: none;
+  }
+  .right-tools {
+    flex-wrap: wrap;
+    
+}
+
+.search-box {
+  position: relative;
+  width: 222px;
+}
+.learning-card img {
+    width: 35px;
+    height: 35px;
+}
+
+   
+}
+
+@media (max-width:605px) {
+    .dashboard-header{
+    align-items: center !important;
+  }
+ 
+}
+
+ @media (max-width:575px) {
+  .mylearning_item{
+    position: relative;
+    gap: 8px;
+  }
+ 
+ 
+    .mylearning_item .mylearning_status{
+      position: absolute;
+      right:25px;
+      top: 25px;
+    }
+ 
+}
