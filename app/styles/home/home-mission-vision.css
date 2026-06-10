@@ -54,16 +54,18 @@
   border-top: 1px solid #eee8de;
   margin: 28px 0;
 }
-.mv-icon-wrap .eye-icon{
-  font-size: 50px;
-  color: #2F3E56;
-}
-.mv-icon-wrap .target-icon{
+
+.mv-icon-wrap .eye-icon {
   font-size: 50px;
   color: #2F3E56;
 }
 
-.mv-icon-wrap .diamond-icon{
+.mv-icon-wrap .target-icon {
+  font-size: 50px;
+  color: #2F3E56;
+}
+
+.mv-icon-wrap .diamond-icon {
   font-size: 50px;
   color: #2F3E56;
 }
@@ -129,6 +131,7 @@
 }
 
 .mv-value-item {
+  white-space: nowrap;
   padding-bottom: 24px;
 }
 
@@ -163,20 +166,20 @@
   transform: translateX(-50%);
   width: 6px;
   background: #736A2F;
-  
+
 }
 
 
 .mv-value-content {
   display: grid;
-  grid-template-columns: 160px 36px 1fr;
+  grid-template-columns: 190px 125px 1fr;
   column-gap: 12px;
   align-items: start;
 }
 
 .mv-value-title {
   font-family: Montserrat, sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   color: #2F3E56;
   padding-top: 0px;
@@ -191,13 +194,13 @@
 }
 
 
- @media (max-width:992px) {
+@media (max-width:992px) {
   .mv-container {
     width: 100%;
     margin: 0 auto;
   }
-  
- } 
+
+}
 
 /* ============================================================
    RESPONSIVE — Mobile (≤ 768px)
@@ -205,7 +208,12 @@
 @media (max-width: 768px) {
   .mv-container {
     width: 100%;
-    padding: 0 5%;
+
+  }
+
+  .mv-value-item {
+    white-space: normal;
+
   }
 
   .mv-card {
@@ -218,7 +226,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 10px;
-    align-items: flex-start;  /* ← THIS is the fix */
+    align-items: flex-start;
+    /* ← THIS is the fix */
   }
 
   /* Remove circle border on mobile — just show the icon */
@@ -232,8 +241,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 2px; /* ← fine-tune to align with title text */
+    margin-top: 2px;
+    /* ← fine-tune to align with title text */
   }
+
   .mv-icon-wrap svg {
     width: 24px;
     height: 24px;

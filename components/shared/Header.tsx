@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { MdLogin, MdLogout } from "react-icons/md";
 import { useAuth } from "@/context/AuthContext";
+import { CgMenuRight } from "react-icons/cg";
 
 const navLinks = [
   { label: "HOME", href: "/" },
@@ -166,7 +167,7 @@ export default function Header() {
           className="mobile-menu"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          ☰
+         <CgMenuRight  className="text-3xl" />
         </button>
         {/* ── MOBILE SIDE PANEL ── */}
         <div className={`mobile-nav-panel lg:hidden ${isMenuOpen ? 'open' : ''}`}>
