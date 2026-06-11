@@ -85,12 +85,12 @@ const LoginForm = () => {
         <form onSubmit={handleLogin} className="grid gap-4">
 
           <div>
-            <Label className="text-lg font-semibold">Username</Label>
+            <Label className="text-lg font-semibold">Email</Label>
             <Input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your username"
+              placeholder="Email Or Username"
               className="w-full text-base mt-1 px-3 py-5 border bg-[#F0F0F0] rounded-md"
             />
           </div>
@@ -101,7 +101,7 @@ const LoginForm = () => {
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
+              placeholder="Password"
               className="w-full mt-1 px-3 text-base py-5 border bg-[#F0F0F0] rounded-md"
             />
 

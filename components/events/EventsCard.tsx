@@ -33,7 +33,7 @@ export const events = [
 
 export default function EventsCard() {
   const [selectedEvent, setSelectedEvent] =
-  useState<(typeof events)[number] | null>(null);
+    useState<(typeof events)[number] | null>(null);
 
   return (
     <>
@@ -42,7 +42,7 @@ export default function EventsCard() {
           {events.map((event, index) => (
             <div
               key={index}
-              className="border border-[#d9d9d9] rounded-[28px] p-6 md:p-8"
+              className="border border-[#d9d9d9] rounded-[28px] p-4 md:p-8"
             >
               {/* Images Row */}
               <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -62,18 +62,9 @@ export default function EventsCard() {
 
               {/* Content */}
               <div className="text-center">
-                <h2 className="text-xl md:text-[22px] font-semibold text-text-dark mb-3.5">
+                <h2 className="text-xl md:text-[22px] font-semibold text-text-dark mb-7.5">
                   {event.title}
                 </h2>
-
-                <div className="flex items-center justify-center gap-2 text-text-body mb-3.5">
-                  <IoTimeOutline className="text-lg" />
-                  <span>{event.date}</span>
-                </div>
-
-                <p className="text-text-dark text-sm font-medium mb-3.5">
-                  {event.location}
-                </p>
 
                 <button
                   onClick={() => setSelectedEvent(event)}
@@ -89,19 +80,19 @@ export default function EventsCard() {
 
       {/* Modal */}
       {selectedEvent && (
-        <div className="fixed inset-0 z-[9999]  flex items-center justify-center p-4">
-          <div className="relative w-full max-w-6xl bg-navy  rounded-[40px] p-5 md:p-8">
+        <div className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4">
+          <div className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-navy rounded-[30px] p-5 md:p-8">
 
             {/* Close */}
             <button
               onClick={() => setSelectedEvent(null)}
-              className="absolute right-4 top-4 bg-white cursor-pointer rounded-lg w-10 h-10 flex items-center justify-center text-[#334766]"
+              className="sticky top-0 ml-auto z-20 bg-white rounded-lg w-10 h-10 flex items-center justify-center text-navy"
             >
               <IoClose size={24} />
             </button>
 
             {/* Images */}
-            <div className="flex flex-wrap justify-center gap-4 md:gap-5">
+            <div className="grid grid-cols-1 md:flex md:flex-wrap justify-center gap-4 md:gap-5 mt-4">
               {selectedEvent.images.map((img, index) => (
                 <div
                   key={index}
@@ -109,8 +100,8 @@ export default function EventsCard() {
                 >
                   <img
                     src={img}
-                    alt={`Event ${index + 1}`}
-                    className="w-[170px] md:w-[240px] h-[120px] md:h-[170px] object-cover"
+                    alt={`Workshop ${index + 1}`}
+                    className="w-full md:w-[240px] h-[140px] md:h-[170px] object-cover"
                   />
                 </div>
               ))}
@@ -118,14 +109,9 @@ export default function EventsCard() {
 
             {/* Content */}
             <div className="text-center mt-6">
-              <h2 className="text-white text-[22px] font-semibold pb-3.5">
+              <h2 className="text-white text-xl md:text-[22px] font-semibold pb-3.5">
                 {selectedEvent.title}
               </h2>
-
-              <div className="flex items-center justify-center gap-2 text-white">
-                <IoTimeOutline />
-                <span>{selectedEvent.date}</span>
-              </div>
             </div>
           </div>
         </div>

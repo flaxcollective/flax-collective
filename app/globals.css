@@ -208,3 +208,17 @@ a {
     @apply font-sans;
   }
 }
+
+/* ── iPad Pro / Tablet range (769px – 1023px) ───────────────
+   Har page ke containers ko left/right breathing room deta hai.
+   Tailwind ka md:px-6 (24px) iss range mein kam padta hai.
+──────────────────────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl,
+  .max-w-4xl {
+    padding-left: max(2rem, 4%);
+    padding-right: max(2rem, 4%);
+  }
+}

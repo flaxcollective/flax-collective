@@ -7,6 +7,8 @@ import HomeProcess from "../home/HomeProcess";
 import GlobalService from "./GlobalService";
 import StudentModal from "@/components/shared/StudentModal";
 import EmployerModal from "@/components/shared/EmployerModal";
+import WhatWeDo from "@/components/home/WhatweDo";
+import Whyflax from "@/components/home/WhyFlax";
 
 export default function Services() {
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
@@ -21,14 +23,16 @@ export default function Services() {
   return (
     <>
       <ServicesHero />
-      <RecruitmentSolutions />
+      <WhatWeDo/>
+      {/* <RecruitmentSolutions /> */}
       <HomeProcess />
+       <Whyflax/>
 
       <GlobalService
         onApplyNow={handleApplyNow}
         onHireTalent={() => setIsEmployerModalOpen(true)}
       />
-
+   
       <StudentModal
         isOpen={isStudentModalOpen}
         onClose={() => {

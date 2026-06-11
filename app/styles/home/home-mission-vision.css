@@ -194,12 +194,39 @@
 }
 
 
-@media (max-width:992px) {
+@media (max-width: 992px) {
   .mv-container {
     width: 100%;
     margin: 0 auto;
   }
+}
 
+/* ── iPad Pro / Tablet (769px – 900px) ──────────────────── */
+@media (min-width: 769px) and (max-width: 900px) {
+  .mv-card {
+    padding: 28px 24px;
+  }
+
+  .mv-value-item {
+    white-space: normal;
+  }
+
+  .mv-values-list {
+    padding-left: 40px;
+  }
+
+  .mv-value-content {
+    grid-template-columns: 155px 28px 1fr;
+    column-gap: 10px;
+  }
+
+  .mv-value-title {
+    font-size: 15px;
+  }
+
+  .mv-value-desc {
+    font-size: 13px;
+  }
 }
 
 /* ============================================================

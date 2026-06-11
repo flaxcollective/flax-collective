@@ -104,9 +104,32 @@
 }
 
 
+@media (max-width:1024px) {
+    .start_journey-card h2 {
+        text-align: center;
+    }
+     .start_journey-card p {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .start_journey {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+    }
+
+
+}
+
 @media (max-width:992px) {
     .start_journey-card h2 {
         font-size: 36px;
+    }
+    .start_journey {
+        display: flex;
+        justify-content: center;
+        align-self: center;
     }
 
 
