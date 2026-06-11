@@ -9,7 +9,8 @@
 }
 
 .events-desktop p {
-    color: #666666 !important;
+    color: #000000 !important;
+    font-weight: 500;
 }
 
 .flax-card-border {

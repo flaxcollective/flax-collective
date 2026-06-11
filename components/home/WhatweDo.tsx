@@ -5,7 +5,7 @@ import "@/app/styles/home/what-we-do.css";
 const services = [
     {
         icon: "/assets/icons/service-icon/workshop-1.svg",
-        title: "workshops / Learning Experiences",
+        title: "Workshops / Learning Experiences",
         desc: "Thoughtfully curated, interactive learning experiences designed to build confidence, creativity, communication, and emotional intelligence while fostering meaningful growth.",
     },
     {
@@ -15,7 +15,7 @@ const services = [
     },
     {
         icon: "/assets/icons/service-icon/book-1.svg",
-        title: "certification courses",
+        title: "Certification courses",
         desc: "Professionally curated certification courses that equip learners with industry-relevant skills, practical knowledge, and credentials for career growth.",
     },
     {
@@ -31,7 +31,7 @@ export default function WhatWeDo() {
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
 
                 {/* Heading */}
-                <div className="text-center mb-4 md:mb-14">
+                <div className="text-left md:text-center mb-4 md:mb-14">
                     <h2 className="whatweheading font-serif text-navy">
                         What We Do
                     </h2>
@@ -42,7 +42,7 @@ export default function WhatWeDo() {
                     {services.map((item, index) => (
                         <div
                             key={index}
-                            className={` relative flex items-start gap-4 md:gap-6 px-4 py-6 md:px-10 md:py-8`}
+                            className={` relative flex items-start gap-2.5 md:gap-6 px-4 py-3 md:py-6 md:px-10 lg:py-8`}
                         >
                             {index % 2 === 0 && (
                                 <div className="hidden md:block absolute right-0 top-6 bottom-6 w-px bg-text-body" />
@@ -60,10 +60,10 @@ export default function WhatWeDo() {
 
                             {/* Content */}
                             <div className="flex-1">
-                                <h3 className="text-base md:text-lg lg:text-xl font-semibold font-serif text-navy mb-2 md:mb-3">
+                                <h3 className="text-nowrap md:text-wrap text-sm md:text-lg lg:text-xl font-semibold font-serif text-navy mb-2 md:mb-3">
                                     {item.title}
                                 </h3>
-                                <p className="text-text-body font-medium text-xs md:text-sm leading-6">
+                                <p className="text-text-body font-medium text-xs md:text-sm text-justify md:text-left leading-6">
                                     {item.desc}
                                 </p>
                             </div>
