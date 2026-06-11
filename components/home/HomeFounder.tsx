@@ -12,16 +12,16 @@ export default function HomeFounder() {
         <div className="flex w-full gap-16 items-stretch">
           <div className="flex flex-col founder-text-container">
             <div className="founder-text">
-              <p className="mb-4 founder-text-sub">
+              <p className="mb-2.5 founder-text-sub">
                 Education has always been about more than acquiring knowledge—it is about discovering possibilities, building confidence, and preparing for the future.
               </p>
-              <p className="mb-4">
+              <p className="mb-2.5">
                 Flax Collective was created from a simple belief: that meaningful learning happens when knowledge is connected to real-world experience. While classrooms provide a strong foundation, exposure to industry, practical insights, and human connections are what truly bring learning to life.
               </p>
-              <p className="mb-4">
+              <p className="mb-2.5">
                 Our vision is to create opportunities that inspire curiosity, encourage exploration, and help individuals gain a deeper understanding of the world beyond academics. Through workshops, industry engagement, and collaborative experiences, we aim to bridge the gap between education and opportunity.
               </p>
-              <p className="mb-4">
+              <p className="mb-2.5">
                 As we continue to grow, our commitment remains unchanged—to empower learners with experiences that are relevant, enriching, and transformative.
               </p>
               <p className="mb-10">

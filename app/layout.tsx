@@ -37,7 +37,7 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", montserrat.variable, sourceSerif.variable, "font-sans", inter.variable)}
     >
-      <body className="min-h-full flex flex-col w-full overflow-x-hidden" >
+      <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>
