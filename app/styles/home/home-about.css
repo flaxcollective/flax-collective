@@ -115,7 +115,7 @@
     text-align: justify;
   }
 
-  /* Stack and hide image on mobile — only text shown */
+ 
   .about-grid {
     flex-direction: column;
     gap: 0;
@@ -125,7 +125,7 @@
     display: none;
   }
 
-  /* Full-width text, justified — matches screenshot */
+
   .about-text {
     width: 100%;
   }

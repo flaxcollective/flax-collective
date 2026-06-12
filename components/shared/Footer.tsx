@@ -8,7 +8,7 @@ export default function Footer() {
 
         {/* Logo */}
         <div className="footer-logo">
-          <img src="/assets/images/flex-collective-footer-logo.png" alt="Flax Collective" />
+          <img src="/assets/images/logo/flax-square-logo.png" alt="Flax Collective" />
         </div>
 
         {/* Mobile-only tagline */}
@@ -25,7 +25,7 @@ export default function Footer() {
 
           <p className="footer-please-text">
             <strong>partnerships, </strong>
-            Please Contact The Flax Collective Team.
+            please contact the flax collective team.
           </p>
         </div>
 
@@ -35,18 +35,22 @@ export default function Footer() {
           <img src="/assets/icons/footer-mail-icon-1.png" alt="mail" />
           <span>info@flaxcollective.com</span>
         </div>
+        <div className="footer-phone">
+          <img src="/assets/icons/mi_call.svg" alt="phone" />
+          <span>+91 6280074060</span>
+        </div>
 
         {/* Mobile links — shown only on mobile */}
         <div className="footer-links-mobile">
           <div className="footer-links-mobile-row">
             <span className="footer-links-mobile-bullet">•</span>
-            <Link href="#">Privacy Policy</Link>
+            <Link href="privacy-policy">Privacy Policy</Link>
             <span className="footer-links-mobile-bullet">•</span>
-            <Link href="#">Terms &amp; Conditions</Link>
+            <Link href="terms-conditions">Terms &amp; Conditions</Link>
           </div>
           <div className="footer-links-mobile-row">
             <span className="footer-links-mobile-bullet">•</span>
-            <Link href="#">Refund Policy</Link>
+            <Link href="refund-policy">Refund Policy</Link>
           </div>
         </div>
 
@@ -72,9 +76,9 @@ export default function Footer() {
         <div className="footer-bottom">
           {/* Desktop links */}
           <div className="footer-links-desktop">
-            <Link href="#">Privacy Policy</Link>
-            <Link href="#">Terms &amp; Conditions</Link>
-            <Link href="#">Refund Policy</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-conditions">Terms &amp; Conditions</Link>
+            <Link href="/refund-policy">Refund Policy</Link>
           </div>
 
           <p className="footer-copy"> © {new Date().getFullYear()} FLAX Collective. All Rights Reserved.</p>

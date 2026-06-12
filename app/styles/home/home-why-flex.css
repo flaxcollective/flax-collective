@@ -20,7 +20,7 @@
   transition: transform 0.3s ease;
 }
 
-/* hover button pe ho, arrow rotate ho */
+
 button:hover .arrow-icon {
   transform: rotate(45deg);
 }
@@ -54,7 +54,7 @@ button:hover .arrow-icon {
     margin-bottom: 2rem;
   }
 
-  /* Keep 2 columns on mobile — matches screenshot */
+
   .why-flex-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
@@ -88,8 +88,7 @@ button:hover .arrow-icon {
   }
 }
 
-/* Remove the old @media (max-width: 640px) block entirely — 
-   2-column grid is handled above for all mobile sizes */
+
 @media (max-width: 400px) {
   .why-flex-grid {
     grid-template-columns: repeat(2, 1fr);

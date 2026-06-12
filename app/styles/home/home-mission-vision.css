@@ -362,10 +362,11 @@
   }
 
   .mv-value-line {
-    top: 10px;
+    top: 5px;
     width: 2px;
     background: #6E7C3A;
-    opacity: 0.25;
+    opacity: 1;
+    bottom: -100px;
   }
 
   .mv-value-desc {
@@ -393,7 +394,8 @@
   }
 
   .mv-value-desc {
-    font-size: 11px;
+    font-size: 10px;
+    text-align: justify;
   }
 
   .mv-row-text {

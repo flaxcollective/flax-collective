@@ -25,7 +25,7 @@ export default function Services() {
       <ServicesHero />
       <WhatWeDo/>
       {/* <RecruitmentSolutions /> */}
-      <HomeProcess />
+      {/* <HomeProcess /> */}
        <Whyflax/>
 
       <GlobalService

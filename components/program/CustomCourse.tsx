@@ -4,6 +4,7 @@ import "@/app/styles/Programs.css";
 import { VscSparkle } from "react-icons/vsc";
 import { FaCheck } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const CustomCourse = ({ user }: any) => {
     const [open, setOpen] = useState(false);
@@ -84,7 +85,7 @@ const CustomCourse = ({ user }: any) => {
             if (data.success) {
                 alert("Courses saved successfully");
                 setOpen(false);
-              
+
             } else {
                 alert(data.message || "Error saving courses");
             }
@@ -93,7 +94,7 @@ const CustomCourse = ({ user }: any) => {
         }
     };
 
-   
+
     const handleStart = () => {
         if (!user) {
             router.push("/auth/login?from=custom&callbackUrl=/programs#custom-course");
@@ -104,7 +105,7 @@ const CustomCourse = ({ user }: any) => {
 
     return (
         <>
-           <section id="custom-course" className="custom-course">
+            <section id="custom-course" className="custom-course">
                 <div className="max-w-7xl mx-auto px-4 py-10">
                     <div className="flex flex-col items-center text-center gap-4">
 
@@ -118,12 +119,17 @@ const CustomCourse = ({ user }: any) => {
                                 Explore our wide range of courses, mix and match the topics you love, and shape a learning path that's built just for you.
                             </p>
 
-                            <button
+                            {/* <button
                                 onClick={handleStart}
                                 className="bg-white px-5 py-3 rounded-lg font-bold text-base mt-4 cursor-pointer"
                             >
                                 Start Customizing
-                            </button>
+                            </button> */}
+                            <Link href="/contact">
+                                <button className="bg-white px-5 py-3 rounded-lg font-bold text-base mt-4 cursor-pointer">
+                                    Start Customizing
+                                </button>
+                            </Link>
                         </div>
 
                     </div>

@@ -7,6 +7,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import { ChevronDown } from "lucide-react";
+import { BsTelephone } from "react-icons/bs";
 
 import { GoCheckCircleFill } from "react-icons/go";
 
@@ -67,9 +68,15 @@ export default function HomeContectUs() {
           </p>
 
           <div className="">
-            <p className="text-xs md:text-base flex items-center text-navy justify-center md:justify-self-start font-medium gap-1 py-2 md:py-4">
+            <p className="text-xs md:text-base flex items-center text-navy justify-center md:justify-self-start font-medium gap-1 pt-2 md:pt-4 mb-2 md:mb-3.5">
               <HiOutlineMail className="text-base" />
               info@flaxcollective.com</p>
+                <p className="text-xs md:text-base flex items-center text-navy justify-center md:justify-self-start font-medium gap-1 pb-2 md:pb-4">
+              <BsTelephone className="text-base" />
+                +91 6280074060</p>
+
+              
+
 
           </div>
           <div className="flex justify-center md:justify-self-start gap-4 py-2 md:py-4">

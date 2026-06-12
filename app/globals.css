@@ -59,7 +59,9 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -77,7 +79,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-source-serif-4), serif !important;
   line-height: 1.2;
 
@@ -88,23 +95,32 @@ a {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #F4F1EA; }
-::-webkit-scrollbar-thumb { background: #6E7C3A; border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
 
-.global-page-divider{
+::-webkit-scrollbar-track {
+  background: #F4F1EA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6E7C3A;
+  border-radius: 3px;
+}
+
+.global-page-divider {
   background: linear-gradient(90deg, rgba(43, 55, 105, 0.02) 0%, rgba(43, 55, 105, 0.20) 25%, #2B3769 50%, rgba(43, 55, 105, 0.20) 75%, rgba(43, 55, 105, 0.02) 100%);
   height: 2px;
   width: 100%;
-}   
-
- strong {
-    color: #736a2f;
 }
 
-.sets_program{
+strong {
+  color: #736a2f;
+}
+
+.sets_program {
   background: rgba(110, 124, 58, 0.15);
-  margin:40px 60px !important;
+  margin: 40px 60px !important;
   border-radius: 30px;
 
 }
@@ -114,7 +130,7 @@ a {
   color: #2F3E56;
   border: none;
   border-radius: 10px;
-  padding: 14px 24px; 
+  padding: 14px 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -123,9 +139,10 @@ a {
   font-weight: 500;
   cursor: pointer !important;
 }
-.primary_btn:hover{
+
+.primary_btn:hover {
   background-color: #2f3e56 !important;
-  color:#fff;
+  color: #fff;
 }
 
 :root {
@@ -201,12 +218,26 @@ a {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
+}
+
+.legal-heading span {
+  font-family: Source Serif 4;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 42px;
+   line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  text-transform: capitalize;
+
 }
 
 /* ── iPad Pro / Tablet range (769px – 1023px) ───────────────
@@ -214,6 +245,7 @@ a {
    Tailwind ka md:px-6 (24px) iss range mein kam padta hai.
 ──────────────────────────────────────────────────────────── */
 @media (min-width: 769px) and (max-width: 1023px) {
+
   .max-w-7xl,
   .max-w-6xl,
   .max-w-5xl,
