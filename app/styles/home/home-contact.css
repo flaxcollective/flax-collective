@@ -232,6 +232,7 @@
   .contact-subtext span {
     font-size: 14px;
     line-height: 26px;
+    text-align: justify;
   }
 
   /* Check points */
@@ -290,7 +291,7 @@
   .contact-subtext {
     font-size: 12px;
     line-height: 22px;
-    text-align: center;
+    text-align: justify;
   }
   .whyitemconnect li{
     font-size: 10px;
