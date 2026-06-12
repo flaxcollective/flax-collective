@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
         <AuthProvider>
           {children}
-        </AuthProvider>
+        </AuthProvider> 
       </body>
     </html>
   );
