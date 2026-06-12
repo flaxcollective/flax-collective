@@ -3,14 +3,13 @@
 
 import "@/app/styles/home/home-hero.css";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 
 export default function HomeHero() {
   return (
     <div className="hero-scroll-wrapper">
-      <section className="home-hero sticky top-0 flex items-center overflow-hidden h-screen z-10">
+      <section className="home-hero sticky top-0 flex items-center z-10">
         <div className="home-hero-section max-w-7xl mx-auto w-full">
           <div className="home-hero-flex-container items-center">
             <div className="hero-logo-wrapper">

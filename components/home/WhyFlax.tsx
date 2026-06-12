@@ -36,7 +36,8 @@ export default function WhyFlax() {
                     {features.map((item, index) => (
                         <div
                             key={index}
-                            className={`flex why-flaxborder items-center gap-4 w-full 
+                            className={`flex why-flaxborder items-center gap-4 w-full
+                                     ${index < 2 ? "border-b border-text-body pb-5 md:border-b-0 md:pb-0" : ""}
                                      ${index === 0
                                     ? "justify-start"
                                     : index === 1
@@ -50,7 +51,7 @@ export default function WhyFlax() {
                                 alt={item.title}
                                 width={91}
                                 height={91}
-                                className="object-contain "
+                                className="object-contain w-12.5 h-12.5 md:w-22.75 md:h-22.75 shrink-0"
                             />
 
                             <div>

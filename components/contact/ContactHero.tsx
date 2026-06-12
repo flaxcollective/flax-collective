@@ -102,7 +102,7 @@ export default function ContactHero() {
 
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className={`w-full flex items-center justify-between text-left hover:bg-gray-50 transition-all duration-300 ${activeIndex === index ? 'pb-0 pt-5 px-5' : 'p-5'
+                  className={`w-full flex items-center cursor-pointer justify-between text-left hover:bg-gray-50 transition-all duration-300 ${activeIndex === index ? 'pb-0 pt-5 px-5' : 'p-5'
                     }`}
                 >
                   <span className="font-medium text-gray-800">

@@ -21,7 +21,7 @@ const sourceSerif = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: "Flax Collective",
-  description: "Train.Transform.Thrive.",
+  description: "Where learning meets opportunity. Flax Collective empowers individuals through practical learning, industry connections, and community-driven growth.",
   icons: {
     icon: "/assets/images/flex-collective-logo.png",
   },
@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
         <AuthProvider>
           {children}
-        </AuthProvider>
+        </AuthProvider> 
       </body>
     </html>
   );
