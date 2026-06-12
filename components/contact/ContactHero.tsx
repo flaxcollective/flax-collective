@@ -15,7 +15,7 @@ export default function ContactHero() {
   const faqs = [
     {
       question: "What is Flax Collective?",
-      answer: "Flax Collective is a global talent development and recruitment consultancy connecting skilled professionals with leading employers worldwide.",
+      answer: "Where learning meets opportunity. Flax Collective brings together learning, industry, and community.Through thoughtfully designed experiences and meaningful connections, we help individuals develop practical skills, broaden their perspectives, and discover new possibilities. At Flax, we believe growth happens when people are given the opportunity to learn, connect, and belong.",
     },
     {
       question: "Who can apply as a candidate?",
