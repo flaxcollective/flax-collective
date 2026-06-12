@@ -70,7 +70,7 @@ export default function Header() {
         <div className="relative flex items-center gap-2 sm:gap-3" ref={dropdownRef}>
 
           <p className="text-sm sm:text-base font-semibold text-white truncate max-w-25 sm:max-w-none">
-            {user?.name ?? "Super Admin"}
+            {user?.email ?? "Super Admin"}
           </p>
 
           <div
