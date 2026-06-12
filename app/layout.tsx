@@ -37,6 +37,9 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", montserrat.variable, sourceSerif.variable, "font-sans", inter.variable)}
     >
+      <head>  
+        <meta name="google-site-verification" content="t3sNZ8RRA8Dix18tkniOsqTPxH7wHskzcTfrBlRfkq8" />
+      </head>
       <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
         <AuthProvider>
           {children}
