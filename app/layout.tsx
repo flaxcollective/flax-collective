@@ -20,7 +20,6 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.flaxcollective.com"),
   title: "Flax Collective",
   description:
     "Where learning meets opportunity. Flax Collective empowers individuals through practical learning, industry connections, and community-driven growth.",
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
     icon: "/assets/images/flex-collective-logo.png",
   },
   alternates: {
-    canonical: "/",
+    canonical: "https://www.flaxcollective.com/",
   },
 };
 
@@ -44,7 +43,6 @@ export default function RootLayout({
     >
       <head>  
         <meta name="google-site-verification" content="t3sNZ8RRA8Dix18tkniOsqTPxH7wHskzcTfrBlRfkq8" />
-        
         
       </head>
       <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
