@@ -1,5 +1,5 @@
-import Sidebar from "@/components/dashboard/Sidebar";
-import Header from "@/components/dashboard/Header";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
 import Footer from "@/components/dashboard/Footer";
 
 export default function AdminDashboardLayout({
