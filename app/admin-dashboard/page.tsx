@@ -1,8 +1,8 @@
-export default function SuperAdmin() {
+export default function AdminDashboard() {
   return (
     <div className="p-5">
       <h1 className="text-2xl font-bold">
-        Super Admin Dashboard
+        Admin Dashboard
       </h1>
     </div>
   );
