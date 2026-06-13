@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, password, phone, city, usertype } = body;
+    const { name, email, password, phone, countryCode, city, usertype } = body;
 
     if (!name || !email || !password || !phone || !city) {
       return NextResponse.json(
@@ -32,17 +32,6 @@ export async function POST(req: Request) {
       );
     }
 
-    const phoneRegex = /^(\+91[\s-]?)?[6-9]\d{9}$/;
-    if (!phoneRegex.test(phone)) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Phone number must be a valid Indian number. Accepted formats: 9876543210 or +919876543210",
-        },
-        { status: 400 }
-      );
-    }
-
     if (password.length < 6) {
       return NextResponse.json(
         { success: false, message: "Password must be at least 6 characters long" },
@@ -53,6 +42,12 @@ export async function POST(req: Request) {
     if (!/[A-Z]/.test(password)) {
       return NextResponse.json(
         { success: false, message: "Password must contain at least one capital letter (A-Z)" },
+        { status: 400 }
+      );
+    }
+     if (!/[a-z]/.test(password)) {
+      return NextResponse.json(
+        { success: false, message: "Password must contain at least one Small letter (a-z)" },
         { status: 400 }
       );
     }
@@ -79,12 +74,16 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const now = new Date().toISOString();
+    
+    // Default to +91 if countryCode is missing
+    const finalCountryCode = countryCode || "+91";
+    const fullPhone = `${finalCountryCode}${phone.replace(/\s+/g, "")}`;
 
     const newUser = {
       id: Date.now().toString(),
       name: name.trim(),
       email: normalizedEmail,
-      phone: phone.replace(/\s+/g, ""),
+      phone: fullPhone,
       city: city.trim(),
       usertype: usertype.toLowerCase(),
       password: hashedPassword,
@@ -108,10 +107,10 @@ export async function POST(req: Request) {
         updatedAt: newUser.updatedAt,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Signup Error", error);
     return NextResponse.json(
-      { success: false, message: "Internal server error" },
+      { success: false, message: "Internal server error: " + (error.message || "Unknown Error") },
       { status: 500 }
     );
   }

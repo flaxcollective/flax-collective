@@ -69,7 +69,7 @@ export function proxy(request: NextRequest) {
         }
          return NextResponse.redirect(
           new URL("/dashboard", request.url)
-        );  
+        );
       } catch {
         const res = NextResponse.next();
         res.cookies.delete("token");

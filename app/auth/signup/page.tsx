@@ -1,29 +1,45 @@
 "use client";
 
 
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "@/app/styles/auth/GetStarted.css";
 import { Eye, EyeOff } from "lucide-react";
 import "@/app/styles/dashboard/dashboard-home.css"
+import { countries } from "@/data/countries";
 import { useSearchParams } from "next/navigation";
+import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+
+const CustomGoogleButton = ({ onSuccess }: { onSuccess: (res: any) => void }) => {
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => onSuccess({ credential: tokenResponse.access_token }),
+    onError: () => alert('Google Login Failed'),
+  });
+
+  return (
+    <a onClick={(e) => { e.preventDefault(); login(); }} className="w-10 h-10 flex items-center justify-center border rounded-lg hover:bg-gray-100 transition shadow-sm cursor-pointer">
+      <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5 pointer-events-none" />
+    </a>
+  );
+};
 
 const SignupPage = () => {
- const [role, setRole] = useState("student");
+  const [role, setRole] = useState("student");
 
-useEffect(() => {
-  const params = new URLSearchParams(window.location.search);
-  const roleParam = params.get("role");
-  if (roleParam) {
-    setRole(roleParam);
-  }
-}, []);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const roleParam = params.get("role");
+    if (roleParam) {
+      setRole(roleParam);
+    }
+  }, []);
 
 
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
+    countryCode: "+91",
     phone: "",
     city: "",
   });
@@ -63,7 +79,7 @@ useEffect(() => {
         },
         body: JSON.stringify({
           ...form,
-         usertype: role,
+          usertype: role,
         }),
       });
 
@@ -75,7 +91,7 @@ useEffect(() => {
         alert(" Signup successful");
         window.location.href = "/auth/successfullpage";
       } else {
-        alert("wrong data" + data.message);
+        alert("wrong data " + data.message);
       }
     } catch (error) {
       alert("Something went wrong");
@@ -84,6 +100,28 @@ useEffect(() => {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    try {
+      const res = await fetch("/api/auth/social", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          provider: "google",
+          token: credentialResponse.credential,
+          usertype: role,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("Signup successful");
+        window.location.href = "/auth/successfullpage";
+      } else {
+        alert("Error: " + data.message);
+      }
+    } catch (error) {
+      alert("Something went wrong");
+    }
+  };
 
   return (
     <div className="signstarted-bg w-full flex items-center justify-center">
@@ -131,6 +169,7 @@ useEffect(() => {
                 onChange={handleChange}
                 placeholder="Enter your full name"
                 className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md"
+                required
               />
             </div>
 
@@ -138,13 +177,33 @@ useEffect(() => {
 
             <div>
               <label className="text-lg font-semibold">Phone</label>
-              <input
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder="Enter phone"
-                className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md"
-              />
+              <div className="flex gap-2">
+                <select
+                  name="countryCode"
+                  value={form.countryCode}
+                  onChange={handleChange}
+                  className="w-[100px] mt-1 px-2 py-2 border bg-[#F0F0F0] rounded-md focus:outline-none"
+                >
+                  {countries?.length ? (
+                    countries.map((c, index) => (
+                      <option key={`${c.iso}-${c.code}-${index}`} value={c.code}>
+                        {c.iso} ({c.code})
+                      </option>
+                    ))
+                  ) : (
+                    <option>Loading...</option>
+                  )}
+                </select>
+                <input
+                  type="number"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Enter phone"
+                  className="flex-1 mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md focus:outline-none"
+                  required
+                />
+              </div>
             </div>
 
 
@@ -152,11 +211,13 @@ useEffect(() => {
             <div>
               <label className="text-lg font-semibold">Email</label>
               <input
+                type="email"
                 name="email"
                 value={form.email}
                 onChange={handleChange}
                 placeholder="Enter email"
                 className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md"
+                required
               />
             </div>
 
@@ -170,6 +231,7 @@ useEffect(() => {
                 onChange={handleChange}
                 placeholder="Enter city"
                 className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md"
+                required
               />
             </div>
 
@@ -188,6 +250,7 @@ useEffect(() => {
               onChange={handleChange}
               placeholder="Create password"
               className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md pr-10"
+              required
             />
 
 
@@ -198,6 +261,23 @@ useEffect(() => {
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </span>
           </div>
+
+          {form.password.length > 0 && (
+            <div className="text-sm mt-1 mb-2">
+              <p className={form.password.length >= 6 ? "text-green-600" : "text-gray-500"}>
+                {form.password.length >= 6 ? "✓" : "○"} At least 6 characters
+              </p>
+              <p className={/[A-Z]/.test(form.password) ? "text-green-600" : "text-gray-500"}>
+                {/[A-Z]/.test(form.password) ? "✓" : "○"} Contains a capital letter
+              </p>
+              <p className={/[a-z]/.test(form.password) ? "text-green-600" : "text-gray-500"}>
+                {/[a-z]/.test(form.password) ? "✓" : "○"} Contains a small letter
+              </p>
+              <p className={/[0-9]/.test(form.password) ? "text-green-600" : "text-gray-500"}>
+                {/[0-9]/.test(form.password) ? "✓" : "○"} Contains a number
+              </p>
+            </div>
+          )}
 
 
 
@@ -210,6 +290,7 @@ useEffect(() => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm password"
               className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md pr-10"
+              required
             />
 
 
@@ -228,9 +309,9 @@ useEffect(() => {
           <button
             type="submit"
             disabled={loading}
-            className="getstarted-btn w-full"
+            className="getstarted-btn w-full cursor-pointer"
           >
-            {loading ? "Creating..." : "Continue"}
+            {loading ? "Creating..." : "Submit"}
           </button>
 
 
@@ -246,9 +327,11 @@ useEffect(() => {
         <div className="divider">
           <div className="line-dark"></div>
         </div>
-        <div className="flex justify-center gap-4"> {["https://www.svgrepo.com/show/475656/google-color.svg", "https://www.svgrepo.com/show/475647/facebook-color.svg", "https://www.svgrepo.com/show/448234/linkedin.svg",].map((icon, i) => (<a key={i} href="#" className="w-10 h-10 flex items-center justify-center border rounded-lg hover:bg-gray-100 transition shadow-sm" > <img src={icon} className="w-5 h-5" /> </a>))} </div>
-
-
+        <div className="flex justify-center gap-4 mt-4">
+          <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+            <CustomGoogleButton onSuccess={handleGoogleSuccess} />
+          </GoogleOAuthProvider>
+        </div>
       </div>
     </div>
   );

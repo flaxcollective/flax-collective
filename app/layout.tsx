@@ -20,10 +20,17 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.flaxcollective.com'),
   title: "Flax Collective",
-  description: "Train.Transform.Thrive.",
+  description: "Flax Collective is an educational and industry engagement platform redefining how learning is experienced. By bridging the gap between academia and industry, we create immersive opportunities that enable learners to gain insight, build capability, and explore future possibilities beyond traditional education.",
   icons: {
     icon: "/assets/images/flex-collective-logo.png",
+  },
+  verification: {
+    google: "t3sNZ8RRA8Dix18tkniOsqTPxH7wHskzcTfrBlRfkq8",
+  },
+  alternates: {
+    canonical: 'https://www.flaxcollective.com/',
   },
 };
 

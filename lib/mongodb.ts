@@ -1,4 +1,8 @@
 import { MongoClient, Db } from "mongodb";
+import dns from "dns";
+
+// Force Google DNS to bypass local SRV lookup blocks
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const uri = process.env.MONGODB_URI as string;
 
@@ -25,5 +29,5 @@ if (process.env.NODE_ENV === "development") {
 
 export async function getDb(): Promise<Db> {
   await client.connect();
-  return client.db(); // uses the database name from the URI
+  return client.db(); 
 }

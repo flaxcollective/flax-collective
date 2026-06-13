@@ -9,6 +9,20 @@ import { Eye, EyeOff } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import "@/app/styles/auth/GetStarted.css";
 import { useAuth } from "@/context/AuthContext";
+import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+
+const CustomGoogleButton = ({ onSuccess }: { onSuccess: (res: any) => void }) => {
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => onSuccess({ credential: tokenResponse.access_token }),
+    onError: () => alert('Google Login Failed'),
+  });
+
+  return (
+    <a onClick={(e) => { e.preventDefault(); login(); }} className="w-10 h-10 flex items-center justify-center border rounded-lg hover:bg-gray-100 transition shadow-sm cursor-pointer">
+      <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5 pointer-events-none" />
+    </a>
+  );
+};
 
 
 const LoginForm = () => {
@@ -59,6 +73,33 @@ const LoginForm = () => {
 
     } catch (error) {
       console.error("Login error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/auth/social", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          provider: "google",
+          token: credentialResponse.credential,
+          action: "login"
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.message || "Social login failed");
+        return;
+      }
+      setUser(data.user);
+      alert("Login successful!");
+      router.push("/");
+    } catch (error) {
+      console.error("Google Login error:", error);
     } finally {
       setLoading(false);
     }
@@ -136,9 +177,10 @@ const LoginForm = () => {
         <div className="divider">
           <div className="line-dark"></div>
         </div>
-        <div className="flex justify-center gap-4">
-          {["https://www.svgrepo.com/show/475656/google-color.svg", "https://www.svgrepo.com/show/475647/facebook-color.svg", "https://www.svgrepo.com/show/448234/linkedin.svg",].map((icon, i) => (<a key={i} href="#" className="w-10 h-10 flex items-center justify-center border rounded-lg hover:bg-gray-100 transition shadow-sm" >
-            <img src={icon} className="w-5 h-5" /> </a>))}
+        <div className="flex justify-center gap-4 mt-4">
+          <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+            <CustomGoogleButton onSuccess={handleGoogleSuccess} />
+          </GoogleOAuthProvider>
         </div>
 
 
