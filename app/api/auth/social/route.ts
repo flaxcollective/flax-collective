@@ -58,16 +58,16 @@ export async function POST(req: Request) {
         createdAt: now,
         updatedAt: now,
       };
-      await users.insertOne(newUser);
-      user = newUser;
+      await users.insertOne(newUser as any);
+      user = newUser as any;
     }
 
     // Generate JWT token
     const jwtToken = jwt.sign(
       {
-        id: user.id,
-        email: user.email,
-        usertype: user.usertype,
+        id: user!.id,
+        email: user!.email,
+        usertype: user!.usertype,
       },
       process.env.JWT_SECRET as string,
       { expiresIn: "1d" }
@@ -78,10 +78,10 @@ export async function POST(req: Request) {
       message: "Login Successful",
       token: jwtToken,
       user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        usertype: user.usertype,
+        id: user!.id,
+        name: user!.name,
+        email: user!.email,
+        usertype: user!.usertype,
       },
     });
 
@@ -97,10 +97,10 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error("Social Auth Error:", error);
     return NextResponse.json(
-      { 
-        success: false, 
+      {
+        success: false,
         message: "Internal server error: " + (error.message || "Unknown Error"),
-        stack: error.stack 
+        stack: error.stack
       },
       { status: 500 }
     );

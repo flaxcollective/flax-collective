@@ -18,7 +18,7 @@ const CustomGoogleButton = ({ onSuccess }: { onSuccess: (res: any) => void }) =>
 
   return (
     <a onClick={(e) => { e.preventDefault(); login(); }} className="w-10 h-10 flex items-center justify-center border rounded-lg hover:bg-gray-100 transition shadow-sm cursor-pointer">
-      <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5 pointer-events-none" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" className="w-5 h-5 pointer-events-none" alt="Google" />
     </a>
   );
 };
