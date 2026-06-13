@@ -14,7 +14,7 @@
   font-weight: 500;
   line-height: normal;
   text-transform: capitalize;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 /* SUBTEXT */
@@ -50,19 +50,19 @@
 /* STEP BADGE */
 .process-step {
   position: absolute;
-  top: -18px;
+  top: -26px;
   right: 20px;
   background: #2F3E56;
   color: white;
   padding: 6px 12px;
-  border-radius: 6px;
+  border-radius: 110px 0 0 110px;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
 .process-step span {
-  font-size: 10px;
+  font-size: 12px;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
  
@@ -70,23 +70,24 @@
 }
 
 .process-step strong {
-  font-size: 18px;
+  font-size: 32px;
+  line-height: 100%;
   color: #ffffff;
 }
 
 /* TITLE */
 .process-card h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #2f3e56;
+  font-size: 20px;
+  font-weight: 500;
+  color: #2F3E56;
   margin-bottom: 10px;
 }
 
 /* DESC */
 .process-card p {
-  font-size: 13px;
-  color: #6b7280;
-  line-height: 20px;
+  font-size: 16px;
+  color: #666666;
+  line-height: 26px;
 }
 
 /* ─── PROCESS ────────────────────────────────────────────── */
@@ -459,20 +460,25 @@
 /* ============================================================
    RESPONSIVE — Small Mobile (≤ 400px)
    ============================================================ */
-@media (max-width: 400px) {
+@media (max-width: 575px) {
   .process-card {
-    padding: 40px 10px 16px;
+    padding: 20px 10px 16px;
     border-width: 6px;
   }
 
   .process-card h3 {
     font-size: 12px;
     line-height: 18px;
+    text-align: center;
+    margin-bottom: 6px;
+
   }
 
   .process-card p {
     font-size: 10px;
     line-height: 16px;
+    text-align: center;
+    margin-bottom: 0px;
   }
    .process-section {
     padding: 0px 0 20px 0;

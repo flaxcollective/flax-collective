@@ -111,7 +111,7 @@ export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
 
      
         <div className="programs-header-section">
-          <h2>industry specific courses</h2>
+          <h2>Industry Specific Courses</h2>
           <p className="programs-subtitle">Industry-Led. Relevant. Career Ready.</p>
 
         </div>
