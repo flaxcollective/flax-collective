@@ -55,7 +55,7 @@ export default function WhatWeDo() {
             <div className="max-w-7xl mx-auto ">
 
                 {/* Heading */}
-                <div className="text-left md:text-center mb-5 md:mb-8">
+                <div className="text-left md:text-center mb-0 md:mb-8">
                     <h2 className="whatweheading font-serif text-navy px-4 md:px-8">
                         What We Do
                     </h2>

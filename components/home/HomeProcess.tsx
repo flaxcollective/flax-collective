@@ -3,40 +3,40 @@ export default function HomeProcess() {
   const processData = [
     {
       step: "01",
-      title: "Candidate Identification",
-      desc: "We identify promising graduates and professionals through institutional partnerships and career networks worldwide."
+      title: "Discover",
+      desc: "Explore new industries, opportunities, and career pathways through workshops and experiences."
     },
     {
       step: "02",
-      title: "Career Counselling",
-      desc: "Each candidate undergoes professional counselling to assess career goals, readiness for international employment, and industry suitability"
+      title: "Learn",
+      desc: "Gain practical knowledge, industry insights, and real-world perspectives."
     },
     {
       step: "03",
-      title: "Certification & Skill Development",
-      desc: "Candidates participate in online certification programs and workshops focused on communication, and workplace professionalism."
+      title: "Connect",
+      desc: "Build meaningful relationships with professionals, mentors, and peers."
     },
     {
       step: "04",
-      title: "Screening & Evaluation",
-      desc: "Applicants are assessed through interviews, skill evaluation, and professional profiling."
+      title: "Grow",
+      desc: "Develop confidence, awareness, and future-ready skills."
     },
     {
       step: "05",
-      title: "Global Employer Connections",
-      desc: "Qualified candidates are introduced to employers internationally based on their skills and role requirements."
+      title: "Explore",
+      desc: "Access opportunities for further learning, industry engagement, and career development."
     },
     {
       step: "06",
-      title: "Placement & Onboarding",
-      desc: "Once selected by an employer and successfully onboarded, the recruitment process is completed through our transparent placement structure."
+      title: "Belong",
+      desc: "Become part of a community that supports lifelong growth and learning."
     }
   ];
 
   return (
     <section className="process-section mb-10 md:mb-20">
       <div className="process-container max-w-7xl mx-auto px-4">
-        <h2>Our Process</h2>
+        <h2>The Flax Journey</h2>
         {/* <p className="process-subtext">
           Flax Collective follows a structured pathway that prepares candidates and supports employers through a reliable recruitment process.
         </p> */}

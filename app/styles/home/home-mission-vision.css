@@ -193,12 +193,19 @@
   font-weight: 500;
 }
 
+@media (max-width:1120px) {
+  .mv-value-item {
+    white-space: normal;
+    padding-bottom: 24px;
+  }
+}
 
 @media (max-width: 992px) {
   .mv-container {
     width: 100%;
     margin: 0 auto;
   }
+
 }
 
 /* ── iPad Pro / Tablet (769px – 900px) ──────────────────── */
