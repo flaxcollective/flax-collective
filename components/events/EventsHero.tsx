@@ -9,7 +9,7 @@ export default function EventsHero() {
     <section className="flax-events">
 
     
-      <div className="events-deskbg pt-32 pb-4 md:pb-16 md:mt-28 w-full ">
+      <div className="events-deskbg pt-32 pb-4 md:pb-16 md:mt-25 w-full ">
          <div className="relative z-10 flex items-center justify-center px-4">
           <div className="events-desktop text-center max-w-7xl">
 

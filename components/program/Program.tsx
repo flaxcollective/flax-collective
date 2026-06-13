@@ -32,7 +32,7 @@ export default function Program() {
     <>
       <ProgramHero />
        <WhatSetsApart />
-       <StudnetTraining/>
+       {/* <StudnetTraining/> */}
       <HomePrograms onApplyNow={handleApplyNow} />
         <AreaofLearning/>
      <CustomCourse user={user} />
