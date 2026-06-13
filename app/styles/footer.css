@@ -80,12 +80,13 @@
   font-weight: 600;
   color: #2F3E56;
 }
+
 .footer-email {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  
+
 }
 
 .footer-phone img {
@@ -99,8 +100,9 @@
   font-family: Montserrat, sans-serif;
   font-size: 13px;
   font-weight: 600;
-  color:#2F3E56;
+  color: #2F3E56;
 }
+
 .footer-phone {
   display: flex;
   align-items: center;
@@ -240,7 +242,7 @@
   }
 
   /* Email */
- 
+
 
   .footer-email span {
     font-size: 14px;
@@ -284,5 +286,9 @@
     font-size: 13px;
     color: #333;
     margin-top: 4px;
+  }
+
+  .footer-links-mobile-row {
+    gap: 5px;
   }
 }
