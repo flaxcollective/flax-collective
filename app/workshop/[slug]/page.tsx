@@ -82,7 +82,7 @@ export default async function EventDetails({
                         <img
                             key={index}
                             src={image}
-                            alt={`Event ${index + 1}`}
+                            alt={`Workshop ${index + 1}`}
                             className="w-full h-48 object-cover rounded-lg"
                         />
                     ))}

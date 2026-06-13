@@ -73,6 +73,23 @@
   }
 }
 
+/* ── iPad Pro / Tablet (769px – 900px) ──────────────────── */
+@media (min-width: 769px) and (max-width: 900px) {
+  .about-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .about-container h2 {
+    font-size: 30px;
+  }
+
+  .about-text p {
+    font-size: 14px;
+    line-height: 26px;
+  }
+}
+
 /* ============================================================
    RESPONSIVE — Mobile (≤ 768px)
    ============================================================ */
@@ -98,7 +115,7 @@
     text-align: justify;
   }
 
-  /* Stack and hide image on mobile — only text shown */
+ 
   .about-grid {
     flex-direction: column;
     gap: 0;
@@ -108,7 +125,7 @@
     display: none;
   }
 
-  /* Full-width text, justified — matches screenshot */
+
   .about-text {
     width: 100%;
   }

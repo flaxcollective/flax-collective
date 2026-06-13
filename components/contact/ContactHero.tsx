@@ -15,7 +15,7 @@ export default function ContactHero() {
   const faqs = [
     {
       question: "What is Flax Collective?",
-      answer: "Flax Collective is a global talent development and recruitment consultancy connecting skilled professionals with leading employers worldwide.",
+      answer: "Where learning meets opportunity. Flax Collective brings together learning, industry, and community.Through thoughtfully designed experiences and meaningful connections, we help individuals develop practical skills, broaden their perspectives, and discover new possibilities. At Flax, we believe growth happens when people are given the opportunity to learn, connect, and belong.",
     },
     {
       question: "Who can apply as a candidate?",
@@ -102,7 +102,7 @@ export default function ContactHero() {
 
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className={`w-full flex items-center justify-between text-left hover:bg-gray-50 transition-all duration-300 ${activeIndex === index ? 'pb-0 pt-5 px-5' : 'p-5'
+                  className={`w-full flex items-center cursor-pointer justify-between text-left hover:bg-gray-50 transition-all duration-300 ${activeIndex === index ? 'pb-0 pt-5 px-5' : 'p-5'
                     }`}
                 >
                   <span className="font-medium text-gray-800">

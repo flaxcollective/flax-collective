@@ -77,9 +77,9 @@
 .global-footprint-title {
   color: #2F3E56;
 
-  font-size: 42px;
+  font-size: 32px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: normal;
   text-transform: capitalize;
   padding-bottom: 15px;

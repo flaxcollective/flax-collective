@@ -87,7 +87,7 @@
 
 .mv-row-text {
   font-family: Montserrat, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 24px;
   color: #666;
   text-align: justify;
@@ -151,7 +151,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 4px solid #736A2F;
+  border: 3px solid #736A2F;
   background: #fff;
   flex-shrink: 0;
   position: relative;
@@ -160,11 +160,11 @@
 
 .mv-value-line {
   position: absolute;
-  top: 16px;
-  bottom: -60px;
+  top: 15px;
+  bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 6px;
+  width: 3px;
   background: #736A2F;
 
 }
@@ -179,7 +179,7 @@
 
 .mv-value-title {
   font-family: Montserrat, sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   color: #2F3E56;
   padding-top: 0px;
@@ -194,12 +194,39 @@
 }
 
 
-@media (max-width:992px) {
+@media (max-width: 992px) {
   .mv-container {
     width: 100%;
     margin: 0 auto;
   }
+}
 
+/* ── iPad Pro / Tablet (769px – 900px) ──────────────────── */
+@media (min-width: 769px) and (max-width: 900px) {
+  .mv-card {
+    padding: 28px 24px;
+  }
+
+  .mv-value-item {
+    white-space: normal;
+  }
+
+  .mv-values-list {
+    padding-left: 40px;
+  }
+
+  .mv-value-content {
+    grid-template-columns: 155px 28px 1fr;
+    column-gap: 10px;
+  }
+
+  .mv-value-title {
+    font-size: 15px;
+  }
+
+  .mv-value-desc {
+    font-size: 13px;
+  }
 }
 
 /* ============================================================
@@ -335,10 +362,11 @@
   }
 
   .mv-value-line {
-    top: 10px;
+    top: 5px;
     width: 2px;
     background: #6E7C3A;
-    opacity: 0.25;
+    opacity: 1;
+    bottom: -100px;
   }
 
   .mv-value-desc {
@@ -366,7 +394,8 @@
   }
 
   .mv-value-desc {
-    font-size: 11px;
+    font-size: 10px;
+    text-align: justify;
   }
 
   .mv-row-text {

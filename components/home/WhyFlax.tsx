@@ -21,22 +21,23 @@ const features = [
 
 export default function WhyFlax() {
     return (
-        <section className="bg-[#e5e4d8] py-5 md:py-10">
+        <section className="bg-[#e5e4d8] mb-10 md:mb-20 py-5 md:py-10">
             <div className="max-w-7xl mx-auto px-4">
                 {/* Heading */}
-                <div className="text-left md:text-center mb-5 md:mb-10">
+                {/* <div className="text-left md:text-center mb-5 md:mb-10">
                     <h2 className="whatweheading  font-serif text-navy">
                         Why FLAX
                     </h2>
 
-                </div>
+                </div> */}
 
                 {/* Features */}
                 <div className="grid md:grid-cols-3 space-y-5 md:space-y-0">
                     {features.map((item, index) => (
                         <div
                             key={index}
-                            className={`flex why-flaxborder items-center gap-4 w-full 
+                            className={`flex why-flaxborder items-center gap-4 w-full
+                                     ${index < 2 ? "border-b border-text-body pb-5 md:border-b-0 md:pb-0" : ""}
                                      ${index === 0
                                     ? "justify-start"
                                     : index === 1
@@ -50,7 +51,7 @@ export default function WhyFlax() {
                                 alt={item.title}
                                 width={91}
                                 height={91}
-                                className="object-contain "
+                                className="object-contain w-12.5 h-12.5 md:w-22.75 md:h-22.75 shrink-0"
                             />
 
                             <div>

@@ -34,7 +34,7 @@ export default function HomeProcess() {
   ];
 
   return (
-    <section className="process-section">
+    <section className="process-section mb-10 md:mb-20">
       <div className="process-container max-w-7xl mx-auto px-4">
         <h2>Our Process</h2>
         {/* <p className="process-subtext">
@@ -78,7 +78,7 @@ export default function HomeProcess() {
           </div>
         </div> */}
 
-        <div className="global-page-divider mt-14"></div>
+       
       </div>
     </section>
   );
