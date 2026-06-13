@@ -6,7 +6,7 @@ import "@/app/styles/Programs.css"
 
 export default function ProgramHero() {
   return (
-    <section className=" desktop_herobg pt-32 pb-4 md:pb-16 md:mt-28 w-full ">
+    <section className="desktop_herobg pt-32 pb-4 md:pb-16 md:mt-25 w-full ">
 
       <div className="relative w-full  flex items-center">
 
