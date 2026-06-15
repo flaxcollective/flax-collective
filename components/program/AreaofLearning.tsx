@@ -6,7 +6,7 @@ const AreaofLearning = () => {
             <section className='w-full mx-auto'>
                 <div className="cp-section max-w-7xl mx-auto px-4 sm:px-6 text-center">
 
-                    <p className="cp-areas-label">What you Will Gain</p>
+                    <p className="cp-areas-label">What You Will Gain</p>
 
                     <div className="cp-areas-grid">
                         {/* Guest Service Excellence */}
@@ -63,7 +63,7 @@ const AreaofLearning = () => {
                         </div>
                     </div>
 
-                    <p className="cp-text cp-text--small py-7">
+                    <p className="cp-text cp-text--small pt-7">
                         Courses Are delivered through <strong>online learning modules, interactive sessions and in person.</strong>
                     </p>
                 </div>

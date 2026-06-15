@@ -1,8 +1,8 @@
-
 .contactherobg {
   position: relative;
- 
+
 }
+
 .contactherobg::before {
   content: "";
   position: absolute;
@@ -15,33 +15,34 @@
 
   background-size: 40px 40px;
 
- 
-  mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black 65%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black 65%,
-    transparent 100%
-  );
+
+  mask-image: linear-gradient(to bottom,
+      black 0%,
+      black 65%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      black 0%,
+      black 65%,
+      transparent 100%);
 
   z-index: 0;
 }
 
 
 .contacthero h3 {
-    color: #2F3E56;
+  color: #2F3E56;
 }
 
 
 
 @media (max-width:575px) {
-    .contactherobg {
-        background: transparent;
-        background-size: 40px 40px;
-    }
+  .contactherobg {
+    background: transparent;
+    background-size: 40px 40px;
+  }
+
+  .contactherobg::before {
+    display: none;
+  }
+
 }

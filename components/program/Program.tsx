@@ -12,6 +12,7 @@ import StudnetTraining from "./StudnetTraining";
 import CustomCourse from "./CustomCourse";
 import AreaofLearning from "./AreaofLearning";
 import { useAuth } from "@/context/AuthContext";
+import ECertificate from "./Ecertificate";
 
 export default function Program() {
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
@@ -33,11 +34,13 @@ export default function Program() {
       <ProgramHero />
        <WhatSetsApart />
        {/* <StudnetTraining/> */}
+      <ECertificate/>
+       <HowItWorksStudents/>
       <HomePrograms onApplyNow={handleApplyNow} />
         <AreaofLearning/>
      <CustomCourse user={user} />
     
-      <HowItWorksStudents/>
+     
       <CareerCTA/>
 
       <StudentModal
