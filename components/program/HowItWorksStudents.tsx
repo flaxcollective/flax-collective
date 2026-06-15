@@ -36,11 +36,11 @@ const HowItWorksStudents = () => {
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-semibold text-[#2F3E56] mb-3">
+        <div className="text-center mb-8 md:mb-16">
+          <h2 className="text-xl md:text-[42px] font-medium text-navy mb-3">
             How It Works For Students
           </h2>
-          <p className="text-[#6b7847] text-lg">
+          <p className="text-text-body leading-4.5 md:leading-7.5   text-xs md:text-lg">
             A simple and structured process designed to guide you from learning to successful placement.
           </p>
         </div>
