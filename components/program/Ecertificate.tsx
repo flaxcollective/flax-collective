@@ -70,7 +70,7 @@ export default function ECertificate() {
                   <img src={f.icon} alt={f.title} className="" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-sm md:text-xl text-text-dark md:text-navy mb-1 md:mb-1.5">{f.title}</h4>
+                  <h4 className="font-medium text-sm md:text-xl md:text-navy mb-1 md:mb-1.5">{f.title}</h4>
                   <p className="e-cert-featuresubdesc  font-medium text-text-body leading-3 md:leading-4.5 ">{f.desc}</p>
                 </div>
               </div>

@@ -66,7 +66,7 @@ const HowItWorksStudents = () => {
             >
               {/* Vertical line for mobile */}
               {index < steps.length - 1 && (
-                <div className="md:hidden absolute left-8 md:left-[43px] top-0 md:top-[88px] w-[4px] bg-[#c8d6bd]  h-22 md:h-[calc(100%-56px)] z-0" />
+                <div className="md:hidden absolute left-8 md:left-[43px] top-0 md:top-[88px] w-[4px] bg-[#736A2F]  h-22 md:h-[calc(100%-56px)] z-0" />
               )}
 
               {/* Circle */}

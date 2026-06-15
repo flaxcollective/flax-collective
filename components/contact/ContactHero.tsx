@@ -59,7 +59,7 @@ export default function ContactHero() {
           <div className="relative z-10 flex items-center justify-center h-48 md:h-full px-0 md:px-4">
             <div className={`${styles.contacthero} max-w-7xl mx-auto px-4 sm:px-6 text-center`}>
 
-              <h3 className="text-xl md:text-5xl lg:text-7xl font-normal text-left md:text-center leading-8 md:leading-24">
+              <h3 className="text-xl md:text-5xl lg:text-7xl font-normal text-left md:text-center max-w-4xl mx-auto leading-8 md:leading-24">
                 Connect With Experts. Create Better Outcomes.
               </h3>
 

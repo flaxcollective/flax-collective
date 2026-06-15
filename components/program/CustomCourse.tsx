@@ -105,12 +105,12 @@ const CustomCourse = ({ user }: any) => {
 
     return (
         <>
-            <section id="custom-course" className="custom-course mb-10 md:mb-20">
+            <section id="custom-course" className="custom-course mt-10 md:mt-0 mb-0 md:mb-20">
                 <div className="max-w-7xl mx-auto px-4 pb-10">
                     <div className="flex flex-col items-center text-center gap-4">
 
                         <div className="custom-course-heading">
-                            <h2 className="text-xl md:text-5xl font-normal flex items-center text-navy justify-center gap-2 leading-24 pb-2.5">
+                            <h2 className="text-xl md:text-5xl font-medium flex items-center text-navy justify-center gap-2 leading-24 pb-2.5">
                                 <span><VscSparkle /></span>
                                 Customize Your Course, Your Way
                             </h2>
