@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import { getDb } from "@/lib/mongodb";
 
 export const runtime = "nodejs";
 
@@ -14,9 +15,23 @@ export async function GET() {
       return NextResponse.json({ user: null });
     }
 
-    const user = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
 
-    return NextResponse.json({ user });
+    const db = await getDb();
+    const user = await db.collection("users").findOne({ id: decoded.id });
+
+    if (!user) {
+      return NextResponse.json({ user: null });
+    }
+
+    const { password, ...userWithoutPassword } = user;
+
+    return NextResponse.json({
+      user: {
+        ...userWithoutPassword,
+        hasPassword: !!password,
+      },
+    });
   } catch (error) {
     console.error("Session Error:", error);
 

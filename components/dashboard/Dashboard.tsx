@@ -7,11 +7,13 @@ import { useState } from "react";
 import "@/app/styles/dashboard/dashboard-home.css"
 import { HiOutlinePlay } from "react-icons/hi";
 import { GrAttachment } from "react-icons/gr";
+import Link from "next/link";
+import { BookOpen } from "lucide-react";
+
+import { useAuth } from "@/context/AuthContext";
 
 export default function Dashboard() {
-  const user = {
-    name: "Anshuman",
-  };
+  const { user } = useAuth();
 
   const data = [
     {
@@ -66,19 +68,96 @@ export default function Dashboard() {
 
       <div>
         <h1 className="text-base md:text-3xl pb-2.5 font-semibold text-text-dark">
-          Good Morning, {user.name} 👋
-          
+          Good Morning, {user?.name || "User"} 👋
         </h1>
         <p className="text-text-body text-xs md:text-base font-medium">
           Continue your learning journey with Flax Collective.
         </p>
       </div>
+      {/* Pay Fees Section */}
+      {/*
+      <div className="max-w-2xl mx-auto space-y-4">
+        <h2 className="text-xl md:text-2xl font-bold text-gray-800">
+          Pay Fees
+        </h2>
 
+        <div className="bg-white border rounded-xl p-6 space-y-3 shadow-sm">
+          <h4 className="text-base md:text-lg font-semibold text-text-dark">
+            Real Estate Sales & Management (RESM)
+          </h4>
 
+          <div className="trainer_status flex items-center justify-between">
+            <div className="flex items-center gap-2 mt-3">
+              <img
+                src="/assets/images/dashboard/rohit.png"
+                alt="trainer"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <div className="leading-tight">
+                <p className="text-xs md:text-[14px] text-text-body">Conducted By</p>
+                <p className="text-xs md:text-lg font-semibold text-text-dark">
+                  Rohit Sharma
+                </p>
+              </div>
+            </div>
+
+            <span className="text-xs bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium">
+              Paid
+            </span>
+          </div>
+        </div>
+
+        <div className="bg-white border rounded-xl p-6 space-y-3 shadow-sm">
+          <h4 className="text-base md:text-lg font-semibold text-text-dark">
+            Hospitality Professional Foundations (HPF)
+          </h4>
+
+          <div className="flex items-center gap-2 mt-5">
+            <img
+              src="/assets/images/dashboard/shikhar.png"
+              alt="trainer"
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            <div className="leading-tight">
+              <p className="text-[14px] text-text-body">Conducted By</p>
+              <p className="text-sm md:text-lg font-medium text-text-dark">
+                Shikhar Dhawan
+              </p>
+            </div>
+          </div>
+
+          <button className="w-full border mt-3 border-[#AD2727] text-[#AD2727] py-2.5 rounded-lg text-lg font-semibold hover:bg-red-50 transition cursor-pointer">
+            Pay Now
+          </button>
+        </div>
+      </div>
+      */}
+
+      {/* No Enrolled Courses Yet Box (Same as My Learning section) */}
+      <div className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-2xl p-10 md:p-16 text-center shadow-sm max-w-2xl mx-auto mt-8">
+        <div className="bg-[#2F3E56]/10 p-4 rounded-full mb-6 text-[#2F3E56] flex items-center justify-center">
+          <BookOpen className="w-12 h-12" />
+        </div>
+        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+          No Enrolled Courses Yet
+        </h2>
+        <p className="text-gray-500 text-sm md:text-base mb-8 max-w-md">
+          Explore our certification programs, counselling sessions, and workshops to start your learning journey.
+        </p>
+        <Link
+          href="/dashboard/course"
+          className="bg-[#2F3E56] hover:bg-[#1E293B] text-white px-8 py-3 rounded-xl font-medium transition cursor-pointer text-center inline-block"
+        >
+          Explore Courses
+        </Link>
+      </div>
+
+      {/*
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
 
         <div className="xl:col-span-2 space-y-8">
+
 
             <div>
             <div className="flex items-center gap-3 pb-5">
@@ -283,7 +362,6 @@ export default function Dashboard() {
 
             <div className="bg-white border rounded-xl p-4 space-y-3">
 
-              {/* Course Title */}
               <h4 className="text-sm  md:text-lg font-semibold text-text-dark">
                 Real Estate Sales & Management (RESM)
               </h4>
@@ -346,6 +424,7 @@ export default function Dashboard() {
 
 
       </div>
+      */}
     </div>
   );
 }

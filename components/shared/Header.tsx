@@ -106,14 +106,11 @@ export default function Header() {
           </nav>
 
           <div className="auth-header flex gap-3 items-center">
-            <Link href="/auth/signup">
-              <button className="sign-item">SIGN UP</button>
-            </Link>
-            {/* {user ? (
+            {user ? (
               <>
                 <Link
                   href={
-                    user?.usertype === "employee"
+                    user?.usertype === "employee" || user?.usertype === "admin"
                       ? "/admin-dashboard"
                       : "/dashboard"
                   }
@@ -125,7 +122,7 @@ export default function Header() {
 
                 <button
                   onClick={handleLogout}
-                  className="login-item flex items-center gap-1"
+                  className="login-item flex items-center gap-1 cursor-pointer"
                 >
                   LOGOUT <MdLogout />
                 </button>
@@ -142,15 +139,7 @@ export default function Header() {
                   </button>
                 </Link>
               </>
-            )} */}
-            {/* 
-           */}
-
-            {/* <Link href="/auth/login">
-              <button className="login-item flex items-center gap-1">
-                LOGIN <MdLogin />
-              </button>
-            </Link> */}
+            )}
           </div>
         </div>
       </div>
@@ -191,17 +180,11 @@ export default function Header() {
 
             {/* MOBILE AUTH BUTTONS */}
             <div className="mobile-auth-buttons">
-
-              <Link href="/auth/signup" onClick={closeMenu}>
-                <button className="mobile-auth-btn sign">
-                  SIGN UP
-                </button>
-              </Link>
-              {/* {user ? (
+              {user ? (
                 <>
                   <Link
                     href={
-                      user?.usertype === "employee"
+                      user?.usertype === "employee" || user?.usertype === "admin"
                         ? "/admin-dashboard"
                         : "/dashboard"
                     }
@@ -217,7 +200,7 @@ export default function Header() {
                       handleLogout();
                       closeMenu();
                     }}
-                    className="mobile-auth-btn login flex items-center gap-2"
+                    className="mobile-auth-btn login flex items-center gap-2 cursor-pointer"
                   >
                     LOGOUT <MdLogout />
                   </button>
@@ -236,7 +219,7 @@ export default function Header() {
                     </button>
                   </Link>
                 </>
-              )} */}
+              )}
             </div>
           </nav>
         </div>

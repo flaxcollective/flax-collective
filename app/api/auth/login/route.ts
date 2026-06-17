@@ -55,15 +55,14 @@ export async function POST(req: Request) {
       { expiresIn: "1d" }
     );
 
+    const { password: _, ...userWithoutPassword } = user;
     const response = NextResponse.json({
       success: true,
       message: "Login Successful",
       token,
       user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        usertype: user.usertype,
+        ...userWithoutPassword,
+        hasPassword: !!user.password,
       },
     });
 

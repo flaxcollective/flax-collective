@@ -183,6 +183,18 @@ const LoginForm = () => {
           </GoogleOAuthProvider>
         </div>
 
+        <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-xs text-gray-500 mt-6 pt-4 border-t border-gray-100 font-medium">
+          <Link href="/about" className="hover:underline">About Us</Link>
+          <span>•</span>
+          <Link href="/contact" className="hover:underline">Contact Us</Link>
+          <span>•</span>
+          <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
+          <span>•</span>
+          <Link href="/terms-conditions" className="hover:underline">Terms &amp; Conditions</Link>
+          <span>•</span>
+          <Link href="/refund-policy" className="hover:underline">Refund &amp; Cancellation Policy</Link>
+        </div>
+
 
 
       </div>

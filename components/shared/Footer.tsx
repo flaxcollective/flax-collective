@@ -44,13 +44,19 @@ export default function Footer() {
         <div className="footer-links-mobile">
           <div className="footer-links-mobile-row">
             <span className="footer-links-mobile-bullet">•</span>
-            <Link href="privacy-policy">Privacy Policy</Link>
+            <Link href="/about">About Us</Link>
             <span className="footer-links-mobile-bullet">•</span>
-            <Link href="terms-conditions">Terms &amp; Conditions</Link>
+            <Link href="/contact">Contact Us</Link>
           </div>
           <div className="footer-links-mobile-row">
             <span className="footer-links-mobile-bullet">•</span>
-            <Link href="refund-policy">Refund Policy</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <span className="footer-links-mobile-bullet">•</span>
+            <Link href="/terms-conditions">Terms &amp; Conditions</Link>
+          </div>
+          <div className="footer-links-mobile-row">
+            <span className="footer-links-mobile-bullet">•</span>
+            <Link href="/refund-policy">Refund &amp; Cancellation Policy</Link>
           </div>
         </div>
 
@@ -76,9 +82,11 @@ export default function Footer() {
         <div className="footer-bottom">
           {/* Desktop links */}
           <div className="footer-links-desktop">
+            <Link href="/about">About Us</Link>
+            <Link href="/contact">Contact Us</Link>
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/terms-conditions">Terms &amp; Conditions</Link>
-            <Link href="/refund-policy">Refund Policy</Link>
+            <Link href="/refund-policy">Refund &amp; Cancellation Policy</Link>
           </div>
 
           <p className="footer-copy"> © {new Date().getFullYear()} FLAX Collective. All Rights Reserved.</p>

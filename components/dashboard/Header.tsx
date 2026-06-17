@@ -7,6 +7,13 @@ import { usePathname, useRouter } from "next/navigation";
 import "@/app/styles/dashboard/dashboard-home.css";
 import { useAuth } from "@/context/AuthContext";
 
+function getInitials(name: string) {
+  if (!name) return "U";
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 export default function Header() {
 
   const pathname = usePathname();
@@ -23,6 +30,7 @@ export default function Header() {
    const handleClickOutside = (event: MouseEvent) => {
   if (
     dropdownRef.current &&
+    dropdownRef.current.contains &&
     !dropdownRef.current.contains(event.target as Node)
   ) {
     setProfile(false);
@@ -63,7 +71,7 @@ export default function Header() {
       return "Courses";
     }
 
-    if (pathname.includes("profilesetting")) {
+    if (pathname.includes("profile-settings")) {
       return "Profile Settings";
     }
      if (pathname.includes("admin-dashboard")) {
@@ -102,20 +110,23 @@ export default function Header() {
 
           {/* Name */}
           <p className="text-sm sm:text-base font-semibold text-white truncate max-w-25 sm:max-w-none">
-            Anshuman Negi
+            {user?.name || "User"}
           </p>
 
           {/* Avatar */}
           <div
             onClick={() => setProfile(!profile)}
-            className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full overflow-hidden cursor-pointer border-2 border-white"
+            className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full overflow-hidden cursor-pointer border-2 border-white flex items-center justify-center bg-[#2F3E56] text-white font-bold text-xs sm:text-sm"
           >
-
-            <img
-              src="/assets/images/dashboard/user-profile.jpg"
-              alt="user"
-              className="w-full h-full object-cover"
-            />
+            {user?.picture ? (
+              <img
+                src={user.picture}
+                alt="user"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span>{getInitials(user?.name || "User")}</span>
+            )}
 
           </div>
 
@@ -126,10 +137,12 @@ export default function Header() {
 
               {[
                 { name: "Profile", link: "/dashboard/profile-settings" },
+                /*
                 { name: "Add User", link: "/dashboard/new-user" },
                 { name: "Manage Team", link: "/dashboard/manage-team" },
                 { name: "View Groups", link: "#" },
                 { name: "Refer & Earn", link: "#" },
+                */
               ].map((item, index) => (
                 <Link
                   key={index}

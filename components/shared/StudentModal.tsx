@@ -164,7 +164,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                     <option value="Professional Skills & Soft Skills Foundation (PSSF)">Professional Skills & Soft Skills Foundation (PSSF)</option>
                     <option value="Real Estate Sales & Management (RESM)">Real Estate Sales & Management (RESM)</option>
                     <option value="Butler Service & Luxury Hospitality Certification (BSLHC)">Butler Service & Luxury Hospitality Certification (BSLHC)</option>
-                    <option value="Professional Bartending & Guest Engagement (PBGEC)">Professional Bartending & Guest Engagement (PBGEC)</option>
+                    <option value="Professional Bartending & Guest Engagement Certification (PBGEC)">Professional Bartending & Guest Engagement Certification (PBGEC)</option>
                     <option value="Childcare & Family Guest Services Certification (CFHC)">Childcare & Family Guest Services Certification (CFHC)</option>
                   </select>
                 </div>
