@@ -6,7 +6,7 @@ import "@/app/styles/Programs.css"
 
 export default function ProgramHero() {
   return (
-    <section className=" desktop_herobg pt-32 pb-4 md:pb-16 md:mt-28 w-full ">
+    <section className="desktop_herobg pt-32 pb-4 md:pb-16 md:mt-25 w-full ">
 
       <div className="relative w-full  flex items-center">
 
@@ -23,7 +23,7 @@ export default function ProgramHero() {
 
         <div className="max-w-7xl mx-auto w-full px-4 flex flex-col items-center text-center program-desktophero ">
 
-          <h3 className="text-xl sm:text-2xl md:text-5xl lg:text-7xl font-normal  leading-[1.2]">
+          <h3 className="text-xl sm:text-2xl md:text-5xl lg:text-7xl font-medium max-w-3xl  leading-[1.2]">
             Structured Programs That Fit Your Career
           </h3>
 

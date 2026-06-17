@@ -1,6 +1,31 @@
 .desktop_herobg {
-  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  position: relative;
+
+}
+
+.desktop_herobg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(90deg, #0000000d 1px, transparent 1px),
+    linear-gradient(#0000000d 1px, transparent 1px);
+
   background-size: 40px 40px;
+
+
+  mask-image: linear-gradient(to bottom,
+      black 0%,
+      black 65%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      black 0%,
+      black 65%,
+      transparent 100%);
+
+  z-index: 0;
 }
 
 .program-desktophero h3 {
@@ -11,8 +36,6 @@
   color: #666666 !important;
 
 }
-
-
 
 .setpartsheading h2 {
   font-size: 42px;
@@ -230,12 +253,10 @@
 }
 
 /* Custom Course start */
-.custom-course {
-  background: #2F3E56;
-}
+
 
 .custom-course-heading button {
-  color: #2F3E56;
+  color: #fff;
 }
 
 .customcorse button {
@@ -308,7 +329,6 @@
   color: #6E7C3A;
 }
 
-
 .customcoursemodel {
   border-bottom: 1px solid #666666 !important;
   margin-bottom: 20px;
@@ -335,7 +355,87 @@
   color: #6E7C3A;
 }
 
+/* ── E-Certificate ── */
+.ecert-title {
+  font-size: 42px;
+  font-weight: 500;
+  color: #2F3E56;
+  line-height: 100%;
+  padding-bottom: 20px;
+}
 
+.ecert-subtextatom {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 30px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #666666;
+
+}
+
+.ecert-cert-outer {
+  border: 1px solid #736A2F66;
+  border-radius: 20px;
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.e-certverified {
+  top: -48px;
+  left: -48px;
+}
+
+.ecert-cert-inner {
+  border-radius: 10px;
+  overflow: hidden;
+  flex: 1;
+  background: #fff;
+}
+
+.e-cert-featuresubdesc {
+  font-size: 12px;
+  line-height: 18px !important;
+}
+
+.ecert-cert-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.ecert-features-panel {
+  background: #6E7C3A26;
+  border-radius: 16px;
+  border: 1px solid rgba(110, 124, 58, 0.15)
+}
+
+.ecert-icon-box {
+  background: rgba(110, 124, 58, 0.18);
+  border-radius: 12px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+}
+
+.ecert-icon-box img {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+  display: block;
+}
 
 /* Student Training finish */
 
@@ -377,9 +477,68 @@
   }
 
 
+
+
+}
+
+
+@media (max-width:768px) {
+  .ecert-title {
+    font-family: Source Serif 4;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 4%;
+    padding-bottom: 10px;
+  }
+
+  .ecert-subtextatom {
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    margin: 0px !important;
+
+  }
+
+  .ecert-cert-outer {
+    border: none;
+    padding: 0px !important;
+  }
+
+  .e-certverified {
+    width: 70px;
+    height: 70px;
+    top: -30px;
+    left: -18px;
+  }
+
+  .ecert-icon-box {
+
+    width: 40px;
+    height: 40px;
+
+  }
+
+  .ecert-icon-box img {
+
+    width: 24px;
+    height: 24px;
+
+  }
+
+  .e-cert-featuresubdesc {
+    font-size: 8px !important;
+    line-height: 12px !important;
+    text-align: justify;
+
+  }
+
+
 }
 
 @media (max-width:575px) {
+  .desktop_herobg::before {
+    display: none;
+  }
 
   .setpartsheading h2 {
     font-size: 20px;
@@ -392,7 +551,8 @@
     line-height: 32px;
     margin-bottom: 10px;
   }
-  .programs-text{
+
+  .programs-text {
     font-size: 12px;
     line-height: 24px;
     padding-bottom: 0px;
@@ -436,6 +596,7 @@
     text-align: left;
     font-size: 20px;
     line-height: 32px;
+    max-width: 327px;
   }
 
 

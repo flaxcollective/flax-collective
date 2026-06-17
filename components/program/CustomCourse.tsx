@@ -105,17 +105,17 @@ const CustomCourse = ({ user }: any) => {
 
     return (
         <>
-            <section id="custom-course" className="custom-course">
-                <div className="max-w-7xl mx-auto px-4 py-10">
+            <section id="custom-course" className="custom-course mt-10 md:mt-0 mb-0 md:mb-20">
+                <div className="max-w-7xl mx-auto px-4 pb-10">
                     <div className="flex flex-col items-center text-center gap-4">
 
                         <div className="custom-course-heading">
-                            <h2 className="text-3xl md:text-5xl font-normal flex items-center text-white justify-center gap-2 leading-24 pb-2.5">
+                            <h2 className="text-xl md:text-5xl font-medium flex items-center text-navy justify-center gap-2 leading-24 pb-2.5">
                                 <span><VscSparkle /></span>
                                 Customize Your Course, Your Way
                             </h2>
 
-                            <p className="text-lg leading-7 font-normal text-white max-w-2xl mx-auto pb-10">
+                            <p className=" text-xs md:text-lg leading-4.5 md:leading-7 font-medium text-text-body max-w-2xl mx-auto pb-3 md:pb-5">
                                 Explore our wide range of courses, mix and match the topics you love, and shape a learning path that's built just for you.
                             </p>
 
@@ -126,7 +126,7 @@ const CustomCourse = ({ user }: any) => {
                                 Start Customizing
                             </button> */}
                             <Link href="/contact">
-                                <button className="bg-white px-5 py-3 rounded-lg font-bold text-base mt-4 cursor-pointer">
+                                <button className="bg-navy px-3.5 md:px-5 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base mt-4 cursor-pointer">
                                     Start Customizing
                                 </button>
                             </Link>
