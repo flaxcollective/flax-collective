@@ -272,6 +272,7 @@ export default function ProfileEditCard() {
               </div>
 
               {/* Course */}
+              {/*
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-1 md:gap-3">
                   <BookOpen className="w-4 h-4 text-text-dark" />
@@ -279,6 +280,7 @@ export default function ProfileEditCard() {
                 </div>
                 <span className="text-xs md:text-sm text-text-dark">HPF</span>
               </div>
+              */}
 
               {/* Role */}
               <div className="flex items-center justify-between gap-4">
