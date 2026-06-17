@@ -11,6 +11,18 @@ type UserType = {
     id: string;
     email: string;
     usertype: string;
+    name?: string;
+    phone?: string;
+    city?: string;
+    provider?: string;
+    picture?: string;
+    dob?: string;
+    gender?: string;
+    alternativePhone?: string;
+    address?: string;
+    hasPassword?: boolean;
+    createdAt?: string;
+    updatedAt?: string;
 } | null;
 
 type AuthContextType = {

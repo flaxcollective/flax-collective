@@ -3,6 +3,8 @@
 import { FiSearch, FiFilter } from "react-icons/fi";
 import "@/app/styles/dashboard/dashboard-home.css";
 import { TiMediaPlayOutline } from "react-icons/ti";
+import Link from "next/link";
+import { BookOpen } from "lucide-react";
 import { TbLayoutSidebarRight } from "react-icons/tb";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { FiCalendar, FiClock } from "react-icons/fi";
@@ -58,6 +60,25 @@ export default function DashboardMylearning() {
       </div>
 
 
+      <div className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-2xl p-10 md:p-16 text-center shadow-sm max-w-2xl mx-auto mt-8">
+        <div className="bg-[#2F3E56]/10 p-4 rounded-full mb-6 text-[#2F3E56] flex items-center justify-center">
+          <BookOpen className="w-12 h-12" />
+        </div>
+        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+          No Enrolled Courses Yet
+        </h2>
+        <p className="text-gray-500 text-sm md:text-base mb-8 max-w-md">
+          Explore our certification programs, counselling sessions, and workshops to start your learning journey.
+        </p>
+        <Link
+          href="/dashboard/course"
+          className="bg-[#2F3E56] hover:bg-[#1E293B] text-white px-8 py-3 rounded-xl font-medium transition cursor-pointer text-center inline-block"
+        >
+          Explore Courses
+        </Link>
+      </div>
+
+      {/*
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
 
@@ -80,7 +101,6 @@ export default function DashboardMylearning() {
 
 
               <div className="relative inline-block">
-                {/* Button */}
                 <button
                   className="filter-btn flex items-center gap-2"
                   onClick={() => setOpen(!open)}
@@ -89,7 +109,6 @@ export default function DashboardMylearning() {
                   Filter
                 </button>
 
-                {/* Dropdown */}
                 {open && (
                   <div className="absolute mt-2 w-48 bg-white border rounded-lg shadow-lg z-10">
                     <ul className="py-2 text-nowrap text-sm">
@@ -198,7 +217,6 @@ export default function DashboardMylearning() {
         <div className="xl:col-span-1 space-y-6">
           <div className="bg-gray-100 border rounded-2xl p-6 text-center shadow-sm">
 
-
             <h3 className="text-lg font-semibold text-gray-800 mb-6">
               Learning Progress
             </h3>
@@ -300,6 +318,7 @@ export default function DashboardMylearning() {
         </div>
 
       </div>
+      */}
     </div>
   );
 }

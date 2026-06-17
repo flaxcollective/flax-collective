@@ -12,9 +12,9 @@ const RefundPolicyContent = () => {
    
 
       <p className="text-xs text-text-body md:text-base leading-5 md:leading-6 font-medium">
-       At Flax Collective, we are committed to delivering high-quality training, certification, counselling, and recruitment services. We understand that circumstances may sometimes change, and this Refund Policy explains the conditions under which refunds may be requested, approved, or denied.
+       At Flax Collective, we are committed to delivering high-quality training, certification, counselling, and recruitment services. We understand that circumstances may sometimes change, and this Refund & Cancellation Policy explains the conditions under which refunds may be requested, approved, or denied.
       </p>
-     <p className="text-xs md:text-base text-text-body leading-5 md:leading-6 font-medium">By enrolling in any program or engaging our Services, you agree to the terms set out in this Refund Policy. This Policy should be read in conjunction with our Terms & Conditions.</p>    
+     <p className="text-xs md:text-base text-text-body leading-5 md:leading-6 font-medium">By enrolling in any program or engaging our Services, you agree to the terms set out in this Refund & Cancellation Policy. This Policy should be read in conjunction with our Terms & Conditions.</p>    
       {/* Information We Collect */}
       <LegalSection title="General Principles">
          <LegalList
@@ -177,11 +177,11 @@ const RefundPolicyContent = () => {
          />
      
       </LegalSection>
-        <LegalSection title="Updates to This Policy">
+        <LegalSection title="Updates to This Refund & Cancellation Policy">
 
             <LegalList
           items={[
-            "Flax Collective reserves the right to amend this Refund Policy at any time to reflect operational, legal, or business changes. The updated Policy will be posted on this page with a revised Last Updated date. Refund requests will be assessed under the version of the Policy in force at the time of the original payment.",
+            "Flax Collective reserves the right to amend this Refund & Cancellation Policy at any time to reflect operational, legal, or business changes. The updated Policy will be posted on this page with a revised Last Updated date. Refund requests will be assessed under the version of the Policy in force at the time of the original payment.",
            ]}
          />
        

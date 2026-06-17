@@ -6,12 +6,20 @@ import { FiUsers } from "react-icons/fi";
 import { FiSearch, FiFilter } from "react-icons/fi";
 import { FiClock } from "react-icons/fi";
 import { FaRegPlayCircle } from "react-icons/fa";
+import StudentModal from "@/components/shared/StudentModal";
 
 
 
 export default function Courses() {
     const [activeCategory, setActiveCategory] = useState("All");
     const [showMobileFilter, setShowMobileFilter] = useState(false);
+    const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+    const [selectedCourseTitle, setSelectedCourseTitle] = useState("");
+
+    const handleBuyNow = (courseTitle: string) => {
+        setSelectedCourseTitle(courseTitle);
+        setIsEnquiryModalOpen(true);
+    };
     const courses = [
         {
             id: 1,
@@ -392,15 +400,12 @@ export default function Courses() {
                                 </div>
 
 
-                                {course.enrolled ? (
-                                    <button className="w-full py-2 rounded-lg bg-[#6b7c3a] text-white text-sm">
-                                        View Progress
-                                    </button>
-                                ) : (
-                                    <button className="w-full py-2 rounded-lg bg-navy text-white text-sm">
-                                        Buy Now
-                                    </button>
-                                )}
+                                <button
+                                    onClick={() => handleBuyNow(course.title)}
+                                    className="w-full py-2 rounded-lg bg-navy text-white text-sm cursor-pointer animate-none"
+                                >
+                                    Buy Now
+                                </button>
 
                             </div>
                         ))}
@@ -412,6 +417,14 @@ export default function Courses() {
 
 
             {/* Browse by Category finish */}
+            <StudentModal
+                isOpen={isEnquiryModalOpen}
+                onClose={() => {
+                    setIsEnquiryModalOpen(false);
+                    setSelectedCourseTitle("");
+                }}
+                initialCourse={selectedCourseTitle}
+            />
         </>
     )
 }

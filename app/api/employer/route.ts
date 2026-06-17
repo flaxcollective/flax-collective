@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
+import { getDb } from "@/lib/mongodb";
 
-const DATA_FILE = path.join(process.cwd(), "data", "employers.json");
+export const runtime = "nodejs";
+
 const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_WEBAPP_URL;
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,8 +11,8 @@ export async function POST(req: NextRequest) {
     let { fullName, companyName, email, countryCode, phone, jobRole, candidatesRequired, location, employmentType } = body;
 
     // Ensure countryCode has +
-    if (typeof countryCode === 'string' && countryCode && !countryCode.startsWith('+')) {
-      countryCode = '+' + countryCode;
+    if (typeof countryCode === "string" && countryCode && !countryCode.startsWith("+")) {
+      countryCode = "+" + countryCode;
     }
 
     if (!fullName || !companyName || !email || !countryCode || !phone || !jobRole || !candidatesRequired || !location || !employmentType) {
@@ -23,19 +22,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Read existing data
-    let entries: unknown[] = [];
-    try {
-      const raw = await fs.readFile(DATA_FILE, "utf-8");
-      entries = JSON.parse(raw) as unknown[];
-    } catch {
-      entries = [];
-    }
-
-    // Append new entry
     const newEntry = {
-      id: Date.now(),
-      submittedAt: new Date().toISOString(),
+      submittedAt: new Date(),
       fullName,
       companyName,
       email,
@@ -47,13 +35,8 @@ export async function POST(req: NextRequest) {
       employmentType,
     };
 
-    entries.push(newEntry);
-
-    // Ensure /data folder exists
-    await fs.mkdir(path.join(process.cwd(), "data"), { recursive: true });
-
-    // Write back to file
-    await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2), "utf-8");
+    const db = await getDb();
+    await db.collection("employers").insertOne(newEntry);
 
     if (GOOGLE_SHEET_URL) {
       try {
@@ -62,16 +45,15 @@ export async function POST(req: NextRequest) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...newEntry,
-            countryCode: `'${newEntry.countryCode}`, // Prefix with ' to preserve + in Google Sheets
-            sheetName: "EmployerSubmissions"
+            countryCode: `'${countryCode}`,
+            sheetName: "EmployerSubmissions",
           }),
         });
       } catch (sheetErr) {
         console.error("[GOOGLE SHEETS ERROR]", sheetErr);
       }
-    } else {
-      console.warn("[GOOGLE SHEETS] No URL configured in .env.local");
     }
+
     return NextResponse.json({ success: true, message: "Hiring request submitted successfully." });
   } catch (err) {
     console.error("[EMPLOYER ERROR]", err);

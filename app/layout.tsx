@@ -20,6 +20,7 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.flaxcollective.com'),
   title: "Flax Collective",
   description:
     "Where learning meets opportunity. Flax Collective empowers individuals through practical learning, industry connections, and community-driven growth.",
