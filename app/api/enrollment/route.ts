@@ -22,6 +22,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (typeof city === "string" && !/[a-zA-Z]/.test(city)) {
+      return NextResponse.json(
+        { success: false, message: "City name must contain letters." },
+        { status: 400 }
+      );
+    }
+
     const newEntry = {
       submittedAt: new Date(),
       firstName,

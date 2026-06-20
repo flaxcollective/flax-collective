@@ -20,9 +20,12 @@ export default function Header() {
    const router = useRouter();
 
   const [profile, setProfile] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
    const { user, setUser } = useAuth();
 
  const dropdownRef = useRef<HTMLDivElement | null>(null);
+ const notificationRef = useRef<HTMLDivElement | null>(null);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -34,6 +37,13 @@ export default function Header() {
     !dropdownRef.current.contains(event.target as Node)
   ) {
     setProfile(false);
+  }
+  if (
+    notificationRef.current &&
+    notificationRef.current.contains &&
+    !notificationRef.current.contains(event.target as Node)
+  ) {
+    setShowNotifications(false);
   }
 };
 
@@ -86,21 +96,44 @@ export default function Header() {
     <header className="dashboard-header px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
 
       {/* Left */}
-      <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-white">
-        {getTitle()}
-      </h2>
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => window.dispatchEvent(new Event("toggle-sidebar"))}
+          className="md:hidden bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 cursor-pointer shadow-sm text-lg leading-none flex items-center justify-center text-gray-800"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-white">
+          {getTitle()}
+        </h2>
+      </div>
 
       {/* Right */}
       <div className="flex items-center gap-3 sm:gap-5 lg:gap-6">
 
         {/* Notification */}
-        <button className="relative p-1.5 sm:p-2 text-white hover:text-gray-200 transition">
+        <div className="relative" ref={notificationRef}>
+          <button 
+            onClick={() => setShowNotifications(!showNotifications)}
+            className="relative p-1.5 sm:p-2 text-white hover:text-gray-200 transition cursor-pointer"
+          >
+            <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
+            {notifications.length > 0 && (
+              <span className="absolute top-1 right-1 w-2 h-2 bg-white rounded-full"></span>
+            )}
+          </button>
 
-          <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
-
-          <span className="absolute top-1 right-1 w-2 h-2 bg-white rounded-full"></span>
-
-        </button>
+          {showNotifications && (
+            <div className="absolute top-12 right-0 w-64 bg-navy rounded-b-2xl shadow-xl py-4 px-4 z-50 text-white border-t border-white/10">
+              <div className="text-sm font-semibold mb-1 text-center">Notifications</div>
+              <div className="border-b border-white/20 my-2"></div>
+              <div className="text-xs text-white/70 text-center py-4">
+                No new notifications
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* User */}
         <div

@@ -51,7 +51,15 @@ export async function POST(req: Request) {
 
     if (name !== undefined) updateFields.name = name.trim();
     if (phone !== undefined) updateFields.phone = phone.trim();
-    if (city !== undefined) updateFields.city = city.trim();
+    if (city !== undefined) {
+      if (!/[a-zA-Z]/.test(city)) {
+        return NextResponse.json(
+          { success: false, message: "City name must contain letters" },
+          { status: 400 }
+        );
+      }
+      updateFields.city = city.trim();
+    }
     if (dob !== undefined) updateFields.dob = dob;
     if (gender !== undefined) updateFields.gender = gender;
     if (alternativePhone !== undefined) updateFields.alternativePhone = alternativePhone.trim();

@@ -16,6 +16,13 @@ export async function POST(req: Request) {
       );
     }
 
+    if (!/[a-zA-Z]/.test(city)) {
+      return NextResponse.json(
+        { success: false, message: "City name must contain letters" },
+        { status: 400 }
+      );
+    }
+
     const allowedTypes = ["employee", "student"];
     if (!usertype || !allowedTypes.includes(usertype.toLowerCase())) {
       return NextResponse.json(

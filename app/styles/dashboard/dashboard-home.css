@@ -189,14 +189,6 @@
 
 
 @media (max-width:768px) {
-  .dashboard-header{
-    align-items: flex-start;
-  }
-
-  .dashboard-header h2{
-    margin-left: 40px;
-    
-}
   .desktop-toggle{
     display: none;
   }
@@ -215,13 +207,6 @@
 }
 
    
-}
-
-@media (max-width:605px) {
-    .dashboard-header{
-    align-items: center !important;
-  }
- 
 }
 
  @media (max-width:575px) {

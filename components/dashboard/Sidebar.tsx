@@ -107,6 +107,12 @@ export default function Sidebar() {
     setMobileOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const handleToggle = () => setMobileOpen(true);
+    window.addEventListener("toggle-sidebar", handleToggle);
+    return () => window.removeEventListener("toggle-sidebar", handleToggle);
+  }, []);
+
 
   useEffect(() => {
     if (isMobile && mobileOpen) {
@@ -231,31 +237,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* ── MOBILE: Hamburger button (fixed top-left) ── */}
-      {isMobile && (
-        <button
-          onClick={() => setMobileOpen(true)}
-          className=""
-          style={{
-            position: "fixed",
-            top: "12px",
-            left: "12px",
-            zIndex: 1000,
-            background: "white",
-            border: "1px solid #e5e7eb",
-            borderRadius: "8px",
-            padding: "6px 10px",
-            cursor: "pointer",
-            boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
-            fontSize: "18px",
-            lineHeight: 1,
-          }}
-          aria-label="Open menu"
-        >
-          ☰
-        </button>
-      )}
-
       {/* ── MOBILE: Overlay backdrop ── */}
       {isMobile && (
         <div
