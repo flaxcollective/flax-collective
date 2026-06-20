@@ -60,13 +60,25 @@ const SignupPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    if (!/[a-zA-Z]/.test(form.name)) {
+      alert("Full Name must contain letters");
+      return;
+    }
 
+    if (form.phone && !/^\d+$/.test(form.phone)) {
+      alert("Phone number must contain only numbers");
+      return;
+    }
 
     if (form.password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
+    if (!/[a-zA-Z]/.test(form.city)) {
+      alert("City name must contain letters");
+      return;
+    }
 
     setLoading(true);
 
@@ -88,7 +100,6 @@ const SignupPage = () => {
 
 
       if (data.success) {
-        alert(" Signup successful");
         window.location.href = "/auth/successfullpage";
       } else {
         alert("wrong data " + data.message);
@@ -113,7 +124,6 @@ const SignupPage = () => {
       });
       const data = await res.json();
       if (data.success) {
-        alert("Signup successful");
         window.location.href = "/auth/successfullpage";
       } else {
         alert("Error: " + data.message);

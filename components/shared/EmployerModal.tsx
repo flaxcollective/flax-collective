@@ -56,6 +56,16 @@ export default function EmployerModal({ isOpen, onClose }: EmployerModalProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!/[a-zA-Z]/.test(form.fullName)) {
+      setStatus("error");
+      setErrorMsg("Full Name must contain letters");
+      return;
+    }
+    if (form.phone && !/^\d+$/.test(form.phone)) {
+      setStatus("error");
+      setErrorMsg("Phone number must contain only numbers");
+      return;
+    }
     setStatus("loading");
     setErrorMsg("");
 

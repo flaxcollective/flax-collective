@@ -29,6 +29,16 @@ export default function HomeContectUs() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!/[a-zA-Z]/.test(form.name)) {
+      setStatus("error");
+      setErrorMsg("Full Name must contain letters");
+      return;
+    }
+    if (form.mobile && !/^\d+$/.test(form.mobile)) {
+      setStatus("error");
+      setErrorMsg("Mobile number must contain only numbers");
+      return;
+    }
     setStatus("loading");
     setErrorMsg("");
 

@@ -18,6 +18,8 @@ import {
   Lock,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import Cropper from "react-easy-crop";
+import { getCroppedImg, Area } from "@/lib/crop";
 
 export default function ProfileEditCard() {
   const { user, setUser } = useAuth();
@@ -44,6 +46,13 @@ export default function ProfileEditCard() {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // Image Crop States
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [isCropModalOpen, setIsCropModalOpen] = useState(false);
+
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -53,11 +62,24 @@ export default function ProfileEditCard() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setImageSrc(reader.result as string);
+      setIsCropModalOpen(true);
+    });
+    reader.readAsDataURL(file);
+  };
+
+  const handleCropAndSave = async () => {
+    if (!imageSrc || !croppedAreaPixels) return;
 
     try {
       setSaving(true);
+      const croppedImageBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
+
+      const formData = new FormData();
+      formData.append("file", croppedImageBlob, "avatar.jpg");
+
       const res = await fetch("/api/auth/profile/upload", {
         method: "POST",
         body: formData,
@@ -68,10 +90,11 @@ export default function ProfileEditCard() {
         return;
       }
       setUser(data.user);
-      alert("Profile picture updated successfully!");
+      setIsCropModalOpen(false);
+      setImageSrc(null);
     } catch (err) {
       console.error(err);
-      alert("Something went wrong while uploading your avatar");
+      alert("Something went wrong while cropping and uploading your profile picture");
     } finally {
       setSaving(false);
     }
@@ -102,6 +125,26 @@ export default function ProfileEditCard() {
     e.preventDefault();
     if (!name.trim()) {
       alert("Name is required");
+      return;
+    }
+
+    if (!/[a-zA-Z]/.test(name)) {
+      alert("Name must contain letters");
+      return;
+    }
+
+    if (phone && !/^\d+$/.test(phone)) {
+      alert("Primary Phone number must contain only numbers");
+      return;
+    }
+
+    if (city && !/[a-zA-Z]/.test(city)) {
+      alert("City name must contain letters");
+      return;
+    }
+
+    if (alternativePhone && !/^\d+$/.test(alternativePhone)) {
+      alert("Alternative Phone number must contain only numbers");
       return;
     }
 
@@ -198,17 +241,57 @@ export default function ProfileEditCard() {
           {/* Avatar & Summary */}
           <div className="flex flex-col items-center">
             <div className="relative">
-              {user.picture ? (
-                <img
-                  src={user.picture}
-                  alt="profile"
-                  className="w-16 h-16 md:w-35 md:h-35 rounded-full object-cover border-2 border-[#334155]"
-                />
-              ) : (
-                <div className="w-16 h-16 md:w-35 md:h-35 rounded-full bg-[#2F3E56] text-white flex items-center justify-center font-bold text-xl md:text-5xl border-2 border-white">
-                  {getInitials(user.name || "User")}
-                </div>
-              )}
+              {/* Inner wrapper for clipping image and SVG crescent overlay */}
+              <div className="w-16 h-16 md:w-35 md:h-35 rounded-full overflow-hidden relative bg-white">
+                {user.picture ? (
+                  <img
+                    src={user.picture}
+                    alt="profile"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-[#2F3E56] text-white flex items-center justify-center font-bold text-xl md:text-5xl">
+                    {getInitials(user.name || "User")}
+                  </div>
+                )}
+
+                {/* LinkedIn-style ENROLLED crescent overlay */}
+                <svg
+                  viewBox="0 0 100 100"
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                >
+                  <defs>
+                    <linearGradient id="enrolled-gradient" gradientUnits="userSpaceOnUse" x1="50" y1="45.5" x2="5" y2="64.7">
+                      <stop offset="0%" stopColor="#CE9D18" stopOpacity="0" />
+                      <stop offset="20%" stopColor="#CE9D18" stopOpacity="0.3" />
+                      <stop offset="35%" stopColor="#CE9D18" stopOpacity="0.5" />
+                      <stop offset="45%" stopColor="#CE9D18" stopOpacity="0.7" />
+                      <stop offset="52%" stopColor="#CE9D18" stopOpacity="0.9" />
+                      <stop offset="100%" stopColor="#CE9D18" stopOpacity="1" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    id="enrolled-path"
+                    d="M 50 2.5 A 47.5 47.5 0 1 0 77.92 88.43"
+                    fill="none"
+                    stroke="url(#enrolled-gradient)"
+                    strokeWidth="20"
+                    strokeLinecap="butt"
+                  />
+                  <text dy="-1">
+                    <textPath
+                      href="#enrolled-path"
+                      startOffset="50%"
+                      textAnchor="middle"
+                      fill="white"
+                      className="font-bold text-[7.5px] tracking-[0.05em]"
+                    >
+                      N O T - E N R O L L E D
+                    </textPath>
+                  </text>
+                </svg>
+              </div>
+
               <input
                 type="file"
                 ref={fileInputRef}
@@ -233,8 +316,8 @@ export default function ProfileEditCard() {
               {user.usertype || "Student"}
             </p>
 
-            <div className="mt-2 md:mt-4 px-4 py-1 rounded-full bg-[#cbfcc8] text-text-dark text-sm font-medium">
-              • Active Learner
+            <div className="mt-2 md:mt-4 px-4 py-1 rounded-full bg-[#C0FFD7] text-black text-lg lg:text-md md:text-sm font-medium flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-[#22C55E] mr-2"></span>Active Learner
             </div>
           </div>
 
@@ -247,7 +330,7 @@ export default function ProfileEditCard() {
               Review The Generated User Account Details
             </p>
             <div className="border-t border-gray-200 my-6"></div>
-            
+
             <div className="mt-6 space-y-5">
               {/* Email */}
               <div className="flex items-center justify-between gap-4">
@@ -272,6 +355,7 @@ export default function ProfileEditCard() {
               </div>
 
               {/* Course */}
+              {/*
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-1 md:gap-3">
                   <BookOpen className="w-4 h-4 text-text-dark" />
@@ -279,6 +363,7 @@ export default function ProfileEditCard() {
                 </div>
                 <span className="text-xs md:text-sm text-text-dark">HPF</span>
               </div>
+              */}
 
               {/* Role */}
               <div className="flex items-center justify-between gap-4">
@@ -300,10 +385,10 @@ export default function ProfileEditCard() {
                 <span className="text-xs md:text-sm text-gray-600">
                   {user.createdAt
                     ? new Date(user.createdAt).toLocaleDateString("en-IN", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })
                     : "15 May 2025"}
                 </span>
               </div>
@@ -473,7 +558,7 @@ export default function ProfileEditCard() {
                   {user.hasPassword ? "Change Password" : "Create Password"}
                 </h2>
               </div>
-              
+
               <p className="text-xs md:text-base text-text-body pb-4">
                 {user.hasPassword
                   ? "Your password must be at least 6 characters and should include a combination of numbers, letters, and uppercase letters."
@@ -548,8 +633,8 @@ export default function ProfileEditCard() {
                       {passwordSaving
                         ? "Saving..."
                         : user.hasPassword
-                        ? "Change Password"
-                        : "Create Password"}
+                          ? "Change Password"
+                          : "Create Password"}
                     </button>
                     <button
                       type="button"
@@ -570,6 +655,77 @@ export default function ProfileEditCard() {
           )}
         </div>
       </div>
+
+      {/* Image Crop Modal */}
+      {isCropModalOpen && imageSrc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl border border-gray-100 flex flex-col">
+            {/* Header */}
+            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+              <h3 className="font-bold text-lg text-text-dark">Crop Profile Picture</h3>
+              <button
+                type="button"
+                onClick={() => { setIsCropModalOpen(false); setImageSrc(null); }}
+                className="text-gray-400 hover:text-gray-600 transition text-2xl font-semibold leading-none cursor-pointer"
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* Cropper Container */}
+            <div className="relative w-full h-80 bg-gray-900">
+              <Cropper
+                image={imageSrc}
+                crop={crop}
+                zoom={zoom}
+                aspect={1}
+                cropShape="round"
+                showGrid={false}
+                onCropChange={setCrop}
+                onCropComplete={(_, croppedAreaPixels) => setCroppedAreaPixels(croppedAreaPixels)}
+                onZoomChange={setZoom}
+              />
+            </div>
+
+            {/* Slider / Controls */}
+            <div className="px-6 py-4 flex flex-col gap-2">
+              <div className="flex items-center justify-between text-sm text-gray-500 font-medium">
+                <span>Zoom</span>
+                <span>{Math.round(zoom * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                value={zoom}
+                min={1}
+                max={3}
+                step={0.1}
+                aria-label="Zoom"
+                onChange={(e) => setZoom(Number(e.target.value))}
+                className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#334155]"
+              />
+            </div>
+
+            {/* Actions */}
+            <div className="px-6 py-4 bg-gray-50/50 border-t border-gray-100 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => { setIsCropModalOpen(false); setImageSrc(null); }}
+                className="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition cursor-pointer text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleCropAndSave}
+                disabled={saving}
+                className="px-5 py-2.5 rounded-xl bg-[#334155] text-white font-medium hover:bg-[#1E293B] transition cursor-pointer disabled:opacity-50 text-sm flex items-center gap-2"
+              >
+                {saving ? "Saving..." : "Crop & Save"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -147,10 +147,10 @@ export default function Courses() {
             <section className="">
                 <div className="max-w-full mx-auto ">
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12  gap-1 md:gap-8 items-center">
+                    <div className="grid grid-cols-1 2xl:grid-cols-12  gap-6 2xl:gap-8 items-center">
 
                         {/* LEFT */}
-                        <div className="lg:col-span-7">
+                        <div className="2xl:col-span-7">
 
                             <h2 className="text-xl md:text-3xl lg:text-4xl font-semibold mb-2">
                                 Explore Our Courses
@@ -172,104 +172,44 @@ export default function Courses() {
                         </div>
 
                         {/* RIGHT */}
-                        <div className="lg:col-span-5">
+                        <div className="2xl:col-span-5 w-full max-w-xl lg:max-w-2xl 2xl:max-w-none">
 
-                            {/* MOBILE */}
-                            <div className="grid grid-cols-2 gap-3 sm:hidden">
+                            <div className="bg-white rounded-2xl shadow-sm grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x border border-gray-100 sm:border-0 overflow-hidden">
 
                                 {/* ITEM */}
-                                <div className="bg-white rounded-xl border p-3 flex items-center gap-3">
-
-                                    <div className="w-10 h-10 flex items-center justify-center bg-[#0f172a] rounded-lg shrink-0">
-                                        <BiBook className="text-white text-xl" />
+                                <div className="p-4 sm:p-6 flex items-center gap-3 sm:gap-4">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-navy rounded-lg shrink-0">
+                                        <BiBook className="text-white text-xl sm:text-2xl" />
                                     </div>
-
                                     <div>
-                                        <h3 className="text-2xl font-semibold leading-none">12+</h3>
-                                        <p className="text-sm text-navy leading-tight">Courses</p>
+                                        <h3 className="text-2xl sm:text-3xl font-semibold leading-none sm:leading-normal">12+</h3>
+                                        <p className="text-xs sm:text-base text-navy leading-tight sm:leading-normal">Courses</p>
                                         <span className="text-xs text-text-body">Available</span>
                                     </div>
-
                                 </div>
 
                                 {/* ITEM */}
-                                <div className="bg-white rounded-xl border p-3 flex items-center gap-3">
-
-                                    <div className="w-10 h-10 flex items-center justify-center bg-navy rounded-lg shrink-0">
-                                        <CiFilter className="text-white text-xl" />
+                                <div className="p-4 sm:p-6 flex items-center gap-3 sm:gap-4">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-navy rounded-lg shrink-0">
+                                        <CiFilter className="text-white text-xl sm:text-2xl" />
                                     </div>
-
                                     <div>
-                                        <h3 className="text-2xl font-semibold leading-none">6</h3>
-                                        <p className="text-xs md:text-sm text-navy leading-tight">Categories</p>
-                                        <span className="text-xs text-text-body text-nowrap">To choose from</span>
-                                    </div>
-
-                                </div>
-
-                                {/* ITEM */}
-                                <div className="bg-white rounded-xl border p-3 flex items-center gap-3 col-span-1">
-
-                                    <div className="w-10 h-10 flex items-center justify-center bg-navy rounded-lg shrink-0">
-                                        <FiUsers className="text-white text-xl" />
-                                    </div>
-
-                                    <div>
-                                        <h3 className="text-2xl font-semibold leading-none">500+</h3>
-                                        <p className="text-sm text-navy leading-tight">Learners</p>
-                                        <span className="text-xs text-text-body">Enrolled</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            {/* DESKTOP */}
-                            <div className="hidden sm:grid bg-white rounded-2xl shadow-sm grid-cols-3 divide-x overflow-hidden">
-
-                                {/* ITEM */}
-                                <div className="p-6 flex items-center gap-4">
-
-                                    <div className="w-12 h-12 flex items-center justify-center bg-navy rounded-lg">
-                                        <BiBook className="text-white text-2xl" />
-                                    </div>
-
-                                    <div>
-                                        <h3 className="text-3xl font-semibold">12+</h3>
-                                        <p className="text-base text-navy">Courses</p>
-                                        <span className="text-xs text-text-body">Available</span>
-                                    </div>
-
-                                </div>
-
-                                {/* ITEM */}
-                                <div className="p-6 flex items-center gap-4">
-
-                                    <div className="w-12 h-12 flex items-center justify-center bg-navy rounded-lg">
-                                        <CiFilter className="text-white text-2xl" />
-                                    </div>
-
-                                    <div>
-                                        <h3 className="text-3xl font-semibold">6</h3>
-                                        <p className="text-base text-navy">Categories</p>
+                                        <h3 className="text-2xl sm:text-3xl font-semibold leading-none sm:leading-normal">6</h3>
+                                        <p className="text-xs sm:text-base text-navy leading-tight sm:leading-normal">Categories</p>
                                         <span className="text-xs text-text-body">To choose from</span>
                                     </div>
-
                                 </div>
 
                                 {/* ITEM */}
-                                <div className="p-6 flex items-center gap-4">
-
-                                    <div className="w-12 h-12 flex items-center justify-center bg-navy rounded-lg">
-                                        <FiUsers className="text-white text-2xl" />
+                                <div className="p-4 sm:p-6 flex items-center gap-3 sm:gap-4">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-navy rounded-lg shrink-0">
+                                        <FiUsers className="text-white text-xl sm:text-2xl" />
                                     </div>
-
                                     <div>
-                                        <h3 className="text-3xl font-semibold">500+</h3>
-                                        <p className="text-base text-navy">Learners</p>
+                                        <h3 className="text-2xl sm:text-3xl font-semibold leading-none sm:leading-normal">500+</h3>
+                                        <p className="text-xs sm:text-base text-navy leading-tight sm:leading-normal">Learners</p>
                                         <span className="text-xs text-text-body">Enrolled</span>
                                     </div>
-
                                 </div>
 
                             </div>
@@ -367,7 +307,7 @@ export default function Courses() {
                     </div>
 
                     {/* CARD GRID */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
 
                         {filteredCourses.map((course) => (
                             <div key={course.id} className="bg-white rounded-2xl p-4 shadow-sm border">

@@ -3,7 +3,7 @@
 import { FaPlayCircle, FaPaperclip } from "react-icons/fa";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "@/app/styles/dashboard/dashboard-home.css"
 import { HiOutlinePlay } from "react-icons/hi";
 import { GrAttachment } from "react-icons/gr";
@@ -14,6 +14,18 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const [greeting, setGreeting] = useState("Good Morning");
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      setGreeting("Good Morning");
+    } else if (hour < 17) {
+      setGreeting("Good Afternoon");
+    } else {
+      setGreeting("Good Evening");
+    }
+  }, []);
 
   const data = [
     {
@@ -68,7 +80,7 @@ export default function Dashboard() {
 
       <div>
         <h1 className="text-base md:text-3xl pb-2.5 font-semibold text-text-dark">
-          Good Morning, {user?.name || "User"} 👋
+          {greeting}, {user?.name || "User"} 👋
         </h1>
         <p className="text-text-body text-xs md:text-base font-medium">
           Continue your learning journey with Flax Collective.

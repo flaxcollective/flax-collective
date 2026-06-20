@@ -62,14 +62,13 @@ const LoginForm = () => {
         return;
       }
       setUser(data.user);
-      // if (from === "custom" && callbackUrl) {
-      //   router.push("/programs#custom-course");
-      // } else if (data.user?.usertype === "admin") {
-      //   router.push("/admin-dashboard");
-      // } else {
-      //   router.push("/");
-      // }
-      alert("Login successful!");
+      if (from === "custom" && callbackUrl) {
+        router.push("/programs#custom-course");
+      } else if (data.user?.usertype === "admin") {
+        router.push("/admin-dashboard");
+      } else {
+        router.push("/");
+      }
 
     } catch (error) {
       console.error("Login error:", error);
@@ -96,7 +95,6 @@ const LoginForm = () => {
         return;
       }
       setUser(data.user);
-      alert("Login successful!");
       router.push("/");
     } catch (error) {
       console.error("Google Login error:", error);

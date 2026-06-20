@@ -60,6 +60,31 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!/[a-zA-Z]/.test(form.firstName)) {
+      setStatus("error");
+      setErrorMsg("First Name must contain letters");
+      return;
+    }
+    if (!/[a-zA-Z]/.test(form.lastName)) {
+      setStatus("error");
+      setErrorMsg("Last Name must contain letters");
+      return;
+    }
+    if (form.mobile && !/^\d+$/.test(form.mobile)) {
+      setStatus("error");
+      setErrorMsg("Mobile number must contain only numbers");
+      return;
+    }
+    if (!/[a-zA-Z]/.test(form.state)) {
+      setStatus("error");
+      setErrorMsg("State must contain letters");
+      return;
+    }
+    if (!/[a-zA-Z]/.test(form.city)) {
+      setStatus("error");
+      setErrorMsg("City name must contain letters");
+      return;
+    }
     setStatus("loading");
     setErrorMsg("");
 
