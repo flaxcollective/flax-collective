@@ -262,12 +262,12 @@ export default function ProfileEditCard() {
                 >
                   <defs>
                     <linearGradient id="enrolled-gradient" gradientUnits="userSpaceOnUse" x1="50" y1="45.5" x2="5" y2="64.7">
-                      <stop offset="0%" stopColor="#CE9D18" stopOpacity="0" />
-                      <stop offset="20%" stopColor="#CE9D18" stopOpacity="0.3" />
-                      <stop offset="35%" stopColor="#CE9D18" stopOpacity="0.5" />
-                      <stop offset="45%" stopColor="#CE9D18" stopOpacity="0.7" />
-                      <stop offset="52%" stopColor="#CE9D18" stopOpacity="0.9" />
-                      <stop offset="100%" stopColor="#CE9D18" stopOpacity="1" />
+                      <stop offset="0%" stopColor="#666" stopOpacity="0" />
+                      <stop offset="20%" stopColor="#666" stopOpacity="0.3" />
+                      <stop offset="35%" stopColor="#666" stopOpacity="0.5" />
+                      <stop offset="45%" stopColor="#666" stopOpacity="0.7" />
+                      <stop offset="52%" stopColor="#666" stopOpacity="0.9" />
+                      <stop offset="100%" stopColor="#666" stopOpacity="1" />
                     </linearGradient>
                   </defs>
                   <path
