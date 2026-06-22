@@ -64,7 +64,7 @@ const AreaofLearning = () => {
                     </div>
 
                     <p className="cp-text cp-text--small pt-7">
-                        Courses Are delivered through <strong>online learning modules, interactive sessions and in person.</strong>
+                        Courses are delivered through <strong>online learning modules, interactive sessions and in person.</strong>
                     </p>
                 </div>
             </section>

@@ -25,7 +25,7 @@ export default function GlobalService({ onApplyNow, onHireTalent }: GlobalServic
        <div className="start_journey-card w-full lg:w-1/2 flex flex-col">
 
             <h2 className="mt-0 md:mt-4 font-normal text-white leading-tight order-1">
-              Build Your Future with Global Opportunities
+              The Next Chapter of Your Career Starts Here
             </h2>
 
             <p className="mt-0 md:mt-4 text-white text-base md:text-lg order-2">

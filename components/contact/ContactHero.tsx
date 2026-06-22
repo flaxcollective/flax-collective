@@ -64,7 +64,7 @@ export default function ContactHero() {
               </h3>
 
               <p className=" mt-4 text-dark text-left md:text-center text-xs leading-6 md:leading-9 md:text-base">
-                Have questions, need expert advice, or ready to take the next step? We’re here to help. Connect with our team and let’s turn your ideas into impactful solutions.
+                Have questions, need expert advice, or ready to take the next step? <br />Connect with our team and let’s turn your ideas into impactful solutions.
               </p>
 
             </div>
