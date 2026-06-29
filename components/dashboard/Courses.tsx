@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiBook } from "react-icons/bi";
 import { CiFilter } from "react-icons/ci";
 import { FiUsers } from "react-icons/fi";
@@ -20,7 +20,8 @@ export default function Courses() {
         setSelectedCourseTitle(courseTitle);
         setIsEnquiryModalOpen(true);
     };
-    const courses = [
+
+    const initialCourses = [
         {
             id: 1,
             title: "Hospitality Professional Foundations (HPF)",
@@ -124,6 +125,19 @@ export default function Courses() {
             image: "/assets/images/programs-img/cfhc.png"
         }
     ];
+
+    const [courses, setCourses] = useState<any[]>(initialCourses);
+
+    useEffect(() => {
+        fetch("/api/courses")
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.courses && data.courses.length > 0) {
+                    setCourses(data.courses);
+                }
+            })
+            .catch(err => console.error("Error loading courses:", err));
+    }, []);
 
     // ✅ FILTER LOGIC
     const filteredCourses =

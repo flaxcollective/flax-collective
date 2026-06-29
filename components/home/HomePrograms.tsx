@@ -1,10 +1,10 @@
 "use client";
 import "@/app/styles/home/home-programs.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiClock } from "react-icons/fi";
 
 
-const courses = [
+const initialCourses = [
   {
     title: "Hospitality Professional Foundations (HPF)",
     desc: "A Refined Gateway To Hospitality—Building Poise, Discipline, And Service Mindset.",
@@ -26,7 +26,7 @@ const courses = [
   {
     title: "Hospitality Communication & Professional Skills (HCPS)",
     desc: "Master Communication, Presence, And Interpersonal Finesse.",
-    fullDesc: "This program focuses on developing effective communication and interpersonal skills essential for the hospitality industry. It equips individuals with the confidence to engage with guests, handle real-world interactions, and maintain professional conduct across diverse environments. Through structured learning and practical exposure, participants build clarity in communication, service mindset, and the adaptability required to meet global hospitality standards.",
+    fullDesc: "This program focuses on developing effective communication and interpersonal skills essential for the hospitality industry. It equips individuals with the confidence to engage with guests, handle real-world interactions, and maintain professional conduct across diverse environments. Through structured learning and practical exposure, participants develop clarity in communication, service mindset, and the adaptability required to meet global hospitality standards.",
     price: "₹ 17,000+",
     duration: "6 Months",
     icon: "/assets/icons/HCPS.png",
@@ -103,7 +103,19 @@ interface HomeProgramsProps {
 }
 
 export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
+  const [courses, setCourses] = useState<any[]>(initialCourses);
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/api/courses")
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.courses && data.courses.length > 0) {
+          setCourses(data.courses);
+        }
+      })
+      .catch(err => console.error("Error loading courses:", err));
+  }, []);
   return (
     <>
       <section id="programs" className="programs-section md:py-20">
