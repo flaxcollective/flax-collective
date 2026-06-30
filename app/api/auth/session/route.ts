@@ -21,7 +21,9 @@ export async function GET() {
     const user = await db.collection("users").findOne({ id: decoded.id });
 
     if (!user) {
-      return NextResponse.json({ user: null });
+      const response = NextResponse.json({ user: null });
+      response.cookies.set("token", "", { path: "/", maxAge: 0 });
+      return response;
     }
 
     const { password, ...userWithoutPassword } = user;

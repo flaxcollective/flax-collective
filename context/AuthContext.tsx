@@ -28,6 +28,7 @@ type UserType = {
 type AuthContextType = {
     user: UserType;
     setUser: React.Dispatch<React.SetStateAction<UserType>>;
+    loading: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(
@@ -40,6 +41,7 @@ export function AuthProvider({
     children: React.ReactNode;
 }) {
     const [user, setUser] = useState<UserType>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -51,6 +53,8 @@ export function AuthProvider({
                 setUser(data?.user || null);
             } catch {
                 setUser(null);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -58,7 +62,7 @@ export function AuthProvider({
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, loading }}>
             {children}
         </AuthContext.Provider>
     );

@@ -7,7 +7,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import { ChevronDown } from "lucide-react";
-import { BsTelephone } from "react-icons/bs";
+import { BsTelephone, BsGeoAlt } from "react-icons/bs";
 
 import { GoCheckCircleFill } from "react-icons/go";
 
@@ -81,9 +81,13 @@ export default function HomeContectUs() {
             <p className="text-xs md:text-base flex items-center text-navy md:justify-start justify-center  font-medium gap-1 pt-2 md:pt-4 mb-2 md:mb-3.5">
               <HiOutlineMail className="text-base" />
               info@flaxcollective.com</p>
-            <p className="text-xs md:text-base flex items-center text-navy  md:justify-start justify-center font-medium gap-1 pb-2 md:pb-4">
+            <p className="text-xs md:text-base flex items-center text-navy  md:justify-start justify-center font-medium gap-1 pb-1 md:pb-2">
               <BsTelephone className="text-base" />
               +91 6280074060</p>
+            <p className="text-xs md:text-base flex items-start text-navy  md:justify-start justify-center font-medium gap-1 pb-2 md:pb-4 max-w-sm md:text-left text-center">
+              <BsGeoAlt className="text-base mt-1 flex-shrink-0" />
+              <span>C-133, 1st Floor, Industrial Area, Phase 8, Mohali, Punjab (Near PCL Chowk) - 160071</span>
+            </p>
           </div>
           <div className="flex md:justify-start justify-center  gap-4 py-2 md:py-4">
             <a

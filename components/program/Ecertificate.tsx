@@ -1,4 +1,8 @@
+"use client";
+
 import "@/app/styles/Programs.css";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 const features = [
   {
@@ -24,9 +28,20 @@ const features = [
 ];
 
 export default function ECertificate() {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleViewCertification = () => {
+    if (user) {
+      router.push("/dashboard");
+    } else {
+      router.push("/auth/login?callbackUrl=/dashboard");
+    }
+  };
+
   return (
     <>
-       <section className="py-6 md:py-20 px-4" >
+       <section className="py-6 md:py-10 px-4" >
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
@@ -78,6 +93,17 @@ export default function ECertificate() {
           </div>
 
         </div>
+
+        {/* View E-Certification Button */}
+        <div className="text-center mt-10 md:mt-12">
+          <button
+            onClick={handleViewCertification}
+            className="bg-[#2F3E56] hover:bg-[#1e293b] text-white px-8 py-3 rounded-xl font-medium transition cursor-pointer text-center inline-block"
+          >
+            View E-Certification
+          </button>
+        </div>
+
       </div>
     </section>
     <div className="global-page-divider mt-2"></div>

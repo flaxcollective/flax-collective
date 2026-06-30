@@ -8,7 +8,30 @@ import { FiClock } from "react-icons/fi";
 import { FaRegPlayCircle } from "react-icons/fa";
 import StudentModal from "@/components/shared/StudentModal";
 
+const formatPrice = (price: any, title?: string) => {
+  let rawPrice = price;
+  if (!rawPrice && title) {
+    if (title.includes("HPF") || title.includes("Hospitality Professional Foundations")) rawPrice = "10000";
+    else if (title.includes("HOSC") || title.includes("Hotel Operations")) rawPrice = "15000";
+    else if (title.includes("HCPS") || title.includes("Hospitality Communication")) rawPrice = "17000";
+    else if (title.includes("IGEC") || title.includes("International Guest")) rawPrice = "20000";
+    else if (title.includes("CSIPB") || title.includes("Career Success")) rawPrice = "25000";
+    else if (title.includes("PSSF") || title.includes("Professional Skills & Soft")) rawPrice = "12000";
+    else if (title.includes("RESM") || title.includes("Real Estate")) rawPrice = "12000";
+    else if (title.includes("BSLHC") || title.includes("Butler Service")) rawPrice = "25000";
+    else if (title.includes("PBGEC") || title.includes("Professional Bartending")) rawPrice = "25000";
+    else if (title.includes("CFHC") || title.includes("Childcare")) rawPrice = "25000";
+    else rawPrice = "10000";
+  }
 
+  if (!rawPrice) return "N/A";
+  if (typeof rawPrice === "string" && (rawPrice.includes("₹") || rawPrice.includes("INR"))) {
+    return rawPrice.replace("₹", "INR ");
+  }
+  const num = parseFloat(rawPrice);
+  if (isNaN(num)) return rawPrice;
+  return `INR ${num.toLocaleString('en-IN')}`;
+};
 
 export default function Courses() {
     const [activeCategory, setActiveCategory] = useState("All");
@@ -344,13 +367,16 @@ export default function Courses() {
                                 </p>
 
 
-                                <div className="flex items-center gap-4 text-xs md:text-sm text-text-body mb-4">
+                                {/* <div className="flex items-center gap-4 text-xs md:text-sm text-text-body mb-4">
                                     <span className="flex items-center gap-1">
                                         <FaRegPlayCircle /> {course.lessons} Lessons
                                     </span>
                                     <span className="flex items-center gap-1">
                                         <FiClock /> {course.hours} Hours
                                     </span>
+                                </div> */}
+                                <div className="text-[#2F3E56] font-semibold text-xs md:text-sm mb-4">
+                                    Fee: {formatPrice(course.price, course.title)}
                                 </div>
 
 

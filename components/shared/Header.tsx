@@ -115,7 +115,7 @@ export default function Header() {
                       : "/dashboard"
                   }
                 >
-                  <button className="sign-item">
+                  <button className="sign-item cursor-pointer">
                     DASHBOARD
                   </button>
                 </Link>
@@ -130,11 +130,11 @@ export default function Header() {
             ) : (
               <>
                 <Link href="/auth/signup">
-                  <button className="sign-item">SIGN UP</button>
+                  <button className="sign-item cursor-pointer">SIGN UP</button>
                 </Link>
 
                 <Link href="/auth/login">
-                  <button className="login-item flex items-center gap-1">
+                  <button className="login-item flex items-center gap-1 cursor-pointer">
                     LOGIN <MdLogin />
                   </button>
                 </Link>
@@ -190,7 +190,7 @@ export default function Header() {
                     }
                     onClick={closeMenu}
                   >
-                    <button className="mobile-auth-btn sign">
+                    <button className="mobile-auth-btn sign cursor-pointer">
                       DASHBOARD
                     </button>
                   </Link>
@@ -208,13 +208,13 @@ export default function Header() {
               ) : (
                 <>
                   <Link href="/auth/signup" onClick={closeMenu}>
-                    <button className="mobile-auth-btn sign">
+                    <button className="mobile-auth-btn sign cursor-pointer">
                       SIGN UP
                     </button>
                   </Link>
 
                   <Link href="/auth/login" onClick={closeMenu}>
-                    <button className="mobile-auth-btn login flex items-center gap-2">
+                    <button className="mobile-auth-btn login flex items-center gap-2 cursor-pointer">
                       LOGIN <MdLogin />
                     </button>
                   </Link>

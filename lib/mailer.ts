@@ -101,3 +101,51 @@ export async function sendSignupOTPEmail(email: string, otp: string) {
     return false;
   }
 }
+
+export async function sendEnrollmentSuccessEmail(email: string, studentName: string, courseName: string) {
+  try {
+    const mailUser = process.env.MAIL_USER?.trim();
+    const mailPass = process.env.MAIL_PASS?.replace(/"/g, "").trim();
+
+    console.log(`[MAILER] sendEnrollmentSuccessEmail invoked for: ${email}`);
+    console.log(`[MAILER] MAIL_USER: ${mailUser ? mailUser : "NOT CONFIGURED"}`);
+
+    if (!mailUser || !mailPass) {
+      console.warn("⚠️ MAIL_USER or MAIL_PASS is not configured. Mocking email sending.");
+      console.log(`✉️ [MOCK EMAIL] To: ${email} | Subject: Enrollment Confirmed | Course: ${courseName}`);
+      return true;
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: mailUser,
+        pass: mailPass,
+      },
+    });
+
+    const mailOptions = {
+      from: `"FLAX Collective" <${mailUser}>`,
+      to: email,
+      subject: `Enrollment Confirmed: ${courseName}`,
+      text: `Hello ${studentName},\n\nCongratulations! Your enrollment in the course "${courseName}" has been successfully confirmed. We are excited to have you join us.\n\nBest regards,\nFLAX Collective Team`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px; max-width: 500px; margin: auto;">
+          <h2 style="color: #2F3E56; text-align: center;">Enrollment Confirmed!</h2>
+          <p style="font-size: 16px; color: #555;">Hello <strong>${studentName}</strong>,</p>
+          <p style="font-size: 16px; color: #555;">Congratulations! Your enrollment in the course <strong>${courseName}</strong> has been successfully confirmed.</p>
+          <p style="font-size: 16px; color: #555;">We are excited to guide you on this learning journey. Our coordinators will contact you shortly with the onboarding details and course schedule.</p>
+          <p style="font-size: 14px; color: #999; text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px;">Best regards,<br/><strong>FLAX Collective Team</strong></p>
+        </div>
+      `,
+    };
+
+    console.log(`[MAILER] Sending real enrollment confirmation email to: ${email}...`);
+    const info = await transporter.sendMail(mailOptions);
+    console.log("[MAILER] Enrollment confirmation email sent successfully:", info.response);
+    return true;
+  } catch (error) {
+    console.error("[MAILER] Error sending enrollment confirmation email:", error);
+    return false;
+  }
+}

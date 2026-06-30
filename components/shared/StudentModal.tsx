@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import "@/app/styles/modal.css";
 import { countries } from '@/data/countries';
+import { useAuth } from '@/context/AuthContext';
 
 interface StudentModalProps {
   isOpen: boolean;
@@ -29,13 +30,54 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState(defaultForm);
+  const { user } = useAuth();
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      if (initialCourse) {
-        setForm(prev => ({ ...prev, course: initialCourse }));
+      
+      let initialData: Partial<typeof defaultForm> = {};
+      
+      // Auto-populate user details if logged in
+      if (user) {
+        let fName = "";
+        let lName = "";
+        if (user.name) {
+          const parts = user.name.trim().split(/\s+/);
+          fName = parts[0] || "";
+          lName = parts.slice(1).join(" ") || "";
+        }
+
+        let cCode = "+91";
+        let mob = "";
+        if (user.phone) {
+          const cleanPhone = user.phone.trim();
+          const matched = countries.find(c => cleanPhone.startsWith(c.code));
+          if (matched) {
+            cCode = matched.code;
+            mob = cleanPhone.substring(matched.code.length);
+          } else {
+            mob = cleanPhone;
+          }
+        }
+
+        initialData = {
+          firstName: fName,
+          lastName: lName,
+          email: user.email || "",
+          countryCode: cCode,
+          mobile: mob,
+          country: "",
+          state: "",
+          city: user.city || "",
+        };
       }
+
+      if (initialCourse) {
+        initialData.course = initialCourse;
+      }
+
+      setForm(prev => ({ ...prev, ...initialData }));
     } else {
       document.body.style.overflow = 'unset';
       const timer = setTimeout(() => {
@@ -45,7 +87,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
       }, 300);
       return () => clearTimeout(timer);
     }
-  }, [isOpen, initialCourse]);
+  }, [isOpen, initialCourse, user]);
 
   if (!isOpen) return null;
 
@@ -113,7 +155,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close-btn" onClick={onClose} type="button">&times;</button>
+        <button className="modal-close-btn cursor-pointer" onClick={onClose} type="button">&times;</button>
 
         {status === "success" ? (
           <div className="modal-success">
@@ -134,15 +176,15 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
               <div className="modal-grid-2">
                 <div className="modal-input-group">
                   <label>Your First Name</label>
-                  <input name="firstName" type="text" placeholder="Enter Your First Name" value={form.firstName} onChange={handleChange} required />
+                  <input name="firstName" type="text" placeholder="Enter Your First Name" value={form.firstName} onChange={handleChange} required disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
                 </div>
                 <div className="modal-input-group">
                   <label>Your Last Name</label>
-                  <input name="lastName" type="text" placeholder="Enter Your Last Name" value={form.lastName} onChange={handleChange} required />
+                  <input name="lastName" type="text" placeholder="Enter Your Last Name" value={form.lastName} onChange={handleChange} required disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
                 </div>
                 <div className="modal-input-group">
                   <label>Your Email</label>
-                  <input name="email" type="email" placeholder="Enter Your Email" value={form.email} onChange={handleChange} required />
+                  <input name="email" type="email" placeholder="Enter Your Email" value={form.email} onChange={handleChange} required disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
                 </div>
                 <div className="modal-input-group">
                   <label>Your Mobile Number</label>
