@@ -70,11 +70,25 @@ export default function Header() {
     }
   };
 
-
   const getTitle = () => {
-
     if (pathname.includes("mylearning")) {
       return "My Learning";
+    }
+
+    if (pathname.endsWith("/admin-dashboard/add-course")) {
+      return "Add Course";
+    }
+
+    if (pathname.endsWith("/admin-dashboard/view-courses")) {
+      return "All Courses";
+    }
+
+    if (pathname.endsWith("/admin-dashboard/add-user")) {
+      return "Add User";
+    }
+
+    if (pathname.endsWith("/admin-dashboard/manage-teams")) {
+      return "Manage Teams";
     }
 
     if (pathname.includes("course")) {
@@ -84,8 +98,9 @@ export default function Header() {
     if (pathname.includes("profile-settings")) {
       return "Profile Settings";
     }
-     if (pathname.includes("admin-dashboard")) {
-      return "Admin Dashboard";
+
+    if (pathname.includes("admin-dashboard")) {
+      return "Dashboard";
     }
 
     return "Dashboard";

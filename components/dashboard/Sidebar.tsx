@@ -11,6 +11,8 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   X,
+  PlusCircle,
+  UserPlus,
 } from "lucide-react";
 import { MdLogout } from "react-icons/md";
 
@@ -37,36 +39,45 @@ const studentMenu = [
 
 const adminMenu = [
   {
-    name: "Admin Dashboard",
+    name: "Dashboard",
     icon: LayoutDashboard,
     href: "/admin-dashboard",
   },
   {
     name: "Add Course",
-    icon: Users,
-    href: "#",
+    icon: PlusCircle,
+    href: "/admin-dashboard/add-course",
   },
-  // {
-  //   name: "Courses",
-  //   icon: ClipboardList,
-  //   href: "/admin-dashboard/courses",
-  // },
+  {
+    name: "View Courses",
+    icon: BookOpen,
+    href: "/admin-dashboard/view-courses",
+  },
+  /*
+  {
+    name: "Add User",
+    icon: UserPlus,
+    href: "/admin-dashboard/add-user",
+  },
+  {
+    name: "Manage Teams",
+    icon: Users,
+    href: "/admin-dashboard/manage-teams",
+  },
+  */
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
-    const { user, setUser } = useAuth();
-   const router = useRouter();
-
-
+  const { user, setUser } = useAuth();
+  const router = useRouter();
 
   const [collapsed, setCollapsed] = useState(false);
-
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const menuItems =
-    user?.usertype === "admin"
+    user?.usertype === "admin" || user?.usertype === "employee"
       ? adminMenu
       : studentMenu;
 
@@ -76,9 +87,8 @@ export default function Sidebar() {
         method: "POST",
         credentials: "include",
       });
-       setUser(null);
+      setUser(null);
       setMobileOpen(false);
-     
       router.replace("/");
     } catch (error) {
       console.error("Logout error:", error);
@@ -102,7 +112,6 @@ export default function Sidebar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -112,7 +121,6 @@ export default function Sidebar() {
     window.addEventListener("toggle-sidebar", handleToggle);
     return () => window.removeEventListener("toggle-sidebar", handleToggle);
   }, []);
-
 
   useEffect(() => {
     if (isMobile && mobileOpen) {
@@ -197,6 +205,7 @@ export default function Sidebar() {
         <ul className="space-y-1">
           {menuItems.map((item) => {
             const isActive = pathname === item.href;
+            const isAdmin = user?.usertype === "admin" || user?.usertype === "employee";
             return (
               <li key={item.name}>
                 <Link
@@ -204,12 +213,12 @@ export default function Sidebar() {
                   className={`flex items-center ${!forMobile && collapsed ? "justify-center" : "gap-3"
                     } px-3 py-3 rounded-md text-sm font-medium transition-all
                   ${isActive
-                      ? "bg-[#6e7c3a26] text-black"
+                      ? (isAdmin ? "bg-[#2F3E56] text-white" : "bg-[#6e7c3a26] text-black")
                       : "text-gray-600 hover:bg-gray-100"
                     }`}
                   title={!forMobile && collapsed ? item.name : ""}
                 >
-                  <item.icon className="w-5 h-5" />
+                  <item.icon className={`w-5 h-5 ${isActive ? (isAdmin ? "text-white" : "text-black") : "text-gray-600"}`} />
                   {(forMobile || !collapsed) && <span>{item.name}</span>}
                 </Link>
               </li>

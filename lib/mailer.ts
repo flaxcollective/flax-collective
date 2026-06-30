@@ -2,18 +2,33 @@ import nodemailer from "nodemailer";
 
 export async function sendOTPEmail(email: string, otp: string) {
   try {
+    const mailUser = process.env.MAIL_USER?.trim();
+    const mailPass = process.env.MAIL_PASS?.replace(/"/g, "").trim();
+
+    console.log(`[MAILER] sendOTPEmail invoked for: ${email}`);
+    console.log(`[MAILER] MAIL_USER: ${mailUser ? mailUser : "NOT CONFIGURED"}`);
+    console.log(`[MAILER] MAIL_PASS: ${mailPass ? "CONFIGURED (length: " + mailPass.length + ")" : "NOT CONFIGURED"}`);
+    console.log(`[MAILER] [BACKUP OTP] The generated OTP is: ${otp}`);
+
+    if (!mailUser || !mailPass) {
+      console.warn("⚠️ MAIL_USER or MAIL_PASS is not configured. Mocking email sending.");
+      console.log(`✉️ [MOCK EMAIL] To: ${email} | Subject: Password Reset OTP | OTP: ${otp}`);
+      return true;
+    }
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
+        user: mailUser,
+        pass: mailPass,
       },
     });
 
     const mailOptions = {
-      from: `"Support Team" <${process.env.MAIL_USER}>`,
+      from: `"Support Team" <${mailUser}>`,
       to: email,
       subject: "Password Reset OTP",
+      text: `Your OTP for resetting your password is: ${otp}. This OTP is valid for 5 minutes. If you did not request this, please ignore this email.`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
           <h2>Password Reset Request</h2>
@@ -25,12 +40,64 @@ export async function sendOTPEmail(email: string, otp: string) {
       `,
     };
 
+    console.log(`[MAILER] Sending real password reset email to: ${email}...`);
     const info = await transporter.sendMail(mailOptions);
-
-    console.log("Email sent:", info.response);
+    console.log("[MAILER] Email sent successfully:", info.response);
     return true;
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("[MAILER] Error sending email:", error);
+    return false;
+  }
+}
+
+export async function sendSignupOTPEmail(email: string, otp: string) {
+  try {
+    const mailUser = process.env.MAIL_USER?.trim();
+    const mailPass = process.env.MAIL_PASS?.replace(/"/g, "").trim();
+
+    console.log(`[MAILER] sendSignupOTPEmail invoked for: ${email}`);
+    console.log(`[MAILER] MAIL_USER: ${mailUser ? mailUser : "NOT CONFIGURED"}`);
+    console.log(`[MAILER] MAIL_PASS: ${mailPass ? "CONFIGURED (length: " + mailPass.length + ")" : "NOT CONFIGURED"}`);
+    console.log(`[MAILER] [BACKUP OTP] The generated OTP is: ${otp}`);
+
+    if (!mailUser || !mailPass) {
+      console.warn("⚠️ MAIL_USER or MAIL_PASS is not configured. Mocking email sending.");
+      console.log(`✉️ [MOCK EMAIL] To: ${email} | Subject: Email Verification OTP | OTP: ${otp}`);
+      return true;
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: mailUser,
+        pass: mailPass,
+      },
+    });
+
+    const mailOptions = {
+      from: `"Support Team" <${mailUser}>`,
+      to: email,
+      subject: "Email Verification OTP",
+      text: `Thank you for registering! To complete your signup process, please use the following OTP: ${otp}. This OTP is valid for 5 minutes. If you did not request this verification, please ignore this email.`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px; max-width: 500px; margin: auto;">
+          <h2 style="color: #2F3E56; text-align: center;">Verify Your Email Address</h2>
+          <p style="font-size: 16px; color: #555;">Thank you for registering! To complete your signup process, please use the following OTP:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #2F3E56; background-color: #f7f7f7; padding: 10px 20px; border-radius: 5px; border: 1px dashed #2F3E56;">${otp}</span>
+          </div>
+          <p style="font-size: 14px; color: #777; text-align: center;">This OTP is valid for 5 minutes.</p>
+          <p style="font-size: 14px; color: #999; text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px;">If you did not request this verification, please ignore this email.</p>
+        </div>
+      `,
+    };
+
+    console.log(`[MAILER] Sending real signup OTP email to: ${email}...`);
+    const info = await transporter.sendMail(mailOptions);
+    console.log("[MAILER] Signup Email sent successfully:", info.response);
+    return true;
+  } catch (error) {
+    console.error("[MAILER] Error sending signup email:", error);
     return false;
   }
 }

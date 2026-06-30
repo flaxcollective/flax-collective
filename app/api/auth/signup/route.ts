@@ -1,17 +1,17 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { getDb } from "@/lib/mongodb";
+import { getDb, getNextSequence } from "@/lib/mongodb";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, password, phone, countryCode, city, usertype } = body;
+    const { name, email, password, phone, countryCode, city, usertype, otp } = body;
 
-    if (!name || !email || !password || !phone || !city) {
+    if (!name || !email || !password || !phone || !city || !otp) {
       return NextResponse.json(
-        { success: false, message: "All fields are required" },
+        { success: false, message: "All fields, including email verification code (OTP), are required" },
         { status: 400 }
       );
     }
@@ -67,9 +67,34 @@ export async function POST(req: Request) {
     }
 
     const db = await getDb();
-    const users = db.collection("users");
-
     const normalizedEmail = email.toLowerCase().trim();
+    
+    // Verify OTP first
+    const signupOtps = db.collection("signup_otps");
+    const otpRecord = await signupOtps.findOne({ email: normalizedEmail });
+
+    if (!otpRecord) {
+      return NextResponse.json(
+        { success: false, message: "No verification code request found for this email" },
+        { status: 400 }
+      );
+    }
+
+    if (otpRecord.otp !== otp.trim()) {
+      return NextResponse.json(
+        { success: false, message: "Invalid verification code (OTP)" },
+        { status: 400 }
+      );
+    }
+
+    if (Date.now() > otpRecord.otpExpiry) {
+      return NextResponse.json(
+        { success: false, message: "Verification code (OTP) has expired. Please request a new code." },
+        { status: 400 }
+      );
+    }
+
+    const users = db.collection("users");
     const existingUser = await users.findOne({ email: normalizedEmail });
 
     if (existingUser) {
@@ -86,8 +111,7 @@ export async function POST(req: Request) {
     const finalCountryCode = countryCode || "+91";
     const fullPhone = `${finalCountryCode}${phone.replace(/\s+/g, "")}`;
 
-    const newUser = {
-      id: Date.now().toString(),
+    const newUser: any = {
       name: name.trim(),
       email: normalizedEmail,
       phone: fullPhone,
@@ -98,7 +122,30 @@ export async function POST(req: Request) {
       updatedAt: now,
     };
 
-    await users.insertOne(newUser);
+    let attempts = 0;
+    const maxAttempts = 3;
+    let userId = "";
+
+    while (attempts < maxAttempts) {
+      try {
+        const sequenceValue = await getNextSequence("userId");
+        userId = `FC${1000 + sequenceValue}`;
+        newUser.id = userId;
+        await users.insertOne(newUser);
+        break;
+      } catch (error: any) {
+        if (error.code === 11000) {
+          attempts++;
+          console.warn(`Signup ID collision detected on ${userId}. Retrying... (Attempt ${attempts}/${maxAttempts})`);
+          if (attempts >= maxAttempts) {
+            throw new Error("System ID generation conflict. Please contact support.");
+          }
+        } else {
+          throw error;
+        }
+      }
+    }
+    await signupOtps.deleteOne({ email: normalizedEmail });
 
     return NextResponse.json({
       success: true,

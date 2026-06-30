@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/mongodb";
+import { getDb, getNextSequence } from "@/lib/mongodb";
 import jwt from "jsonwebtoken";
 
 export const runtime = "nodejs";
@@ -49,8 +49,7 @@ export async function POST(req: Request) {
     if (!user) {
       // Create user if not exists
       const now = new Date().toISOString();
-      const newUser = {
-        id: Date.now().toString(),
+      const newUser: any = {
         name: (name || "User").trim(),
         email: normalizedEmail,
         usertype: usertype ? usertype.toLowerCase() : "student", // default to student if missing
@@ -58,8 +57,31 @@ export async function POST(req: Request) {
         createdAt: now,
         updatedAt: now,
       };
-      await users.insertOne(newUser as any);
-      user = newUser as any;
+
+      let attempts = 0;
+      const maxAttempts = 3;
+      let userId = "";
+
+      while (attempts < maxAttempts) {
+        try {
+          const sequenceValue = await getNextSequence("userId");
+          userId = `FC${1000 + sequenceValue}`;
+          newUser.id = userId;
+          await users.insertOne(newUser);
+          break;
+        } catch (error: any) {
+          if (error.code === 11000) {
+            attempts++;
+            console.warn(`Social signup ID collision detected on ${userId}. Retrying... (Attempt ${attempts}/${maxAttempts})`);
+            if (attempts >= maxAttempts) {
+              throw new Error("System ID generation conflict. Please contact support.");
+            }
+          } else {
+            throw error;
+          }
+        }
+      }
+      user = newUser;
     }
 
     // Generate JWT token
