@@ -161,7 +161,7 @@ const LoginForm = () => {
             <Link href="/auth/forgotpassword">Forgot Password</Link>
           </div>
 
-          <button className="getstarted-btn my-3">
+          <button className="getstarted-btn my-3 cursor-pointer">
             {loading ? "Signing in..." : "Sign in"}
           </button>
 

@@ -94,7 +94,7 @@ export default function EmployerModal({ isOpen, onClose }: EmployerModalProps) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close-btn" onClick={onClose} type="button">&times;</button>
+        <button className="modal-close-btn cursor-pointer" onClick={onClose} type="button">&times;</button>
 
         {status === "success" ? (
           <div className="modal-success">

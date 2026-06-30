@@ -3,8 +3,6 @@ import { getDb } from "@/lib/mongodb";
 
 export const runtime = "nodejs";
 
-const GOOGLE_SHEET_URL = process.env.GOOGLE_SHEET_WEBAPP_URL;
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json() as Record<string, unknown>;
@@ -29,6 +27,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const db = await getDb();
+
+    // Secure Pricing Verification: Lookup course details from the database
+    const courseData = await db.collection("courses").findOne({ title: course });
+    if (!courseData) {
+      return NextResponse.json(
+        { success: false, message: "Selected course is not valid." },
+        { status: 400 }
+      );
+    }
+
+    const price = parseFloat(courseData.price || "0");
+
     const newEntry = {
       submittedAt: new Date(),
       firstName,
@@ -40,28 +51,19 @@ export async function POST(req: NextRequest) {
       state,
       city,
       course,
+      courseId: courseData.courseId,
+      amount: price,
+      status: "pending_payment" // Default status prior to payment completion
     };
 
-    const db = await getDb();
-    await db.collection("enrollments").insertOne(newEntry);
+    const result = await db.collection("enrollments").insertOne(newEntry);
 
-    if (GOOGLE_SHEET_URL) {
-      try {
-        await fetch(GOOGLE_SHEET_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...newEntry,
-            countryCode: `'${countryCode}`,
-            sheetName: "StudentSubmissions",
-          }),
-        });
-      } catch (sheetErr) {
-        console.error("[GOOGLE SHEETS ERROR]", sheetErr);
-      }
-    }
-
-    return NextResponse.json({ success: true, message: "Enrollment submitted successfully." });
+    return NextResponse.json({
+      success: true,
+      enrollmentId: result.insertedId,
+      amount: price,
+      message: "Enrollment initiated. Proceeding to payment..."
+    });
   } catch (err) {
     console.error("[ENROLLMENT ERROR]", err);
     return NextResponse.json(
