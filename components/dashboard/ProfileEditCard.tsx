@@ -255,41 +255,56 @@ export default function ProfileEditCard() {
                   </div>
                 )}
 
-                {/* LinkedIn-style ENROLLED crescent overlay */}
-                <svg
-                  viewBox="0 0 100 100"
-                  className="absolute inset-0 w-full h-full pointer-events-none"
-                >
-                  <defs>
-                    <linearGradient id="enrolled-gradient" gradientUnits="userSpaceOnUse" x1="50" y1="45.5" x2="5" y2="64.7">
-                      <stop offset="0%" stopColor="#666" stopOpacity="0" />
-                      <stop offset="20%" stopColor="#666" stopOpacity="0.3" />
-                      <stop offset="35%" stopColor="#666" stopOpacity="0.5" />
-                      <stop offset="45%" stopColor="#666" stopOpacity="0.7" />
-                      <stop offset="52%" stopColor="#666" stopOpacity="0.9" />
-                      <stop offset="100%" stopColor="#666" stopOpacity="1" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    id="enrolled-path"
-                    d="M 50 2.5 A 47.5 47.5 0 1 0 77.92 88.43"
-                    fill="none"
-                    stroke="url(#enrolled-gradient)"
-                    strokeWidth="20"
-                    strokeLinecap="butt"
-                  />
-                  <text dy="-1">
-                    <textPath
-                      href="#enrolled-path"
-                      startOffset="50%"
-                      textAnchor="middle"
-                      fill="white"
-                      className="font-bold text-[7.5px] tracking-[0.05em]"
-                    >
-                      N O T - E N R O L L E D
-                    </textPath>
-                  </text>
-                </svg>
+                {/* LinkedIn-style ENROLLED / ADMIN crescent overlay */}
+                {user && (
+                  <svg
+                    viewBox="0 0 100 100"
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                  >
+                    <defs>
+                      <linearGradient id="avatar-gradient" gradientUnits="userSpaceOnUse" x1="50" y1="45.5" x2="5" y2="64.7">
+                        {user.usertype === "admin" || user.usertype === "employee" ? (
+                          <>
+                            <stop offset="0%" stopColor="#2F3E56" stopOpacity="0" />
+                            <stop offset="20%" stopColor="#2F3E56" stopOpacity="0.3" />
+                            <stop offset="35%" stopColor="#2F3E56" stopOpacity="0.5" />
+                            <stop offset="45%" stopColor="#2F3E56" stopOpacity="0.7" />
+                            <stop offset="52%" stopColor="#2F3E56" stopOpacity="0.9" />
+                            <stop offset="100%" stopColor="#2F3E56" stopOpacity="1" />
+                          </>
+                        ) : (
+                          <>
+                            <stop offset="0%" stopColor="#666" stopOpacity="0" />
+                            <stop offset="20%" stopColor="#666" stopOpacity="0.3" />
+                            <stop offset="35%" stopColor="#666" stopOpacity="0.5" />
+                            <stop offset="45%" stopColor="#666" stopOpacity="0.7" />
+                            <stop offset="52%" stopColor="#666" stopOpacity="0.9" />
+                            <stop offset="100%" stopColor="#666" stopOpacity="1" />
+                          </>
+                        )}
+                      </linearGradient>
+                    </defs>
+                    <path
+                      id="enrolled-path"
+                      d="M 50 2.5 A 47.5 47.5 0 1 0 77.92 88.43"
+                      fill="none"
+                      stroke="url(#avatar-gradient)"
+                      strokeWidth="20"
+                      strokeLinecap="butt"
+                    />
+                    <text dy="-1">
+                      <textPath
+                        href="#enrolled-path"
+                        startOffset="50%"
+                        textAnchor="middle"
+                        fill="white"
+                        className="font-bold text-[7.5px] tracking-[0.05em]"
+                      >
+                        {user.usertype === "admin" || user.usertype === "employee" ? "A D M I N" : "N O T - E N R O L L E D"}
+                      </textPath>
+                    </text>
+                  </svg>
+                )}
               </div>
 
               <input
@@ -316,9 +331,11 @@ export default function ProfileEditCard() {
               {user.usertype || "Student"}
             </p>
 
-            <div className="mt-2 md:mt-4 px-4 py-1 rounded-full bg-[#C0FFD7] text-black text-lg lg:text-md md:text-sm font-medium flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-[#22C55E] mr-2"></span>Active Learner
-            </div>
+            {user && user.usertype !== "admin" && user.usertype !== "employee" && (
+              <div className="mt-2 md:mt-4 px-4 py-1 rounded-full bg-[#C0FFD7] text-black text-lg lg:text-md md:text-sm font-medium flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-[#22C55E] mr-2"></span>Active Learner
+              </div>
+            )}
           </div>
 
           {/* User Account Details */}
