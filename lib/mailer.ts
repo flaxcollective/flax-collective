@@ -25,7 +25,7 @@ export async function sendOTPEmail(email: string, otp: string) {
     });
 
     const mailOptions = {
-      from: `"Support Team" <${mailUser}>`,
+      from: `"Flax Collective" <${mailUser}>`,
       to: email,
       subject: "Password Reset OTP",
       text: `Your OTP for resetting your password is: ${otp}. This OTP is valid for 5 minutes. If you did not request this, please ignore this email.`,
@@ -75,7 +75,7 @@ export async function sendSignupOTPEmail(email: string, otp: string) {
     });
 
     const mailOptions = {
-      from: `"Support Team" <${mailUser}>`,
+      from: `"Flax Collective" <${mailUser}>`,
       to: email,
       subject: "Email Verification OTP",
       text: `Thank you for registering! To complete your signup process, please use the following OTP: ${otp}. This OTP is valid for 5 minutes. If you did not request this verification, please ignore this email.`,
