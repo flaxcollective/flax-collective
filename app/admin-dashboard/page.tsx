@@ -50,6 +50,7 @@ export default function AdminDashboard() {
   });
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
+  const [greeting, setGreeting] = useState("Good Morning");
   const [usersLoading, setUsersLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -204,6 +205,16 @@ export default function AdminDashboard() {
 
   // Fetch activities
   useEffect(() => {
+    // Set greeting based on client time of day
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) {
+      setGreeting("Good Morning");
+    } else if (hour >= 12 && hour < 17) {
+      setGreeting("Good Afternoon");
+    } else {
+      setGreeting("Good Evening");
+    }
+
     const fetchActivities = async () => {
       try {
         const res = await fetch("/api/admin/activity");
@@ -231,7 +242,7 @@ export default function AdminDashboard() {
       {/* Greeting Header */}
       <div>
         <h1 className="text-2xl md:text-3xl font-bold text-[#2F3E56]">
-          Good Morning, {user?.name?.split(" ")[0] || "Anshuman"}! 👋
+          {greeting}, {user?.name?.split(" ")[0] || "Anshuman"}! 👋
         </h1>
         <p className="text-gray-500 text-sm mt-1">
           Here's what's happening with FLAX Collective.

@@ -8,12 +8,14 @@ import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import { ChevronDown } from "lucide-react";
 import { BsTelephone, BsGeoAlt } from "react-icons/bs";
+import ReCaptcha from "@/components/shared/ReCaptcha";
 
 import { GoCheckCircleFill } from "react-icons/go";
 
 export default function HomeContectUs() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "",
     countryCode: "+91",
@@ -39,6 +41,11 @@ export default function HomeContectUs() {
       setErrorMsg("Mobile number must contain only numbers");
       return;
     }
+    if (!recaptchaToken) {
+      setStatus("error");
+      setErrorMsg("Please complete the reCAPTCHA verification.");
+      return;
+    }
     setStatus("loading");
     setErrorMsg("");
 
@@ -46,13 +53,14 @@ export default function HomeContectUs() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       });
 
       const data = await res.json() as { success: boolean; message?: string };
 
       if (data.success) {
         setStatus("success");
+        setRecaptchaToken(null);
         setForm({ name: "", countryCode: "+91", mobile: "", email: "", message: "", service: "" });
       } else {
         setStatus("error");
@@ -273,11 +281,13 @@ export default function HomeContectUs() {
                 required
               ></textarea>
 
+              <ReCaptcha onVerify={setRecaptchaToken} />
+
               {status === "error" && (
-                <p style={{ color: "red", fontSize: "14px", margin: "0" }}>{errorMsg}</p>
+                <p style={{ color: "red", fontSize: "14px", margin: "10px 0 0 0" }}>{errorMsg}</p>
               )}
 
-              <button type="submit" disabled={status === "loading"}>
+              <button type="submit" disabled={status === "loading" || !recaptchaToken}>
                 {status === "loading" ? "Sending..." : "Submit Now"}
               </button>
             </form>

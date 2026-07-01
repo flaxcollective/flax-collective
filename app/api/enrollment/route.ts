@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json() as Record<string, unknown>;
-    let { firstName, lastName, email, countryCode, mobile, country, state, city, course } = body;
+    let { firstName, lastName, email, countryCode, mobile, country, state, city, course, recaptchaToken } = body;
 
     // Ensure countryCode has +
     if (typeof countryCode === "string" && countryCode && !countryCode.startsWith("+")) {
@@ -16,6 +17,15 @@ export async function POST(req: NextRequest) {
     if (!firstName || !lastName || !email || !countryCode || !mobile || !country || !state || !city || !course) {
       return NextResponse.json(
         { success: false, message: "All fields are required." },
+        { status: 400 }
+      );
+    }
+
+    // Verify reCAPTCHA
+    const isHuman = await verifyRecaptcha(recaptchaToken as string);
+    if (!isHuman) {
+      return NextResponse.json(
+        { success: false, message: "reCAPTCHA verification failed. Please try again." },
         { status: 400 }
       );
     }
