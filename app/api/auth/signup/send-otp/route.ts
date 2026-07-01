@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendSignupOTPEmail } from "@/lib/mailer";
 import { getDb } from "@/lib/mongodb";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
 export const runtime = "nodejs";
 
@@ -10,11 +11,20 @@ function generateOTP() {
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
+    const { email, recaptchaToken } = await req.json();
 
     if (!email) {
       return NextResponse.json(
         { success: false, message: "Email is required" },
+        { status: 400 }
+      );
+    }
+
+    // Verify reCAPTCHA
+    const isHuman = await verifyRecaptcha(recaptchaToken as string);
+    if (!isHuman) {
+      return NextResponse.json(
+        { success: false, message: "reCAPTCHA verification failed. Please try again." },
         { status: 400 }
       );
     }

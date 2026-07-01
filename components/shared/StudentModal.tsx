@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import "@/app/styles/modal.css";
 import { countries } from '@/data/countries';
 import { useAuth } from '@/context/AuthContext';
+import ReCaptcha from './ReCaptcha';
 
 interface StudentModalProps {
   isOpen: boolean;
@@ -29,6 +30,7 @@ const defaultForm = {
 export default function StudentModal({ isOpen, onClose, initialCourse }: StudentModalProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [form, setForm] = useState(defaultForm);
   const { user } = useAuth();
 
@@ -127,6 +129,11 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
       setErrorMsg("City name must contain letters");
       return;
     }
+    if (!recaptchaToken) {
+      setStatus("error");
+      setErrorMsg("Please complete the reCAPTCHA verification.");
+      return;
+    }
     setStatus("loading");
     setErrorMsg("");
 
@@ -134,13 +141,14 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
       const res = await fetch("/api/enrollment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       });
 
       const data = await res.json() as { success: boolean; message?: string };
 
       if (data.success) {
         setStatus("success");
+        setRecaptchaToken(null);
       } else {
         setStatus("error");
         setErrorMsg(data.message ?? "Something went wrong. Please try again.");
@@ -252,11 +260,13 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                 </label>
               </div>
 
+              <ReCaptcha onVerify={setRecaptchaToken} />
+
               {status === "error" && (
                 <p className="modal-error-msg">{errorMsg}</p>
               )}
 
-              <button type="submit" className="modal-submit-btn" disabled={status === "loading"}>
+              <button type="submit" className="modal-submit-btn" disabled={status === "loading" || !recaptchaToken}>
                 {status === "loading" ? (
                   <span className="modal-loading-text">
                     <span className="modal-spinner" />

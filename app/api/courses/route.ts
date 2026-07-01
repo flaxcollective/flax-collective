@@ -142,9 +142,9 @@ export async function GET() {
   try {
     const db = await getDb();
     const coursesCol = db.collection("courses");
-    
+
     let courses = await coursesCol.find({}).toArray();
-    
+
     // Seed if empty
     if (courses.length === 0) {
       const now = new Date().toISOString();
@@ -156,7 +156,7 @@ export async function GET() {
       await coursesCol.insertMany(seeded);
       courses = await coursesCol.find({}).toArray();
     }
-    
+
     return NextResponse.json({ success: true, courses });
   } catch (error: any) {
     console.error("GET Courses Error:", error);
@@ -191,9 +191,9 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { courseId, title, slug, desc, duration, price, image, category, fullDesc } = body;
+    const { courseId, title, slug, desc, duration, price, image, category, fullDesc, isActive, icon } = body;
 
-    if (!courseId || !title || !slug || !desc || !duration || !price || !image) {
+    if (!courseId || !title || !desc || !duration || !price || !image) {
       return NextResponse.json(
         { success: false, message: "All required fields must be provided." },
         { status: 400 }
@@ -209,11 +209,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const finalSlug = (slug && slug.trim() !== "")
+      ? slug.trim()
+      : title.trim().toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-");
+
     const now = new Date().toISOString();
     const newCourse = {
       courseId: courseId.toUpperCase().trim(),
       title: title.trim(),
-      slug: slug.trim(),
+      slug: finalSlug,
       desc: desc.trim(),
       fullDesc: (fullDesc || desc).trim(),
       duration: duration.trim(),
@@ -222,7 +226,8 @@ export async function POST(req: NextRequest) {
       lessons: 12,
       hours: 16,
       image,
-      icon: `/assets/icons/${courseId.toUpperCase().trim()}.png`,
+      icon: icon ? icon.trim() : `/assets/icons/${courseId.toUpperCase().trim()}.png`,
+      isActive: isActive !== false,
       createdAt: now,
       updatedAt: now
     };
@@ -267,9 +272,9 @@ export async function PUT(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { courseId, title, slug, desc, duration, price, image, category, fullDesc } = body;
+    const { courseId, title, slug, desc, duration, price, image, category, fullDesc, isActive, icon } = body;
 
-    if (!courseId || !title || !slug || !desc || !duration || !price) {
+    if (!courseId || !title || !desc || !duration || !price) {
       return NextResponse.json(
         { success: false, message: "Required fields are missing." },
         { status: 400 }
@@ -285,14 +290,20 @@ export async function PUT(req: NextRequest) {
       );
     }
 
+    const finalSlug = (slug && slug.trim() !== "")
+      ? slug.trim()
+      : title.trim().toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-");
+
     const updateFields: any = {
       title: title.trim(),
-      slug: slug.trim(),
+      slug: finalSlug,
       desc: desc.trim(),
       fullDesc: (fullDesc || desc).trim(),
       duration: duration.trim(),
       price: price.toString().trim(),
       category: category || "Hospitality",
+      isActive: isActive !== false,
+      icon: icon ? icon.trim() : (existing.icon || ""),
       updatedAt: new Date().toISOString()
     };
 
@@ -317,6 +328,62 @@ export async function PUT(req: NextRequest) {
     console.error("PUT Course Error:", error);
     return NextResponse.json(
       { success: false, message: "Error updating course: " + (error.message || "Unknown error") },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+
+    if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized: Please log in." },
+        { status: 401 }
+      );
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+    const db = await getDb();
+    const user = await db.collection("users").findOne({ id: decoded.id });
+
+    if (!user || (user.usertype !== "admin" && user.usertype !== "employee")) {
+      return NextResponse.json(
+        { success: false, message: "Forbidden: Admin access required." },
+        { status: 403 }
+      );
+    }
+
+    const { searchParams } = new URL(req.url);
+    const courseId = searchParams.get("courseId");
+
+    if (!courseId) {
+      return NextResponse.json(
+        { success: false, message: "Course ID is required." },
+        { status: 400 }
+      );
+    }
+
+    const coursesCol = db.collection("courses");
+    const result = await coursesCol.deleteOne({ courseId: courseId.toUpperCase().trim() });
+
+    if (result.deletedCount === 0) {
+      return NextResponse.json(
+        { success: false, message: "Course not found." },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Course deleted successfully"
+    });
+  } catch (error: any) {
+    console.error("DELETE Course Error:", error);
+    return NextResponse.json(
+      { success: false, message: "Error deleting course: " + (error.message || "Unknown error") },
       { status: 500 }
     );
   }

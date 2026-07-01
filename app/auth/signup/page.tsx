@@ -9,6 +9,7 @@ import "@/app/styles/dashboard/dashboard-home.css"
 import { countries } from "@/data/countries";
 import { useSearchParams } from "next/navigation";
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import ReCaptcha from "@/components/shared/ReCaptcha";
 
 const CustomGoogleButton = ({ onSuccess }: { onSuccess: (res: any) => void }) => {
   const login = useGoogleLogin({
@@ -47,6 +48,7 @@ const SignupPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   // OTP Verification States
   const [otpSent, setOtpSent] = useState(false);
@@ -91,6 +93,11 @@ const SignupPage = () => {
       return;
     }
 
+    if (!recaptchaToken) {
+      alert("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -101,6 +108,7 @@ const SignupPage = () => {
         },
         body: JSON.stringify({
           email: form.email,
+          recaptchaToken,
         }),
       });
 
@@ -110,6 +118,7 @@ const SignupPage = () => {
         setOtpSent(true);
         setCountdown(30);
         setOtpError("");
+        setRecaptchaToken(null);
       } else {
         alert(data.message || "Failed to send verification code. Please check your data.");
       }
@@ -414,9 +423,11 @@ const SignupPage = () => {
                 </span>
               </div>
 
+              <ReCaptcha onVerify={setRecaptchaToken} />
+
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !recaptchaToken}
                 className="getstarted-btn w-full cursor-pointer"
               >
                 {loading ? "Sending OTP..." : "Submit"}

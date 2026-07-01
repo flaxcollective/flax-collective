@@ -43,6 +43,8 @@ next-env.d.ts
 # local mock database
 /local_db.json
 
+/task_complete.txt
+/task_completed
 
 
 

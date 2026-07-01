@@ -16,6 +16,8 @@ export default function AddCoursePage() {
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
+  const [iconFile, setIconFile] = useState<File | null>(null);
+  const [iconPreview, setIconPreview] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -91,6 +93,14 @@ export default function AddCoursePage() {
     }
   };
 
+  const handleIconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setIconFile(file);
+      setIconPreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
@@ -112,7 +122,7 @@ export default function AddCoursePage() {
         return;
       }
 
-      // Step 1: Upload the Image
+      // Step 1: Upload the Cover Image
       const uploadData = new FormData();
       uploadData.append("file", imageFile);
 
@@ -131,10 +141,32 @@ export default function AddCoursePage() {
 
       const imageUrl = uploadResult.imageUrl;
 
+      // Step 1.5: Upload the Icon if provided
+      let iconUrl = "";
+      if (iconFile) {
+        const uploadIconData = new FormData();
+        uploadIconData.append("file", iconFile);
+
+        const uploadIconRes = await fetch("/api/courses/upload", {
+          method: "POST",
+          body: uploadIconData
+        });
+        const uploadIconResult = await uploadIconRes.json();
+
+        if (!uploadIconResult.success) {
+          setStatus("error");
+          setMessage(uploadIconResult.message || "Failed to upload course icon.");
+          setSubmitting(false);
+          return;
+        }
+        iconUrl = uploadIconResult.imageUrl;
+      }
+
       // Step 2: Register the Course
       const coursePayload = {
         ...form,
-        image: imageUrl
+        image: imageUrl,
+        icon: iconUrl || undefined
       };
 
       const courseRes = await fetch("/api/courses", {
@@ -164,6 +196,8 @@ export default function AddCoursePage() {
         });
         setImageFile(null);
         setImagePreview("");
+        setIconFile(null);
+        setIconPreview("");
       } else {
         setStatus("error");
         setMessage(courseResult.message || "Failed to save course.");
@@ -245,8 +279,7 @@ export default function AddCoursePage() {
               name="slug"
               value={form.slug}
               onChange={handleChange}
-              placeholder="Enter Course Slug (E.g. ui-ux-design)"
-              required
+              placeholder="Enter Course Slug (Optional - will auto-generate from title if left empty)"
               className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#2F3E56] bg-gray-50 focus:bg-white transition-all"
             />
           </div>
@@ -372,6 +405,49 @@ export default function AddCoursePage() {
                   <div className="text-center">
                     <p className="text-sm font-semibold text-gray-700">Upload Course Cover Image</p>
                     <p className="text-xs text-gray-400 mt-1">Recommended Size: 1200x630px (Max 300KB)</p>
+                  </div>
+                </>
+              )}
+
+              <button
+                type="button"
+                className="px-6 py-2 bg-[#2F3E56] hover:bg-[#1E293B] text-white text-xs font-semibold rounded-lg pointer-events-none transition-all shadow-sm"
+              >
+                Choose File
+              </button>
+            </div>
+          </div>
+
+          {/* Icon Upload (Full width) */}
+          <div className="flex flex-col gap-1.5 md:col-span-2">
+            <label className="text-sm font-bold text-gray-700">Course Icon Upload (Optional)</label>
+            
+            <div className="border-2 border-dashed border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 bg-gray-50 hover:bg-gray-100/50 transition-all relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleIconChange}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                id="iconImageInput"
+              />
+              
+              {iconPreview ? (
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    src={iconPreview}
+                    alt="Icon preview"
+                    className="max-h-24 object-contain rounded-lg border border-gray-200 animate-fade-in"
+                  />
+                  <p className="text-xs text-gray-500 font-medium font-semibold">Selected icon: {iconFile?.name}</p>
+                </div>
+              ) : (
+                <>
+                  <div className="w-12 h-12 rounded-xl bg-gray-200 flex items-center justify-center text-gray-400">
+                    <FileImage className="w-6 h-6" />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm font-semibold text-gray-700">Upload Course Icon</p>
+                    <p className="text-xs text-gray-400 mt-1">Recommended Size: 128x128px (Max 150KB)</p>
                   </div>
                 </>
               )}

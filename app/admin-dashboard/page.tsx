@@ -8,7 +8,10 @@ import {
   BookOpen,
   Users,
   UserCheck,
-  Award
+  Award,
+  Eye,
+  Trash2,
+  X
 } from "lucide-react";
 
 interface UserItem {
@@ -47,6 +50,8 @@ export default function AdminDashboard() {
   });
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
+  const [greeting, setGreeting] = useState("Good Morning");
+  const [usersLoading, setUsersLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
@@ -54,29 +59,47 @@ export default function AdminDashboard() {
   const [roleFilter, setRoleFilter] = useState("All");
   const [showRoleDropdown, setShowRoleDropdown] = useState(false);
 
-  // Fetch users and metrics
-  useEffect(() => {
-    const fetchUsersData = async () => {
-      try {
-        const queryParams = new URLSearchParams({
-          page: page.toString(),
-          limit: "6",
-          search,
-          role: roleFilter
-        });
-        const res = await fetch(`/api/admin/users?${queryParams.toString()}`);
-        const data = await res.json();
-        if (data.success) {
-          setUsersList(data.users);
-          setStats(data.stats);
-          setTotalPages(data.totalPages);
-          setTotalCount(data.totalCount);
-        }
-      } catch (err) {
-        console.error("Error fetching users data:", err);
-      }
-    };
+  // View Details Modal States
+  const [selectedUserDetail, setSelectedUserDetail] = useState<any>(null);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [fetchingDetail, setFetchingDetail] = useState(false);
 
+  // Delete User Modal States
+  const [deleteTargetUser, setDeleteTargetUser] = useState<UserItem | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteStep, setDeleteStep] = useState(1); // 1 = Enter Password, 2 = Enter OTP
+  const [adminPassword, setAdminPassword] = useState("");
+  const [otpCode, setOtpCode] = useState("");
+  const [verifying, setVerifying] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+  const [deleteSuccess, setDeleteSuccess] = useState("");
+
+  // Fetch users and metrics function
+  const fetchUsersData = async () => {
+    setUsersLoading(true);
+    try {
+      const queryParams = new URLSearchParams({
+        page: page.toString(),
+        limit: "6",
+        search,
+        role: roleFilter
+      });
+      const res = await fetch(`/api/admin/users?${queryParams.toString()}`);
+      const data = await res.json();
+      if (data.success) {
+        setUsersList(data.users);
+        setStats(data.stats);
+        setTotalPages(data.totalPages);
+        setTotalCount(data.totalCount);
+      }
+    } catch (err) {
+      console.error("Error fetching users data:", err);
+    } finally {
+      setUsersLoading(false);
+    }
+  };
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       fetchUsersData();
     }, 300);
@@ -84,8 +107,114 @@ export default function AdminDashboard() {
     return () => clearTimeout(timer);
   }, [page, search, roleFilter]);
 
+  const handleOpenViewModal = async (userId: string) => {
+    setFetchingDetail(true);
+    setSelectedUserDetail(null);
+    setIsViewModalOpen(true);
+    try {
+      const res = await fetch(`/api/admin/users/detail?userId=${userId}`);
+      const data = await res.json();
+      if (data.success) {
+        setSelectedUserDetail({
+          ...data.user,
+          enrollments: data.enrollments || []
+        });
+      } else {
+        alert(data.message || "Failed to load user details.");
+        setIsViewModalOpen(false);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error loading user details.");
+      setIsViewModalOpen(false);
+    } finally {
+      setFetchingDetail(false);
+    }
+  };
+
+  const handleOpenDeleteModal = (userItem: UserItem) => {
+    setDeleteTargetUser(userItem);
+    setDeleteStep(1);
+    setAdminPassword("");
+    setOtpCode("");
+    setDeleteError("");
+    setDeleteSuccess("");
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleInitiateDelete = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!adminPassword) return;
+    setVerifying(true);
+    setDeleteError("");
+    try {
+      const res = await fetch("/api/admin/users/delete/initiate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          targetUserId: deleteTargetUser?.id,
+          password: adminPassword
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setDeleteStep(2);
+      } else {
+        setDeleteError(data.message || "Verification failed.");
+      }
+    } catch (err) {
+      console.error(err);
+      setDeleteError("Something went wrong. Please try again.");
+    } finally {
+      setVerifying(false);
+    }
+  };
+
+  const handleConfirmDelete = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!otpCode) return;
+    setVerifying(true);
+    setDeleteError("");
+    try {
+      const res = await fetch("/api/admin/users/delete/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          targetUserId: deleteTargetUser?.id,
+          otp: otpCode
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setDeleteSuccess("User deleted successfully!");
+        setTimeout(() => {
+          setIsDeleteModalOpen(false);
+          setDeleteTargetUser(null);
+          fetchUsersData();
+        }, 1500);
+      } else {
+        setDeleteError(data.message || "Invalid OTP code.");
+      }
+    } catch (err) {
+      console.error(err);
+      setDeleteError("Something went wrong. Please try again.");
+    } finally {
+      setVerifying(false);
+    }
+  };
+
   // Fetch activities
   useEffect(() => {
+    // Set greeting based on client time of day
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) {
+      setGreeting("Good Morning");
+    } else if (hour >= 12 && hour < 17) {
+      setGreeting("Good Afternoon");
+    } else {
+      setGreeting("Good Evening");
+    }
+
     const fetchActivities = async () => {
       try {
         const res = await fetch("/api/admin/activity");
@@ -113,7 +242,7 @@ export default function AdminDashboard() {
       {/* Greeting Header */}
       <div>
         <h1 className="text-2xl md:text-3xl font-bold text-[#2F3E56]">
-          Good Morning, {user?.name?.split(" ")[0] || "Anshuman"}! 👋
+          {greeting}, {user?.name?.split(" ")[0] || "Anshuman"}! 👋
         </h1>
         <p className="text-gray-500 text-sm mt-1">
           Here's what's happening with FLAX Collective.
@@ -258,7 +387,16 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 text-sm">
-                  {usersList.length > 0 ? (
+                  {usersLoading ? (
+                    <tr>
+                      <td colSpan={5} className="py-12 text-center text-gray-400 font-medium">
+                        <div className="flex flex-col items-center justify-center gap-2 py-4">
+                          <div className="w-8 h-8 border-4 border-gray-200 border-t-[#2F3E56] rounded-full animate-spin"></div>
+                          <span>Loading users...</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : usersList.length > 0 ? (
                     usersList.map((userItem) => (
                       <tr key={userItem.id} className="hover:bg-gray-50/50 transition-colors">
                         <td className="py-3 flex items-center gap-3">
@@ -297,9 +435,22 @@ export default function AdminDashboard() {
                           {userItem.joinedOn}
                         </td>
                         <td className="py-3 text-right">
-                          <button className="p-2 text-gray-400 hover:text-gray-600 rounded-lg cursor-pointer hover:bg-gray-100 transition-all inline-block">
-                            <BsThreeDotsVertical />
-                          </button>
+                          <div className="flex items-center justify-end gap-1.5">
+                            <button
+                              onClick={() => handleOpenViewModal(userItem.id)}
+                              title="View Details"
+                              className="p-1.5 text-[#2F3E56] hover:text-[#1E293B] rounded-lg cursor-pointer hover:bg-gray-100 transition-all"
+                            >
+                              <Eye className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleOpenDeleteModal(userItem)}
+                              title="Delete User"
+                              className="p-1.5 text-red-500 hover:text-red-700 rounded-lg cursor-pointer hover:bg-red-50 transition-all"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))
@@ -424,6 +575,244 @@ export default function AdminDashboard() {
         </div>
 
       </div>
+
+      {/* User Details Modal */}
+      {isViewModalOpen && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl border border-gray-100 flex flex-col gap-4">
+            <button
+              onClick={() => setIsViewModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer p-1 rounded-full hover:bg-gray-100 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <h3 className="text-lg font-bold text-[#2F3E56]">User Profile Details</h3>
+
+            {fetchingDetail ? (
+              <div className="flex flex-col items-center justify-center py-12 gap-3">
+                <div className="w-8 h-8 border-4 border-gray-200 border-t-[#2F3E56] rounded-full animate-spin"></div>
+                <span className="text-sm text-gray-500 font-medium">Fetching details...</span>
+              </div>
+            ) : selectedUserDetail ? (
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200 bg-gray-100 flex items-center justify-center text-gray-400 shrink-0">
+                    {selectedUserDetail.picture ? (
+                      <img
+                        src={selectedUserDetail.picture}
+                        alt={selectedUserDetail.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="font-extrabold text-2xl text-[#2F3E56]">
+                        {selectedUserDetail.name.substring(0, 2).toUpperCase()}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-gray-800 leading-none">{selectedUserDetail.name}</h4>
+                    <p className="text-xs text-gray-400 mt-1.5 capitalize">{selectedUserDetail.usertype || "Member"}</p>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-50 text-green-700 border border-green-200 mt-2">
+                      Active Account
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 text-xs">
+                  <div className="col-span-2">
+                    <span className="text-gray-400 block font-semibold">User ID</span>
+                    <span className="text-gray-800 font-medium break-all">{selectedUserDetail.id}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400 block font-semibold">Email Address</span>
+                    <span className="text-gray-800 font-medium break-all">{selectedUserDetail.email}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400 block font-semibold">Phone Number</span>
+                    <span className="text-gray-800 font-medium">{selectedUserDetail.phone || "Not Provided"}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400 block font-semibold">Alternative Phone</span>
+                    <span className="text-gray-800 font-medium">{selectedUserDetail.alternativePhone || "Not Provided"}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400 block font-semibold">Date of Birth</span>
+                    <span className="text-gray-800 font-medium">{selectedUserDetail.dob || "Not Provided"}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400 block font-semibold">Gender</span>
+                    <span className="text-gray-800 font-medium capitalize">{selectedUserDetail.gender || "Not Provided"}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400 block font-semibold">City</span>
+                    <span className="text-gray-800 font-medium">{selectedUserDetail.city || "Not Provided"}</span>
+                  </div>
+                  <div className="col-span-2">
+                    <span className="text-gray-400 block font-semibold">Full Address</span>
+                    <span className="text-gray-800 font-medium leading-relaxed">{selectedUserDetail.address || "Not Provided"}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400 block font-semibold">Joined Platform On</span>
+                    <span className="text-gray-800 font-medium">
+                      {selectedUserDetail.createdAt ? new Date(selectedUserDetail.createdAt).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric"
+                      }) : "Recently"}
+                    </span>
+                  </div>
+                  <div className="col-span-2 border-t border-gray-100 pt-3">
+                    <span className="text-gray-400 block font-semibold mb-1">Enrolled Courses</span>
+                    {selectedUserDetail.enrollments && selectedUserDetail.enrollments.length > 0 ? (
+                      <div className="space-y-1.5 max-h-24 overflow-y-auto pr-1">
+                        {selectedUserDetail.enrollments.map((enr: any) => (
+                          <div key={enr.id} className="flex justify-between items-center bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-md text-[11px]">
+                            <span className="font-semibold text-gray-700 truncate max-w-[200px]" title={enr.course}>{enr.course}</span>
+                            <span className={`px-2 py-0.5 rounded text-[9px] font-bold capitalize ${
+                              enr.status === "completed" 
+                                ? "bg-green-50 text-green-700 border border-green-150" 
+                                : enr.status === "pending_payment" 
+                                ? "bg-amber-50 text-amber-700 border border-amber-150" 
+                                : "bg-blue-50 text-blue-700 border border-blue-150"
+                            }`}>
+                              {enr.status.replace("_", " ")}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-xs text-gray-500 font-medium italic">Not enrolled in any courses</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-gray-100 flex justify-end">
+                  <button
+                    onClick={() => setIsViewModalOpen(false)}
+                    className="px-5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-xs cursor-pointer transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center text-xs text-gray-400 py-6">Could not load details.</div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Delete Verification Modal */}
+      {isDeleteModalOpen && deleteTargetUser && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl border border-gray-100 flex flex-col gap-4">
+            <button
+              onClick={() => setIsDeleteModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer p-1 rounded-full hover:bg-gray-100 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <h3 className="text-lg font-bold text-red-600 flex items-center gap-2">
+              <Trash2 className="w-5 h-5" />
+              Delete User Account
+            </h3>
+
+            {deleteSuccess ? (
+              <div className="py-8 text-center text-green-600 font-semibold flex flex-col items-center gap-3">
+                <span className="text-4xl">✓</span>
+                <p className="text-sm">{deleteSuccess}</p>
+              </div>
+            ) : deleteStep === 1 ? (
+              <form onSubmit={handleInitiateDelete} className="space-y-4">
+                <p className="text-xs text-gray-500 leading-relaxed font-semibold">
+                  You are initiating a permanent deletion request for user <span className="text-gray-800 font-bold">"{deleteTargetUser.name}"</span> ({deleteTargetUser.email}).
+                  Please enter your password to proceed.
+                </p>
+
+                <div>
+                  <label className="text-[11px] font-bold text-gray-600 block mb-1">Admin Password</label>
+                  <input
+                    type="password"
+                    required
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    placeholder="Enter your login password"
+                    className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500"
+                  />
+                </div>
+
+                {deleteError && (
+                  <p className="text-xs font-semibold text-red-500 bg-red-50 p-2.5 rounded-lg border border-red-150">
+                    {deleteError}
+                  </p>
+                )}
+
+                <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
+                  <button
+                    type="button"
+                    onClick={() => setIsDeleteModalOpen(false)}
+                    className="px-4 py-2 border border-gray-200 hover:bg-gray-50 text-gray-600 font-semibold rounded-lg text-xs cursor-pointer transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={verifying}
+                    className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs cursor-pointer disabled:opacity-50 transition-colors flex items-center gap-1.5"
+                  >
+                    {verifying ? "Verifying..." : "Verify Password"}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <form onSubmit={handleConfirmDelete} className="space-y-4">
+                <div className="p-3 bg-red-50 rounded-xl border border-red-200 text-xs text-red-800 leading-relaxed font-medium">
+                  <strong>Verification Code Sent!</strong><br />
+                  A verification code has been dispatched to <strong>flaxcollective@gmail.com</strong>. Enter it below to authorize this deletion.
+                </div>
+
+                <div>
+                  <label className="text-[11px] font-bold text-gray-600 block mb-1">Enter OTP Code</label>
+                  <input
+                    type="text"
+                    required
+                    value={otpCode}
+                    onChange={(e) => setOtpCode(e.target.value)}
+                    placeholder="6-digit verification code"
+                    maxLength={6}
+                    className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500 tracking-widest text-center font-bold text-lg"
+                  />
+                </div>
+
+                {deleteError && (
+                  <p className="text-xs font-semibold text-red-500 bg-red-50 p-2.5 rounded-lg border border-red-150">
+                    {deleteError}
+                  </p>
+                )}
+
+                <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
+                  <button
+                    type="button"
+                    onClick={() => setDeleteStep(1)}
+                    className="px-4 py-2 border border-gray-200 hover:bg-gray-50 text-gray-600 font-semibold rounded-lg text-xs cursor-pointer transition-colors"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={verifying}
+                    className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs cursor-pointer disabled:opacity-50 transition-colors flex items-center gap-1.5"
+                  >
+                    {verifying ? "Confirming..." : "Confirm Deletion"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

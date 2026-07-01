@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { BookOpen, Calendar, DollarSign, Tag, Key, Link as LinkIcon, FileText, Edit, X, CheckCircle, AlertCircle, FileImage } from "lucide-react";
+import { BookOpen, Calendar, DollarSign, Tag, Key, Link as LinkIcon, FileText, Edit, X, CheckCircle, AlertCircle, FileImage, Eye, EyeOff, Trash2 } from "lucide-react";
 
 interface Course {
   courseId: string;
@@ -13,6 +13,8 @@ interface Course {
   duration: string;
   price: string;
   image: string;
+  isActive?: boolean;
+  icon?: string;
 }
 
 export default function ViewCoursesPage() {
@@ -30,10 +32,14 @@ export default function ViewCoursesPage() {
     fullDesc: "",
     duration: "",
     price: "",
-    category: ""
+    category: "",
+    isActive: true,
+    icon: ""
   });
   const [editImageFile, setEditImageFile] = useState<File | null>(null);
   const [editImagePreview, setEditImagePreview] = useState<string>("");
+  const [editIconFile, setEditIconFile] = useState<File | null>(null);
+  const [editIconPreview, setEditIconPreview] = useState<string>("");
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -66,13 +72,72 @@ export default function ViewCoursesPage() {
       fullDesc: course.fullDesc || course.desc,
       duration: course.duration,
       price: course.price,
-      category: course.category
+      category: course.category,
+      isActive: course.isActive !== false,
+      icon: course.icon || ""
     });
     setEditImagePreview(course.image);
     setEditImageFile(null);
+    setEditIconPreview(course.icon || "");
+    setEditIconFile(null);
     setStatus("idle");
     setMessage("");
     setIsEditModalOpen(true);
+  };
+
+  const toggleCourseStatus = async (course: Course) => {
+    const updatedStatus = course.isActive === false ? true : false;
+    try {
+      const payload = {
+        courseId: course.courseId,
+        title: course.title,
+        slug: course.slug,
+        desc: course.desc,
+        fullDesc: course.fullDesc || course.desc,
+        duration: course.duration,
+        price: course.price,
+        category: course.category,
+        image: course.image,
+        isActive: updatedStatus
+      };
+
+      const res = await fetch("/api/courses", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        await fetchCourses();
+      } else {
+        alert(result.message || "Failed to update course status.");
+      }
+    } catch (err) {
+      console.error("Error toggling course status:", err);
+      alert("An unexpected error occurred while toggling status.");
+    }
+  };
+
+  const handleDeleteCourse = async (courseId: string) => {
+    if (!confirm("Are you sure you want to delete this course? This action cannot be undone.")) {
+      return;
+    }
+    try {
+      const res = await fetch(`/api/courses?courseId=${courseId}`, {
+        method: "DELETE"
+      });
+      const result = await res.json();
+      if (result.success) {
+        alert("Course deleted successfully!");
+        await fetchCourses();
+      } else {
+        alert(result.message || "Failed to delete course.");
+      }
+    } catch (err) {
+      console.error("Error deleting course:", err);
+      alert("An unexpected error occurred while deleting the course.");
+    }
   };
 
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -100,6 +165,14 @@ export default function ViewCoursesPage() {
     }
   };
 
+  const handleIconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setEditIconFile(file);
+      setEditIconPreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSaving(true);
@@ -108,6 +181,7 @@ export default function ViewCoursesPage() {
 
     try {
       let finalImageUrl = editingCourse?.image || "";
+      let finalIconUrl = editingCourse?.icon || "";
 
       // If a new image was chosen, upload it first
       if (editImageFile) {
@@ -129,10 +203,31 @@ export default function ViewCoursesPage() {
         finalImageUrl = uploadResult.imageUrl;
       }
 
+      // If a new icon was chosen, upload it first
+      if (editIconFile) {
+        const uploadIconData = new FormData();
+        uploadIconData.append("file", editIconFile);
+
+        const uploadIconRes = await fetch("/api/courses/upload", {
+          method: "POST",
+          body: uploadIconData
+        });
+        const uploadIconResult = await uploadIconRes.json();
+
+        if (!uploadIconResult.success) {
+          setStatus("error");
+          setMessage(uploadIconResult.message || "Failed to upload new icon.");
+          setSaving(false);
+          return;
+        }
+        finalIconUrl = uploadIconResult.imageUrl;
+      }
+
       // Save course changes
       const payload = {
         ...editForm,
-        image: finalImageUrl
+        image: finalImageUrl,
+        icon: finalIconUrl
       };
 
       const res = await fetch("/api/courses", {
@@ -205,6 +300,13 @@ export default function ViewCoursesPage() {
                     <BookOpen className="w-12 h-12 text-gray-300" />
                   )}
                   
+                  {/* Status tag */}
+                  <span className={`absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-sm ${
+                    course.isActive !== false ? "bg-green-600 text-white" : "bg-red-500 text-white"
+                  }`}>
+                    {course.isActive !== false ? "Active" : "Hidden"}
+                  </span>
+
                   {/* Category tag */}
                   <span className="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#2F3E56] text-white shadow-sm">
                     {course.category}
@@ -242,14 +344,35 @@ export default function ViewCoursesPage() {
                 </div>
               </div>
 
-              {/* Edit Card Footer Action Button */}
-              <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+              {/* Edit Card Footer Action Buttons */}
+              <div className="p-4 border-t border-gray-100 bg-gray-50/50 flex items-center gap-2">
                 <button
                   onClick={() => handleEditClick(course)}
-                  className="w-full py-2 bg-[#2F3E56] hover:bg-[#1E293B] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
+                  className="flex-1 py-2 bg-[#2F3E56] hover:bg-[#1E293B] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-sm"
+                  title="Edit details"
                 >
                   <Edit className="w-3.5 h-3.5" />
-                  Edit Details
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => toggleCourseStatus(course)}
+                  className={`p-2 border rounded-lg flex items-center justify-center cursor-pointer transition-colors shadow-sm ${
+                    course.isActive !== false 
+                      ? "border-green-200 bg-green-50 text-green-700 hover:bg-green-100 hover:border-green-300" 
+                      : "border-red-200 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-300"
+                  }`}
+                  title={course.isActive !== false ? "Hide Course" : "Show Course"}
+                >
+                  {course.isActive !== false ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+                </button>
+
+                <button
+                  onClick={() => handleDeleteCourse(course.courseId)}
+                  className="p-2 border border-red-200 bg-red-50 text-red-650 hover:bg-red-100 hover:text-red-700 rounded-lg flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                  title="Delete Course"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>
 
@@ -343,8 +466,7 @@ export default function ViewCoursesPage() {
                     name="slug"
                     value={editForm.slug}
                     onChange={handleEditChange}
-                    required
-                    placeholder="Course Slug"
+                    placeholder="Course Slug (Optional - will auto-generate from title if left empty)"
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#2F3E56]"
                   />
                 </div>
@@ -392,6 +514,20 @@ export default function ViewCoursesPage() {
                     placeholder="Fee amount"
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#2F3E56]"
                   />
+                </div>
+
+                {/* Course Status */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-bold text-gray-600">Status</label>
+                  <select
+                    name="isActive"
+                    value={editForm.isActive ? "true" : "false"}
+                    onChange={(e) => setEditForm(prev => ({ ...prev, isActive: e.target.value === "true" }))}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#2F3E56] cursor-pointer bg-white"
+                  >
+                    <option value="true">Active (Visible to users)</option>
+                    <option value="false">Hidden (Invisible to users)</option>
+                  </select>
                 </div>
 
                 {/* Short Description */}
@@ -442,6 +578,40 @@ export default function ViewCoursesPage() {
                       <div className="text-left">
                         <p className="text-xs font-semibold text-gray-700">Change Cover Image</p>
                         <p className="text-[10px] text-gray-400 mt-0.5">JPEG, PNG or WEBP (Max 300KB)</p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="px-4 py-1.5 bg-[#2F3E56] text-white text-[11px] font-bold rounded-lg pointer-events-none"
+                    >
+                      Choose File
+                    </button>
+                  </div>
+                </div>
+
+                {/* Icon Upload Preview / Dropzone (Optional) */}
+                <div className="flex flex-col gap-1.5 sm:col-span-2">
+                  <label className="text-xs font-bold text-gray-600">Course Icon (Optional)</label>
+                  <div className="border border-dashed border-gray-200 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-50/50 relative">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleIconChange}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    
+                    <div className="flex items-center gap-3">
+                      <div className="w-16 h-12 rounded-lg bg-gray-100 overflow-hidden border border-gray-200 flex items-center justify-center shrink-0">
+                        {editIconPreview ? (
+                          <img src={editIconPreview} alt="Preview icon" className="w-full h-full object-contain" />
+                        ) : (
+                          <FileImage className="w-6 h-6 text-gray-300" />
+                        )}
+                      </div>
+                      <div className="text-left">
+                        <p className="text-xs font-semibold text-gray-700">Change Course Icon</p>
+                        <p className="text-[10px] text-gray-400 mt-0.5">JPEG, PNG or WEBP (Max 150KB)</p>
                       </div>
                     </div>
 

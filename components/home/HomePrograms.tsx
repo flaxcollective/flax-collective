@@ -115,6 +115,7 @@ interface HomeProgramsProps {
 export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
   const [courses, setCourses] = useState<any[]>(initialCourses);
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [failedIcons, setFailedIcons] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     fetch("/api/courses")
@@ -140,29 +141,38 @@ export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
 
 
           <div className="programs-grid">
-            {courses.map((course, idx) => (
-              <div key={idx} className="program-card">
-                <div className="program-icon-wrap">
-                  <img src={course.icon} alt={course.title} />
-                </div>
-                <div className="program-card-content">
-                  <h4>{course.title}</h4>
-                </div>
-                <div className="program-card-footer">
+            {courses.filter((course: any) => course.isActive !== false).map((course, idx) => {
+              const hasIcon = course.icon && !failedIcons[course.title];
+              return (
+                <div key={idx} className="program-card">
+                  {hasIcon && (
+                    <div className="program-icon-wrap">
+                      <img 
+                        src={course.icon} 
+                        alt={course.title} 
+                        onError={() => setFailedIcons(prev => ({ ...prev, [course.title]: true }))}
+                      />
+                    </div>
+                  )}
+                  <div className="program-card-content">
+                    <h4>{course.title}</h4>
+                  </div>
+                  <div className="program-card-footer">
 
-                  <button
-                    onClick={() => onApplyNow(course.title)}
-                    className="program-apply-btn text-nowrap"
-                  >
-                    Enquire Now
-                  </button>
-                  <button
-                    onClick={() => setSelectedCourse(course)}
-                    className="text-nowrap program-view-btn"> View Details
-                  </button>
+                    <button
+                      onClick={() => onApplyNow(course.title)}
+                      className="program-apply-btn text-nowrap"
+                    >
+                      Enquire Now
+                    </button>
+                    <button
+                      onClick={() => setSelectedCourse(course)}
+                      className="text-nowrap program-view-btn"> View Details
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
 

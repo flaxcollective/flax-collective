@@ -149,3 +149,54 @@ export async function sendEnrollmentSuccessEmail(email: string, studentName: str
     return false;
   }
 }
+
+export async function sendDeleteUserOTPEmail(email: string, otp: string, userName: string, adminEmail: string) {
+  try {
+    const mailUser = process.env.MAIL_USER?.trim();
+    const mailPass = process.env.MAIL_PASS?.replace(/"/g, "").trim();
+
+    console.log(`[MAILER] sendDeleteUserOTPEmail invoked for: ${email}`);
+    console.log(`[MAILER] MAIL_USER: ${mailUser ? mailUser : "NOT CONFIGURED"}`);
+    console.log(`[MAILER] [BACKUP OTP] The generated OTP is: ${otp}`);
+
+    if (!mailUser || !mailPass) {
+      console.warn("⚠️ MAIL_USER or MAIL_PASS is not configured. Mocking email sending.");
+      console.log(`✉️ [MOCK EMAIL] To: ${email} | Subject: Admin Action - Delete User Verification | OTP: ${otp}`);
+      return true;
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: mailUser,
+        pass: mailPass,
+      },
+    });
+
+    const mailOptions = {
+      from: `"Security Team" <${mailUser}>`,
+      to: email,
+      subject: "Security Alert: Admin Action Required - Delete User Verification",
+      text: `An administrator (${adminEmail}) has requested to delete the user "${userName}". To confirm this action, please enter the following OTP: ${otp}. This OTP is valid for 5 minutes.`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px; max-width: 500px; margin: auto;">
+          <h2 style="color: #DC2626; text-align: center;">Security Alert: User Deletion Request</h2>
+          <p style="font-size: 16px; color: #333;">An administrator (<strong>${adminEmail}</strong>) has initiated a request to delete the user: <strong>${userName}</strong>.</p>
+          <p style="font-size: 16px; color: #555;">To authorize and confirm this permanent deletion, please use the following OTP:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #DC2626; background-color: #fef2f2; padding: 10px 20px; border-radius: 5px; border: 1px dashed #DC2626;">${otp}</span>
+          </div>
+          <p style="font-size: 14px; color: #777; text-align: center;">This OTP is valid for 5 minutes.</p>
+          <p style="font-size: 14px; color: #999; text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px;">If you did not authorize this action, please ignore this email.</p>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("[MAILER] Delete User OTP Email sent successfully:", info.response);
+    return true;
+  } catch (error) {
+    console.error("[MAILER] Error sending delete user OTP email:", error);
+    return false;
+  }
+}

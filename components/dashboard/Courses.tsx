@@ -163,10 +163,12 @@ export default function Courses() {
     }, []);
 
     // ✅ FILTER LOGIC
+    const visibleCourses = courses.filter(course => course.isActive !== false);
+
     const filteredCourses =
         activeCategory === "All"
-            ? courses
-            : courses.filter(course => course.category === activeCategory);
+            ? visibleCourses
+            : visibleCourses.filter(course => course.category === activeCategory);
 
     // ✅ CATEGORY LIST
     const categories = [
@@ -347,24 +349,25 @@ export default function Courses() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
 
                         {filteredCourses.map((course) => (
-                            <div key={course.id} className="bg-white rounded-2xl p-4 shadow-sm border">
+                            <div key={course.id} className="bg-white rounded-2xl p-4 shadow-sm border flex flex-col justify-between h-full">
+
+                                <div>
+                                    <img
+                                        src={course.image}
+                                        alt={course.title}
+                                        className="w-full object-contain rounded-lg mb-4"
+                                    />
 
 
-                                <img
-                                    src={course.image}
-                                    alt={course.title}
-                                    className="w-full object-contain rounded-lg mb-4"
-                                />
+                                    <h3 className=" text-sm md:text-base font-medium text-text-dark mb-2 leading-5">
+                                        {course.title}
+                                    </h3>
 
 
-                                <h3 className=" text-sm md:text-base font-medium text-text-dark mb-2 leading-5">
-                                    {course.title}
-                                </h3>
-
-
-                                <p className="text-xs md:text-sm text-text-body mb-3">
-                                    {course.desc}
-                                </p>
+                                    <p className="text-xs md:text-sm text-text-body mb-3">
+                                        {course.desc}
+                                    </p>
+                                </div>
 
 
                                 {/* <div className="flex items-center gap-4 text-xs md:text-sm text-text-body mb-4">
@@ -375,17 +378,19 @@ export default function Courses() {
                                         <FiClock /> {course.hours} Hours
                                     </span>
                                 </div> */}
-                                <div className="text-[#2F3E56] font-semibold text-xs md:text-sm mb-4">
-                                    Fee: {formatPrice(course.price, course.title)}
+                                <div className="mt-auto">
+                                    <div className="text-[#2F3E56] font-semibold text-xs md:text-sm mb-4">
+                                        Fee: {formatPrice(course.price, course.title)}
+                                    </div>
+
+
+                                    <button
+                                        onClick={() => handleBuyNow(course.title)}
+                                        className="w-full py-2 rounded-lg bg-navy text-white text-sm cursor-pointer animate-none"
+                                    >
+                                        Buy Now
+                                    </button>
                                 </div>
-
-
-                                <button
-                                    onClick={() => handleBuyNow(course.title)}
-                                    className="w-full py-2 rounded-lg bg-navy text-white text-sm cursor-pointer animate-none"
-                                >
-                                    Buy Now
-                                </button>
 
                             </div>
                         ))}
