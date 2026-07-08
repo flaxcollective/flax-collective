@@ -1,4 +1,8 @@
 export async function verifyRecaptcha(token: string | null | undefined): Promise<boolean> {
+  if (process.env.NODE_ENV === "development") {
+    console.log("[reCAPTCHA] Development mode: bypassing verification.");
+    return true;
+  }
   if (!token) return false;
   try {
     const secret = process.env.RECAPTCHA_SECRET_KEY;
@@ -15,7 +19,8 @@ export async function verifyRecaptcha(token: string | null | undefined): Promise
       body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(token)}`,
     });
 
-    const data = await response.json() as { success: boolean };
+    const data = await response.json() as { success: boolean; "error-codes"?: string[] };
+    console.log("[reCAPTCHA validation response]:", JSON.stringify(data));
     return !!data.success;
   } catch (error) {
     console.error("reCAPTCHA validation error:", error);

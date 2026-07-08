@@ -53,6 +53,11 @@ const adminMenu = [
     icon: BookOpen,
     href: "/admin-dashboard/view-courses",
   },
+  {
+    name: "Payments",
+    icon: ClipboardList,
+    href: "/admin-dashboard/payments",
+  },
   /*
   {
     name: "Add User",
@@ -235,7 +240,7 @@ export default function Sidebar() {
             handleLogout();       // ✅ logout call
           }}
           className={`flex items-center w-full ${!forMobile && collapsed ? "justify-center" : "gap-3"
-            } px-3 py-3 text-gray-600 hover:bg-red-100 hover:text-red-600 rounded-md text-sm font-medium transition-all`}
+            } px-3 py-3 text-gray-600 hover:bg-red-100 hover:text-red-600 rounded-md text-sm font-medium transition-all cursor-pointer`}
         >
           <MdLogout className="w-5 h-5" />
           {(forMobile || !collapsed) && "Logout"}

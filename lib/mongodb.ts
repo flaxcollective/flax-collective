@@ -7,7 +7,12 @@ import { MockDb } from "./mongodb_mock";
 
 let uri = process.env.MONGODB_URI as string;
 if (uri && uri.includes("+srv")) {
-  uri = "mongodb://flaxcollective:rUrN2Fd3AHCz2EZH@ac-m2vop7z-shard-00-00.ejwchow.mongodb.net:27017,ac-m2vop7z-shard-00-01.ejwchow.mongodb.net:27017,ac-m2vop7z-shard-00-02.ejwchow.mongodb.net:27017/flax_collective?ssl=true&replicaSet=atlas-wkm30g-shard-0&authSource=admin&retryWrites=true&w=majority";
+  const fallback = process.env.MONGODB_FALLBACK_URI;
+  if (fallback) {
+    uri = fallback;
+  } else {
+    console.warn("⚠️ MONGODB_URI contains +srv and MONGODB_FALLBACK_URI is not set in environment.");
+  }
 }
 
 if (!uri) {
