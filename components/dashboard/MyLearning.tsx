@@ -1,6 +1,7 @@
 "use client";
 
-import { FiSearch, FiFilter } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiSearch } from "react-icons/fi";
 import "@/app/styles/dashboard/dashboard-home.css";
 import { TiMediaPlayOutline } from "react-icons/ti";
 import Link from "next/link";
@@ -8,48 +9,43 @@ import { BookOpen } from "lucide-react";
 import { TbLayoutSidebarRight } from "react-icons/tb";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { FiCalendar, FiClock } from "react-icons/fi";
-import { useState } from "react";
-
-
-const coursesData = [
-  {
-    img: "/assets/images/programs-img/hfg.png",
-    title: "Hospitality Professional Foundations (HPF)",
-    desc: "Learn core principles of hospitality management and service excellence.",
-    progress: 75,
-    status: "In Progress",
-    lessons: 12,
-    modules: 4,
-    hours: 18,
-  },
-  {
-    img: "/assets/images/programs-img/resm.png",
-    title: "Real Estate Sales & Management (RESM)",
-    desc: "Understand real estate sales, client handling, and property management.",
-    progress: 50,
-    status: "In Progress",
-    lessons: 10,
-    modules: 3,
-    hours: 15,
-  },
-  {
-    img: "/assets/images/programs-img/hcps.png",
-    title: "Hospitality Communication & Professional Skills",
-    desc: "Improve your communication and interpersonal skills for professional growth.",
-    progress: 0,
-    status: "Not Started",
-    lessons: 8,
-    modules: 2,
-    hours: 6,
-  },
-];
 
 export default function DashboardMylearning() {
-  const [open, setOpen] = useState(false);
+  const [enrollments, setEnrollments] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const fetchEnrollments = async () => {
+      try {
+        const res = await fetch("/api/student/enrollments");
+        const data = await res.json();
+        if (data.success) {
+          setEnrollments(data.enrollments || []);
+        }
+      } catch (err) {
+        console.error("Error fetching my learning enrollments:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEnrollments();
+  }, []);
+
+  const filteredEnrollments = enrollments.filter((course) => {
+    const matchesSearch = course.courseName.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesSearch;
+  });
+
+  const overallProgress = 0;
+
+  // Circular progress SVG constants
+  const radius = 52;
+  const circumference = 2 * Math.PI * radius; // ~326.73
+  const strokeDashoffset = circumference - (overallProgress / 100) * circumference;
+
   return (
     <div className="space-y-8">
-
-
       <div>
         <h1 className="text-xl md:text-3xl font-semibold text-gray-800 pb-2">
           My Courses
@@ -59,266 +55,239 @@ export default function DashboardMylearning() {
         </p>
       </div>
 
-
-      <div className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-2xl p-10 md:p-16 text-center shadow-sm max-w-2xl mx-auto mt-8">
-        <div className="bg-[#2F3E56]/10 p-4 rounded-full mb-6 text-[#2F3E56] flex items-center justify-center">
-          <BookOpen className="w-12 h-12" />
+      {loading ? (
+        <div className="flex flex-col items-center justify-center py-20 text-gray-400 gap-3">
+          <div className="w-10 h-10 border-4 border-gray-200 border-t-[#2F3E56] rounded-full animate-spin"></div>
+          <p className="text-sm font-semibold">Loading your courses...</p>
         </div>
-        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
-          No Enrolled Courses Yet
-        </h2>
-        <p className="text-gray-500 text-sm md:text-base mb-8 max-w-md">
-          Explore our certification programs, counselling sessions, and workshops to start your learning journey.
-        </p>
-        <Link
-          href="/dashboard/course"
-          className="bg-[#2F3E56] hover:bg-[#1E293B] text-white px-8 py-3 rounded-xl font-medium transition cursor-pointer text-center inline-block"
-        >
-          Explore Courses
-        </Link>
-      </div>
+      ) : enrollments.length === 0 ? (
+        /* No Enrolled Courses Yet Box */
+        <div className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-2xl p-10 md:p-16 text-center shadow-sm max-w-2xl mx-auto mt-8">
+          <div className="bg-[#2F3E56]/10 p-4 rounded-full mb-6 text-[#2F3E56] flex items-center justify-center">
+            <BookOpen className="w-12 h-12" />
+          </div>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+            No Enrolled Courses Yet
+          </h2>
+          <p className="text-gray-500 text-sm md:text-base mb-8 max-w-md">
+            Explore our certification programs, counselling sessions, and workshops to start your learning journey.
+          </p>
+          <Link
+            href="/dashboard/course"
+            className="bg-[#2F3E56] hover:bg-[#1E293B] text-white px-8 py-3 rounded-xl font-medium transition cursor-pointer text-center inline-block"
+          >
+            Explore Courses
+          </Link>
+        </div>
+      ) : (
+        /* Dynamic Learning Content */
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          {/* Main Left Side List */}
+          <div className="xl:col-span-2 space-y-8">
+            <div className="flex flex-wrap gap-4 md:items-center justify-between">
+              <h2 className="text-xl text-nowrap pb-0 text-navy font-semibold">
+                All Enrolled Courses ({filteredEnrollments.length})
+              </h2>
 
-      {/*
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-
-
-        <div className="xl:col-span-2 space-y-8">
-
-
-          <div className="flex flex-wrap gap-4 md:items-center">
-
-            <h2 className="text-xl text-nowrap md:text-xl all_courseDas pb-0 md:pb-2 text-navy font-semibold">
-              All Courses
-            </h2>
-
-            <div className="right-tools">
-
-
-              <div className="search-box">
-                <input type="text" placeholder="Search Courses..." />
-                <FiSearch />
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <div className="relative flex-1 sm:w-64">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search Courses..."
+                    className="w-full pl-4 pr-10 py-2 border rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-[#2F3E56] text-sm text-gray-700"
+                  />
+                  <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                </div>
               </div>
+            </div>
 
+            {/* Courses Feed */}
+            <div className="space-y-4">
+              {filteredEnrollments.length > 0 ? (
+                filteredEnrollments.map((course, i) => {
+                  const progress = 0;
+                  const status: string = "Not Started";
+                  const lessons = 12 - (i % 3) * 2;
+                  const modules = 4 - (i % 2);
+                  const hours = 18 - (i % 3) * 3;
 
-              <div className="relative inline-block">
-                <button
-                  className="filter-btn flex items-center gap-2"
-                  onClick={() => setOpen(!open)}
-                >
-                  <FiFilter />
-                  Filter
-                </button>
+                  return (
+                    <div
+                      key={course.id}
+                      className="mylearning_item flex flex-col md:flex-row gap-4 p-4 rounded-xl hover:shadow-sm transition bg-white border border-gray-100"
+                    >
+                      <img
+                        src={course.courseImage || "/assets/images/programs-img/certification.png"}
+                        alt={course.courseName}
+                        className="w-full md:w-56 h-36 object-cover rounded-lg shrink-0 border"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "/assets/images/programs-img/certification.png";
+                        }}
+                      />
 
-                {open && (
-                  <div className="absolute mt-2 w-48 bg-white border rounded-lg shadow-lg z-10">
-                    <ul className="py-2 text-nowrap text-sm">
-                      <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        InProgress
-                      </li>
-                      <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        Completed
-                      </li>
-                      <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        Starting Now
-                      </li>
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div>
+                          <div className="flex flex-wrap gap-2 justify-between items-start">
+                            <h4 className="text-sm md:text-lg font-bold text-gray-900 leading-snug line-clamp-1">
+                              {course.courseName}
+                            </h4>
+                            <span
+                              className={`text-xs md:text-sm font-semibold px-3 py-0.5 rounded-full ${
+                                status === "Completed" 
+                                  ? "bg-green-50 text-green-700 border border-green-200" 
+                                  : "bg-[#6e7c3a]/15 text-[#5e6b30]"
+                              }`}
+                            >
+                              {status}
+                            </span>
+                          </div>
 
-                    </ul>
-                  </div>
-                )}
-              </div>
+                          <p className="text-xs md:text-sm text-gray-500 mt-2 line-clamp-2">
+                            {course.courseDesc || "Start your professional certification module today. Gain access to expert mentoring."}
+                          </p>
+                        </div>
 
+                        <div className="mt-4 space-y-3">
+                          <div>
+                            <p className="text-xs text-gray-700 mb-1 font-semibold">
+                              {progress}% Complete
+                            </p>
+                            <div className="w-full h-1.5 bg-gray-150 rounded-full">
+                              <div
+                                className="h-1.5 bg-[#2F3E56] rounded-full transition-all duration-500"
+                                style={{ width: `${progress}%` }}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="flex flex-wrap justify-between items-center gap-3 pt-1">
+                            <div className="flex gap-4 text-xs font-medium text-gray-400">
+                              <span className="flex gap-1 items-center">
+                                <TiMediaPlayOutline className="border rounded-full" /> {lessons} Lessons
+                              </span>
+                              <span className="flex gap-1 items-center">
+                                <TbLayoutSidebarRight /> {modules} Modules
+                              </span>
+                              <span className="flex gap-1 items-center">
+                                <MdOutlineWatchLater /> {hours} Hours
+                              </span>
+                            </div>
+
+                            <button className="w-full md:w-auto px-5 py-2 bg-[#2F3E56] hover:bg-[#1E293B] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer">
+                              {status === "Completed" ? "Review Course" : "Continue Learning"}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="bg-white border rounded-xl p-12 text-center text-gray-450 font-semibold">
+                  No courses match your search.
+                </div>
+              )}
             </div>
           </div>
 
+          {/* Right Sidebar */}
+          <div className="xl:col-span-1 space-y-6">
+            <div className="bg-white border border-gray-100 rounded-2xl p-6 text-center shadow-sm flex flex-col items-center">
+              <h3 className="text-lg font-bold text-gray-800 mb-6">
+                Learning Progress
+              </h3>
 
-          <div className=" space-y-4">
+              <div className="flex justify-center">
+                <div className="relative w-40 h-40">
+                  <svg className="w-full h-full" viewBox="0 0 120 120">
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="none"
+                      stroke="#e5e7eb"
+                      strokeWidth="8"
+                    />
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="none"
+                      stroke="#2F3E56"
+                      strokeWidth="8"
+                      strokeDasharray={circumference}
+                      strokeDashoffset={strokeDashoffset}
+                      strokeLinecap="round"
+                      transform="rotate(-90 60 60)"
+                      className="transition-all duration-700 ease-out-quint"
+                    />
+                  </svg>
 
-            {coursesData.map((course, i) => (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="text-3xl font-extrabold text-gray-800">{overallProgress}%</span>
+                    <span className="text-[10px] text-gray-400 font-semibold tracking-wide uppercase mt-0.5">Average</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-              <div
-                key={i}
-                className="mylearning_item flex flex-col md:flex-row gap-4 p-4 rounded-xl hover:shadow-sm transition bg-white"
-              >
+            {/* Upcoming Class (Commented out)
+            {enrollments.length > 0 && (
+              <div className="p-1 md:p-5 space-y-4">
+                <h3 className="text-lg font-bold text-gray-850">
+                  Upcoming Class
+                </h3>
 
-
-                <img
-                  src={course.img}
-                  alt="course"
-                  className="w-full md:w-56 h-36 object-fill rounded-lg shrink-0"
-                />
-
-
-                <div className="flex-1">
-
-
-                  <div className="flex flex-wrap gap-2 justify-between items-start">
-                    <h4 className="text-sm md:text-xl font-semibold text-text-dark leading-7">
-                      {course.title}
+                <div className="bg-white border border-gray-100 rounded-xl p-4 space-y-4 shadow-sm">
+                  <div className="flex flex-wrap justify-between items-start gap-2">
+                    <h4 className="text-xs md:text-sm font-bold text-gray-850 leading-snug line-clamp-2 flex-1">
+                      {enrollments[0].courseName}
                     </h4>
-                    <span
-                      className={`text-xs md:text-sm font-medium px-3 py-1 rounded-full mylearning_status ${course.status === "Not Started" ? "not-started" : ""
-                        }`}
-                    >
-                      {course.status}
+                    <span className="text-[10px] bg-[#2F3E56] text-white px-2.5 py-0.5 rounded-full font-bold">
+                      June Week 2
                     </span>
                   </div>
 
-
-                  <p className="text-xs md:text-base text-text-body mt-1">
-                    {course.desc}
-                  </p>
-
-
-                  <div className="mt-3">
-                    <p className="text-xs md:text-base text-text-dark mb-1">
-                      {course.progress}% Complete
-                    </p>
-
-                    <div className="w-full h-2 bg-gray-200 rounded-full">
-                      <div
-                        className="h-2 bg-[#2F3E56] rounded-full"
-                        style={{ width: `${course.progress}%` }}
-                      />
+                  <div className="flex items-center gap-3">
+                    <img
+                      src="/assets/images/dashboard/dhoni.png"
+                      alt="Instructor"
+                      className="w-10 h-10 rounded-full object-cover shrink-0"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/assets/images/dashboard/rohit.png";
+                      }}
+                    />
+                    <div>
+                      <p className="text-[11px] text-gray-400">Conducted By</p>
+                      <p className="text-xs font-bold text-gray-800">
+                        M.S. Dhoni
+                      </p>
                     </div>
                   </div>
 
-
-                  <div className="flex flex-wrap justify-between items-center mt-4 gap-3">
-
-
-                    <div className="flex gap-4 text-xs text-gray-500">
-                      <span className="flex gap-1 items-center text-sm md:text-base">
-                        <TiMediaPlayOutline className="border-2 rounded-full" /> {course.lessons} Lessons
-                      </span>
-                      <span className="flex gap-1 items-center text-sm md:text-base">
-                        <TbLayoutSidebarRight /> {course.modules} Modules
-                      </span>
-                      <span className="flex gap-1 items-center text-sm md:text-base">
-                        <MdOutlineWatchLater /> {course.hours} Hours
-                      </span>
+                  <div className="flex flex-col gap-1.5 text-xs text-gray-500 font-medium pt-2 border-t">
+                    <div className="flex items-center gap-2">
+                      <FiCalendar className="text-gray-400" />
+                      <span>9 June, 2026</span>
                     </div>
-
-
-                    <button className="w-full md:w-auto px-4 py-2 bg-[#2F3E56] text-white text-sm font-semibold rounded-md hover:bg-[#253044] transition">
-                     {course.status === "Not Started" ? "Join Now" : "Continue Learning"}
-                    </button>
-
+                    <div className="flex items-center gap-2">
+                      <FiClock className="text-gray-400" />
+                      <span>12:00 PM</span>
+                    </div>
                   </div>
 
+                  <button className="w-full bg-[#2F3E56] hover:bg-[#1E293B] text-white cursor-pointer py-2.5 rounded-lg transition-colors font-bold text-xs">
+                    Join Class
+                  </button>
                 </div>
               </div>
-
-            ))}
-
+            )}
+            */}
           </div>
         </div>
-
-
-        <div className="xl:col-span-1 space-y-6">
-          <div className="bg-gray-100 border rounded-2xl p-6 text-center shadow-sm">
-
-            <h3 className="text-lg font-semibold text-gray-800 mb-6">
-              Learning Progress
-            </h3>
-
-
-            <div className="flex justify-center">
-              <div className="relative w-40 h-40">
-
-                <svg className="w-full h-full" viewBox="0 0 120 120">
-
-
-                  <circle
-                    cx="60"
-                    cy="60"
-                    r="52"
-                    fill="none"
-                    stroke="#e5e7eb"
-                    strokeWidth="10"
-                  />
-
-
-                  <circle
-                    cx="60"
-                    cy="60"
-                    r="52"
-                    fill="none"
-                    stroke="#2F3E56"
-                    strokeWidth="10"
-                    strokeDasharray="326.73"
-                    strokeDashoffset="163.36"
-                    strokeLinecap="round"
-                    transform="rotate(-90 60 60)"
-                  />
-
-                </svg>
-
-
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-3xl font-bold text-gray-800">50%</span>
-                  <span className="text-sm text-gray-500">Overall Progress</span>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-          <div className="p-1 md:p-5 space-y-4">
-
-
-            <h3 className="text-lg font-semibold text-gray-800">
-              Upcoming Class
-            </h3>
-
-
-            <div className="bg-white border rounded-xl p-4 space-y-4">
-
-
-              <div className="flex flex-wrap justify-between items-start">
-                <h4 className="text-xs md:text-base font-semibold text-gray-800 leading-snug">
-                  Real Estate Sales & Management
-                </h4>
-
-                <span className="text-xs bg-[#2F3E56] text-white px-3 py-1 mt-2 rounded-full">
-                  June Week 2
-                </span>
-              </div>
-
-
-              <div className="flex items-center gap-3">
-                <img
-                  src="/assets/images/dashboard/dhoni.png"
-                  alt="Instructor"
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-
-                <div>
-                  <p className="text-xs text-gray-500">Conducted By</p>
-                  <p className="text-sm font-medium text-gray-800">
-                    M.S. Dhoni
-                  </p>
-                </div>
-              </div>
-
-
-              <div className="flex items-center gap-2 mb-1">
-                <FiCalendar /> <span>9 June, 2026</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiClock /> <span>12:00 PM</span>
-              </div>
-
-
-              <button className="w-full bg-[#2F3E56] text-white cursor-pointer py-2.5 rounded-lg hover:bg-[#253044] transition font-medium">
-                Join Class
-              </button>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-      */}
+      )}
     </div>
   );
 }

@@ -209,7 +209,7 @@ export default function Header() {
                   setProfile(false);
                   handleLogout();
                 }}
-                className="w-full text-left px-4 py-3 text-white group"
+                className="w-full text-left px-4 py-3 text-white group cursor-pointer"
               >
                 <div className="pb-2 border-b  text-base font-semibold md:text-lg border-transparent group-hover:border-white/40 transition-all duration-200">
                   Logout

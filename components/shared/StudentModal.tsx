@@ -50,16 +50,14 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
           lName = parts.slice(1).join(" ") || "";
         }
 
-        let cCode = "+91";
-        let mob = "";
-        if (user.phone) {
+        let cCode = user.countryCode || "+91";
+        let mob = user.phone || "";
+        if (!user.countryCode && user.phone) {
           const cleanPhone = user.phone.trim();
           const matched = countries.find(c => cleanPhone.startsWith(c.code));
           if (matched) {
             cCode = matched.code;
             mob = cleanPhone.substring(matched.code.length);
-          } else {
-            mob = cleanPhone;
           }
         }
 
@@ -69,8 +67,8 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
           email: user.email || "",
           countryCode: cCode,
           mobile: mob,
-          country: "",
-          state: "",
+          country: user.country || "",
+          state: user.state || "",
           city: user.city || "",
         };
       }
@@ -129,7 +127,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
       setErrorMsg("City name must contain letters");
       return;
     }
-    if (!recaptchaToken) {
+    if (!recaptchaToken && process.env.NODE_ENV !== "development") {
       setStatus("error");
       setErrorMsg("Please complete the reCAPTCHA verification.");
       return;
@@ -144,11 +142,15 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
         body: JSON.stringify({ ...form, recaptchaToken }),
       });
 
-      const data = await res.json() as { success: boolean; message?: string };
+      const data = await res.json() as { success: boolean; message?: string; redirectUrl?: string };
 
       if (data.success) {
-        setStatus("success");
         setRecaptchaToken(null);
+        if (data.redirectUrl) {
+          window.location.href = data.redirectUrl;
+        } else {
+          setStatus("success");
+        }
       } else {
         setStatus("error");
         setErrorMsg(data.message ?? "Something went wrong. Please try again.");
@@ -193,26 +195,42 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                 <div className="modal-input-group">
                   <label>Your Email</label>
                   <input name="email" type="email" placeholder="Enter Your Email" value={form.email} onChange={handleChange} required disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
-                </div>
-                <div className="modal-input-group">
+                </div>                 <div className="modal-input-group">
                   <label>Your Mobile Number</label>
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <select 
                       name="countryCode" 
                       value={form.countryCode} 
                       onChange={handleChange} 
-                      style={{ width: '100px', flexShrink: 0 }}
+                      style={{ width: '100px', flexShrink: 0, ...((user && user.countryCode) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : {}) }}
+                      disabled={!!(user && user.countryCode)}
                     >
                       {countries.map(c => (
                         <option key={c.iso + c.code} value={c.code}>{c.iso} ({c.code})</option>
                       ))}
                     </select>
-                    <input name="mobile" type="tel" placeholder="Mobile Number" value={form.mobile} onChange={handleChange} required />
+                    <input 
+                      name="mobile" 
+                      type="tel" 
+                      placeholder="Mobile Number" 
+                      value={form.mobile} 
+                      onChange={handleChange} 
+                      required 
+                      disabled={!!(user && user.phone)} 
+                      style={(user && user.phone) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
+                    />
                   </div>
                 </div>
                 <div className="modal-input-group">
                   <label>Country</label>
-                  <select name="country" value={form.country} onChange={handleChange} required>
+                  <select 
+                    name="country" 
+                    value={form.country} 
+                    onChange={handleChange} 
+                    required 
+                    disabled={!!(user && user.country)} 
+                    style={(user && user.country) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined}
+                  >
                     <option value="" disabled hidden>Choose Your Country</option>
                     {countries.map(c => (
                       <option key={c.name} value={c.name}>{c.name}</option>
@@ -221,11 +239,29 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                 </div>
                 <div className="modal-input-group">
                   <label>State</label>
-                  <input name="state" type="text" placeholder="Enter Your State" value={form.state} onChange={handleChange} required />
+                  <input 
+                    name="state" 
+                    type="text" 
+                    placeholder="Enter Your State" 
+                    value={form.state} 
+                    onChange={handleChange} 
+                    required 
+                    disabled={!!(user && user.state)} 
+                    style={(user && user.state) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
+                  />
                 </div>
                 <div className="modal-input-group">
                   <label>City</label>
-                  <input name="city" type="text" placeholder="Enter Your City" value={form.city} onChange={handleChange} required />
+                  <input 
+                    name="city" 
+                    type="text" 
+                    placeholder="Enter Your City" 
+                    value={form.city} 
+                    onChange={handleChange} 
+                    required 
+                    disabled={!!(user && user.city)} 
+                    style={(user && user.city) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
+                  />
                 </div>
                 <div className="modal-input-group">
                   <label>Course</label>
@@ -266,7 +302,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                 <p className="modal-error-msg">{errorMsg}</p>
               )}
 
-              <button type="submit" className="modal-submit-btn" disabled={status === "loading" || !recaptchaToken}>
+              <button type="submit" className="modal-submit-btn" disabled={status === "loading" || (!recaptchaToken && process.env.NODE_ENV !== "development")}>
                 {status === "loading" ? (
                   <span className="modal-loading-text">
                     <span className="modal-spinner" />

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { countries } from "@/data/countries";
 
 function getInitials(name: string) {
   if (!name) return "U";
@@ -34,6 +35,9 @@ export default function ProfileEditCard() {
   const [gender, setGender] = useState("");
   const [alternativePhone, setAlternativePhone] = useState("");
   const [address, setAddress] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
 
   // Password Form States
   const [currentPassword, setCurrentPassword] = useState("");
@@ -110,6 +114,9 @@ export default function ProfileEditCard() {
       setGender(user.gender || "");
       setAlternativePhone(user.alternativePhone || "");
       setAddress(user.address || "");
+      setCountryCode(user.countryCode || "+91");
+      setCountry(user.country || "");
+      setState(user.state || "");
     }
   }, [user]);
 
@@ -148,6 +155,16 @@ export default function ProfileEditCard() {
       return;
     }
 
+    if (country && !/[a-zA-Z]/.test(country)) {
+      alert("Country name must contain letters");
+      return;
+    }
+
+    if (state && !/[a-zA-Z]/.test(state)) {
+      alert("State name must contain letters");
+      return;
+    }
+
     try {
       setSaving(true);
       const res = await fetch("/api/auth/profile", {
@@ -161,6 +178,9 @@ export default function ProfileEditCard() {
           gender,
           alternativePhone,
           address,
+          countryCode,
+          country,
+          state,
         }),
       });
 
@@ -367,7 +387,18 @@ export default function ProfileEditCard() {
                   <span className="text-xs md:text-sm font-medium">Phone</span>
                 </div>
                 <span className="text-xs md:text-sm text-text-dark text-right">
-                  {user.phone || "Not set"}
+                  {user.countryCode ? `${user.countryCode} ` : ""}{user.phone || "Not set"}
+                </span>
+              </div>
+
+              {/* Location */}
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-1 md:gap-3">
+                  <BookOpen className="w-4 h-4 text-text-dark" />
+                  <span className="text-xs md:text-sm font-medium">Location</span>
+                </div>
+                <span className="text-xs md:text-sm text-text-dark text-right truncate max-w-[150px]">
+                  {[user.city, user.state, user.country].filter(Boolean).join(", ") || "Not set"}
                 </span>
               </div>
 
@@ -440,76 +471,126 @@ export default function ProfileEditCard() {
                     />
                   </div>
 
-                  {/* Primary Phone */}
-                  <div>
-                    <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
-                      Primary Phone
-                    </label>
-                    <input
-                      type="text"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="Enter phone number"
-                      className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
-                    />
+                  {/* Primary Phone with Country Code */}
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="md:col-span-1">
+                      <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
+                        Code
+                      </label>
+                      <select
+                        value={countryCode}
+                        onChange={(e) => setCountryCode(e.target.value)}
+                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155] bg-white cursor-pointer"
+                      >
+                        <option value="">Code</option>
+                        {countries.map((c) => (
+                          <option key={`${c.iso}-${c.code}`} value={c.code}>
+                            {c.code} ({c.iso})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="md:col-span-3">
+                      <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
+                        Primary Phone
+                      </label>
+                      <input
+                        type="text"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="Enter phone number"
+                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
+                      />
+                    </div>
                   </div>
 
-                  {/* City */}
-                  <div>
-                    <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
-                      City
-                    </label>
-                    <input
-                      type="text"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder="Enter city name"
-                      className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
-                    />
+                  {/* Country, State, City */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
+                        Country
+                      </label>
+                      <select
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155] bg-white cursor-pointer"
+                      >
+                        <option value="">Select Country</option>
+                        {countries.map((c) => (
+                          <option key={c.name} value={c.name}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
+                        State
+                      </label>
+                      <input
+                        type="text"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                        placeholder="Enter state name"
+                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
+                        City
+                      </label>
+                      <input
+                        type="text"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="Enter city name"
+                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
+                      />
+                    </div>
                   </div>
 
-                  {/* Date of Birth */}
-                  <div>
-                    <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
-                      Date Of Birth
-                    </label>
-                    <input
-                      type="date"
-                      value={dob}
-                      onChange={(e) => setDob(e.target.value)}
-                      className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
-                    />
-                  </div>
+                  {/* Date of Birth, Gender, Alternative Mobile Number */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
+                        Date Of Birth
+                      </label>
+                      <input
+                        type="date"
+                        value={dob}
+                        onChange={(e) => setDob(e.target.value)}
+                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
+                      />
+                    </div>
 
-                  {/* Gender */}
-                  <div>
-                    <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
-                      Gender
-                    </label>
-                    <select
-                      value={gender}
-                      onChange={(e) => setGender(e.target.value)}
-                      className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
+                    <div>
+                      <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
+                        Gender
+                      </label>
+                      <select
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
+                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155] bg-white cursor-pointer"
+                      >
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
 
-                  {/* Alternative Mobile Number */}
-                  <div>
-                    <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
-                      Alternative Mobile Number
-                    </label>
-                    <input
-                      type="text"
-                      value={alternativePhone}
-                      onChange={(e) => setAlternativePhone(e.target.value)}
-                      placeholder="Enter alternative mobile number"
-                      className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
-                    />
+                    <div>
+                      <label className="block text-text-dark text-xs md:text-lg font-semibold mb-2">
+                        Alternative Mobile
+                      </label>
+                      <input
+                        type="text"
+                        value={alternativePhone}
+                        onChange={(e) => setAlternativePhone(e.target.value)}
+                        placeholder="Alternative number"
+                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#334155]"
+                      />
+                    </div>
                   </div>
 
                   {/* Address */}

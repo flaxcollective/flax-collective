@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { FiSearch, FiFilter } from "react-icons/fi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useAuth } from "@/context/AuthContext";
@@ -39,6 +40,15 @@ interface Activity {
   timeAgo: string;
 }
 
+const formatDateOfBirth = (dobString: string) => {
+  if (!dobString) return "Not Provided";
+  const parts = dobString.split("-");
+  if (parts.length === 3 && parts[0].length === 4) {
+    return `${parts[2]}/${parts[1]}/${parts[0]}`; // DD/MM/YYYY
+  }
+  return dobString;
+};
+
 export default function AdminDashboard() {
   const { user } = useAuth();
   const [usersList, setUsersList] = useState<UserItem[]>([]);
@@ -58,6 +68,8 @@ export default function AdminDashboard() {
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("All");
   const [showRoleDropdown, setShowRoleDropdown] = useState(false);
+  const [paymentsList, setPaymentsList] = useState<any[]>([]);
+  const [paymentsLoading, setPaymentsLoading] = useState(true);
 
   // View Details Modal States
   const [selectedUserDetail, setSelectedUserDetail] = useState<any>(null);
@@ -106,6 +118,25 @@ export default function AdminDashboard() {
 
     return () => clearTimeout(timer);
   }, [page, search, roleFilter]);
+
+  const fetchPaymentsData = async () => {
+    setPaymentsLoading(true);
+    try {
+      const res = await fetch("/api/admin/payments?limit=5");
+      const data = await res.json();
+      if (data.success) {
+        setPaymentsList(data.transactions || []);
+      }
+    } catch (err) {
+      console.error("Error fetching payments data:", err);
+    } finally {
+      setPaymentsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPaymentsData();
+  }, []);
 
   const handleOpenViewModal = async (userId: string) => {
     setFetchingDetail(true);
@@ -576,6 +607,100 @@ export default function AdminDashboard() {
 
       </div>
 
+      {/* Recent Payments Section */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-[#2F3E56]">
+              Recent Payments
+            </h2>
+            <p className="text-xs text-gray-400 mt-1">
+              Latest payment transactions received by the platform.
+            </p>
+          </div>
+          <Link
+            href="/admin-dashboard/payments"
+            className="text-xs font-bold text-[#2F3E56] hover:underline"
+          >
+            View All Payments →
+          </Link>
+        </div>
+
+        <div className="overflow-x-auto border border-gray-100 rounded-xl">
+          <table className="w-full border-collapse text-left text-sm text-gray-600">
+            <thead className="bg-gray-50/75 border-b border-gray-100 text-xs font-bold text-[#2F3E56] uppercase tracking-wider">
+              <tr>
+                <th className="px-6 py-4">Date / Time</th>
+                <th className="px-6 py-4">Student</th>
+                <th className="px-6 py-4">Course</th>
+                <th className="px-6 py-4">Transaction ID</th>
+                <th className="px-6 py-4">Amount</th>
+                <th className="px-6 py-4 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {paymentsLoading ? (
+                <tr>
+                  <td colSpan={6} className="py-12 text-center text-gray-400 font-medium">
+                    <div className="flex flex-col items-center justify-center gap-2 py-4">
+                      <div className="w-6 h-6 border-2 border-gray-200 border-t-[#2F3E56] rounded-full animate-spin"></div>
+                      <span>Loading payments...</span>
+                    </div>
+                  </td>
+                </tr>
+              ) : paymentsList.length > 0 ? (
+                paymentsList.slice(0, 5).map((txn: any) => (
+                  <tr key={txn.id} className="hover:bg-gray-55/50 transition-colors">
+                    <td className="px-6 py-4 font-semibold text-gray-800 whitespace-nowrap">
+                      {txn.createdAt}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-gray-900">{txn.studentName}</span>
+                        <span className="text-xs text-gray-400 select-all">{txn.email}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 font-medium text-gray-700">
+                      {txn.course}
+                    </td>
+                    <td className="px-6 py-4 font-mono text-xs select-all text-gray-500">
+                      {txn.merchantTxnNo}
+                    </td>
+                    <td className="px-6 py-4 font-bold text-gray-900">
+                      ₹ {txn.amount.toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                        txn.status === "success" 
+                          ? "bg-green-50 text-green-700 border border-green-200" 
+                          : txn.status === "failed"
+                            ? "bg-red-50 text-red-700 border border-red-200"
+                            : "bg-amber-50 text-amber-700 border border-amber-200"
+                      }`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${
+                          txn.status === "success" 
+                            ? "bg-green-600" 
+                            : txn.status === "failed" 
+                              ? "bg-red-500" 
+                              : "bg-amber-500"
+                        }`} />
+                        {txn.status.toUpperCase()}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={6} className="text-center py-12 text-gray-400 font-semibold">
+                    No transactions registered in the database yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* User Details Modal */}
       {isViewModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
@@ -638,7 +763,7 @@ export default function AdminDashboard() {
                   </div>
                   <div>
                     <span className="text-gray-400 block font-semibold">Date of Birth</span>
-                    <span className="text-gray-800 font-medium">{selectedUserDetail.dob || "Not Provided"}</span>
+                    <span className="text-gray-800 font-medium">{formatDateOfBirth(selectedUserDetail.dob)}</span>
                   </div>
                   <div>
                     <span className="text-gray-400 block font-semibold">Gender</span>

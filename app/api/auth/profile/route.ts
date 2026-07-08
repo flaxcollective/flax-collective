@@ -32,6 +32,9 @@ export async function POST(req: Request) {
       currentPassword,
       newPassword,
       picture,
+      countryCode,
+      country,
+      state,
     } = body;
 
     const db = await getDb();
@@ -51,14 +54,33 @@ export async function POST(req: Request) {
 
     if (name !== undefined) updateFields.name = name.trim();
     if (phone !== undefined) updateFields.phone = phone.trim();
+    if (countryCode !== undefined) updateFields.countryCode = countryCode.trim();
     if (city !== undefined) {
-      if (!/[a-zA-Z]/.test(city)) {
+      if (city && !/[a-zA-Z]/.test(city)) {
         return NextResponse.json(
           { success: false, message: "City name must contain letters" },
           { status: 400 }
         );
       }
       updateFields.city = city.trim();
+    }
+    if (country !== undefined) {
+      if (country && !/[a-zA-Z]/.test(country)) {
+        return NextResponse.json(
+          { success: false, message: "Country name must contain letters" },
+          { status: 400 }
+        );
+      }
+      updateFields.country = country.trim();
+    }
+    if (state !== undefined) {
+      if (state && !/[a-zA-Z]/.test(state)) {
+        return NextResponse.json(
+          { success: false, message: "State name must contain letters" },
+          { status: 400 }
+        );
+      }
+      updateFields.state = state.trim();
     }
     if (dob !== undefined) updateFields.dob = dob;
     if (gender !== undefined) updateFields.gender = gender;

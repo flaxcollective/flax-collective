@@ -20,6 +20,9 @@ type UserType = {
     gender?: string;
     alternativePhone?: string;
     address?: string;
+    countryCode?: string;
+    country?: string;
+    state?: string;
     hasPassword?: boolean;
     createdAt?: string;
     updatedAt?: string;

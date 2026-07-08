@@ -7,6 +7,7 @@ import { FiSearch, FiFilter } from "react-icons/fi";
 import { FiClock } from "react-icons/fi";
 import { FaRegPlayCircle } from "react-icons/fa";
 import StudentModal from "@/components/shared/StudentModal";
+import Link from "next/link";
 
 const formatPrice = (price: any, title?: string) => {
   let rawPrice = price;
@@ -38,6 +39,7 @@ export default function Courses() {
     const [showMobileFilter, setShowMobileFilter] = useState(false);
     const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
     const [selectedCourseTitle, setSelectedCourseTitle] = useState("");
+    const [enrolledTitles, setEnrolledTitles] = useState<string[]>([]);
 
     const handleBuyNow = (courseTitle: string) => {
         setSelectedCourseTitle(courseTitle);
@@ -160,6 +162,17 @@ export default function Courses() {
                 }
             })
             .catch(err => console.error("Error loading courses:", err));
+
+        // Load student enrollments
+        fetch("/api/student/enrollments")
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.enrollments) {
+                    const titles = data.enrollments.map((e: any) => e.courseName);
+                    setEnrolledTitles(titles);
+                }
+            })
+            .catch(err => console.error("Error loading student enrollments:", err));
     }, []);
 
     // ✅ FILTER LOGIC
@@ -384,12 +397,21 @@ export default function Courses() {
                                     </div>
 
 
-                                    <button
-                                        onClick={() => handleBuyNow(course.title)}
-                                        className="w-full py-2 rounded-lg bg-navy text-white text-sm cursor-pointer animate-none"
-                                    >
-                                        Buy Now
-                                    </button>
+                                    {enrolledTitles.includes(course.title) ? (
+                                        <Link
+                                            href="/dashboard/mylearning"
+                                            className="w-full py-2 rounded-lg bg-[#6E7C3A] hover:bg-[#56622D] text-white text-sm font-semibold flex items-center justify-center cursor-pointer text-center"
+                                        >
+                                            View Progress
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            onClick={() => handleBuyNow(course.title)}
+                                            className="w-full py-2 rounded-lg bg-navy text-white text-sm cursor-pointer animate-none"
+                                        >
+                                            Buy Now
+                                        </button>
+                                    )}
                                 </div>
 
                             </div>
