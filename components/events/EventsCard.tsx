@@ -29,6 +29,19 @@ export const events = [
       "/assets/images/events/flaxdescimg.png",
     ],
   },
+  {
+    slug: "ai-workshop",
+    date: "June 20, 2026",
+    title: "AI Tools & Automation Workshop",
+    location: "Sahibzada Ajit Singh Nagar (Mohali)",
+    images: [
+      "/assets/images/events/ai-workshop/1_11zon.webp",
+      "/assets/images/events/ai-workshop/2_11zon.webp",
+      "/assets/images/events/ai-workshop/3_11zon.webp",
+      "/assets/images/events/ai-workshop/4_11zon.webp",
+      "/assets/images/events/ai-workshop/5_11zon.webp",
+    ],
+  },
 ];
 
 export default function EventsCard() {
@@ -38,7 +51,7 @@ export default function EventsCard() {
   return (
     <>
       <section className="py-8 md:py-12">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col gap-8">
           {events.map((event, index) => (
             <div
               key={index}

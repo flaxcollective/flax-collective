@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, User, LogOut } from "lucide-react";
+import { Bell, User, LogOut, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -91,6 +91,10 @@ export default function Header() {
       return "Manage Teams";
     }
 
+    if (pathname.includes("e-certification")) {
+      return "E-Certification";
+    }
+
     if (pathname.includes("course")) {
       return "Courses";
     }
@@ -177,6 +181,12 @@ export default function Header() {
             )}
 
           </div>
+
+          {/* Chevron */}
+          <ChevronDown
+            className="w-4 h-4 text-white cursor-pointer hidden sm:block"
+            onClick={() => setProfile(!profile)}
+          />
 
           {/* Dropdown */}
           {profile && (

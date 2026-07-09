@@ -129,7 +129,7 @@ const LoginForm = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email Or Username"
+              placeholder="Email or Username"
               className="w-full text-base mt-1 px-3 py-5 border bg-[#F0F0F0] rounded-md"
             />
           </div>
@@ -167,7 +167,7 @@ const LoginForm = () => {
 
         </form>
         <p className="text-center mt-4 font-semibold text-base text-text-body">
-          Don’t have an account?
+          Don’t have an account?&nbsp;
           <Link href="/auth/signup" className="text-navy  hover:underline">
             Sign up
           </Link>

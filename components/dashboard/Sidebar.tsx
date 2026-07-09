@@ -13,6 +13,10 @@ import {
   X,
   PlusCircle,
   UserPlus,
+  Award,
+  FileText,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { MdLogout } from "react-icons/md";
 
@@ -35,6 +39,13 @@ const studentMenu = [
     icon: ClipboardList,
     href: "/dashboard/course",
   },
+  /*
+  {
+    name: "E-Certification",
+    icon: Award,
+    href: "/dashboard/e-certification",
+  },
+  */
 ];
 
 const adminMenu = [
@@ -54,22 +65,33 @@ const adminMenu = [
     href: "/admin-dashboard/view-courses",
   },
   {
+    name: "Manage Exams",
+    icon: Award,
+    href: "/admin-dashboard/exams",
+  },
+  {
+    name: "Create Exam",
+    icon: PlusCircle,
+    href: "/admin-dashboard/exams/create",
+    isSub: true,
+  },
+  {
+    name: "Existing Exams",
+    icon: Award,
+    href: "/admin-dashboard/exams",
+    isSub: true,
+  },
+  {
+    name: "Results Audit",
+    icon: FileText,
+    href: "/admin-dashboard/exams/results",
+    isSub: true,
+  },
+  {
     name: "Payments",
     icon: ClipboardList,
     href: "/admin-dashboard/payments",
   },
-  /*
-  {
-    name: "Add User",
-    icon: UserPlus,
-    href: "/admin-dashboard/add-user",
-  },
-  {
-    name: "Manage Teams",
-    icon: Users,
-    href: "/admin-dashboard/manage-teams",
-  },
-  */
 ];
 
 export default function Sidebar() {
@@ -80,11 +102,22 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [examsOpen, setExamsOpen] = useState(false);
+  const [coursesOpen, setCoursesOpen] = useState(false);
 
   const menuItems =
     user?.usertype === "admin" || user?.usertype === "employee"
       ? adminMenu
       : studentMenu;
+
+  useEffect(() => {
+    if (pathname.startsWith("/admin-dashboard/exams")) {
+      setExamsOpen(true);
+    }
+    if (pathname.startsWith("/dashboard/course") || pathname.startsWith("/dashboard/e-certification")) {
+      setCoursesOpen(true);
+    }
+  }, [pathname]);
 
   const handleLogout = async () => {
     try {
@@ -209,23 +242,96 @@ export default function Sidebar() {
       <nav className="flex-1 px-2">
         <ul className="space-y-1">
           {menuItems.map((item) => {
-            const isActive = pathname === item.href;
+            let isActive = pathname === item.href;
+            if (item.name === "Manage Exams") {
+              isActive = pathname.startsWith("/admin-dashboard/exams");
+            }
+            if (item.name === "Courses") {
+              isActive = pathname.startsWith("/dashboard/course");
+            }
+            if (item.name === "E-Certification") {
+              isActive = pathname.startsWith("/dashboard/e-certification");
+            }
             const isAdmin = user?.usertype === "admin" || user?.usertype === "employee";
+            const isSub = (item as any).isSub;
+            
+            // Exam sub-menus are only shown if expanded
+            const isExamSub = isSub && item.href.startsWith("/admin-dashboard/exams");
+            if (isExamSub && !examsOpen) {
+              return null;
+            }
+
+            // Theme colors for active vs hover
+            let hoverAndActiveClasses = "";
+            if (isSub) {
+              if (isActive) {
+                hoverAndActiveClasses = isAdmin
+                  ? "bg-[#2F3E56]/15 text-[#2F3E56] font-bold"
+                  : "text-[#000000] font-bold";
+              } else {
+                hoverAndActiveClasses = isAdmin
+                  ? "text-gray-500 hover:bg-[#2F3E56]/5 hover:text-[#2F3E56]"
+                  : "text-gray-500 hover:text-black";
+              }
+            } else {
+              if (isActive) {
+                hoverAndActiveClasses = isAdmin
+                  ? "bg-[#2F3E56] text-white font-semibold"
+                  : "text-[#000000] font-semibold";
+              } else {
+                hoverAndActiveClasses = "text-gray-600 hover:text-black";
+              }
+            }
+
+            const itemContent = (
+              <>
+                {isSub ? (
+                  <div
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      isActive 
+                        ? "bg-black" 
+                        : "bg-gray-400"
+                    } ${!forMobile && collapsed ? "" : "ml-2 mr-2"}`}
+                  />
+                ) : (
+                  <item.icon className={`w-5 h-5 ${isActive ? (isAdmin ? "text-white" : "text-black") : "text-gray-600"}`} />
+                )}
+                {(forMobile || !collapsed) && <span className="flex-1">{item.name}</span>}
+                {item.name === "Manage Exams" && (forMobile || !collapsed) && (
+                  <span className="shrink-0 ml-auto">
+                    {examsOpen ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                  </span>
+                )}
+              </>
+            );
+
             return (
               <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center ${!forMobile && collapsed ? "justify-center" : "gap-3"
-                    } px-3 py-3 rounded-md text-sm font-medium transition-all
-                  ${isActive
-                      ? (isAdmin ? "bg-[#2F3E56] text-white" : "bg-[#6e7c3a26] text-black")
-                      : "text-gray-600 hover:bg-gray-100"
-                    }`}
-                  title={!forMobile && collapsed ? item.name : ""}
-                >
-                  <item.icon className={`w-5 h-5 ${isActive ? (isAdmin ? "text-white" : "text-black") : "text-gray-600"}`} />
-                  {(forMobile || !collapsed) && <span>{item.name}</span>}
-                </Link>
+                {item.name === "Manage Exams" ? (
+                  <button
+                    onClick={() => {
+                      if (item.name === "Manage Exams") {
+                        setExamsOpen(!examsOpen);
+                      }
+                    }}
+                    className={`flex items-center w-full ${!forMobile && collapsed ? "justify-center" : "gap-3"} ${
+                      !forMobile && !collapsed && isSub ? "pl-8" : "px-3"
+                    } py-3 rounded-md text-sm font-medium transition-all text-left ${hoverAndActiveClasses}`}
+                    title={!forMobile && collapsed ? item.name : ""}
+                  >
+                    {itemContent}
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={`flex items-center ${!forMobile && collapsed ? "justify-center" : "gap-3"} ${
+                      !forMobile && !collapsed && isSub ? "pl-8" : "px-3"
+                    } py-3 rounded-md text-sm font-medium transition-all ${hoverAndActiveClasses}`}
+                    title={!forMobile && collapsed ? item.name : ""}
+                  >
+                    {itemContent}
+                  </Link>
+                )}
               </li>
             );
           })}

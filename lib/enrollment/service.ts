@@ -1,5 +1,5 @@
 import { getDb } from "../mongodb";
-import { sendEnrollmentSuccessEmail } from "../mailer";
+import { sendEnrollmentSuccessEmail, sendExamEnrollmentSuccessEmail } from "../mailer";
 import { ObjectId } from "mongodb";
 
 export async function completeEnrollment(enrollmentId: string, pgTxnId?: string) {
@@ -37,7 +37,11 @@ export async function completeEnrollment(enrollmentId: string, pgTxnId?: string)
   const studentName = `${enrollment.firstName} ${enrollment.lastName}`;
   
   // 1. Send confirmation email
-  await sendEnrollmentSuccessEmail(enrollment.email, studentName, enrollment.course);
+  if (enrollment.type === "exam") {
+    await sendExamEnrollmentSuccessEmail(enrollment.email, studentName, enrollment.course);
+  } else {
+    await sendEnrollmentSuccessEmail(enrollment.email, studentName, enrollment.course);
+  }
 
   // 2. Sync to Google Sheets
   const googleSheetUrl = process.env.GOOGLE_SHEET_WEBAPP_URL;
