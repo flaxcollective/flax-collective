@@ -5,7 +5,7 @@ import { FiSearch } from "react-icons/fi";
 import "@/app/styles/dashboard/dashboard-home.css";
 import { TiMediaPlayOutline } from "react-icons/ti";
 import Link from "next/link";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Award } from "lucide-react";
 import { TbLayoutSidebarRight } from "react-icons/tb";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { FiCalendar, FiClock } from "react-icons/fi";
@@ -15,6 +15,8 @@ export default function DashboardMylearning() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [certificates, setCertificates] = useState<any[]>([]);
+
   useEffect(() => {
     const fetchEnrollments = async () => {
       try {
@@ -23,8 +25,14 @@ export default function DashboardMylearning() {
         if (data.success) {
           setEnrollments(data.enrollments || []);
         }
+
+        const certRes = await fetch("/api/student/exams/certificates");
+        const certData = await certRes.json();
+        if (certData.success) {
+          setCertificates(certData.certificates || []);
+        }
       } catch (err) {
-        console.error("Error fetching my learning enrollments:", err);
+        console.error("Error fetching my learning enrollments/certificates:", err);
       } finally {
         setLoading(false);
       }
@@ -190,6 +198,59 @@ export default function DashboardMylearning() {
                 </div>
               )}
             </div>
+
+            {/* Certificates Achievements Section */}
+            {certificates.length > 0 && (
+              <div className="space-y-4 pt-6">
+                <h2 className="text-xl text-navy font-semibold flex items-center gap-2">
+                  <Award className="w-5 h-5 text-[#6E7C3A]" />
+                  Earned Certificates ({certificates.length})
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {certificates.map((cert) => (
+                    <div 
+                      key={cert.sessionId} 
+                      className="p-5 border border-gray-100 rounded-xl bg-white shadow-sm flex flex-col justify-between hover:shadow-md transition duration-200"
+                    >
+                      <div>
+                        <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">
+                          Certificate ID: {cert.certificateId}
+                        </span>
+                        <h4 className="text-sm font-bold text-gray-900 leading-snug line-clamp-1">
+                          {cert.examTitle}
+                        </h4>
+                        <p className="text-[11px] text-gray-500 mt-1 line-clamp-2">
+                          {cert.examDesc || "Industry-recognized skill credential."}
+                        </p>
+                        
+                        <div className="mt-3 flex items-center gap-4 text-[10px] font-semibold text-gray-500">
+                          <span>Score: <strong className="text-[#6E7C3A]">{cert.score}%</strong></span>
+                          <span>Time: {cert.timeTaken}</span>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                        <Link
+                          href={`/dashboard/e-certification/review/${cert.sessionId}`}
+                          className="text-[10px] text-gray-500 hover:text-gray-900 transition-colors font-semibold"
+                        >
+                          Review Answers
+                        </Link>
+                        <a
+                          href={`/dashboard/e-certification/certificate/${cert.sessionId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3.5 py-1.5 bg-[#6E7C3A] hover:bg-[#5a6630] text-white text-[10px] font-bold rounded-lg transition-colors flex items-center gap-1 shadow-sm cursor-pointer"
+                        >
+                          <Award className="w-3.5 h-3.5" />
+                          View Certificate
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Sidebar */}

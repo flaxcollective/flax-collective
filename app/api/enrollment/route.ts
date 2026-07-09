@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json() as Record<string, unknown>;
-    let { firstName, lastName, email, countryCode, mobile, country, state, city, course, recaptchaToken } = body;
+    let { firstName, lastName, email, countryCode, mobile, country, state, city, course, recaptchaToken, type } = body;
 
     // Strict NoSQL Injection Type Checking
     if (
@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
       typeof state !== "string" ||
       typeof city !== "string" ||
       typeof course !== "string" ||
+      (type !== undefined && type !== null && typeof type !== "string") ||
       (recaptchaToken !== undefined && recaptchaToken !== null && typeof recaptchaToken !== "string")
     ) {
       return NextResponse.json(
@@ -59,16 +60,26 @@ export async function POST(req: NextRequest) {
 
     const db = await getDb();
 
-    // Secure Pricing Verification: Lookup course details from the database
-    const courseData = await db.collection("courses").findOne({ title: course });
-    if (!courseData) {
+    // Determine type (course vs exam)
+    const isExam = type === "exam";
+    let itemData = null;
+
+    if (isExam) {
+      itemData = await db.collection("exams").findOne({ title: course });
+    } else {
+      itemData = await db.collection("courses").findOne({ title: course });
+    }
+
+    if (!itemData) {
       return NextResponse.json(
-        { success: false, message: "Selected course is not valid." },
+        { success: false, message: `Selected ${isExam ? "exam" : "course"} is not valid.` },
         { status: 400 }
       );
     }
 
-    const price = parseFloat(courseData.price || "0");
+    // For exams, prioritize discountedPrice if available
+    const priceString = isExam ? (itemData.discountedPrice || itemData.price) : itemData.price;
+    const price = parseFloat(priceString || "0");
     const merchantTxnNo = `TXN-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
     const newEntry = {
@@ -82,10 +93,11 @@ export async function POST(req: NextRequest) {
       state,
       city,
       course,
-      courseId: courseData.courseId,
+      courseId: isExam ? itemData.examId : itemData.courseId,
       amount: price,
       status: "pending_payment", // Default status prior to payment completion
-      merchantTxnNo
+      merchantTxnNo,
+      type: isExam ? "exam" : "course"
     };
 
     const result = await db.collection("enrollments").insertOne(newEntry);
@@ -99,9 +111,39 @@ export async function POST(req: NextRequest) {
       createdAt: new Date(),
       email,
       course,
-      courseId: courseData.courseId
+      courseId: isExam ? itemData.examId : itemData.courseId,
+      type: isExam ? "exam" : "course"
     };
     await db.collection("transactions").insertOne(newTransaction);
+
+    // Simulated checkout bypass in dev or if PG credentials are not present in .env
+    const isDev = process.env.NODE_ENV === "development";
+    const hasPGConfigs = process.env.ICICI_MERCHANT_ID && process.env.ICICI_SECURE_KEY && process.env.ICICI_INITIATE_SALE_URL;
+
+    if (isDev || !hasPGConfigs) {
+      console.log("[PAYMENT BYPASS] Simulating checkout completion automatically.");
+
+      // Mark transaction as successful
+      const pgTxnId = `MOCK_TXN_${Date.now()}`;
+      await db.collection("transactions").updateOne(
+        { merchantTxnNo },
+        { $set: { status: "success", pgTxnId, updatedAt: new Date() } }
+      );
+
+      // Finalize enrollment using completeEnrollment helper
+      const { completeEnrollment } = await import("@/lib/enrollment/service");
+      await completeEnrollment(result.insertedId.toString(), pgTxnId);
+
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+      return NextResponse.json({
+        success: true,
+        redirectUrl: `${baseUrl}/enrollment/status?success=true&txnNo=${merchantTxnNo}`,
+        enrollmentId: result.insertedId,
+        merchantTxnNo,
+        amount: price,
+        message: "Payment simulated successfully. Redirecting..."
+      });
+    }
 
     try {
       // Call ICICI payment gateway to initiate checkout order
@@ -112,7 +154,7 @@ export async function POST(req: NextRequest) {
         customerEmailID: email,
         customerMobileNo: cleanMobile || "9999999999",
         customerName: `${firstName} ${lastName}`.trim(),
-        addlParam1: courseData.courseId,
+        addlParam1: isExam ? itemData.examId : itemData.courseId,
         addlParam2: result.insertedId.toString()
       });
 

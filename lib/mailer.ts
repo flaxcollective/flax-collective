@@ -200,3 +200,49 @@ export async function sendDeleteUserOTPEmail(email: string, otp: string, userNam
     return false;
   }
 }
+
+export async function sendExamEnrollmentSuccessEmail(email: string, studentName: string, examName: string) {
+  try {
+    const mailUser = process.env.MAIL_USER?.trim();
+    const mailPass = process.env.MAIL_PASS?.replace(/"/g, "").trim();
+
+    console.log(`[MAILER] sendExamEnrollmentSuccessEmail invoked for: ${email}`);
+
+    if (!mailUser || !mailPass) {
+      console.warn("⚠️ MAIL_USER or MAIL_PASS is not configured. Mocking email sending.");
+      console.log(`✉️ [MOCK EMAIL] To: ${email} | Subject: Exam Registration Confirmed | Exam: ${examName}`);
+      return true;
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: mailUser,
+        pass: mailPass,
+      },
+    });
+
+    const mailOptions = {
+      from: `"FLAX Collective" <${mailUser}>`,
+      to: email,
+      subject: `Exam Registration Confirmed: ${examName}`,
+      text: `Hello ${studentName},\n\nCongratulations! Your registration for the certification exam "${examName}" has been successfully confirmed. You can now start the exam from your dashboard under E-Certification.\n\nBest regards,\nFLAX Collective Team`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px; max-width: 500px; margin: auto;">
+          <h2 style="color: #6E7C3A; text-align: center;">Exam Registration Confirmed!</h2>
+          <p style="font-size: 16px; color: #555;">Hello <strong>${studentName}</strong>,</p>
+          <p style="font-size: 16px; color: #555;">Congratulations! Your registration for the certification exam <strong>${examName}</strong> has been successfully confirmed.</p>
+          <p style="font-size: 16px; color: #555;">You can now start your exam from the student portal. Navigate to <strong>Courses -> E-Certification</strong> in your dashboard to begin the session at your convenience.</p>
+          <p style="font-size: 14px; color: #999; text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px;">Best regards,<br/><strong>FLAX Collective Team</strong></p>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("[MAILER] Exam confirmation email sent successfully:", info.response);
+    return true;
+  } catch (error) {
+    console.error("[MAILER] Error sending exam confirmation email:", error);
+    return false;
+  }
+}
