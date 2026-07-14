@@ -255,7 +255,7 @@ export default function StudentCertificationPortal() {
                       <Sparkles className="w-3.5 h-3.5" />
                       Featured Certification
                     </span>
-                    <h3 className="text-2xl font-bold text-[#2F3E56] font-serif leading-tight">
+                    <h3 className="text-2xl font-semibold text-[#2F3E56] font-serif leading-tight">
                       {exam.title}
                     </h3>
                     <p className="text-xs text-[#666666] mt-3 leading-relaxed">
@@ -266,7 +266,7 @@ export default function StudentCertificationPortal() {
                   {/* Metadata Stats Grid */}
                   <div className="grid grid-cols-3 gap-4  border border-black  p-4 text-[11px] mt-6">
                     <div className="flex items-center gap-3 border-r border-black pr-2">
-                      <div className="w-9 h-9 rounded-full bg-[#F4F1EA] flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
+                      <div className="w-9 h-9 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
                         <FileText className="w-4.5 h-4.5" />
                       </div>
                       <div>
@@ -275,7 +275,7 @@ export default function StudentCertificationPortal() {
                       </div>
                     </div>
                     <div className="flex items-center gap-3 border-r border-black px-2">
-                      <div className="w-9 h-9 rounded-full bg-[#F4F1EA] flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
+                      <div className="w-9 h-9 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
                         <Clock className="w-4.5 h-4.5" />
                       </div>
                       <div>
@@ -284,7 +284,7 @@ export default function StudentCertificationPortal() {
                       </div>
                     </div>
                     <div className="flex items-center gap-3 pl-2">
-                      <div className="w-9 h-9 rounded-full bg-[#F4F1EA] flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
+                      <div className="w-9 h-9 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
                         <Award className="w-4.5 h-4.5" />
                       </div>
                       <div>
@@ -300,13 +300,13 @@ export default function StudentCertificationPortal() {
 
                 {/* Exam Pricing & Trigger Button */}
                 <div className="md:w-68 p-8 flex flex-col items-center justify-center text-center shrink-0">
-                  <span className="text-[11px] text-[#736A2F] font-bold uppercase tracking-wider mb-2">Special Price</span>
-                  <div className="text-4xl font-extrabold text-black tracking-tight">₹{exam.discountedPrice}</div>
+                  <span className="text-[12px] text-[#736A2F] font-bold tracking-wider mb-2">Special Price</span>
+                  <div className="text-4xl font-bold text-black tracking-tight">₹{exam.discountedPrice}</div>
                   
                   <div className="flex items-center justify-center gap-2 mt-2">
                     <span className="text-sm text-gray-400 line-through">₹{exam.price}</span>
                     <span className="bg-[#736A2F]/10 text-[#736A2F] text-[10px] font-bold uppercase px-2 py-0.5 rounded-full">
-                      50% OFF
+                      {Math.round(((parseFloat(exam.price) - parseFloat(exam.discountedPrice)) / parseFloat(exam.price)) * 100)}% OFF
                     </span>
                   </div>
 
@@ -330,14 +330,14 @@ export default function StudentCertificationPortal() {
                     ) : (
                       <button
                         onClick={() => handleStartExamClick(exam)}
-                        className="w-full py-3.5 text-xs font-bold rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 text-white bg-[#2F3E56] hover:bg-[#1f2a3a]"
+                        className="w-full py-3.5 text-sm font-bold rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 text-white bg-[#2F3E56] hover:bg-[#1f2a3a]"
                       >
                         {exam.isPurchased ? "Start Exam Now" : "Register & Pay"}
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     )}
                   </div>
-                  <div className="flex items-center justify-center gap-1.5 text-[#736A2F] text-[10px] mt-5 font-bold">
+                  <div className="flex items-center justify-center gap-1.5 text-[#736A2F] text-[12px] mt-5 font-bold">
                     <Lock className="w-3.5 h-3.5 text-[#736A2F]" />
                     Secure & Trusted
                   </div>
@@ -363,8 +363,8 @@ export default function StudentCertificationPortal() {
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h5 className="font-bold text-[#736A2F] text-xs">Expert-Curated Questions</h5>
-                  <p className="text-[11px] text-[#666666] leading-relaxed mt-0.5">
+                  <h5 className="font-bold text-[#736A2F] text-sm">Expert-Curated Questions</h5>
+                  <p className="text-[12px] text-[#666666] leading-relaxed mt-0.5">
                     Questions designed to assess practical knowledge and core concepts.
                   </p>
                 </div>
@@ -375,8 +375,8 @@ export default function StudentCertificationPortal() {
                   <ClipboardCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h5 className="font-bold text-[#736A2F] text-xs">Instant Score</h5>
-                  <p className="text-[11px] text-[#666666] leading-relaxed mt-0.5">
+                  <h5 className="font-bold text-[#736A2F] text-sm">Instant Score</h5>
+                  <p className="text-[12px] text-[#666666] leading-relaxed mt-0.5">
                     View your final score immediately after exam submission.
                   </p>
                 </div>
@@ -387,8 +387,8 @@ export default function StudentCertificationPortal() {
                   <Download className="w-5 h-5" />
                 </div>
                 <div>
-                  <h5 className="font-bold text-[#736A2F] text-xs">Downloadable Certificate</h5>
-                  <p className="text-[11px] text-[#666666] leading-relaxed mt-0.5">
+                  <h5 className="font-bold text-[#736A2F] text-sm">Downloadable Certificate</h5>
+                  <p className="text-[12px] text-[#666666] leading-relaxed mt-0.5">
                     Download your certificate instantly after successfully passing.
                   </p>
                 </div>
@@ -399,8 +399,8 @@ export default function StudentCertificationPortal() {
                   <Wifi className="w-5 h-5" />
                 </div>
                 <div>
-                  <h5 className="font-bold text-[#736A2F] text-xs">100% Online</h5>
-                  <p className="text-[11px] text-[#666666] leading-relaxed mt-0.5">
+                  <h5 className="font-bold text-[#736A2F] text-sm">100% Online</h5>
+                  <p className="text-[12px] text-[#666666] leading-relaxed mt-0.5">
                     Complete the entire certification process from any device.
                   </p>
                 </div>
