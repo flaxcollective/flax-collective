@@ -39,13 +39,11 @@ const studentMenu = [
     icon: ClipboardList,
     href: "/dashboard/course",
   },
-  /*
   {
     name: "E-Certification",
     icon: Award,
     href: "/dashboard/e-certification",
   },
-  */
 ];
 
 const adminMenu = [
