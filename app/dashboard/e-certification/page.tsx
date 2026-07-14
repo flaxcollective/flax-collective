@@ -264,32 +264,34 @@ export default function StudentCertificationPortal() {
                   </div>
 
                   {/* Metadata Stats Grid */}
-                  <div className="grid grid-cols-3 gap-4  border border-black  p-4 text-[11px] mt-6">
-                    <div className="flex items-center gap-3 border-r border-black pr-2">
-                      <div className="w-9 h-9 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
-                        <FileText className="w-4.5 h-4.5" />
+                  <div className="flex flex-col gap-5 mt-6 pb-6 border-b border-[#B3B3B3]/50 md:border-b-0">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-[#736A2F]/10 flex items-center justify-center text-[#736A2F] shrink-0">
+                        <FileText className="w-5 h-5" />
                       </div>
                       <div>
-                        <span className="block text-gray-500 font-medium text-[12px]  tracking-wider">Total Questions</span>
-                        <span className="font-bold text-[#736A2F] text-[18px] block mt-0.5">{exam.totalQuestions} MCQs</span>
+                        <span className="block text-gray-500 font-medium text-xs">Total Questions</span>
+                        <span className="font-bold text-[#736A2F] text-lg block">{exam.totalQuestions} MCQs</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 border-r border-black px-2">
-                      <div className="w-9 h-9 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
-                        <Clock className="w-4.5 h-4.5" />
+                    
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-[#736A2F]/10 flex items-center justify-center text-[#736A2F] shrink-0">
+                        <Clock className="w-5 h-5" />
                       </div>
                       <div>
-                        <span className="block text-gray-500 font-medium text-[12px]  tracking-wider">Duration</span>
-                        <span className="font-bold text-[#736A2F] text-[18px] block mt-0.5">{exam.duration} Minutes</span>
+                        <span className="block text-gray-500 font-medium text-xs">Duration</span>
+                        <span className="font-bold text-[#736A2F] text-lg block">{exam.duration} Minutes</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 pl-2">
-                      <div className="w-9 h-9 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0 border border-gray-200/20">
-                        <Award className="w-4.5 h-4.5" />
+                    
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-[#736A2F]/10 flex items-center justify-center text-[#736A2F] shrink-0">
+                        <Award className="w-5 h-5" />
                       </div>
                       <div>
-                        <span className="block text-gray-500 font-medium text-[12px]  tracking-wider">Passing Marks</span>
-                        <span className="font-bold text-[#736A2F] text-[18px] block mt-0.5">{exam.passingMarks}%</span>
+                        <span className="block text-gray-500 font-medium text-xs">Passing Marks</span>
+                        <span className="font-bold text-[#736A2F] text-lg block">{exam.passingMarks}%</span>
                       </div>
                     </div>
                   </div>
@@ -413,7 +415,7 @@ export default function StudentCertificationPortal() {
             <h4 className="font-bold text-[#2F3E56] text-base md:text-lg font-serif">
               Who Can Take This?
             </h4>
-            <p className="text-[#666666] text-[11px] leading-relaxed">
+            <p className="text-[#666666] text-[12px] leading-relaxed">
               Designed for anyone looking to validate their skills and strengthen their professional profile.
             </p>
             <ul className="space-y-3 pt-2">
