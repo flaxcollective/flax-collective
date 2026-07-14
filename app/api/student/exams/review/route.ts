@@ -65,6 +65,8 @@ export async function GET(req: NextRequest) {
         submittedAt: session.submittedAt,
         passed: session.passed,
         certificateId: session.certificateId,
+        studentName: currentUser.name || "Student",
+        studentId: currentUser.id || "N/A",
         questions: session.questions.map((q: any, idx: number) => ({
           questionText: q.questionText,
           options: q.options,
