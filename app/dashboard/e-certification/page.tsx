@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Award, FileText, CheckCircle2, Zap, ArrowRight, ShieldCheck, HelpCircle, GraduationCap, X, CheckCircle, AlertCircle, Sparkles, Clock, UserPlus, Download, Wifi, Lock, Check, ClipboardCheck } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { countries } from "@/data/countries";
+import ReCaptcha from "@/components/shared/ReCaptcha";
 
 interface Exam {
   examId: string;
@@ -43,6 +44,7 @@ export default function StudentCertificationPortal() {
   // Checkout Form State
   const [checkoutStatus, setCheckoutStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [checkoutError, setCheckoutError] = useState("");
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [checkoutForm, setCheckoutForm] = useState({
     firstName: "",
     lastName: "",
@@ -161,6 +163,12 @@ export default function StudentCertificationPortal() {
       return;
     }
 
+    if (!recaptchaToken) {
+      setCheckoutStatus("error");
+      setCheckoutError("Please complete the reCAPTCHA verification.");
+      return;
+    }
+
     setCheckoutStatus("loading");
 
     try {
@@ -170,7 +178,8 @@ export default function StudentCertificationPortal() {
         body: JSON.stringify({
           ...checkoutForm,
           course: selectedExam.title,
-          type: "exam"
+          type: "exam",
+          recaptchaToken
         })
       });
       const data = await res.json();
@@ -638,6 +647,10 @@ export default function StudentCertificationPortal() {
                 <label htmlFor="consent" className="text-[10px] leading-relaxed text-gray-500 cursor-pointer">
                   I agree that the details supplied are accurate. I authorize FLAX Collective to proceed with this registration order.
                 </label>
+              </div>
+
+              <div className="pt-2">
+                <ReCaptcha onVerify={setRecaptchaToken} />
               </div>
 
               {/* Modal Buttons */}
