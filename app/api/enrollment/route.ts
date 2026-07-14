@@ -116,11 +116,11 @@ export async function POST(req: NextRequest) {
     };
     await db.collection("transactions").insertOne(newTransaction);
 
-    // Simulated checkout bypass in dev or if PG credentials are not present in .env
-    const isDev = process.env.NODE_ENV === "development";
+    // Simulated checkout bypass if explicit env variable is set or PG credentials are missing
+    const bypassPayment = process.env.BYPASS_PAYMENT === "true";
     const hasPGConfigs = process.env.ICICI_MERCHANT_ID && process.env.ICICI_SECURE_KEY && process.env.ICICI_INITIATE_SALE_URL;
 
-    if (isDev || !hasPGConfigs) {
+    if (bypassPayment || !hasPGConfigs) {
       console.log("[PAYMENT BYPASS] Simulating checkout completion automatically.");
 
       // Mark transaction as successful
