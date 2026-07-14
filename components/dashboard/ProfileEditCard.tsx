@@ -26,6 +26,7 @@ export default function ProfileEditCard() {
   const { user, setUser } = useAuth();
 
   const [showSecurity, setShowSecurity] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(false);
 
   // Profile Form States
   const [name, setName] = useState("");
@@ -119,6 +120,21 @@ export default function ProfileEditCard() {
       setState(user.state || "");
     }
   }, [user]);
+
+  useEffect(() => {
+    const checkEnrollments = async () => {
+      try {
+        const res = await fetch("/api/student/enrollments");
+        const data = await res.json();
+        if (data.success && data.enrollments && data.enrollments.length > 0) {
+          setIsEnrolled(true);
+        }
+      } catch (error) {
+        console.error("Failed to check enrollments", error);
+      }
+    };
+    checkEnrollments();
+  }, []);
 
   if (!user) {
     return (
@@ -294,12 +310,12 @@ export default function ProfileEditCard() {
                           </>
                         ) : (
                           <>
-                            <stop offset="0%" stopColor="#666" stopOpacity="0" />
-                            <stop offset="20%" stopColor="#666" stopOpacity="0.3" />
-                            <stop offset="35%" stopColor="#666" stopOpacity="0.5" />
-                            <stop offset="45%" stopColor="#666" stopOpacity="0.7" />
-                            <stop offset="52%" stopColor="#666" stopOpacity="0.9" />
-                            <stop offset="100%" stopColor="#666" stopOpacity="1" />
+                            <stop offset="0%" stopColor="#CE9D18" stopOpacity="0" />
+                            <stop offset="20%" stopColor="#CE9D18" stopOpacity="0.3" />
+                            <stop offset="35%" stopColor="#CE9D18" stopOpacity="0.5" />
+                            <stop offset="45%" stopColor="#CE9D18" stopOpacity="0.7" />
+                            <stop offset="52%" stopColor="#CE9D18" stopOpacity="0.9" />
+                            <stop offset="100%" stopColor="#CE9D18" stopOpacity="1" />
                           </>
                         )}
                       </linearGradient>
@@ -320,7 +336,7 @@ export default function ProfileEditCard() {
                         fill="white"
                         className="font-bold text-[7.5px] tracking-[0.05em]"
                       >
-                        {user.usertype === "admin" || user.usertype === "employee" ? "A D M I N" : "N O T - E N R O L L E D"}
+                        {user.usertype === "admin" || user.usertype === "employee" ? "A D M I N" : isEnrolled ? "E N R O L L E D" : "N O T - E N R O L L E D"}
                       </textPath>
                     </text>
                   </svg>
