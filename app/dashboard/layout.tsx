@@ -17,7 +17,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (!loading && !user) {
-      router.replace("/auth/login");
+      window.location.href = "/auth/login";
     }
   }, [user, loading, router]);
 
@@ -32,7 +32,13 @@ export default function DashboardLayout({
   }
 
   if (!user) {
-    return null;
+    return (
+      <div className="flex h-screen w-screen justify-center items-center bg-[#FAF8F5]">
+        <div className="text-center">
+          <p className="text-gray-500 font-medium text-lg">Redirecting to login...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
