@@ -16,6 +16,7 @@ interface CertificateDetails {
   passed: boolean;
   certificateId: string;
   studentName: string;
+  studentId: string;
 }
 
 export default function CertificatePage({ params }: { params: Promise<{ sessionId: string }> }) {
@@ -156,17 +157,16 @@ export default function CertificatePage({ params }: { params: Promise<{ sessionI
             </div>
           </div>
 
-          {/* Verification signatures */}
+          {/* Verification signatures - Removed for now until dynamic logic is added */}
           <div className="text-center flex flex-col items-center">
-            {/* Mock signature vector graphic */}
-            <div className="h-10 w-24 border-b border-gray-300 font-serif italic text-[#6E7C3A] text-xs flex items-center justify-center mb-1 select-none">
-              Anshuman Negi
-            </div>
-            <span className="block text-[9px] font-bold text-gray-400 uppercase tracking-wider">Exam Administrator</span>
           </div>
 
           {/* Certificate IDs */}
           <div className="text-right space-y-1 text-[10px] text-gray-500 select-all">
+            <div className="font-bold uppercase tracking-wider text-gray-400">Student ID</div>
+            <div className="font-extrabold text-[#2F3E56] font-mono text-xs tracking-tight mb-2">
+              {cert.studentId}
+            </div>
             <div className="font-bold uppercase tracking-wider text-gray-400">Certificate ID</div>
             <div className="font-extrabold text-[#2F3E56] font-mono text-xs tracking-tight">
               {cert.certificateId}
