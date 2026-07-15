@@ -22,10 +22,11 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: false, enrollments: [] }, { status: 404 });
     }
 
-    // Find all completed enrollments matching the user's email
+    // Find all completed enrollments matching the user's email, excluding exams
     const enrollments = await db.collection("enrollments").find({
       email: currentUser.email,
-      status: "completed"
+      status: "completed",
+      type: { $ne: "exam" }
     }).toArray();
 
     // Map each enrollment to fetch its course details
