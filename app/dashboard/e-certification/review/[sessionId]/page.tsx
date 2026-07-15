@@ -185,14 +185,6 @@ export default function ExamReviewPage({ params }: { params: Promise<{ sessionId
                         </div>
                       );
                     }
-                  } else if (isCorrectAnswer) {
-                    // Highlight correct key if student answered wrong
-                    style = "border-2 border-green-400 text-green-800 bg-green-50/10";
-                    badge = (
-                      <span className="text-[10px] font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded uppercase">
-                        Correct
-                      </span>
-                    );
                   }
 
                   return (
@@ -204,7 +196,7 @@ export default function ExamReviewPage({ params }: { params: Promise<{ sessionId
                         <span className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] ${
                           isStudentSelection 
                             ? (isCorrect ? "bg-green-600 text-white" : "bg-red-500 text-white") 
-                            : (isCorrectAnswer ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500")
+                            : "bg-gray-100 text-gray-500"
                         }`}>
                           {optLetter}
                         </span>
@@ -214,16 +206,6 @@ export default function ExamReviewPage({ params }: { params: Promise<{ sessionId
                     </div>
                   );
                 })}
-              </div>
-
-              {/* Explanation panel */}
-              <div className="pl-9">
-                <div className="bg-[#FAF8F5] border border-gray-100 rounded-xl p-4 text-xs">
-                  <span className="font-bold text-[#6E7C3A] block mb-1">Explanation:</span>
-                  <p className="text-gray-500 leading-normal">
-                    {q.explanation || "No explanation provided for this question."}
-                  </p>
-                </div>
               </div>
 
             </div>
