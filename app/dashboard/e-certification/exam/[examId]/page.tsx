@@ -240,12 +240,12 @@ export default function ExamRunnerPage({ params }: { params: Promise<{ examId: s
     <div className="min-h-screen flex flex-col bg-[#F9F9F9] text-gray-800 font-sans select-none">
       
       {/* Exam Header */}
-      <header className="bg-[#2F3E56] text-white px-8 py-4 flex items-center justify-between shadow-sm select-none">
-        <h1 className="font-medium text-lg md:text-xl font-serif">
+      <header className="bg-[#2F3E56] text-white px-4 md:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 shadow-sm select-none">
+        <h1 className="font-medium text-lg md:text-xl font-serif text-center md:text-left w-full md:w-auto">
           {examId === "DLC" ? "Digital Literacy Certification Exam" : (examId === "AEC" ? "Advanced Excel Certification Exam" : "Microsoft Word Certification Exam")}
         </h1>
         
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center justify-center md:justify-end gap-4 md:gap-6 w-full md:w-auto">
           <div className="flex items-center gap-2 text-sm font-medium">
             <Clock className="w-5 h-5" />
             {formatTime(timeLeft)}
@@ -253,7 +253,7 @@ export default function ExamRunnerPage({ params }: { params: Promise<{ examId: s
           
           <button
             onClick={() => setIsSubmitModalOpen(true)}
-            className="px-6 py-2.5 bg-[#F6F4ED] hover:bg-white text-[#7B7A41] font-bold rounded-md transition-all shadow-sm cursor-pointer"
+            className="px-6 py-2.5 bg-[#F6F4ED] hover:bg-white text-[#7B7A41] font-bold rounded-md transition-all shadow-sm cursor-pointer whitespace-nowrap"
           >
             Submit Exam
           </button>
@@ -334,18 +334,18 @@ export default function ExamRunnerPage({ params }: { params: Promise<{ examId: s
           </div>
 
           {/* Navigation Actions Footer */}
-          <div className="flex items-center justify-between mt-12">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mt-12 gap-4 sm:gap-0">
             <button
               onClick={handlePrev}
               disabled={currentIdx === 0}
-              className="px-6 py-2.5 border border-[#AFA999] text-[#494436] rounded-lg hover:bg-black/5 disabled:opacity-40 disabled:hover:bg-transparent font-medium text-sm transition-colors flex items-center gap-2 cursor-pointer"
+              className="px-6 py-2.5 border border-[#AFA999] text-[#494436] rounded-lg hover:bg-black/5 disabled:opacity-40 disabled:hover:bg-transparent font-medium text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
               ← Previous
             </button>
 
             <button
               onClick={handleToggleMark}
-              className={`px-6 py-2.5 border rounded-lg font-medium text-sm transition-all flex items-center gap-2 cursor-pointer ${
+              className={`px-6 py-2.5 border rounded-lg font-medium text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
                 markedForReview.includes(currentIdx)
                   ? "bg-[#2F3E56]/10 border-[#2F3E56] text-[#2F3E56]"
                   : "border-[#AFA999] text-[#494436] hover:bg-black/5"
@@ -358,7 +358,7 @@ export default function ExamRunnerPage({ params }: { params: Promise<{ examId: s
             <button
               onClick={handleNext}
               disabled={currentIdx === totalQuestions - 1}
-              className="px-6 py-2.5 bg-[#7B7A41] hover:bg-[#656333] disabled:opacity-40 disabled:hover:bg-[#7B7A41] text-white font-medium text-sm rounded-lg transition-all shadow flex items-center gap-2 cursor-pointer"
+              className="px-6 py-2.5 bg-[#7B7A41] hover:bg-[#656333] disabled:opacity-40 disabled:hover:bg-[#7B7A41] text-white font-medium text-sm rounded-lg transition-all shadow flex items-center justify-center gap-2 cursor-pointer"
             >
               Save & Next →
             </button>
