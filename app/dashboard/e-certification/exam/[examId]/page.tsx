@@ -375,7 +375,7 @@ export default function ExamRunnerPage({ params }: { params: Promise<{ examId: s
               Questions Navigator
             </h3>
             
-            <div className="grid grid-cols-5 gap-3">
+            <div className="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-5 gap-3">
               {questions.map((_, idx) => {
                 const isCurrent = idx === currentIdx;
                 const isAnswered = answers[idx.toString()] !== undefined;

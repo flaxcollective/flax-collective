@@ -246,7 +246,7 @@ export default function StudentCertificationPortal() {
             </div>
           ) : (
             exams.map((exam) => (
-              <div key={exam.examId} className="bg-[#736A2F]/10 rounded-[30px] border border-[#B3B3B3] shadow-[4px_4px_4px_0_rgba(0,0,0,0.15)] overflow-hidden flex flex-col md:flex-row transition-all duration-300">
+              <div key={exam.examId} className="bg-[#736A2F]/10 rounded-[30px] border border-[#B3B3B3] shadow-[4px_4px_4px_0_rgba(0,0,0,0.15)] overflow-hidden flex flex-col xl:flex-row transition-all duration-300">
                 
                 {/* Exam Details Card */}
                 <div className="flex-1 p-8 flex flex-col justify-between">
@@ -264,44 +264,44 @@ export default function StudentCertificationPortal() {
                   </div>
 
                   {/* Metadata Stats Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0 mt-6 pb-6 md:pb-0 border-b border-[#B3B3B3]/50 md:border md:border-black md:divide-x md:divide-black">
-                    <div className="flex items-center gap-4 md:p-4">
-                      <div className="w-12 h-12 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0">
-                        <FileText className="w-5 h-5" />
+                  <div className="grid grid-cols-1 lg:grid-cols-3 mt-6 border-b border-[#B3B3B3]/50 lg:border lg:border-black lg:divide-x lg:divide-black">
+                    <div className="flex items-center gap-2 2xl:gap-4 p-2 xl:px-2 xl:py-3 2xl:p-4">
+                      <div className="w-8 h-8 2xl:w-12 2xl:h-12 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0">
+                        <FileText className="w-4 h-4 2xl:w-5 2xl:h-5" />
                       </div>
-                      <div>
-                        <span className="block text-gray-500 font-medium text-[11px] tracking-wider">Total Questions</span>
-                        <span className="font-bold text-[#736A2F] text-base block">{exam.totalQuestions} MCQs</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-4 md:p-4">
-                      <div className="w-12 h-12 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0">
-                        <Clock className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <span className="block text-gray-500 font-medium text-[11px] tracking-wider">Duration</span>
-                        <span className="font-bold text-[#736A2F] text-base block">{exam.duration} Minutes</span>
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-gray-500 font-medium text-[10px] 2xl:text-[11px] tracking-wider leading-tight break-words">Total Questions</span>
+                        <span className="font-bold text-[#736A2F] text-sm 2xl:text-base block">{exam.totalQuestions} MCQs</span>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-4 md:p-4">
-                      <div className="w-12 h-12 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0">
-                        <Award className="w-5 h-5" />
+                    <div className="flex items-center gap-2 2xl:gap-4 p-2 xl:px-2 xl:py-3 2xl:p-4">
+                      <div className="w-8 h-8 2xl:w-12 2xl:h-12 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0">
+                        <Clock className="w-4 h-4 2xl:w-5 2xl:h-5" />
                       </div>
-                      <div>
-                        <span className="block text-gray-500 font-medium text-[11px] tracking-wider">Passing Marks</span>
-                        <span className="font-bold text-[#736A2F] text-base block">{exam.passingMarks}%</span>
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-gray-500 font-medium text-[10px] 2xl:text-[11px] tracking-wider leading-tight break-words">Duration</span>
+                        <span className="font-bold text-[#736A2F] text-sm 2xl:text-base block">{exam.duration} Minutes</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 2xl:gap-4 p-2 xl:px-2 xl:py-3 2xl:p-4">
+                      <div className="w-8 h-8 2xl:w-12 2xl:h-12 rounded-full bg-[#736A2F]/20 flex items-center justify-center text-[#736A2F] shrink-0">
+                        <Award className="w-4 h-4 2xl:w-5 2xl:h-5" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-gray-500 font-medium text-[10px] 2xl:text-[11px] tracking-wider leading-tight break-words">Passing Marks</span>
+                        <span className="font-bold text-[#736A2F] text-sm 2xl:text-base block">{exam.passingMarks}%</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Vertical Divider */}
-                <div className="hidden md:block w-[1px] bg-[#B3B3B3]/50" />
+                <div className="hidden xl:block w-[1px] bg-[#B3B3B3]/50" />
 
                 {/* Exam Pricing & Trigger Button */}
-                <div className="md:w-68 p-6 pt-1 md:p-8 flex flex-col items-center justify-center text-center shrink-0">
+                <div className="xl:w-56 2xl:w-72 p-5 lg:p-6 2xl:p-8 flex flex-col items-center justify-center text-center shrink-0">
                   <span className="text-[12px] text-[#736A2F] font-bold tracking-wider mb-2">Special Price</span>
                   <div className="text-4xl font-bold text-black tracking-tight">₹{exam.discountedPrice}</div>
                   
@@ -332,14 +332,14 @@ export default function StudentCertificationPortal() {
                     ) : (
                       <button
                         onClick={() => handleStartExamClick(exam)}
-                        className="w-full py-3.5 text-sm font-bold rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 text-white bg-[#2F3E56] hover:bg-[#1f2a3a]"
+                        className="w-full py-3 text-[13px] 2xl:text-sm 2xl:py-3.5 font-bold rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 text-white bg-[#2F3E56] hover:bg-[#1f2a3a]"
                       >
                         {exam.isPurchased ? "Start Exam Now" : "Register & Pay"}
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     )}
                   </div>
-                  <div className="flex items-center justify-center gap-1.5 text-[#736A2F] text-[12px] mt-5 font-bold">
+                  <div className="flex items-center justify-center gap-1.5 text-[#736A2F] text-[11px] 2xl:text-[12px] mt-4 2xl:mt-5 font-bold">
                     <Lock className="w-3.5 h-3.5 text-[#736A2F]" />
                     Secure & Trusted
                   </div>

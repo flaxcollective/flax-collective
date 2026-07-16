@@ -186,6 +186,11 @@
   background-color: #FFD6BD;
 }
 
+@media (max-width:1300px) {
+  .sidebar-container{
+    width: 200px;
+  }
+}
 
 
 @media (max-width:768px) {
