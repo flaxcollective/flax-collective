@@ -440,8 +440,8 @@ export default function StudentCertificationPortal() {
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm border border-gray-100 p-6 flex flex-col items-center text-center transform scale-98 transition-all space-y-5 animate-scale-up">
             
             {/* Header Icon */}
-            <div className="w-16 h-16 rounded-full bg-[#FAF8F5] border border-gray-100 flex items-center justify-center text-[#736A2F] shadow-inner text-2xl font-serif">
-              ✍️
+            <div className="w-16 h-16 rounded-full bg-[#736A2F]/20 border border-gray-100 flex items-center justify-center text-[#736A2F] shadow-inner text-2xl font-serif">
+              <img src="/assets/images/writing.png" alt="" />
             </div>
 
             <div>
@@ -473,7 +473,7 @@ export default function StudentCertificationPortal() {
             <div className="grid grid-cols-2 gap-3 w-full border-t border-gray-50 pt-4">
               <button
                 onClick={() => setIsStartModalOpen(false)}
-                className="py-2.5 border border-gray-200 rounded-xl text-xs font-bold text-[#736A2F] hover:bg-gray-50 cursor-pointer"
+                className="py-2.5 border border-[#736A2F] rounded-xl text-xs font-bold text-[#736A2F] hover:bg-gray-50 cursor-pointer"
               >
                 Cancel
               </button>

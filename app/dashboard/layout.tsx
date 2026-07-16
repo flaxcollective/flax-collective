@@ -4,7 +4,7 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import Header from "@/components/dashboard/Header";
 import Footer from "@/components/dashboard/Footer";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function DashboardLayout({
@@ -14,7 +14,9 @@ export default function DashboardLayout({
 }) {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
+  const isExamRoute = pathname?.includes("/e-certification/exam/");
   useEffect(() => {
     if (!loading && !user) {
       window.location.href = "/auth/login";
@@ -39,6 +41,10 @@ export default function DashboardLayout({
         </div>
       </div>
     );
+  }
+
+  if (isExamRoute) {
+    return <>{children}</>;
   }
 
   return (
