@@ -43,6 +43,26 @@ export async function completeEnrollment(enrollmentId: string, pgTxnId?: string)
     await sendEnrollmentSuccessEmail(enrollment.email, studentName, enrollment.course);
   }
 
+  // 1.5 Update user profile if user exists with the details they provided during checkout
+  try {
+    await db.collection("users").updateOne(
+      { email: enrollment.email },
+      {
+        $set: {
+          name: studentName,
+          phone: enrollment.mobile,
+          countryCode: enrollment.countryCode,
+          country: enrollment.country,
+          state: enrollment.state,
+          city: enrollment.city,
+        }
+      }
+    );
+    console.log(`[SERVICE] Updated user profile for ${enrollment.email}`);
+  } catch (err) {
+    console.error("[SERVICE] Error updating user profile:", err);
+  }
+
   // 2. Sync to Google Sheets
   const googleSheetUrl = process.env.GOOGLE_SHEET_WEBAPP_URL;
   if (googleSheetUrl) {

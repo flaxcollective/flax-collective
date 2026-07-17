@@ -33,9 +33,9 @@ export default function ECertificate() {
 
   const handleViewCertification = () => {
     if (user) {
-      router.push("/dashboard");
+      router.push("/dashboard/e-certification");
     } else {
-      router.push("/auth/login?callbackUrl=/dashboard");
+      router.push("/auth/login?callbackUrl=/dashboard/e-certification");
     }
   };
 

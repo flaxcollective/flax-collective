@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import "@/app/styles/modal.css";
 import { countries } from '@/data/countries';
+import { indianStates } from '@/data/states';
 import { useAuth } from '@/context/AuthContext';
 import ReCaptcha from './ReCaptcha';
 
@@ -33,6 +34,8 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [form, setForm] = useState(defaultForm);
   const { user } = useAuth();
+
+  const hasProfile = Boolean(user && user.name && user.phone);
 
   useEffect(() => {
     if (isOpen) {
@@ -102,30 +105,32 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!/[a-zA-Z]/.test(form.firstName)) {
-      setStatus("error");
-      setErrorMsg("First Name must contain letters");
-      return;
-    }
-    if (!/[a-zA-Z]/.test(form.lastName)) {
-      setStatus("error");
-      setErrorMsg("Last Name must contain letters");
-      return;
-    }
-    if (form.mobile && !/^\d+$/.test(form.mobile)) {
-      setStatus("error");
-      setErrorMsg("Mobile number must contain only numbers");
-      return;
-    }
-    if (!/[a-zA-Z]/.test(form.state)) {
-      setStatus("error");
-      setErrorMsg("State must contain letters");
-      return;
-    }
-    if (!/[a-zA-Z]/.test(form.city)) {
-      setStatus("error");
-      setErrorMsg("City name must contain letters");
-      return;
+    if (!hasProfile) {
+      if (!/[a-zA-Z]/.test(form.firstName)) {
+        setStatus("error");
+        setErrorMsg("First Name must contain letters");
+        return;
+      }
+      if (!/[a-zA-Z]/.test(form.lastName)) {
+        setStatus("error");
+        setErrorMsg("Last Name must contain letters");
+        return;
+      }
+      if (form.mobile && !/^\d+$/.test(form.mobile)) {
+        setStatus("error");
+        setErrorMsg("Mobile number must contain only numbers");
+        return;
+      }
+      if (!/[a-zA-Z]/.test(form.state)) {
+        setStatus("error");
+        setErrorMsg("State must contain letters");
+        return;
+      }
+      if (!/[a-zA-Z]/.test(form.city)) {
+        setStatus("error");
+        setErrorMsg("City name must contain letters");
+        return;
+      }
     }
     if (!recaptchaToken && process.env.NODE_ENV !== "development") {
       setStatus("error");
@@ -184,86 +189,112 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
 
             <form className="modal-form" onSubmit={handleSubmit}>
               <div className="modal-grid-2">
-                <div className="modal-input-group">
-                  <label>Your First Name</label>
-                  <input name="firstName" type="text" placeholder="Enter Your First Name" value={form.firstName} onChange={handleChange} required disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
-                </div>
-                <div className="modal-input-group">
-                  <label>Your Last Name</label>
-                  <input name="lastName" type="text" placeholder="Enter Your Last Name" value={form.lastName} onChange={handleChange} required disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
-                </div>
+                {!hasProfile && (
+                  <>
+                    <div className="modal-input-group">
+                      <label>Your First Name</label>
+                      <input name="firstName" type="text" placeholder="Enter Your First Name" value={form.firstName} onChange={handleChange} required={!hasProfile} disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
+                    </div>
+                    <div className="modal-input-group">
+                      <label>Your Last Name</label>
+                      <input name="lastName" type="text" placeholder="Enter Your Last Name" value={form.lastName} onChange={handleChange} required={!hasProfile} disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
+                    </div>
+                  </>
+                )}
                 <div className="modal-input-group">
                   <label>Your Email</label>
                   <input name="email" type="email" placeholder="Enter Your Email" value={form.email} onChange={handleChange} required disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
-                </div>                 <div className="modal-input-group">
-                  <label>Your Mobile Number</label>
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <select 
-                      name="countryCode" 
-                      value={form.countryCode} 
-                      onChange={handleChange} 
-                      style={{ width: '100px', flexShrink: 0, ...((user && user.countryCode) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : {}) }}
-                      disabled={!!(user && user.countryCode)}
-                    >
-                      {countries.map(c => (
-                        <option key={c.iso + c.code} value={c.code}>{c.iso} ({c.code})</option>
-                      ))}
-                    </select>
-                    <input 
-                      name="mobile" 
-                      type="tel" 
-                      placeholder="Mobile Number" 
-                      value={form.mobile} 
-                      onChange={handleChange} 
-                      required 
-                      disabled={!!(user && user.phone)} 
-                      style={(user && user.phone) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
-                    />
-                  </div>
-                </div>
+                </div>                 
+                {!hasProfile && (
+                  <>
+                    <div className="modal-input-group">
+                      <label>Your Mobile Number</label>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <select 
+                          name="countryCode" 
+                          value={form.countryCode} 
+                          onChange={handleChange} 
+                          style={{ width: '100px', flexShrink: 0, ...((user && user.countryCode) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : {}) }}
+                          disabled={!!(user && user.countryCode)}
+                        >
+                          {countries.map(c => (
+                            <option key={c.iso + c.code} value={c.code}>{c.iso} ({c.code})</option>
+                          ))}
+                        </select>
+                        <input 
+                          name="mobile" 
+                          type="tel" 
+                          placeholder="Mobile Number" 
+                          value={form.mobile} 
+                          onChange={handleChange} 
+                          required={!hasProfile} 
+                          disabled={!!(user && user.phone)} 
+                          style={(user && user.phone) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
+                        />
+                      </div>
+                    </div>
+                    <div className="modal-input-group">
+                      <label>Country</label>
+                      <select 
+                        name="country" 
+                        value={form.country} 
+                        onChange={handleChange} 
+                        required={!hasProfile} 
+                        disabled={!!(user && user.country)} 
+                        style={(user && user.country) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined}
+                      >
+                        <option value="" disabled hidden>Choose Your Country</option>
+                        {countries.map(c => (
+                          <option key={c.name} value={c.name}>{c.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="modal-input-group">
+                      <label>State</label>
+                      {form.country === "India" ? (
+                        <select 
+                          name="state" 
+                          value={form.state} 
+                          onChange={handleChange} 
+                          required={!hasProfile} 
+                          disabled={!!(user && user.state)} 
+                          style={(user && user.state) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
+                        >
+                          <option value="" disabled hidden>Select State</option>
+                          {indianStates.map(s => (
+                            <option key={s} value={s}>{s}</option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input 
+                          name="state" 
+                          type="text" 
+                          placeholder="Enter Your State" 
+                          value={form.state} 
+                          onChange={handleChange} 
+                          required={!hasProfile} 
+                          disabled={!!(user && user.state)} 
+                          style={(user && user.state) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
+                        />
+                      )}
+                    </div>
+                    <div className="modal-input-group">
+                      <label>City</label>
+                      <input 
+                        name="city" 
+                        type="text" 
+                        placeholder="Enter Your City" 
+                        value={form.city} 
+                        onChange={handleChange} 
+                        required={!hasProfile} 
+                        disabled={!!(user && user.city)} 
+                        style={(user && user.city) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
+                      />
+                    </div>
+                  </>
+                )}
                 <div className="modal-input-group">
-                  <label>Country</label>
-                  <select 
-                    name="country" 
-                    value={form.country} 
-                    onChange={handleChange} 
-                    required 
-                    disabled={!!(user && user.country)} 
-                    style={(user && user.country) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined}
-                  >
-                    <option value="" disabled hidden>Choose Your Country</option>
-                    {countries.map(c => (
-                      <option key={c.name} value={c.name}>{c.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="modal-input-group">
-                  <label>State</label>
-                  <input 
-                    name="state" 
-                    type="text" 
-                    placeholder="Enter Your State" 
-                    value={form.state} 
-                    onChange={handleChange} 
-                    required 
-                    disabled={!!(user && user.state)} 
-                    style={(user && user.state) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
-                  />
-                </div>
-                <div className="modal-input-group">
-                  <label>City</label>
-                  <input 
-                    name="city" 
-                    type="text" 
-                    placeholder="Enter Your City" 
-                    value={form.city} 
-                    onChange={handleChange} 
-                    required 
-                    disabled={!!(user && user.city)} 
-                    style={(user && user.city) ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} 
-                  />
-                </div>
-                <div className="modal-input-group">
+
                   <label>Course</label>
                   <select name="course" value={form.course} onChange={handleChange} required>
                     <option value="" disabled hidden>Course You Are Interested In:</option>

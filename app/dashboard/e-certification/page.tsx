@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Award, FileText, CheckCircle2, Zap, ArrowRight, ShieldCheck, HelpCircle, GraduationCap, X, CheckCircle, AlertCircle, Sparkles, Clock, UserPlus, Download, Wifi, Lock, Check, ClipboardCheck } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { countries } from "@/data/countries";
+import { indianStates } from "@/data/states";
 import ReCaptcha from "@/components/shared/ReCaptcha";
 
 interface Exam {
@@ -76,6 +77,8 @@ export default function StudentCertificationPortal() {
   }, []);
 
   // Populate checkout form when modal opens
+  const hasProfile = Boolean(user && user.name && user.phone);
+
   useEffect(() => {
     if (user && isCheckoutOpen) {
       let fName = "";
@@ -151,10 +154,12 @@ export default function StudentCertificationPortal() {
     setCheckoutStatus("idle");
     setCheckoutError("");
 
-    if (!checkoutForm.firstName || !checkoutForm.lastName || !checkoutForm.email || !checkoutForm.mobile || !checkoutForm.city) {
-      setCheckoutStatus("error");
-      setCheckoutError("Please fill in all required fields.");
-      return;
+    if (!hasProfile) {
+      if (!checkoutForm.firstName || !checkoutForm.lastName || !checkoutForm.email || !checkoutForm.mobile || !checkoutForm.city) {
+        setCheckoutStatus("error");
+        setCheckoutError("Please fill in all required fields.");
+        return;
+      }
     }
 
     if (!checkoutForm.consent) {
@@ -536,30 +541,32 @@ export default function StudentCertificationPortal() {
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[10px] font-bold text-gray-400 mb-1">FIRST NAME</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={checkoutForm.firstName}
-                    onChange={handleCheckoutChange}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
-                    required
-                  />
+              {!hasProfile && (
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-bold text-gray-400 mb-1">FIRST NAME</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={checkoutForm.firstName}
+                      onChange={handleCheckoutChange}
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
+                      required={!hasProfile}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-bold text-gray-400 mb-1">LAST NAME</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={checkoutForm.lastName}
+                      onChange={handleCheckoutChange}
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
+                      required={!hasProfile}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-gray-400 mb-1">LAST NAME</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={checkoutForm.lastName}
-                    onChange={handleCheckoutChange}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
-                    required
-                  />
-                </div>
-              </div>
+              )}
 
               <div>
                 <label className="block text-[10px] font-bold text-gray-400 mb-1">EMAIL ADDRESS</label>
@@ -572,69 +579,92 @@ export default function StudentCertificationPortal() {
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-[10px] font-bold text-gray-400 mb-1">COUNTRY CODE</label>
-                  <select
-                    name="countryCode"
-                    value={checkoutForm.countryCode}
-                    onChange={handleCheckoutChange}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] cursor-pointer"
-                  >
-                    {countries.map(c => (
-                      <option key={c.code} value={c.code}>{c.code} ({c.name})</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="col-span-2">
-                  <label className="block text-[10px] font-bold text-gray-400 mb-1">MOBILE NUMBER</label>
-                  <input
-                    type="tel"
-                    name="mobile"
-                    value={checkoutForm.mobile}
-                    onChange={handleCheckoutChange}
-                    placeholder="Enter phone number"
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
-                    required
-                  />
-                </div>
-              </div>
+              {!hasProfile && (
+                <>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-400 mb-1">COUNTRY CODE</label>
+                      <select
+                        name="countryCode"
+                        value={checkoutForm.countryCode}
+                        onChange={handleCheckoutChange}
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] cursor-pointer"
+                      >
+                        {countries.map(c => (
+                          <option key={c.code} value={c.code}>{c.code} ({c.name})</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="col-span-2">
+                      <label className="block text-[10px] font-bold text-gray-400 mb-1">MOBILE NUMBER</label>
+                      <input
+                        type="tel"
+                        name="mobile"
+                        value={checkoutForm.mobile}
+                        onChange={handleCheckoutChange}
+                        placeholder="Enter phone number"
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
+                        required={!hasProfile}
+                      />
+                    </div>
+                  </div>
 
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-[10px] font-bold text-gray-400 mb-1">COUNTRY</label>
-                  <input
-                    type="text"
-                    name="country"
-                    value={checkoutForm.country}
-                    onChange={handleCheckoutChange}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-gray-400 mb-1">STATE</label>
-                  <input
-                    type="text"
-                    name="state"
-                    value={checkoutForm.state}
-                    onChange={handleCheckoutChange}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-gray-400 mb-1">CITY</label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={checkoutForm.city}
-                    onChange={handleCheckoutChange}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
-                    required
-                  />
-                </div>
-              </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-400 mb-1">COUNTRY</label>
+                      <select
+                        name="country"
+                        value={checkoutForm.country}
+                        onChange={handleCheckoutChange}
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] cursor-pointer"
+                        required={!hasProfile}
+                      >
+                        <option value="" disabled hidden>Select Country</option>
+                        {countries.map(c => (
+                          <option key={c.name} value={c.name}>{c.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-400 mb-1">STATE</label>
+                      {checkoutForm.country === "India" ? (
+                        <select
+                          name="state"
+                          value={checkoutForm.state}
+                          onChange={handleCheckoutChange}
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] cursor-pointer"
+                          required={!hasProfile}
+                        >
+                          <option value="" disabled hidden>Select State</option>
+                          {indianStates.map(s => (
+                            <option key={s} value={s}>{s}</option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          name="state"
+                          value={checkoutForm.state}
+                          onChange={handleCheckoutChange}
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
+                          required={!hasProfile}
+                        />
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-400 mb-1">CITY</label>
+                      <input
+                        type="text"
+                        name="city"
+                        value={checkoutForm.city}
+                        onChange={handleCheckoutChange}
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#736A2F] focus:bg-white"
+                        required={!hasProfile}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
 
               {/* Consent checkbox */}
               <div className="flex items-start gap-2 pt-2">
