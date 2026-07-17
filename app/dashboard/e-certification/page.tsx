@@ -77,7 +77,7 @@ export default function StudentCertificationPortal() {
   }, []);
 
   // Populate checkout form when modal opens
-  const hasProfile = Boolean(user && user.name && user.phone);
+  const hasProfile = Boolean(user && user.name && user.phone && user.country && user.state && user.city);
 
   useEffect(() => {
     if (user && isCheckoutOpen) {

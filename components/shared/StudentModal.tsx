@@ -35,7 +35,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
   const [form, setForm] = useState(defaultForm);
   const { user } = useAuth();
 
-  const hasProfile = Boolean(user && user.name && user.phone);
+  const hasProfile = Boolean(user && user.name && user.phone && user.country && user.state && user.city);
 
   useEffect(() => {
     if (isOpen) {
