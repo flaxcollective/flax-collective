@@ -11,7 +11,7 @@ function generateOTP() {
 
 export async function POST(req: Request) {
   try {
-    const { email, recaptchaToken } = await req.json();
+    const { email, recaptchaToken, isResend } = await req.json();
 
     if (!email) {
       return NextResponse.json(
@@ -20,13 +20,28 @@ export async function POST(req: Request) {
       );
     }
 
-    // Verify reCAPTCHA
-    const isHuman = await verifyRecaptcha(recaptchaToken as string);
-    if (!isHuman) {
-      return NextResponse.json(
-        { success: false, message: "reCAPTCHA verification failed. Please try again." },
-        { status: 400 }
-      );
+    const db = await getDb();
+    const signupOtps = db.collection("signup_otps");
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Verify reCAPTCHA if it's a new request
+    if (!isResend) {
+      const isHuman = await verifyRecaptcha(recaptchaToken as string);
+      if (!isHuman) {
+        return NextResponse.json(
+          { success: false, message: "reCAPTCHA verification failed. Please try again." },
+          { status: 400 }
+        );
+      }
+    } else {
+      // If resend, ensure an OTP record already exists to prevent bypass abuse
+      const existingOtp = await signupOtps.findOne({ email: normalizedEmail });
+      if (!existingOtp) {
+        return NextResponse.json(
+          { success: false, message: "No active OTP request found. Please sign up again." },
+          { status: 400 }
+        );
+      }
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -37,9 +52,6 @@ export async function POST(req: Request) {
       );
     }
 
-    const normalizedEmail = email.toLowerCase().trim();
-
-    const db = await getDb();
     const users = db.collection("users");
 
     // Check if the user already exists
@@ -53,8 +65,6 @@ export async function POST(req: Request) {
 
     const otp = generateOTP();
     const otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes validity
-
-    const signupOtps = db.collection("signup_otps");
     
     // Upsert the OTP record
     await signupOtps.updateOne(
