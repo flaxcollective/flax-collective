@@ -7,9 +7,9 @@ export const runtime = "nodejs";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, password, phone, countryCode, city, usertype, otp } = body;
+    const { name, email, password, phone, countryCode, country, state, city, usertype, otp } = body;
 
-    if (!name || !email || !password || !phone || !city || !otp) {
+    if (!name || !email || !password || !phone || !country || !state || !city || !otp) {
       return NextResponse.json(
         { success: false, message: "All fields, including email verification code (OTP), are required" },
         { status: 400 }
@@ -115,6 +115,8 @@ export async function POST(req: Request) {
       name: name.trim(),
       email: normalizedEmail,
       phone: fullPhone,
+      country: country.trim(),
+      state: state.trim(),
       city: city.trim(),
       usertype: usertype.toLowerCase(),
       password: hashedPassword,
@@ -155,6 +157,8 @@ export async function POST(req: Request) {
         name: newUser.name,
         email: newUser.email,
         phone: newUser.phone,
+        country: newUser.country,
+        state: newUser.state,
         city: newUser.city,
         usertype: newUser.usertype,
         createdAt: newUser.createdAt,
