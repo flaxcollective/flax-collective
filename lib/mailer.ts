@@ -1,5 +1,31 @@
 import nodemailer from "nodemailer";
 
+// Singleton transporter to enable connection pooling and reduce latency
+let transporterInstance: nodemailer.Transporter | null = null;
+
+function getTransporter() {
+  if (transporterInstance) return transporterInstance;
+
+  const mailUser = process.env.MAIL_USER?.trim();
+  const mailPass = process.env.MAIL_PASS?.replace(/"/g, "").trim();
+
+  if (!mailUser || !mailPass) return null;
+
+  transporterInstance = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: mailUser,
+      pass: mailPass,
+    },
+    // Crucial for performance: Keep the connection open to avoid TLS handshake on every email
+    pool: true,
+    maxConnections: 5,
+    maxMessages: 100,
+  });
+
+  return transporterInstance;
+}
+
 export async function sendOTPEmail(email: string, otp: string) {
   try {
     const mailUser = process.env.MAIL_USER?.trim();
@@ -16,13 +42,8 @@ export async function sendOTPEmail(email: string, otp: string) {
       return true;
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: mailUser,
-        pass: mailPass,
-      },
-    });
+    const transporter = getTransporter();
+    if (!transporter) throw new Error("Transporter not initialized");
 
     const mailOptions = {
       from: `"Flax Collective" <${mailUser}>`,
@@ -66,13 +87,8 @@ export async function sendSignupOTPEmail(email: string, otp: string) {
       return true;
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: mailUser,
-        pass: mailPass,
-      },
-    });
+    const transporter = getTransporter();
+    if (!transporter) throw new Error("Transporter not initialized");
 
     const mailOptions = {
       from: `"Flax Collective" <${mailUser}>`,
@@ -116,13 +132,8 @@ export async function sendEnrollmentSuccessEmail(email: string, studentName: str
       return true;
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: mailUser,
-        pass: mailPass,
-      },
-    });
+    const transporter = getTransporter();
+    if (!transporter) throw new Error("Transporter not initialized");
 
     const mailOptions = {
       from: `"FLAX Collective" <${mailUser}>`,
@@ -165,13 +176,8 @@ export async function sendDeleteUserOTPEmail(email: string, otp: string, userNam
       return true;
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: mailUser,
-        pass: mailPass,
-      },
-    });
+    const transporter = getTransporter();
+    if (!transporter) throw new Error("Transporter not initialized");
 
     const mailOptions = {
       from: `"Security Team" <${mailUser}>`,
@@ -214,13 +220,8 @@ export async function sendExamEnrollmentSuccessEmail(email: string, studentName:
       return true;
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: mailUser,
-        pass: mailPass,
-      },
-    });
+    const transporter = getTransporter();
+    if (!transporter) throw new Error("Transporter not initialized");
 
     const mailOptions = {
       from: `"FLAX Collective" <${mailUser}>`,

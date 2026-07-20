@@ -7,6 +7,7 @@ import "@/app/styles/auth/GetStarted.css";
 import { Eye, EyeOff } from "lucide-react";
 import "@/app/styles/dashboard/dashboard-home.css"
 import { countries } from "@/data/countries";
+import { indianStates } from "@/data/states";
 import { useSearchParams } from "next/navigation";
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import ReCaptcha from "@/components/shared/ReCaptcha";
@@ -41,6 +42,8 @@ const SignupPage = () => {
     password: "",
     countryCode: "+91",
     phone: "",
+    country: "",
+    state: "",
     city: "",
   });
 
@@ -67,7 +70,11 @@ const SignupPage = () => {
   }, [otpSent, countdown]);
 
   const handleChange = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    if (e.target.name === "country") {
+      setForm({ ...form, country: e.target.value, state: "" });
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e: any) => {
@@ -85,6 +92,16 @@ const SignupPage = () => {
 
     if (form.password !== confirmPassword) {
       alert("Passwords do not match");
+      return;
+    }
+
+    if (!form.country) {
+      alert("Please select a country");
+      return;
+    }
+
+    if (!form.state) {
+      alert("Please select a state");
       return;
     }
 
@@ -354,6 +371,53 @@ const SignupPage = () => {
                     className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md"
                     required
                   />
+                </div>
+
+                <div>
+                  <label className="text-lg font-semibold">Country</label>
+                  <select
+                    name="country"
+                    value={form.country}
+                    onChange={handleChange}
+                    className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md focus:outline-none"
+                    required
+                  >
+                    <option value="" disabled>Select Country</option>
+                    {countries?.map((c, index) => (
+                      <option key={`${c.iso}-${index}`} value={c.name}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-lg font-semibold">State</label>
+                  {form.country === "India" ? (
+                    <select
+                      name="state"
+                      value={form.state}
+                      onChange={handleChange}
+                      className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md focus:outline-none"
+                      required
+                    >
+                      <option value="" disabled>Select State</option>
+                      {indianStates?.map((s, index) => (
+                        <option key={`state-${index}`} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      name="state"
+                      value={form.state}
+                      onChange={handleChange}
+                      placeholder="Enter state"
+                      className="w-full mt-1 px-3 py-2 border bg-[#F0F0F0] rounded-md"
+                      required
+                    />
+                  )}
                 </div>
 
                 <div>
