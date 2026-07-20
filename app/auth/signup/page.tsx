@@ -194,7 +194,7 @@ const SignupPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: form.email }),
+        body: JSON.stringify({ email: form.email, isResend: true }),
       });
 
       const data = await res.json();
