@@ -77,6 +77,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const targetItemId = isExam ? itemData.examId : itemData.courseId;
+    const cleanEmail = email.trim();
+    const emailEscaped = cleanEmail.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    const emailRegex = new RegExp(`^${emailEscaped}$`, "i");
+
+    // Prevent duplicate purchases if email already has a completed enrollment for this item
+    const existingEnrollment = await db.collection("enrollments").findOne({
+      email: { $regex: emailRegex },
+      status: "completed",
+      $or: [
+        ...(targetItemId ? [{ courseId: targetItemId }] : []),
+        { course: course },
+        { course: itemData.title }
+      ]
+    });
+
+    if (existingEnrollment) {
+      const itemNoun = isExam ? "certification" : "course";
+      return NextResponse.json(
+        {
+          success: false,
+          alreadyPurchased: true,
+          itemType: isExam ? "exam" : "course",
+          message: `You have already purchased this ${itemNoun} ("${course}") with this email (${cleanEmail}). Please log in to your account to access it.`
+        },
+        { status: 400 }
+      );
+    }
+
     // For exams, prioritize discountedPrice if available
     const priceString = isExam ? (itemData.discountedPrice || itemData.price) : itemData.price;
     const price = parseFloat(priceString || "0");

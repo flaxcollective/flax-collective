@@ -26,17 +26,18 @@ const CustomGoogleButton = ({ onSuccess }: { onSuccess: (res: any) => void }) =>
 
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const { setUser } = useAuth();
-
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const from = searchParams.get("from");
   const callbackUrl = searchParams.get("callbackUrl");
+  const emailParam = searchParams.get("email") || "";
+
+  const [email, setEmail] = useState(emailParam);
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { setUser } = useAuth();
 
 
   const handleLogin = async (e: React.FormEvent) => {
