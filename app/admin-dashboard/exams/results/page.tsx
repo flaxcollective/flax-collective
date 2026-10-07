@@ -85,10 +85,10 @@ function ResultsContent() {
           </Link>
           <div>
             <h2 className="text-xl font-bold text-[#2F3E56] leading-none">
-              Exam Results & Audits
+              E-Certification Results & Audits
             </h2>
             <p className="text-gray-400 text-xs mt-1">
-              Audit student certification exam attempts, scores, and track issued certificates.
+              Audit student e-certification attempts, scores, and track issued certificates.
             </p>
           </div>
         </div>
@@ -131,7 +131,7 @@ function ResultsContent() {
                 }}
                 className="w-full sm:w-44 px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#2F3E56] cursor-pointer"
               >
-                <option value="All">All Exams</option>
+                <option value="All">All E-Certifications</option>
                 <option value="DLC">Digital Literacy</option>
                 <option value="AEC">Advanced Excel</option>
                 <option value="MWC">Microsoft Word</option>
@@ -160,7 +160,7 @@ function ResultsContent() {
               <tr>
                 <th className="px-6 py-4">Submission Date</th>
                 <th className="px-6 py-4">Candidate</th>
-                <th className="px-6 py-4">Exam / Test</th>
+                <th className="px-6 py-4">E-Certification</th>
                 <th className="px-6 py-4">Score</th>
                 <th className="px-6 py-4 text-center">Correct Ratio</th>
                 <th className="px-6 py-4 text-center">Status</th>
@@ -180,7 +180,7 @@ function ResultsContent() {
               ) : results.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="text-center py-16 text-gray-400 font-semibold">
-                    No matching certification exam results found.
+                    No matching e-certification results found.
                   </td>
                 </tr>
               ) : (

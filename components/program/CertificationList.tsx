@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Award, Clock, FileText, CheckCircle2, ArrowRight, CheckCircle } from "lucide-react";
+import { Award, Clock, FileText, CheckCircle2, ArrowRight, CheckCircle, Share2, Check } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 export interface ExamItem {
@@ -30,14 +30,17 @@ export interface ExamItem {
 
 interface CertificationListProps {
   onApplyExam: (examTitle: string) => void;
+  targetExam?: string;
 }
 
-export default function CertificationList({ onApplyExam }: CertificationListProps) {
+export default function CertificationList({ onApplyExam, targetExam }: CertificationListProps) {
   const router = useRouter();
   const { user } = useAuth();
   const [exams, setExams] = useState<ExamItem[]>([]);
   const [selectedExam, setSelectedExam] = useState<ExamItem | null>(null);
   const [loading, setLoading] = useState(true);
+  const [highlightedExamId, setHighlightedExamId] = useState<string | null>(null);
+  const [copiedExamId, setCopiedExamId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/exams")
@@ -54,6 +57,37 @@ export default function CertificationList({ onApplyExam }: CertificationListProp
         setLoading(false);
       });
   }, [user]);
+
+  // Handle auto-scroll and highlight when targetExam is passed
+  useEffect(() => {
+    if (!targetExam || exams.length === 0) return;
+
+    const query = decodeURIComponent(targetExam).trim().toLowerCase();
+    const matched = exams.find(
+      (e) =>
+        e.examId.toLowerCase() === query ||
+        e.title.toLowerCase() === query ||
+        e.title.toLowerCase().includes(query)
+    );
+
+    if (matched) {
+      setHighlightedExamId(matched.examId);
+      const timer = setTimeout(() => {
+        const el = document.getElementById(`exam-${matched.examId}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [targetExam, exams]);
+
+  const handleCopyExamLink = (examId: string) => {
+    const url = `${window.location.origin}/programs?exam=${encodeURIComponent(examId)}#e-certifications-section`;
+    navigator.clipboard.writeText(url);
+    setCopiedExamId(examId);
+    setTimeout(() => setCopiedExamId(null), 2200);
+  };
 
   const calculateDiscount = (original: string, discounted: string) => {
     const o = parseFloat(original);
@@ -80,21 +114,44 @@ export default function CertificationList({ onApplyExam }: CertificationListProp
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {exams.map((exam) => {
                 const discountPct = calculateDiscount(exam.price, exam.discountedPrice);
-            return (
-              <div
-                key={exam.examId}
-                className="bg-[#6E7C3A26] rounded-2xl border border-[#BDBDBD] p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
-              >
-                <div>
-                  {/* Top Badge & Exam Icon */}
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#2F3E56]/10 text-[#2F3E56]">
-                      Online Exam
-                    </span>
-                    <div className="w-9 h-9 rounded-full bg-[#736A2F]/15 flex items-center justify-center text-[#736A2F]">
-                      <Award className="w-5 h-5" />
-                    </div>
-                  </div>
+                const isHighlighted = highlightedExamId === exam.examId;
+                return (
+                  <div
+                    key={exam.examId}
+                    id={`exam-${exam.examId}`}
+                    className={`bg-[#6E7C3A26] rounded-2xl border p-5 shadow-sm transition-all duration-500 flex flex-col justify-between hover:-translate-y-1 relative ${
+                      isHighlighted
+                        ? "ring-4 ring-[#6E7C3A] shadow-2xl scale-[1.02] border-[#6E7C3A] bg-amber-50/50"
+                        : "border-[#BDBDBD] hover:shadow-md"
+                    }`}
+                  >
+                    <div>
+                      {/* Top Badge & Exam Icon & Share Button */}
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#2F3E56]/10 text-[#2F3E56]">
+                          Online Exam
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCopyExamLink(exam.examId);
+                            }}
+                            className="w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center text-gray-600 hover:text-[#2F3E56] transition-all cursor-pointer shadow-xs border border-gray-200/50"
+                            title="Copy direct shareable link"
+                          >
+                            {copiedExamId === exam.examId ? (
+                              <Check className="w-4 h-4 text-green-700" />
+                            ) : (
+                              <Share2 className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                          <div className="w-9 h-9 rounded-full bg-[#736A2F]/15 flex items-center justify-center text-[#736A2F]">
+                            <Award className="w-5 h-5" />
+                          </div>
+                        </div>
+                      </div>
 
                   {/* Title */}
                   <h4 className="font-semibold text-base text-[#111] leading-snug min-h-[48px] line-clamp-2">

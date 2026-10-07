@@ -108,14 +108,23 @@ const initialCourses = [
   }
 ];
 
+import { Share2, Check } from "lucide-react";
+
 interface HomeProgramsProps {
   onApplyNow: (courseTitle: string) => void;
+  targetCourse?: string;
 }
 
-export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
+const getCourseIdentifier = (course: any) => {
+  return course.slug || course.courseId || course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+};
+
+export default function HomePrograms({ onApplyNow, targetCourse }: HomeProgramsProps) {
   const [courses, setCourses] = useState<any[]>(initialCourses);
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
   const [failedIcons, setFailedIcons] = useState<Record<string, boolean>>({});
+  const [highlightedCourseKey, setHighlightedCourseKey] = useState<string | null>(null);
+  const [copiedCourseKey, setCopiedCourseKey] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/courses")
@@ -127,6 +136,46 @@ export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
       })
       .catch(err => console.error("Error loading courses:", err));
   }, []);
+
+  // Handle auto-scroll and highlight when targetCourse is passed
+  useEffect(() => {
+    if (!targetCourse || courses.length === 0) return;
+
+    const query = decodeURIComponent(targetCourse).trim().toLowerCase();
+    const matched = courses.find((c: any) => {
+      const slug = (c.slug || "").toLowerCase();
+      const id = (c.courseId || "").toLowerCase();
+      const title = (c.title || "").toLowerCase();
+      return (
+        slug === query ||
+        id === query ||
+        title === query ||
+        title.includes(query) ||
+        getCourseIdentifier(c) === query
+      );
+    });
+
+    if (matched) {
+      const key = getCourseIdentifier(matched);
+      setHighlightedCourseKey(key);
+      const timer = setTimeout(() => {
+        const el = document.getElementById(`course-${key}`);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 450);
+      return () => clearTimeout(timer);
+    }
+  }, [targetCourse, courses]);
+
+  const handleCopyCourseLink = (course: any) => {
+    const key = getCourseIdentifier(course);
+    const url = `${window.location.origin}/programs?course=${encodeURIComponent(key)}#programs`;
+    navigator.clipboard.writeText(url);
+    setCopiedCourseKey(key);
+    setTimeout(() => setCopiedCourseKey(null), 2200);
+  };
+
   return (
     <>
       <section id="programs" className="programs-section md:py-20">
@@ -143,17 +192,42 @@ export default function HomePrograms({ onApplyNow }: HomeProgramsProps) {
           <div className="programs-grid">
             {courses.filter((course: any) => course.isActive !== false).map((course, idx) => {
               const hasIcon = course.icon && !failedIcons[course.title];
+              const courseKey = getCourseIdentifier(course);
+              const isHighlighted = highlightedCourseKey === courseKey;
               return (
-                <div key={idx} className="program-card">
-                  {hasIcon && (
-                    <div className="program-icon-wrap">
-                      <img 
-                        src={course.icon} 
-                        alt={course.title} 
-                        onError={() => setFailedIcons(prev => ({ ...prev, [course.title]: true }))}
-                      />
-                    </div>
-                  )}
+                <div
+                  key={idx}
+                  id={`course-${courseKey}`}
+                  className={`program-card ${isHighlighted ? "program-card-highlighted" : ""}`}
+                >
+                  <div className="flex items-center justify-between w-full mb-2">
+                    {hasIcon ? (
+                      <div className="program-icon-wrap" style={{ marginBottom: 0 }}>
+                        <img 
+                          src={course.icon} 
+                          alt={course.title} 
+                          onError={() => setFailedIcons(prev => ({ ...prev, [course.title]: true }))}
+                        />
+                      </div>
+                    ) : <div />}
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCopyCourseLink(course);
+                      }}
+                      className="w-7 h-7 rounded-full bg-white/80 hover:bg-white flex items-center justify-center text-gray-600 hover:text-[#2F3E56] transition-all cursor-pointer shadow-xs border border-gray-200/60"
+                      title="Copy direct share link"
+                    >
+                      {copiedCourseKey === courseKey ? (
+                        <Check size={14} className="text-green-700 font-bold" />
+                      ) : (
+                        <Share2 size={13} />
+                      )}
+                    </button>
+                  </div>
+
                   <div className="program-card-content">
                     <h4>{course.title}</h4>
                   </div>
