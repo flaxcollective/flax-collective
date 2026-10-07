@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
 
     // Map through exams and associate status
     const resolvedExams = exams.map((exam) => {
-      const isPurchased = enrollments.some(e => e.courseId === exam.examId);
+      const isPurchased = enrollments.some(e => e.courseId === exam.examId || e.course === exam.title);
       const examSessions = sessions.filter(s => s.examId === exam.examId);
       
       // Check if they have passed

@@ -33,6 +33,7 @@ const defaultForm = {
 export default function StudentModal({ isOpen, onClose, initialCourse, type = "course", availableExams }: StudentModalProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [alreadyPurchased, setAlreadyPurchased] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [form, setForm] = useState(defaultForm);
   const [coursesList, setCoursesList] = useState<string[]>([]);
@@ -116,6 +117,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse, type = "c
       const timer = setTimeout(() => {
         setStatus("idle");
         setErrorMsg("");
+        setAlreadyPurchased(false);
         setForm(defaultForm);
       }, 300);
       return () => clearTimeout(timer);
@@ -124,13 +126,42 @@ export default function StudentModal({ isOpen, onClose, initialCourse, type = "c
 
   if (!isOpen) return null;
 
+  const checkDuplicatePurchase = async (emailToCheck: string, courseToCheck: string) => {
+    if (!emailToCheck || !courseToCheck || !emailToCheck.includes("@")) return;
+    try {
+      const res = await fetch(`/api/enrollment/check?email=${encodeURIComponent(emailToCheck)}&course=${encodeURIComponent(courseToCheck)}&type=${isExam ? "exam" : "course"}`);
+      const data = await res.json();
+      if (data.success && data.alreadyPurchased) {
+        setAlreadyPurchased(true);
+        setStatus("error");
+        setErrorMsg(data.message || "You have already purchased this certification with this email.");
+      } else if (alreadyPurchased) {
+        setAlreadyPurchased(false);
+        if (status === "error") {
+          setStatus("idle");
+          setErrorMsg("");
+        }
+      }
+    } catch (err) {
+      console.warn("Failed to check duplicate enrollment:", err);
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, type } = e.target;
     const value = type === "checkbox"
       ? (e.target as HTMLInputElement).checked
       : e.target.value;
 
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => {
+      const updated = { ...prev, [name]: value };
+      if (name === "email" && alreadyPurchased) {
+        setAlreadyPurchased(false);
+        setErrorMsg("");
+        setStatus("idle");
+      }
+      return updated;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -177,7 +208,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse, type = "c
         body: JSON.stringify({ ...form, type: isExam ? "exam" : "course", recaptchaToken }),
       });
 
-      const data = await res.json() as { success: boolean; message?: string; redirectUrl?: string };
+      const data = await res.json() as { success: boolean; message?: string; redirectUrl?: string; alreadyPurchased?: boolean };
 
       if (data.success) {
         setRecaptchaToken(null);
@@ -191,6 +222,9 @@ export default function StudentModal({ isOpen, onClose, initialCourse, type = "c
         }
       } else {
         setStatus("error");
+        if (data.alreadyPurchased) {
+          setAlreadyPurchased(true);
+        }
         setErrorMsg(data.message ?? "Something went wrong. Please try again.");
       }
     } catch (err) {
@@ -238,7 +272,17 @@ export default function StudentModal({ isOpen, onClose, initialCourse, type = "c
                 )}
                 <div className="modal-input-group">
                   <label>Your Email</label>
-                  <input name="email" type="email" placeholder="Enter Your Email" value={form.email} onChange={handleChange} required disabled={!!user} style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined} />
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="Enter Your Email"
+                    value={form.email}
+                    onChange={handleChange}
+                    onBlur={() => checkDuplicatePurchase(form.email, form.course)}
+                    required
+                    disabled={!!user}
+                    style={user ? { backgroundColor: '#f3f4f6', cursor: 'not-allowed', color: '#6b7280' } : undefined}
+                  />
                 </div>                 
                 {!hasProfile && (
                   <>
@@ -330,7 +374,15 @@ export default function StudentModal({ isOpen, onClose, initialCourse, type = "c
                 )}
                 <div className="modal-input-group">
                   <label>{isExam ? "Certification Exam" : "Course"}</label>
-                  <select name="course" value={form.course} onChange={handleChange} required>
+                  <select
+                    name="course"
+                    value={form.course}
+                    onChange={(e) => {
+                      handleChange(e);
+                      checkDuplicatePurchase(form.email, e.target.value);
+                    }}
+                    required
+                  >
                     <option value="" disabled hidden>
                       {isExam ? "Certification You Are Interested In:" : "Course You Are Interested In:"}
                     </option>
@@ -367,11 +419,70 @@ export default function StudentModal({ isOpen, onClose, initialCourse, type = "c
 
               <ReCaptcha onVerify={setRecaptchaToken} />
 
-              {status === "error" && (
+              {alreadyPurchased ? (
+                <div style={{
+                  backgroundColor: '#fffbeb',
+                  border: '1px solid #fde68a',
+                  borderRadius: '12px',
+                  padding: '14px',
+                  marginBottom: '16px',
+                  textAlign: 'left'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#92400e', fontWeight: 700, fontSize: '13px' }}>
+                    <span>⚠️ Already Purchased</span>
+                  </div>
+                  <p style={{ margin: '6px 0 10px 0', fontSize: '12px', color: '#78350f', lineHeight: '1.4' }}>
+                    {errorMsg || `You have already purchased this ${isExam ? "certification" : "course"} with this email (${form.email}).`}
+                  </p>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <a
+                      href={`/auth/login?email=${encodeURIComponent(form.email)}&callbackUrl=${encodeURIComponent(isExam ? "/dashboard/e-certification" : "/dashboard")}`}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        backgroundColor: '#2F3E56',
+                        color: '#ffffff',
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        textDecoration: 'none'
+                      }}
+                    >
+                      Log In to Access {isExam ? "Exam" : "Course"} →
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAlreadyPurchased(false);
+                        setForm(prev => ({ ...prev, email: "" }));
+                        setErrorMsg("");
+                        setStatus("idle");
+                      }}
+                      style={{
+                        backgroundColor: '#ffffff',
+                        border: '1px solid #d1d5db',
+                        color: '#374151',
+                        padding: '8px 12px',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                        fontWeight: 500
+                      }}
+                    >
+                      Use Different Email
+                    </button>
+                  </div>
+                </div>
+              ) : status === "error" && (
                 <p className="modal-error-msg">{errorMsg}</p>
               )}
 
-              <button type="submit" className="modal-submit-btn" disabled={status === "loading" || (!recaptchaToken && process.env.NODE_ENV !== "development")}>
+              <button
+                type="submit"
+                className="modal-submit-btn"
+                disabled={status === "loading" || alreadyPurchased || (!recaptchaToken && process.env.NODE_ENV !== "development")}
+              >
                 {status === "loading" ? (
                   <span className="modal-loading-text">
                     <span className="modal-spinner" />
