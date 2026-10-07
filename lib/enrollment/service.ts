@@ -43,24 +43,46 @@ export async function completeEnrollment(enrollmentId: string, pgTxnId?: string)
     await sendEnrollmentSuccessEmail(enrollment.email, studentName, enrollment.course);
   }
 
-  // 1.5 Update user profile if user exists with the details they provided during checkout
+  // 1.5 Update or create user account with the details they provided during checkout
   try {
-    await db.collection("users").updateOne(
-      { email: enrollment.email },
-      {
-        $set: {
-          name: studentName,
-          phone: enrollment.mobile,
-          countryCode: enrollment.countryCode,
-          country: enrollment.country,
-          state: enrollment.state,
-          city: enrollment.city,
+    const existingUser = await db.collection("users").findOne({ email: enrollment.email });
+    if (!existingUser) {
+      const { getNextSequence } = await import("../mongodb");
+      const sequenceValue = await getNextSequence("userId");
+      const userId = `FC${1000 + sequenceValue}`;
+      const now = new Date().toISOString();
+      await db.collection("users").insertOne({
+        id: userId,
+        name: studentName,
+        email: enrollment.email,
+        phone: enrollment.mobile,
+        countryCode: enrollment.countryCode,
+        country: enrollment.country,
+        state: enrollment.state,
+        city: enrollment.city,
+        usertype: "student",
+        createdAt: now,
+        updatedAt: now,
+      });
+      console.log(`[SERVICE] Created new user profile for ${enrollment.email} with id ${userId}`);
+    } else {
+      await db.collection("users").updateOne(
+        { email: enrollment.email },
+        {
+          $set: {
+            name: studentName,
+            phone: enrollment.mobile,
+            countryCode: enrollment.countryCode,
+            country: enrollment.country,
+            state: enrollment.state,
+            city: enrollment.city,
+          }
         }
-      }
-    );
-    console.log(`[SERVICE] Updated user profile for ${enrollment.email}`);
+      );
+      console.log(`[SERVICE] Updated user profile for ${enrollment.email}`);
+    }
   } catch (err) {
-    console.error("[SERVICE] Error updating user profile:", err);
+    console.error("[SERVICE] Error updating/creating user profile:", err);
   }
 
   // 2. Sync to Google Sheets

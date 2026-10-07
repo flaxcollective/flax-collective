@@ -21,7 +21,7 @@ export interface QuestionSeed {
   explanation: string;
 }
 
-const defaultExams: ExamSeed[] = [
+export const defaultExams: ExamSeed[] = [
   {
     examId: "CMS",
     title: "Communication Skills Certification",
@@ -144,18 +144,18 @@ const defaultExams: ExamSeed[] = [
   },
 ];
 
-const defaultQuestions: QuestionSeed[] = [
+export const defaultQuestions: QuestionSeed[] = [
   // ==================== TOPIC 1: COMMUNICATION SKILLS (CMS) ====================
   {
     examId: "CMS",
     questionText: "What is the most important element of active listening?",
     options: [
+      "Multitasking while listening",
       "Interrupting to share your view",
       "Maintaining eye contact and not interrupting",
-      "Thinking about your reply while the other person talks",
-      "Multitasking while listening"
+      "Thinking about your reply while the other person talks"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Active listening focuses on understanding the speaker entirely rather than waiting to respond."
   },
   {
@@ -163,33 +163,33 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "In professional communication, 'tone' primarily refers to:",
     options: [
       "The volume of your voice",
+      "The length of the message",
       "The attitude conveyed through words and delivery",
-      "The grammar used",
-      "The length of the message"
+      "The grammar used"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Tone carries the emotional and attitude-based qualities of delivery in both writing and speech."
   },
   {
     examId: "CMS",
     questionText: "Which of these is an example of non-verbal communication?",
     options: [
+      "Body language",
       "An email",
       "A phone call",
-      "Body language",
       "A text message"
     ],
-    correctOption: "C",
+    correctOption: "A",
     explanation: "Body language, gestures, and postures convey messages without speaking words."
   },
   {
     examId: "CMS",
     questionText: "The '7 Cs of Communication' include all EXCEPT:",
     options: [
-      "Clarity",
       "Conciseness",
+      "Courtesy",
       "Complexity",
-      "Courtesy"
+      "Clarity"
     ],
     correctOption: "C",
     explanation: "The 7 Cs highlight clarity, conciseness, and courtesy. Complexity acts as a communication barrier."
@@ -198,12 +198,12 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CMS",
     questionText: "When giving feedback to a colleague, it is best to:",
     options: [
+      "Avoid giving feedback altogether",
       "Criticize in front of others for accountability",
       "Focus on behavior, not personality",
-      "Avoid giving feedback altogether",
       "Only give feedback via email"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Feedback should be objective and act on observable behaviors to remain constructive."
   },
   {
@@ -211,20 +211,20 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Paraphrasing in communication is used to:",
     options: [
       "Show off vocabulary",
+      "Delay the conversation",
       "Confirm understanding of the speaker's message",
-      "Change the topic",
-      "Delay the conversation"
+      "Change the topic"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Rephrasing the speaker's ideas confirms that you have accurately captured their intent."
   },
   {
     examId: "CMS",
     questionText: "Which channel is most appropriate for delivering sensitive feedback?",
     options: [
-      "Group chat",
-      "Face-to-face or video call",
       "Mass email",
+      "Face-to-face or video call",
+      "Group chat",
       "Anonymous note"
     ],
     correctOption: "B",
@@ -246,70 +246,70 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CMS",
     questionText: "Which of the following best describes 'assertive communication'?",
     options: [
-      "Aggressively pushing your opinion",
-      "Staying silent to avoid conflict",
       "Expressing your views clearly while respecting others",
-      "Agreeing with everyone to keep peace"
+      "Staying silent to avoid conflict",
+      "Agreeing with everyone to keep peace",
+      "Aggressively pushing your opinion"
     ],
-    correctOption: "C",
+    correctOption: "A",
     explanation: "Assertive styles state requirements clearly while keeping respect for other perspectives intact."
   },
   {
     examId: "CMS",
     questionText: "Open-ended questions are useful because they:",
     options: [
-      "Can be answered with yes/no",
-      "Encourage detailed responses",
       "Are quicker to answer",
-      "Limit the conversation"
+      "Limit the conversation",
+      "Can be answered with yes/no",
+      "Encourage detailed responses"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Open-ended prompts require thought and description beyond binary 'yes' or 'no' replies."
   },
   {
     examId: "CMS",
     questionText: "What does 'noise' mean in the communication process?",
     options: [
-      "Background music",
       "Any interference that distorts the message",
-      "The sender's voice",
-      "The receiver's reply"
+      "The receiver's reply",
+      "Background music",
+      "The sender's voice"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Noise comprises environmental, psychological, or semantic elements that distort message parsing."
   },
   {
     examId: "CMS",
     questionText: "Which is a barrier to effective communication?",
     options: [
-      "Clear language",
-      "Active listening",
+      "Asking clarifying questions",
       "Cultural differences and assumptions",
-      "Asking clarifying questions"
+      "Active listening",
+      "Clear language"
     ],
-    correctOption: "C",
+    correctOption: "B",
     explanation: "Misinterpreted cultural norms and pre-assumptions present severe blocks to mutual comprehension."
   },
   {
     examId: "CMS",
     questionText: "In written communication, clarity is best achieved by:",
     options: [
-      "Using complex jargon",
-      "Using short, simple, direct sentences",
+      "Avoiding punctuation",
       "Writing very long paragraphs",
-      "Avoiding punctuation"
+      "Using complex jargon",
+      "Using short, simple, direct sentences"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Clarity utilizes straightforward sentences that convey a single message block concisely."
   },
   {
     examId: "CMS",
     questionText: "The best response to an angry customer is to:",
     options: [
-      "Match their tone",
-      "Stay calm, listen, and acknowledge their concern",
       "Hang up immediately",
-      "Argue back to prove your point"
+      "Stay calm, listen, and acknowledge their concern",
+      "Argue back to prove your point",
+      "Match their tone"
     ],
     correctOption: "B",
     explanation: "Remaining calm and acknowledging concerns diffuses emotional tension to let problem-solving begin."
@@ -318,24 +318,24 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CMS",
     questionText: "Which is an example of upward communication?",
     options: [
-      "Manager briefing the team",
       "Employee reporting an issue to their manager",
       "Company newsletter",
-      "Peer-to-peer chat"
+      "Peer-to-peer chat",
+      "Manager briefing the team"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Upward channels direct messages from lower levels of organizational hierarchies to higher-ups."
   },
   {
     examId: "CMS",
     questionText: "Effective communication in a team primarily helps to:",
     options: [
-      "Increase confusion",
-      "Reduce misunderstandings and improve collaboration",
       "Slow down decision-making",
-      "Create unnecessary meetings"
+      "Create unnecessary meetings",
+      "Increase confusion",
+      "Reduce misunderstandings and improve collaboration"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Clear team alignments minimize overlapping work and lower conflict frequency."
   },
   {
@@ -354,12 +354,12 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CMS",
     questionText: "What is the purpose of a feedback loop in communication?",
     options: [
-      "To end the conversation quickly",
       "To confirm the message was understood correctly",
       "To repeat the same message twice",
+      "To end the conversation quickly",
       "To avoid responding"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "A feedback loop allows the sender to check if the message received aligns with their original intent."
   },
   {
@@ -367,23 +367,23 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Which of these improves clarity in a presentation?",
     options: [
       "Reading directly from slides",
+      "Speaking very fast to cover more content",
       "Structuring content with a clear beginning, middle, and end",
-      "Using as much text as possible on slides",
-      "Speaking very fast to cover more content"
+      "Using as much text as possible on slides"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "A sequential, logical layout helps retain audience focus and attention across slides."
   },
   {
     examId: "CMS",
     questionText: "Cultural sensitivity in communication means:",
     options: [
-      "Ignoring cultural differences",
-      "Adapting your style with awareness of others' backgrounds",
+      "Avoiding communication with other cultures",
       "Using only your own cultural norms",
-      "Avoiding communication with other cultures"
+      "Ignoring cultural differences",
+      "Adapting your style with awareness of others' backgrounds"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Sensitivity accommodates cultural variations to build productive collaboration networks."
   },
 
@@ -392,12 +392,12 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "EPE",
     questionText: "A professional email subject line should be:",
     options: [
-      "Vague and generic",
-      "Clear and specific to the email's purpose",
       "Left blank",
-      "Written in all caps"
+      "Vague and generic",
+      "Written in all caps",
+      "Clear and specific to the email's purpose"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "A specific subject helps recipients prioritize their inbox and retrieve emails later."
   },
   {
@@ -405,9 +405,10 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Which greeting is most appropriate in a formal business email?",
     options: [
       "Hey there!",
-      "Dear Mr./Ms. [Last Name],",
-      "To,",
-      "To whomever it concerns"
+      "Dear Mr./Ms. [Last Name]",
+      "Yo team",
+      "What's up"
+
     ],
     correctOption: "B",
     explanation: "Formal openings set a respectful, professional relationship boundary in external threads."
@@ -416,21 +417,21 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "EPE",
     questionText: "When should you use 'Reply All'?",
     options: [
-      "Every time, regardless of relevance",
       "Only when the response is relevant to everyone on the thread",
       "Never",
-      "Just to let your boss know how much you work"
+      "Just to let your boss know how much you work",
+      "Every time, regardless of relevance"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Reply All should be reserved for updates that are strictly relevant to every CC'd address."
   },
   {
     examId: "EPE",
     questionText: "The CC field in an email is used to:",
     options: [
-      "Hide recipients from each other",
-      "Keep people informed without requiring action",
       "Send the primary request",
+      "Keep people informed without requiring action",
+      "Hide recipients from each other",
       "Block the email from being forwarded"
     ],
     correctOption: "B",
@@ -441,23 +442,23 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "What is the ideal length for a professional email?",
     options: [
       "As long as possible to show effort",
-      "Concise and to the point",
       "Exactly 500 words",
+      "Concise and to the point",
       "One word"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Concise logs increase the likelihood of quick reads and action responses from busy partners."
   },
   {
     examId: "EPE",
     questionText: "Before sending an important email, you should always:",
     options: [
-      "Send it immediately without review",
       "Proofread for spelling, grammar, and tone",
-      "Add unnecessary attachments",
-      "Use as much jargon as possible"
+      "Use as much jargon as possible",
+      "Send it immediately without review",
+      "Add unnecessary attachments"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Proofreading minimizes errors and ensures the tone translates correctly in written form."
   },
   {
@@ -465,33 +466,33 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Which of these is considered poor email etiquette?",
     options: [
       "Using a clear subject line",
+      "Responding within 24-48 hours",
       "Writing in ALL CAPS to emphasize a point",
-      "Signing off with your name",
-      "Responding within 24-48 hours"
+      "Signing off with your name"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "ALL CAPS translates to shouting in digital communication, appearing confrontational."
   },
   {
     examId: "EPE",
     questionText: "The BCC field should be used when:",
     options: [
+      "You are sending spam",
       "You want all recipients to see each other's emails",
-      "You want to hide a recipient's identity from others on the thread",
       "You want to highlight the most important recipient",
-      "You are sending spam"
+      "You want to hide a recipient's identity from others on the thread"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "BCC hides recipient addresses, preventing shared disclosure or circular threads."
   },
   {
     examId: "EPE",
     questionText: "A professional email signature typically includes:",
     options: [
-      "Only your first name",
+      "Nothing at all",
       "Name, designation, and contact information",
-      "Your home address",
-      "Nothing at all"
+      "Only your first name",
+      "Your home address"
     ],
     correctOption: "B",
     explanation: "Signatures provide necessary contact detail and verify your organizational title."
@@ -500,10 +501,10 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "EPE",
     questionText: "What is the best practice when forwarding a long email thread?",
     options: [
-      "Forward everything without summary",
-      "Add a short summary or context at the top",
       "Delete the original sender's name",
-      "Change the subject line randomly"
+      "Add a short summary or context at the top",
+      "Change the subject line randomly",
+      "Forward everything without summary"
     ],
     correctOption: "B",
     explanation: "A top-level summary clarifies the action required from the newly added recipient."
@@ -512,60 +513,60 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "EPE",
     questionText: "Which tone is most appropriate for a formal business email?",
     options: [
-      "Casual and full of slang",
-      "Polite, professional, and neutral",
       "Overly emotional",
-      "Sarcastic"
+      "Sarcastic",
+      "Casual and full of slang",
+      "Polite, professional, and neutral"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Neutral, respectful statements prevent misinterpretations and preserve work relationships."
   },
   {
     examId: "EPE",
     questionText: "When you make an error in a sent email, the best action is to:",
     options: [
-      "Ignore it",
       "Send a polite follow-up correction",
-      "Blame someone else",
-      "Delete the email from your own inbox only"
+      "Ignore it",
+      "Delete the email from your own inbox only",
+      "Blame someone else"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Sending a prompt, polite correction shows accountability and provides the right records."
   },
   {
     examId: "EPE",
     questionText: "What should you check before attaching a file to an email?",
     options: [
-      "The file is irrelevant",
-      "The correct file is attached and properly named",
       "The file size is unnecessarily large",
-      "Nothing, just attach anything"
+      "The file is irrelevant",
+      "Nothing, just attach anything",
+      "The correct file is attached and properly named"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Verifying attachments prevents leaking confidential info or sending stale revisions."
   },
   {
     examId: "EPE",
     questionText: "Using emojis in professional emails is generally:",
     options: [
-      "Always encouraged",
-      "Acceptable occasionally depending on context and relationship",
+      "Required for every greeting",
       "Mandatory in every email",
-      "Required for every greeting"
+      "Always encouraged",
+      "Acceptable occasionally depending on context and relationship"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Emojis can soften a message, but their use depends heavily on company culture and relationships."
   },
   {
     examId: "EPE",
     questionText: "The closing line 'Best regards,' is an example of:",
     options: [
-      "A subject line",
       "A professional sign-off",
-      "An attachment note",
-      "A greeting"
+      "A subject line",
+      "A greeting",
+      "An attachment note"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Sign-offs close the document politely, transitioning into your signature block."
   },
   {
@@ -573,11 +574,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "When writing to a client for the first time, you should:",
     options: [
       "Use informal language immediately",
-      "Introduce yourself clearly and state the purpose politely",
       "Skip the greeting",
+      "Introduce yourself clearly and state the purpose politely",
       "Use excessive abbreviations"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Polite introductions build positive brand equity on new client connections."
   },
   {
@@ -585,23 +586,23 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "What is 'email tone mismatch'?",
     options: [
       "When the font size varies",
-      "When the written tone is misread compared to intended meaning",
       "When the email bounces back",
-      "When attachments fail to open"
+      "When attachments fail to open",
+      "When the written tone is misread compared to intended meaning"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Text lacks vocal indicators, which often causes flat emails to read as cold or hostile."
   },
   {
     examId: "EPE",
     questionText: "A good practice for response time to professional emails is:",
     options: [
-      "Never reply",
-      "Reply within a reasonable time frame, generally 24-48 hours",
+      "Reply only if reminded twice",
       "Wait one month",
-      "Reply only if reminded twice"
+      "Reply within a reasonable time frame, generally 24-48 hours",
+      "Never reply"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Responding within 24-48 hours keeps operations fluid and signals reliability."
   },
   {
@@ -610,22 +611,22 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "Hi",
       "Meeting",
-      "Action Required: Submit Report by Friday EOD",
-      "FYI"
+      "FYI",
+      "Action Required: Submit Report by Friday EOD"
     ],
-    correctOption: "C",
+    correctOption: "D",
     explanation: "Action-oriented subjects specify exact urgency criteria for the recipient."
   },
   {
     examId: "EPE",
     questionText: "Why should you avoid excessive exclamation marks in professional emails?",
     options: [
-      "They save space",
-      "They can come across as unprofessional or overly emotional",
       "They are required for emphasis",
-      "They increase email size"
+      "They increase email size",
+      "They can come across as unprofessional or overly emotional",
+      "They save space"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Multiple exclamation marks dilute professionalism and make messages appear intense."
   },
 
@@ -634,12 +635,12 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "TMP",
     questionText: "The Eisenhower Matrix categorizes tasks based on:",
     options: [
-      "Cost and budget",
-      "Urgency and importance",
       "Length and complexity",
-      "Team size"
+      "Team size",
+      "Cost and budget",
+      "Urgency and importance"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "The Matrix divides tasks into four quadrants of urgency and importance to guide priorities."
   },
   {
@@ -658,9 +659,9 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "TMP",
     questionText: "Which technique involves working in focused 25-minute intervals with breaks?",
     options: [
-      "Eisenhower Matrix",
-      "Pomodoro Technique",
       "SWOT Analysis",
+      "Pomodoro Technique",
+      "Eisenhower Matrix",
       "SMART Goals"
     ],
     correctOption: "B",
@@ -670,58 +671,58 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "TMP",
     questionText: "A SMART goal should be:",
     options: [
-      "Specific, Measurable, Achievable, Relevant, Time-bound",
-      "Simple, Manageable, Active, Reasonable, Tested",
       "Strategic, Major, Aggressive, Risky, Tactical",
-      "Slow, Methodical, Average, Routine, Typical"
+      "Simple, Manageable, Active, Reasonable, Tested",
+      "Slow, Methodical, Average, Routine, Typical",
+      "Specific, Measurable, Achievable, Relevant, Time-bound"
     ],
-    correctOption: "A",
+    correctOption: "D",
     explanation: "SMART rules refine fuzzy objectives into concrete, trackable project timelines."
   },
   {
     examId: "TMP",
     questionText: "Procrastination is best addressed by:",
     options: [
-      "Waiting for motivation to strike",
-      "Breaking tasks into smaller, manageable steps",
       "Avoiding the task entirely",
-      "Multitasking heavily"
+      "Multitasking heavily",
+      "Waiting for motivation to strike",
+      "Breaking tasks into smaller, manageable steps"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Breaking projects into small steps reduces cognitive inertia and fear of failure."
   },
   {
     examId: "TMP",
     questionText: "What is 'time blocking'?",
     options: [
-      "Ignoring deadlines",
       "Allocating specific time slots for specific tasks",
       "Working without any schedule",
+      "Ignoring deadlines",
       "Blocking calendar invites from colleagues"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Allocating dedicated blocks for tasks protects focus from incoming meeting request drift."
   },
   {
     examId: "TMP",
     questionText: "Which of these is a common productivity killer?",
     options: [
-      "Prioritizing tasks",
-      "Constant multitasking and context-switching",
+      "Taking scheduled breaks",
       "Setting clear goals",
-      "Taking scheduled breaks"
+      "Prioritizing tasks",
+      "Constant multitasking and context-switching"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Context-switching leaves attention residue, draining mental energy and slowing work."
   },
   {
     examId: "TMP",
     questionText: "A daily to-do list helps primarily by:",
     options: [
-      "Increasing stress",
-      "Providing clarity and prioritization for the day",
       "Filling up time",
-      "Replacing long-term planning"
+      "Providing clarity and prioritization for the day",
+      "Replacing long-term planning",
+      "Increasing stress"
     ],
     correctOption: "B",
     explanation: "Visual lists focus your attention on daily goals and prevent passive task accumulation."
@@ -730,60 +731,60 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "TMP",
     questionText: "What is the main risk of multitasking?",
     options: [
-      "Improved focus",
       "Reduced quality and efficiency due to divided attention",
-      "Faster task completion always",
-      "Better memory retention"
+      "Improved focus",
+      "Better memory retention",
+      "Faster task completion always"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Multitasking divides your cognitive focus, which increases error rates."
   },
   {
     examId: "TMP",
     questionText: "Which is an example of an 'urgent but not important' task?",
     options: [
-      "Long-term strategic planning",
       "A ringing phone call during deep work",
-      "Annual goal setting",
-      "Skill development"
+      "Long-term strategic planning",
+      "Skill development",
+      "Annual goal setting"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Incoming phone calls demand immediate response (urgency) but may not support core goals."
   },
   {
     examId: "TMP",
     questionText: "The term 'deep work' refers to:",
     options: [
+      "Working on multiple shallow tasks at once",
       "Working late at night only",
       "Focused, undistracted work on cognitively demanding tasks",
-      "Working on multiple shallow tasks at once",
       "Taking long breaks"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Deep work isolates your attention to perform complex cognitive tasks efficiently."
   },
   {
     examId: "TMP",
     questionText: "Setting boundaries at work helps with time management by:",
     options: [
-      "Reducing unnecessary interruptions",
       "Increasing workload",
       "Making you unavailable to everyone",
-      "Avoiding all collaboration"
+      "Avoiding all collaboration",
+      "Reducing unnecessary interruptions"
     ],
-    correctOption: "A",
+    correctOption: "D",
     explanation: "Setting limits on direct messages and drop-ins protects hours for focus work."
   },
   {
     examId: "TMP",
     questionText: "Which is a good practice for managing a busy calendar?",
     options: [
-      "Accepting every meeting invite",
       "Reviewing and prioritizing meetings based on necessity",
+      "Scheduling back-to-back meetings with no breaks",
       "Ignoring the calendar entirely",
-      "Scheduling back-to-back meetings with no breaks"
+      "Accepting every meeting invite"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Pruning unnecessary meetings from your calendar saves hours of focus time."
   },
   {
@@ -792,8 +793,8 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "Doing one task per day only",
       "Grouping similar tasks together to do them in one session",
-      "Avoiding repetitive tasks",
-      "Working in random order"
+      "Working in random order",
+      "Avoiding repetitive tasks"
     ],
     correctOption: "B",
     explanation: "Batching handles similar tasks together, reducing the mental cost of context-switching."
@@ -815,9 +816,9 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Why is it important to review your week's tasks regularly?",
     options: [
       "To track and adjust priorities effectively",
-      "It has no real benefit",
+      "To avoid setting any goals",
       "To increase workload",
-      "To avoid setting any goals"
+      "It has no real benefit"
     ],
     correctOption: "A",
     explanation: "Weekly reviews allow you to adjust goals based on actual progress and shifting team priorities."
@@ -826,22 +827,22 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "TMP",
     questionText: "Which of these best supports work-life balance?",
     options: [
+      "Avoiding all planning",
       "Working without breaks",
       "Setting clear work hours and respecting personal time",
-      "Replying to emails 24/7",
-      "Avoiding all planning"
+      "Replying to emails 24/7"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Disconnecting from work email after hours protects personal time and prevents burnout."
   },
   {
     examId: "TMP",
     questionText: "The 'two-minute rule' suggests that:",
     options: [
-      "All tasks take two minutes",
+      "Breaks should last two minutes only",
       "If a task takes less than two minutes, do it immediately",
       "Two minutes should be spent planning each day",
-      "Breaks should last two minutes only"
+      "All tasks take two minutes"
     ],
     correctOption: "B",
     explanation: "Completing quick tasks immediately prevents them from cluttering your to-do list."
@@ -851,21 +852,21 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Delegation is an effective time management tool because it:",
     options: [
       "Removes your responsibility entirely",
-      "Frees up time for higher-priority tasks by assigning suitable tasks to others",
       "Increases your workload",
-      "Should never be used"
+      "Should never be used",
+      "Frees up time for higher-priority tasks by assigning suitable tasks to others"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Delegation allocates tasks to team members with matching skills, freeing up leadership time."
   },
   {
     examId: "TMP",
     questionText: "What is the first step in effective time management?",
     options: [
-      "Working faster",
+      "Ignoring deadlines",
       "Identifying and prioritizing your tasks and goals",
-      "Avoiding all planning tools",
-      "Ignoring deadlines"
+      "Working faster",
+      "Avoiding all planning tools"
     ],
     correctOption: "B",
     explanation: "You must define clear priorities first; speed is useless if you focus on the wrong tasks."
@@ -876,10 +877,10 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "LTM",
     questionText: "A key trait of an effective leader is:",
     options: [
-      "Micromanaging every task",
+      "Working in isolation",
       "Clear vision and the ability to inspire others",
       "Avoiding feedback",
-      "Working in isolation"
+      "Micromanaging every task"
     ],
     correctOption: "B",
     explanation: "Good leaders align efforts around a clear purpose and motivate teams to achieve it."
@@ -888,60 +889,60 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "LTM",
     questionText: "What is the difference between a leader and a manager?",
     options: [
-      "There is no difference",
       "Leaders inspire and set vision; managers focus on execution and processes",
       "Managers always outrank leaders",
+      "There is no difference",
       "Leaders only handle finances"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Management focuses on keeping systems running smoothly, while leadership drives direction and change."
   },
   {
     examId: "LTM",
     questionText: "Situational leadership suggests that leaders should:",
     options: [
-      "Use the same style for every situation",
-      "Adapt their style based on the team's needs and situation",
       "Avoid making decisions",
-      "Delegate everything regardless of context"
+      "Delegate everything regardless of context",
+      "Adapt their style based on the team's needs and situation",
+      "Use the same style for every situation"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Effective leaders adapt their direction and support based on the skill level of their team."
   },
   {
     examId: "LTM",
     questionText: "Delegation is important because it:",
     options: [
+      "Should be avoided by good leaders",
       "Removes accountability from the leader",
       "Develops team members and improves efficiency",
-      "Should be avoided by good leaders",
       "Means giving away all responsibilities"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Delegation helps team members build skills while saving manager time for strategic planning."
   },
   {
     examId: "LTM",
     questionText: "What does 'servant leadership' emphasize?",
     options: [
-      "The leader's personal gain",
       "Leading by prioritizing and supporting the team's growth and needs",
+      "Avoiding team interaction",
       "Strict hierarchy",
-      "Avoiding team interaction"
+      "The leader's personal gain"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Servant leaders focus on supporting and empowering their team members to help them succeed."
   },
   {
     examId: "LTM",
     questionText: "A good leader handles team conflict by:",
     options: [
-      "Ignoring it completely",
       "Facilitating open discussion and fair resolution",
+      "Ignoring it completely",
       "Taking sides immediately",
       "Punishing all involved without investigation"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Good leaders address conflicts early, helping the team resolve issues constructively."
   },
   {
@@ -960,12 +961,12 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "LTM",
     questionText: "Giving constructive feedback as a leader should focus on:",
     options: [
-      "Personal attacks",
       "Specific behaviors and improvement suggestions",
+      "Personal attacks",
       "Past mistakes only",
       "Public humiliation"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Constructive feedback should be actionable and focus on growth rather than criticism."
   },
   {
@@ -984,9 +985,9 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "LTM",
     questionText: "Emotional intelligence in leadership primarily involves:",
     options: [
-      "Ignoring emotions at work",
-      "Understanding and managing one's own and others' emotions effectively",
       "Avoiding empathy",
+      "Understanding and managing one's own and others' emotions effectively",
+      "Ignoring emotions at work",
       "Suppressing all feelings"
     ],
     correctOption: "B",
@@ -996,57 +997,57 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "LTM",
     questionText: "A leader's role during a crisis is to:",
     options: [
-      "Panic and avoid communication",
-      "Stay calm, communicate clearly, and guide the team",
       "Blame the team",
-      "Disappear until it resolves"
+      "Disappear until it resolves",
+      "Stay calm, communicate clearly, and guide the team",
+      "Panic and avoid communication"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Remaining calm and communicative during a crisis helps keep the team aligned and focused."
   },
   {
     examId: "LTM",
     questionText: "What is the benefit of setting clear team goals?",
     options: [
+      "Limits creativity entirely",
       "Creates confusion",
       "Aligns the team's efforts and improves accountability",
-      "Limits creativity entirely",
       "Has no real impact"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Clear, visible goals help teams prioritize tasks and stay accountable."
   },
   {
     examId: "LTM",
     questionText: "Which leadership style involves making decisions without team input?",
     options: [
-      "Democratic",
-      "Autocratic",
       "Laissez-faire",
-      "Servant"
+      "Servant",
+      "Autocratic",
+      "Democratic"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Autocratic leaders make decisions alone, prioritizing speed over team alignment."
   },
   {
     examId: "LTM",
     questionText: "Recognizing team achievements helps to:",
     options: [
-      "Decrease motivation",
-      "Boost morale and reinforce positive performance",
       "Create unnecessary competition",
-      "Reduce productivity"
+      "Reduce productivity",
+      "Boost morale and reinforce positive performance",
+      "Decrease motivation"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Celebrating wins improves team motivation and reinforces positive behavior."
   },
   {
     examId: "LTM",
     questionText: "What does 'leading by example' mean?",
     options: [
-      "Telling others what to do without doing it yourself",
-      "Demonstrating the behaviors and work ethic you expect from others",
       "Avoiding responsibility",
+      "Demonstrating the behaviors and work ethic you expect from others",
+      "Telling others what to do without doing it yourself",
       "Delegating all difficult tasks"
     ],
     correctOption: "B",
@@ -1056,24 +1057,24 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "LTM",
     questionText: "A key part of onboarding new team members is:",
     options: [
-      "Leaving them without guidance",
       "Providing clear expectations, resources, and support",
       "Assigning the hardest tasks immediately",
-      "Avoiding introductions to the team"
+      "Avoiding introductions to the team",
+      "Leaving them without guidance"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "A structured onboarding process helps new hires adapt and contribute quickly."
   },
   {
     examId: "LTM",
     questionText: "What is 'laissez-faire' leadership?",
     options: [
-      "Highly controlling leadership",
-      "A hands-off approach giving team members high autonomy",
+      "Leadership that avoids delegation",
       "Leadership based on punishment",
-      "Leadership that avoids delegation"
+      "A hands-off approach giving team members high autonomy",
+      "Highly controlling leadership"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Laissez-faire leadership gives skilled teams independence, but requires self-direction."
   },
   {
@@ -1081,32 +1082,32 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Why is trust important in team management?",
     options: [
       "It slows down decision-making",
-      "It enables collaboration, openness, and psychological safety",
       "It is not necessary for performance",
-      "It only matters for senior leaders"
+      "It only matters for senior leaders",
+      "It enables collaboration, openness, and psychological safety"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Trust is the foundation of team collaboration and open problem-solving."
   },
   {
     examId: "LTM",
     questionText: "One-on-one meetings with team members are useful for:",
     options: [
-      "Avoiding personal connection",
-      "Providing individualized feedback and support",
+      "Replacing all team meetings",
       "Wasting time",
-      "Replacing all team meetings"
+      "Avoiding personal connection",
+      "Providing individualized feedback and support"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Regular 1-on-1s help address individual concerns and support employee growth."
   },
   {
     examId: "LTM",
     questionText: "A growth mindset in leadership involves:",
     options: [
-      "Believing abilities are fixed and unchangeable",
-      "Believing skills can be developed through effort and learning",
       "Avoiding any new challenges",
+      "Believing skills can be developed through effort and learning",
+      "Believing abilities are fixed and unchangeable",
       "Discouraging team learning"
     ],
     correctOption: "B",
@@ -1118,24 +1119,24 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "ISB",
     questionText: "A resume should typically be limited to:",
     options: [
-      "10 pages",
       "1-2 pages depending on experience",
       "Half a page only",
+      "10 pages",
       "As long as possible"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Resumes should be concise summaries of relevant accomplishments, typically 1 to 2 pages."
   },
   {
     examId: "ISB",
     questionText: "The STAR method in interviews stands for:",
     options: [
-      "Situation, Task, Action, Result",
-      "Skills, Talent, Ambition, Resume",
       "Strategy, Target, Achievement, Review",
-      "Strength, Theory, Action, Reflection"
+      "Strength, Theory, Action, Reflection",
+      "Situation, Task, Action, Result",
+      "Skills, Talent, Ambition, Resume"
     ],
-    correctOption: "A",
+    correctOption: "C",
     explanation: "The STAR method helps structure clear, structured answers to behavioral questions."
   },
   {
@@ -1143,11 +1144,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Which is the most important section of a resume for recruiters?",
     options: [
       "Hobbies",
-      "Relevant skills and work experience",
+      "Personal photo",
       "Font choice",
-      "Personal photo"
+      "Relevant skills and work experience"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Recruiters focus primarily on work history and skills to match candidates to roles."
   },
   {
@@ -1155,20 +1156,20 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "When answering 'Tell me about yourself,' you should:",
     options: [
       "Share your entire life history",
-      "Give a concise, relevant summary connected to the role",
       "Discuss unrelated personal matters",
+      "Give a concise, relevant summary connected to the role",
       "Stay silent"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "This opener is an opportunity to highlight relevant professional wins matching the role requirements."
   },
   {
     examId: "ISB",
     questionText: "Which of these strengthens a resume?",
     options: [
-      "Vague descriptions",
-      "Quantifiable achievements (e.g., 'increased sales by 20%')",
       "Generic statements only",
+      "Quantifiable achievements (e.g., 'increased sales by 20%')",
+      "Vague descriptions",
       "Irrelevant work experience"
     ],
     correctOption: "B",
@@ -1178,24 +1179,24 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "ISB",
     questionText: "Before an interview, it is important to:",
     options: [
-      "Skip researching the company",
       "Research the company and role thoroughly",
-      "Avoid preparing questions",
-      "Memorize a script word-for-word"
+      "Skip researching the company",
+      "Memorize a script word-for-word",
+      "Avoid preparing questions"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Researching the company helps you explain how your skills align with their current goals."
   },
   {
     examId: "ISB",
     questionText: "What should you do if you don't know the answer to an interview question?",
     options: [
-      "Make up an answer confidently",
-      "Be honest and explain your thought process",
       "Stay silent and say nothing",
-      "Walk out of the interview"
+      "Walk out of the interview",
+      "Be honest and explain your thought process",
+      "Make up an answer confidently"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Hiring managers value transparency and problem-solving logic over guesses."
   },
   {
@@ -1203,11 +1204,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "A cover letter should primarily:",
     options: [
       "Repeat the resume word for word",
+      "Be longer than the resume",
       "Highlight why you're a strong fit for the specific role",
-      "Be generic for all applications",
-      "Be longer than the resume"
+      "Be generic for all applications"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Cover letters should connect your experience directly to the specific job duties."
   },
   {
@@ -1226,46 +1227,46 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "ISB",
     questionText: "What is the purpose of asking questions at the end of an interview?",
     options: [
-      "To fill time",
       "To show genuine interest and evaluate role/company fit",
+      "To challenge the interviewer",
       "It's not necessary",
-      "To challenge the interviewer"
+      "To fill time"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Asking thoughtful questions shows interest and helps you assess if the job is a good fit."
   },
   {
     examId: "ISB",
     questionText: "A common resume mistake is:",
     options: [
-      "Tailoring it to each job",
       "Including spelling and grammar errors",
+      "Tailoring it to each job",
       "Listing relevant skills",
       "Using clear formatting"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Typos and grammatical mistakes signal poor attention to detail."
   },
   {
     examId: "ISB",
     questionText: "When discussing a previous employer in an interview, you should:",
     options: [
-      "Speak negatively to explain why you left",
-      "Stay professional and focus on growth and learning",
+      "Exaggerate problems to seem like a victim",
       "Avoid mentioning them at all",
-      "Exaggerate problems to seem like a victim"
+      "Stay professional and focus on growth and learning",
+      "Speak negatively to explain why you left"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Criticizing past employers signals negativity and leaves a bad impression."
   },
   {
     examId: "ISB",
     questionText: "What does 'soft skills' refer to on a resume?",
     options: [
-      "Technical certifications only",
-      "Interpersonal traits like communication, teamwork, and adaptability",
       "Academic grades",
-      "Programming languages"
+      "Interpersonal traits like communication, teamwork, and adaptability",
+      "Programming languages",
+      "Technical certifications only"
     ],
     correctOption: "B",
     explanation: "Soft skills describe how you collaborate with peers and manage work responsibilities."
@@ -1274,22 +1275,22 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "ISB",
     questionText: "Following up after an interview is considered:",
     options: [
+      "A sign of desperation",
       "Unnecessary and intrusive",
-      "A professional courtesy that reinforces interest",
       "Only required for senior roles",
-      "A sign of desperation"
+      "A professional courtesy that reinforces interest"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "A brief follow-up note displays professionalism and keeps you top-of-mind for the role."
   },
   {
     examId: "ISB",
     questionText: "An ATS (Applicant Tracking System) scans resumes primarily for:",
     options: [
-      "Visual design only",
+      "Font style",
       "Relevant keywords matching the job description",
-      "Personal hobbies",
-      "Font style"
+      "Visual design only",
+      "Personal hobbies"
     ],
     correctOption: "B",
     explanation: "ATS filters select resumes containing keywords matching the specific job posting."
@@ -1298,36 +1299,36 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "ISB",
     questionText: "Which is a strong way to handle a question about weaknesses?",
     options: [
-      "Claim you have no weaknesses",
       "Mention a real area for growth along with steps you're taking to improve",
-      "List multiple unrelated flaws",
-      "Avoid answering"
+      "Claim you have no weaknesses",
+      "Avoid answering",
+      "List multiple unrelated flaws"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Discussing self-improvement steps highlights maturity and self-awareness."
   },
   {
     examId: "ISB",
     questionText: "Body language during an interview should convey:",
     options: [
-      "Disinterest and slouching",
       "Confidence through good posture and eye contact",
-      "Excessive fidgeting",
-      "Avoiding all eye contact"
+      "Disinterest and slouching",
+      "Avoiding all eye contact",
+      "Excessive fidgeting"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Open posture and natural eye contact signal engagement and self-confidence."
   },
   {
     examId: "ISB",
     questionText: "What should the resume's work experience section include?",
     options: [
-      "Job title, company, dates, and key achievements",
-      "Only job titles",
       "Personal opinions about past employers",
-      "Unrelated personal information"
+      "Unrelated personal information",
+      "Only job titles",
+      "Job title, company, dates, and key achievements"
     ],
-    correctOption: "A",
+    correctOption: "D",
     explanation: "Work history sections need complete context (company, dates, metrics) to prove experience."
   },
   {
@@ -1347,11 +1348,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "A thank-you email after an interview should be sent:",
     options: [
       "A month later",
-      "Within 24 hours of the interview",
       "Only if you didn't get the job",
+      "Within 24 hours of the interview",
       "It's not necessary to send one"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Sending a prompt thank-you email shows professionalism and gratitude for the opportunity."
   },
 
@@ -1360,48 +1361,48 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "EIW",
     questionText: "Emotional Intelligence (EQ) primarily refers to:",
     options: [
+      "Technical knowledge",
       "IQ test scores",
       "The ability to recognize, understand, and manage emotions in yourself and others",
-      "Physical strength",
-      "Technical knowledge"
+      "Physical strength"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "EQ represents the capability to handle self and group emotions constructively."
   },
   {
     examId: "EIW",
     questionText: "Which of these is a core component of EQ?",
     options: [
-      "Self-awareness",
       "Memorization",
+      "Self-awareness",
       "Typing speed",
       "Coding ability"
     ],
-    correctOption: "A",
+    correctOption: "B",
     explanation: "Self-awareness is the foundation of emotional intelligence, allowing you to recognize your own emotional triggers."
   },
   {
     examId: "EIW",
     questionText: "Empathy in the workplace means:",
     options: [
+      "Avoiding emotional topics",
       "Ignoring others' feelings",
-      "Understanding and being sensitive to others' perspectives and feelings",
       "Agreeing with everyone",
-      "Avoiding emotional topics"
+      "Understanding and being sensitive to others' perspectives and feelings"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Empathy lets you understand the motivations and perspectives of coworkers."
   },
   {
     examId: "EIW",
     questionText: "Self-regulation refers to:",
     options: [
-      "Reacting impulsively to every situation",
       "Managing and controlling your emotional reactions appropriately",
-      "Suppressing all emotions permanently",
-      "Letting emotions control your decisions"
+      "Letting emotions control your decisions",
+      "Reacting impulsively to every situation",
+      "Suppressing all emotions permanently"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Self-regulation helps you control initial reactions, preventing emotional escalation during stress."
   },
   {
@@ -1420,10 +1421,10 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "EIW",
     questionText: "Which is an example of poor emotional regulation?",
     options: [
-      "Taking a moment to calm down before responding angrily",
+      "Reflecting on a mistake constructively",
       "Yelling at a colleague during a disagreement",
       "Asking for feedback calmly",
-      "Reflecting on a mistake constructively"
+      "Taking a moment to calm down before responding angrily"
     ],
     correctOption: "B",
     explanation: "Yelling displays poor self-regulation, introducing personal conflict into team discussions."
@@ -1433,11 +1434,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Social skills, as part of EQ, involve:",
     options: [
       "Avoiding all social interaction",
-      "Managing relationships and building rapport effectively",
       "Working only independently",
+      "Managing relationships and building rapport effectively",
       "Ignoring team dynamics"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Social skills help you collaborate, lead teams, and build strong relationship networks."
   },
   {
@@ -1446,8 +1447,8 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "Being unaware of your own strengths and weaknesses",
       "Recognizing your own emotions and how they affect your behavior",
-      "Focusing only on others' emotions",
-      "Avoiding self-reflection"
+      "Avoiding self-reflection",
+      "Focusing only on others' emotions"
     ],
     correctOption: "B",
     explanation: "Knowing your emotional limits helps you control behaviors under pressure."
@@ -1456,10 +1457,10 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "EIW",
     questionText: "Motivation, as an EQ component, refers to:",
     options: [
-      "External rewards only",
+      "Working only when supervised",
       "An internal drive to achieve goals beyond money or status",
       "Avoiding all challenges",
-      "Working only when supervised"
+      "External rewards only"
     ],
     correctOption: "B",
     explanation: "Internal motivation keeps you focused on long-term goals despite challenges."
@@ -1470,8 +1471,8 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "Avoid listening to colleagues",
       "Actively listen and try to see situations from others' perspectives",
-      "Focus only on your own viewpoint",
-      "Dismiss others' concerns"
+      "Dismiss others' concerns",
+      "Focus only on your own viewpoint"
     ],
     correctOption: "B",
     explanation: "Active listening and openness to others' views are key to building empathy."
@@ -1480,12 +1481,12 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "EIW",
     questionText: "Which response shows high EQ when receiving criticism?",
     options: [
+      "Ignoring the feedback completely",
       "Becoming defensive immediately",
       "Listening, reflecting, and responding constructively",
-      "Ignoring the feedback completely",
       "Arguing back without consideration"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Receiving feedback constructively shows self-awareness and a willingness to grow."
   },
   {
@@ -1493,11 +1494,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Why is EQ important for leadership?",
     options: [
       "It has no impact on leadership",
+      "It only matters in customer service roles",
       "It helps leaders manage relationships and navigate team dynamics effectively",
-      "It replaces the need for technical skills",
-      "It only matters in customer service roles"
+      "It replaces the need for technical skills"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Leaders need high EQ to align teams, motivate members, and navigate organization issues."
   },
   {
@@ -1505,23 +1506,23 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Recognizing a colleague's stress and offering support is an example of:",
     options: [
       "Apathy",
-      "Empathy and emotional awareness",
+      "Avoidance",
       "Micromanagement",
-      "Avoidance"
+      "Empathy and emotional awareness"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Paying attention to coworkers' feelings helps prevent burnout and support team morale."
   },
   {
     examId: "EIW",
     questionText: "Which behavior indicates low emotional intelligence?",
     options: [
-      "Adapting communication style to the listener",
       "Blaming others without self-reflection",
-      "Managing stress calmly",
-      "Considering others' feelings before acting"
+      "Considering others' feelings before acting",
+      "Adapting communication style to the listener",
+      "Managing stress calmly"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Deflecting blame suggests a lack of self-awareness and emotional maturity."
   },
   {
@@ -1530,8 +1531,8 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "A medical illness",
       "The tendency for emotions to spread between people in a group",
-      "A software bug",
-      "A type of conflict resolution technique"
+      "A type of conflict resolution technique",
+      "A software bug"
     ],
     correctOption: "B",
     explanation: "Tension or positive energy can spread through teams, affecting overall culture."
@@ -1541,11 +1542,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Practicing mindfulness can help improve EQ by:",
     options: [
       "Increasing reactive behavior",
-      "Increasing self-awareness and emotional regulation",
+      "Eliminating emotions entirely",
       "Reducing focus",
-      "Eliminating emotions entirely"
+      "Increasing self-awareness and emotional regulation"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Mindfulness helps you notice feelings calmly rather than reacting immediately."
   },
   {
@@ -1553,11 +1554,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "How should you handle a disagreement with a coworker calmly?",
     options: [
       "Avoid the person entirely going forward",
-      "Address the issue respectfully and listen to their perspective",
       "Complain to others without addressing them directly",
-      "Escalate immediately without discussion"
+      "Escalate immediately without discussion",
+      "Address the issue respectfully and listen to their perspective"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Resolving conflicts directly and respectfully preserves working relationships."
   },
   {
@@ -1565,11 +1566,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Which is a benefit of high EQ in customer-facing roles?",
     options: [
       "Reduced ability to handle complaints",
-      "Better ability to de-escalate situations and build rapport with customers",
       "Increased customer dissatisfaction",
-      "No measurable benefit"
+      "No measurable benefit",
+      "Better ability to de-escalate situations and build rapport with customers"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "EQ helps support teams build rapport and handle customer frustrations effectively."
   },
   {
@@ -1577,20 +1578,20 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Self-motivation in a workplace context is best shown by:",
     options: [
       "Needing constant supervision",
+      "Waiting for instructions on every task",
       "Taking initiative and persisting through challenges independently",
-      "Avoiding all responsibility",
-      "Waiting for instructions on every task"
+      "Avoiding all responsibility"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Taking initiative shows drive, commitment, and alignment with project goals."
   },
   {
     examId: "EIW",
     questionText: "EQ can be developed through:",
     options: [
-      "It is entirely fixed and cannot improve",
-      "Practice, self-reflection, and feedback over time",
       "Avoiding feedback",
+      "Practice, self-reflection, and feedback over time",
+      "It is entirely fixed and cannot improve",
       "Ignoring emotional triggers"
     ],
     correctOption: "B",
@@ -1603,69 +1604,69 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "The first step in resolving a workplace conflict is to:",
     options: [
       "Assign blame immediately",
+      "Escalate to HR without discussion",
       "Understand each party's perspective and the root cause",
-      "Avoid the issue completely",
-      "Escalate to HR without discussion"
+      "Avoid the issue completely"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Conflict resolution begins by identifying the root problem and listening to both perspectives."
   },
   {
     examId: "CRN",
     questionText: "A 'win-win' negotiation outcome means:",
     options: [
-      "One party gains at the other's total expense",
       "Both parties feel their key interests are satisfied",
+      "One party gains at the other's total expense",
       "Negotiation fails entirely",
       "Only the stronger party benefits"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Win-win outcomes resolve conflicts by finding solutions that satisfy both parties."
   },
   {
     examId: "CRN",
     questionText: "Active listening during conflict resolution helps by:",
     options: [
-      "Allowing both sides to feel heard and understood",
-      "Prolonging the disagreement unnecessarily",
       "Avoiding the actual issue",
-      "Creating more confusion"
+      "Creating more confusion",
+      "Prolonging the disagreement unnecessarily",
+      "Allowing both sides to feel heard and understood"
     ],
-    correctOption: "A",
+    correctOption: "D",
     explanation: "Listening carefully lowers defense barriers and helps uncover the core issues of the conflict."
   },
   {
     examId: "CRN",
     questionText: "Which conflict resolution style involves both parties giving up something to reach an agreement?",
     options: [
-      "Avoiding",
       "Compromising",
+      "Accommodating",
       "Competing",
-      "Accommodating"
+      "Avoiding"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Compromising resolves conflicts through mutual concessions."
   },
   {
     examId: "CRN",
     questionText: "BATNA in negotiation stands for:",
     options: [
-      "Best Alternative To a Negotiated Agreement",
-      "Basic Approach To Negotiation Agreements",
       "Balanced Agreement To Negotiate Always",
-      "Best Action Toward Negotiation Avoidance"
+      "Best Alternative To a Negotiated Agreement",
+      "Best Action Toward Negotiation Avoidance",
+      "Basic Approach To Negotiation Agreements"
     ],
-    correctOption: "A",
+    correctOption: "B",
     explanation: "BATNA represents your fallback option if negotiations fall through."
   },
   {
     examId: "CRN",
     questionText: "Which behavior escalates conflict rather than resolving it?",
     options: [
-      "Staying calm and focused on the issue",
+      "Seeking common ground",
       "Using accusatory language and personal attacks",
       "Asking clarifying questions",
-      "Seeking common ground"
+      "Staying calm and focused on the issue"
     ],
     correctOption: "B",
     explanation: "Personal attacks shift the focus from the problem to individual character, escalating the conflict."
@@ -1686,48 +1687,48 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CRN",
     questionText: "Effective negotiation requires preparation that includes:",
     options: [
-      "Ignoring the other party's interests",
-      "Understanding your own and the other party's goals and constraints",
+      "Refusing to compromise on anything",
       "Avoiding any research",
-      "Refusing to compromise on anything"
+      "Ignoring the other party's interests",
+      "Understanding your own and the other party's goals and constraints"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Understanding constraints helps you identify areas of overlap for mutual agreement."
   },
   {
     examId: "CRN",
     questionText: "What is 'anchoring' in negotiation?",
     options: [
-      "Refusing to negotiate",
-      "Setting an initial reference point that influences the rest of the negotiation",
+      "A conflict resolution style",
       "Ending a negotiation abruptly",
-      "A conflict resolution style"
+      "Setting an initial reference point that influences the rest of the negotiation",
+      "Refusing to negotiate"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "An initial offer anchors the debate, setting the scale for subsequent offers."
   },
   {
     examId: "CRN",
     questionText: "Which is a sign of a healthy conflict resolution process?",
     options: [
-      "Open communication and mutual respect",
       "One party dominating the conversation",
+      "Open communication and mutual respect",
       "Avoiding eye contact and discussion",
       "Public confrontation"
     ],
-    correctOption: "A",
+    correctOption: "B",
     explanation: "Healthy resolution requires respectful, direct dialogue about the core issues."
   },
   {
     examId: "CRN",
     questionText: "The 'accommodating' style of conflict resolution means:",
     options: [
-      "Prioritizing your own needs over the relationship",
-      "Prioritizing the relationship by yielding to the other party's needs",
       "Refusing to engage at all",
-      "Competing aggressively to win"
+      "Competing aggressively to win",
+      "Prioritizing the relationship by yielding to the other party's needs",
+      "Prioritizing your own needs over the relationship"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Accommodating prioritizes team relationships over achieving personal goals."
   },
   {
@@ -1735,57 +1736,57 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Why is it important to separate the person from the problem in negotiation?",
     options: [
       "It is not important",
-      "It helps focus on the issue rather than personal attacks, preserving the relationship",
+      "It avoids resolving the actual issue",
       "It complicates the discussion",
-      "It avoids resolving the actual issue"
+      "It helps focus on the issue rather than personal attacks, preserving the relationship"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Separating people from problems prevents personal differences from blocking solutions."
   },
   {
     examId: "CRN",
     questionText: "A mediator's role in conflict resolution is to:",
     options: [
-      "Take sides and decide the outcome",
-      "Facilitate communication and help parties reach their own resolution",
       "Ignore both parties' concerns",
-      "Escalate the conflict further"
+      "Take sides and decide the outcome",
+      "Escalate the conflict further",
+      "Facilitate communication and help parties reach their own resolution"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Mediators act as neutral facilitators, helping parties reach a mutual resolution."
   },
   {
     examId: "CRN",
     questionText: "Which question helps de-escalate a tense conversation?",
     options: [
-      "'Why are you always like this?'",
-      "'Can you help me understand your perspective?'",
       "'Whose fault is this?'",
-      "'Why can't you just agree with me?'"
+      "'Why are you always like this?'",
+      "'Why can't you just agree with me?'",
+      "'Can you help me understand your perspective?'"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Asking for clarify signals openness, helping de-escalate defensive arguments."
   },
   {
     examId: "CRN",
     questionText: "In negotiation, 'interests' differ from 'positions' because interests refer to:",
     options: [
-      "The stated demand",
       "The underlying needs and motivations behind a demand",
-      "Irrelevant details",
-      "Final agreements only"
+      "Final agreements only",
+      "The stated demand",
+      "Irrelevant details"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Positions are stated demands, whereas interests are the core needs driving those demands."
   },
   {
     examId: "CRN",
     questionText: "Which is an example of constructive conflict resolution?",
     options: [
-      "Yelling to assert dominance",
+      "Spreading the issue to other team members",
       "Focusing on facts and seeking a mutually acceptable solution",
       "Ignoring the conflict indefinitely",
-      "Spreading the issue to other team members"
+      "Yelling to assert dominance"
     ],
     correctOption: "B",
     explanation: "Focusing objectively on facts keeps the discussion professional and goal-oriented."
@@ -1794,22 +1795,22 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CRN",
     questionText: "Why is timing important in addressing conflict?",
     options: [
-      "Conflicts should always be addressed immediately regardless of emotions",
       "Addressing issues calmly, at an appropriate time, leads to better outcomes",
       "Timing has no effect on resolution",
+      "Conflicts should always be addressed immediately regardless of emotions",
       "Conflicts should be delayed indefinitely"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Allowing tempers to cool before discussing issues helps prevent defensive arguments."
   },
   {
     examId: "CRN",
     questionText: "What does 'competing' conflict style typically prioritize?",
     options: [
-      "The relationship over the outcome",
+      "Mutual compromise",
       "Winning the outcome, even at the expense of the relationship",
       "Avoiding the issue",
-      "Mutual compromise"
+      "The relationship over the outcome"
     ],
     correctOption: "B",
     explanation: "Competing aims to win the immediate issue, regardless of its impact on work relationships."
@@ -1819,23 +1820,23 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "A key negotiation skill is:",
     options: [
       "Refusing to listen to the other party",
-      "Asking questions to understand the other party's needs",
       "Making unrealistic demands only",
-      "Avoiding preparation"
+      "Avoiding preparation",
+      "Asking questions to understand the other party's needs"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Asking questions help you find areas of shared value to reach a mutual agreement."
   },
   {
     examId: "CRN",
     questionText: "After resolving a conflict, it's important to:",
     options: [
-      "Forget the agreement immediately",
-      "Follow up to ensure the resolution is working effectively",
       "Avoid checking in again",
-      "Revisit the conflict unnecessarily"
+      "Revisit the conflict unnecessarily",
+      "Follow up to ensure the resolution is working effectively",
+      "Forget the agreement immediately"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Following up ensures that the agreed solution continues to work for both parties."
   },
 
@@ -1845,11 +1846,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "The most effective way to begin a presentation is to:",
     options: [
       "Apologize for being nervous",
-      "Open with a hook, such as a question, story, or surprising fact",
+      "Start with unrelated small talk",
       "Read the agenda word for word",
-      "Start with unrelated small talk"
+      "Open with a hook, such as a question, story, or surprising fact"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "A strong hook grabs audience attention and sets a clear focus for the presentation."
   },
   {
@@ -1858,8 +1859,8 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "Avoid all preparation",
       "Practice thoroughly and use breathing techniques to manage nerves",
-      "Memorize the speech word for word with no flexibility",
-      "Avoid eye contact with the audience entirely"
+      "Avoid eye contact with the audience entirely",
+      "Memorize the speech word for word with no flexibility"
     ],
     correctOption: "B",
     explanation: "Preparation and controlled breathing help lower physical stress during public speaking."
@@ -1868,10 +1869,10 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "PSP",
     questionText: "Eye contact during a presentation helps to:",
     options: [
-      "Distract the audience",
-      "Build connection and engagement with the audience",
       "Make the speaker seem nervous",
-      "Has no real impact"
+      "Build connection and engagement with the audience",
+      "Has no real impact",
+      "Distract the audience"
     ],
     correctOption: "B",
     explanation: "Making eye contact with individuals makes the presentation feel like a direct dialogue."
@@ -1881,93 +1882,93 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Which is a good practice for using presentation slides?",
     options: [
       "Filling them with dense text",
-      "Keeping them visual and concise to support, not replace, your speech",
       "Reading every word off the slide",
+      "Keeping them visual and concise to support, not replace, your speech",
       "Avoiding slides entirely for all topics"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Visual slides keep the audience focused on the speaker rather than reading text."
   },
   {
     examId: "PSP",
     questionText: "Vocal variety in public speaking refers to:",
     options: [
-      "Speaking in a monotone voice",
       "Varying pitch, pace, and volume to maintain audience interest",
       "Speaking as fast as possible",
-      "Whispering throughout the speech"
+      "Whispering throughout the speech",
+      "Speaking in a monotone voice"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Changing your tone and pacing helps emphasize key points and prevents a monotone delivery."
   },
   {
     examId: "PSP",
     questionText: "What should you do if you lose your train of thought while speaking?",
     options: [
-      "Panic and stop talking entirely",
-      "Pause calmly, take a breath, and continue from where you can",
+      "Speak faster to compensate",
       "Apologize repeatedly and leave the stage",
-      "Speak faster to compensate"
+      "Panic and stop talking entirely",
+      "Pause calmly, take a breath, and continue from where you can"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "A brief pause reads as deliberate, letting you collect your thoughts calmly."
   },
   {
     examId: "PSP",
     questionText: "The purpose of rehearsing a presentation is to:",
     options: [
+      "Waste preparation time",
       "Memorize it word-for-word without flexibility",
-      "Build familiarity with content and improve delivery confidence",
       "Avoid practicing the actual content",
-      "Waste preparation time"
+      "Build familiarity with content and improve delivery confidence"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Rehearsing helps you check timing and refine the flow of your transitions."
   },
   {
     examId: "PSP",
     questionText: "Which body language signals confidence during a presentation?",
     options: [
-      "Slouching and crossed arms",
-      "Open posture and purposeful gestures",
       "Avoiding all movement",
-      "Constantly looking at notes"
+      "Slouching and crossed arms",
+      "Constantly looking at notes",
+      "Open posture and purposeful gestures"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Open posture and natural gestures help emphasize points and project confidence."
   },
   {
     examId: "PSP",
     questionText: "When presenting data, it's best to:",
     options: [
+      "Avoid showing any data",
       "Show raw numbers without context",
       "Use clear visuals like charts and simplify key takeaways",
-      "Read every statistic aloud in detail",
-      "Avoid showing any data"
+      "Read every statistic aloud in detail"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Visual charts help simplify data, allowing the audience to understand key trends quickly."
   },
   {
     examId: "PSP",
     questionText: "How should you handle a difficult question from the audience?",
     options: [
-      "Dismiss it immediately",
       "Listen fully, acknowledge it, and respond thoughtfully",
-      "Avoid answering and change the topic",
-      "Argue with the audience member"
+      "Argue with the audience member",
+      "Dismiss it immediately",
+      "Avoid answering and change the topic"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Listening carefully and answering respectfully helps you manage disagreements professionally."
   },
   {
     examId: "PSP",
     questionText: "What is the benefit of knowing your audience before a presentation?",
     options: [
-      "It has no real benefit",
+      "It eliminates the need for preparation",
       "It helps tailor content and tone to their needs and expectations",
       "It only matters for large audiences",
-      "It eliminates the need for preparation"
+      "It has no real benefit"
     ],
     correctOption: "B",
     explanation: "Understanding your audience helps you build presentations that address their interests."
@@ -1976,10 +1977,10 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "PSP",
     questionText: "The 'rule of three' in public speaking refers to:",
     options: [
-      "Speaking for exactly three minutes",
-      "Grouping key points into sets of three for better retention",
       "Using three slides only",
-      "Practicing three times before presenting"
+      "Grouping key points into sets of three for better retention",
+      "Practicing three times before presenting",
+      "Speaking for exactly three minutes"
     ],
     correctOption: "B",
     explanation: "Information structured in groups of three is naturally easier to remember."
@@ -1988,12 +1989,12 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "PSP",
     questionText: "Filler words like 'um' and 'like' should be:",
     options: [
-      "Used frequently for emphasis",
-      "Minimized through practice and awareness",
+      "Ignored entirely as they don't matter",
       "Required in every sentence",
-      "Ignored entirely as they don't matter"
+      "Minimized through practice and awareness",
+      "Used frequently for emphasis"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Replacing filler words with silent pauses improves clarity and presentation flow."
   },
   {
@@ -2001,23 +2002,23 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "What is the purpose of a strong conclusion in a presentation?",
     options: [
       "To introduce new, unrelated information",
-      "To reinforce key points and leave a lasting impression",
+      "To list every detail covered again",
       "To apologize for the presentation's length",
-      "To list every detail covered again"
+      "To reinforce key points and leave a lasting impression"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "A strong conclusion reinforces your main message, leaving a clear final takeaway."
   },
   {
     examId: "PSP",
     questionText: "Which is an effective way to engage a virtual audience?",
     options: [
-      "Keep your camera off",
-      "Use interactive elements like polls and direct questions",
       "Speak in a monotone voice",
-      "Avoid checking for engagement"
+      "Avoid checking for engagement",
+      "Use interactive elements like polls and direct questions",
+      "Keep your camera off"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Polls and chat prompts help maintain focus and interaction in virtual meetings."
   },
   {
@@ -2036,22 +2037,22 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "PSP",
     questionText: "What should you do before stepping on stage to present?",
     options: [
-      "Avoid any preparation or review",
-      "Review key points, check materials, and calm your nerves",
+      "Ignore the audience's needs",
       "Memorize a script with no understanding of content",
-      "Ignore the audience's needs"
+      "Review key points, check materials, and calm your nerves",
+      "Avoid any preparation or review"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "A final logistics and tech run prevents errors and helps build confidence."
   },
   {
     examId: "PSP",
     questionText: "Storytelling in presentations is effective because it:",
     options: [
-      "Distracts from the main message",
-      "Makes content relatable and memorable for the audience",
       "Wastes valuable presentation time",
-      "Confuses the audience"
+      "Makes content relatable and memorable for the audience",
+      "Confuses the audience",
+      "Distracts from the main message"
     ],
     correctOption: "B",
     explanation: "Stories create an emotional hook, helping audiences connect with and remember key points."
@@ -2061,23 +2062,23 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "How should you use notes during a presentation?",
     options: [
       "Read them word-for-word without looking up",
-      "Use them as brief prompts while maintaining audience engagement",
+      "Hold them up to block your face",
       "Avoid having any notes regardless of complexity",
-      "Hold them up to block your face"
+      "Use them as brief prompts while maintaining audience engagement"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Using keywords as prompts prevents you from reading text, allowing better eye contact."
   },
   {
     examId: "PSP",
     questionText: "What is the goal of audience analysis before a presentation?",
     options: [
-      "To ignore audience needs",
       "To understand their expectations, knowledge level, and interests",
+      "To ignore audience needs",
       "To create a generic presentation only",
       "To avoid tailoring your message"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Understanding your audience helps you structure content that aligns with their needs."
   },
 
@@ -2087,56 +2088,56 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "The foundation of excellent customer service is:",
     options: [
       "Following scripts rigidly without listening",
-      "Understanding and addressing the customer's needs effectively",
       "Avoiding direct interaction with customers",
-      "Prioritizing speed over quality always"
+      "Prioritizing speed over quality always",
+      "Understanding and addressing the customer's needs effectively"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Customer service exists to solve client issues quickly and support overall customer success."
   },
   {
     examId: "CSE",
     questionText: "When a customer is upset, the first step should be to:",
     options: [
-      "Argue to defend the company",
       "Listen actively and acknowledge their frustration",
+      "Ignore their concern",
       "Transfer them immediately without explanation",
-      "Ignore their concern"
+      "Argue to defend the company"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Listening calmly and acknowledging their concern helps diffuse frustration, allowing resolution."
   },
   {
     examId: "CSE",
     questionText: "What does 'first call resolution' mean?",
     options: [
-      "Resolving a customer's issue on their first contact, without follow-ups",
-      "Taking multiple calls to resolve one issue",
+      "Escalating every issue automatically",
       "Avoiding resolution",
-      "Escalating every issue automatically"
+      "Taking multiple calls to resolve one issue",
+      "Resolving a customer's issue on their first contact, without follow-ups"
     ],
-    correctOption: "A",
+    correctOption: "D",
     explanation: "First-contact resolution minimizes friction, saving time for both customers and support teams."
   },
   {
     examId: "CSE",
     questionText: "Empathy in customer service involves:",
     options: [
-      "Dismissing the customer's feelings",
       "Genuinely understanding and validating the customer's situation",
-      "Following a script without personal connection",
-      "Rushing through the interaction"
+      "Dismissing the customer's feelings",
+      "Rushing through the interaction",
+      "Following a script without personal connection"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Empathy builds trust by showing customers you genuinely care about their issue."
   },
   {
     examId: "CSE",
     questionText: "Which is an example of going 'above and beyond' in customer service?",
     options: [
-      "Doing the bare minimum required",
-      "Proactively offering helpful solutions beyond the basic request",
       "Ignoring customer feedback",
+      "Proactively offering helpful solutions beyond the basic request",
+      "Doing the bare minimum required",
       "Avoiding follow-up after resolving an issue"
     ],
     correctOption: "B",
@@ -2147,11 +2148,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "How should a service representative handle a complaint they cannot immediately resolve?",
     options: [
       "Promise something they can't deliver",
-      "Set realistic expectations and follow up as promised",
       "Avoid responding to the customer",
-      "Blame another department without explanation"
+      "Blame another department without explanation",
+      "Set realistic expectations and follow up as promised"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Setting clear follow-up expectations builds trust even when resolutions take time."
   },
   {
@@ -2170,12 +2171,12 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CSE",
     questionText: "Which tone is most effective in customer service interactions?",
     options: [
-      "Indifferent and robotic",
       "Warm, patient, and professional",
-      "Overly casual and unprofessional",
-      "Dismissive and rushed"
+      "Dismissive and rushed",
+      "Indifferent and robotic",
+      "Overly casual and unprofessional"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Patience and professional warmth help calm customers and improve relationship retention."
   },
   {
@@ -2183,59 +2184,59 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "What does 'customer-centric' mean?",
     options: [
       "Prioritizing internal processes over customer needs",
-      "Placing the customer's needs and experience at the center of decisions",
       "Avoiding customer input entirely",
-      "Focusing solely on cost-cutting"
+      "Focusing solely on cost-cutting",
+      "Placing the customer's needs and experience at the center of decisions"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Customer-centric companies design all workflows around improving the customer experience."
   },
   {
     examId: "CSE",
     questionText: "When handling multiple customer requests, prioritization should be based on:",
     options: [
-      "Random order",
       "Urgency, impact, and customer needs",
-      "Ignoring less vocal customers",
-      "Personal preference only"
+      "Personal preference only",
+      "Random order",
+      "Ignoring less vocal customers"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Prioritizing by urgency and impact resolves high-priority issues quickly and efficiently."
   },
   {
     examId: "CSE",
     questionText: "A key skill for handling difficult customers is:",
     options: [
-      "Becoming defensive",
       "Remaining calm and patient while addressing concerns",
       "Matching their frustration with anger",
+      "Becoming defensive",
       "Avoiding the interaction"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Remaining calm keeps the focus on solving the issue rather than escalating tensions."
   },
   {
     examId: "CSE",
     questionText: "What should you do if you don't know the answer to a customer's question?",
     options: [
+      "End the conversation",
       "Guess and provide incorrect information",
-      "Be honest, and find the correct answer or escalate appropriately",
       "Ignore the question",
-      "End the conversation"
+      "Be honest, and find the correct answer or escalate appropriately"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Confirming facts before answering keeps data accurate and builds customer trust."
   },
   {
     examId: "CSE",
     questionText: "Which is an example of proactive customer service?",
     options: [
-      "Waiting for complaints before acting",
       "Anticipating customer needs and addressing them before issues arise",
-      "Reacting only after a complaint is filed",
-      "Avoiding communication with customers"
+      "Avoiding communication with customers",
+      "Waiting for complaints before acting",
+      "Reacting only after a complaint is filed"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Proactive warnings about disruptions build goodwill and reduce incoming support tickets."
   },
   {
@@ -2243,47 +2244,47 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Why is consistency important in customer service?",
     options: [
       "It has no impact on customer trust",
-      "It builds reliability and trust with customers over time",
       "Consistency limits flexibility unnecessarily",
+      "It builds reliability and trust with customers over time",
       "It only matters for large companies"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Providing consistent support quality across channels builds customer trust."
   },
   {
     examId: "CSE",
     questionText: "In customer service, 'active empathy' means:",
     options: [
-      "Agreeing to give refunds for every request",
-      "Listening, reflecting back the customer's feeling, and taking positive action",
+      "Writing a long email apology",
       "Transferring the call to a manager immediately",
-      "Writing a long email apology"
+      "Listening, reflecting back the customer's feeling, and taking positive action",
+      "Agreeing to give refunds for every request"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Active empathy combines emotional validation with actual steps to resolve the customer's problem."
   },
   {
     examId: "CSE",
     questionText: "When dealing with a complex technical issue you cannot solve, you should say:",
     options: [
+      "This is not my job.",
       "I don't know, please call back tomorrow.",
       "Let me check with our technical team and I will get back to you by [Time].",
-      "This is not my job.",
       "Please email support."
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Stating your resolution plan clearly keeps the customer informed and reduces frustration."
   },
   {
     examId: "CSE",
     questionText: "What is the primary focus of Customer Retention?",
     options: [
+      "Increasing prices to boost revenue",
       "Finding new customers through advertisements",
       "Keeping existing customers satisfied to continue business with you",
-      "Increasing prices to boost revenue",
       "Closing down low-performing accounts"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Retention strategies focus on keeping existing customers happy, which is more cost-effective than acquisition."
   },
   {
@@ -2291,11 +2292,11 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "Which channel is most appropriate for a quick status update to a client?",
     options: [
       "In-person meeting",
-      "Concise email or message",
       "2-hour conference call",
-      "Formal letter"
+      "Formal letter",
+      "Concise email or message"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Brief updates are best handled through email or messages to respect clients' schedules."
   },
   {
@@ -2303,23 +2304,23 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "What is Customer Lifetime Value (CLV)?",
     options: [
       "The cost to acquire a single customer",
+      "The customer's credit score",
       "The total net profit a business expects to earn from a customer relationship",
-      "The price of the most expensive product",
-      "The customer's credit score"
+      "The price of the most expensive product"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "CLV estimates the long-term value of a customer relationship, helping guide acquisition spend."
   },
   {
     examId: "CSE",
     questionText: "What is the primary value of a Net Promoter Score (NPS)?",
     options: [
-      "It calculates total monthly revenue",
       "It measures customer loyalty and willingness to recommend your service",
+      "It calculates total monthly revenue",
       "It track inventory cycles",
       "It monitors server uptime statistics"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "NPS is a key metric that tracks customer loyalty and likelihood of brand referral."
   },
 
@@ -2328,60 +2329,60 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CPS",
     questionText: "Critical thinking involves all of the following EXCEPT:",
     options: [
+      "Evaluating evidence objectively",
       "Questioning assumptions",
-      "Accepting information blindly from authority figures",
       "Analyzing different points of view",
-      "Evaluating evidence objectively"
+      "Accepting information blindly from authority figures"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Critical thinking requires evaluating arguments objectively rather than accepting claims blindly."
   },
   {
     examId: "CPS",
     questionText: "The first step in problem solving is to:",
     options: [
-      "Implement a quick fix",
       "Define and analyze the root problem clearly",
+      "Assign blame to team members",
       "Brainstorm solutions",
-      "Assign blame to team members"
+      "Implement a quick fix"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Defining the problem clearly prevents wasting time on the wrong issues."
   },
   {
     examId: "CPS",
     questionText: "What is 'confirmation bias'?",
     options: [
-      "Testing solutions rigorously",
       "The tendency to look for and favor information that confirms your pre-existing beliefs",
       "Seeking diverse opinions to solve a conflict",
-      "Confirming appointment times"
+      "Confirming appointment times",
+      "Testing solutions rigorously"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Confirmation bias leads us to favor information that supports our beliefs while ignoring conflicting facts."
   },
   {
     examId: "CPS",
     questionText: "A 'root cause analysis' is used to:",
     options: [
-      "Identify the primary source of a problem, rather than just its symptoms",
       "Estimate the project cost",
       "Assign work to employees",
+      "Identify the primary source of a problem, rather than just its symptoms",
       "Make a final budget presentation"
     ],
-    correctOption: "A",
+    correctOption: "C",
     explanation: "Addressing the root cause prevents issues from recurring, unlike surface-level fixes."
   },
   {
     examId: "CPS",
     questionText: "Which of these is a benefit of cognitive diversity in problem-solving groups?",
     options: [
+      "Unified thinking style",
       "Faster decisions with no debate",
-      "Multiple perspectives leading to more robust and creative solutions",
       "Less discussion",
-      "Unified thinking style"
+      "Multiple perspectives leading to more robust and creative solutions"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Different viewpoints help teams identify blind spots and build more creative solutions."
   },
   {
@@ -2389,35 +2390,35 @@ const defaultQuestions: QuestionSeed[] = [
     questionText: "When evaluating a source of information, critical thinkers check:",
     options: [
       "Only the date",
-      "The credibility, reliability, and potential bias of the source",
+      "Only if it supports their idea",
       "The font style",
-      "Only if it supports their idea"
+      "The credibility, reliability, and potential bias of the source"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "Checking source credibility prevents using biased or incorrect data."
   },
   {
     examId: "CPS",
     questionText: "What is 'deductive reasoning'?",
     options: [
-      "Making guesses based on emotions",
       "Reasoning from general premises to a specific, logical conclusion",
       "Rejecting all arguments",
-      "Reasoning from specific cases to a general rule"
+      "Reasoning from specific cases to a general rule",
+      "Making guesses based on emotions"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Deductive reasoning starts with general rules to reach a specific, logically certain conclusion."
   },
   {
     examId: "CPS",
     questionText: "Brainstorming sessions are most effective when:",
     options: [
-      "Criticism of ideas is encouraged immediately",
       "Focus is on generating a high quantity of ideas without immediate judgment",
       "Only the team leader speaks",
-      "The first idea is chosen immediately"
+      "The first idea is chosen immediately",
+      "Criticism of ideas is encouraged immediately"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Deferring judgment during brainstorming encourages creative ideas and keeps the focus open."
   },
   {
@@ -2426,8 +2427,8 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "Validating facts",
       "Taking something for granted without proof",
-      "Solving a math problem",
-      "Drawing a diagram"
+      "Drawing a diagram",
+      "Solving a math problem"
     ],
     correctOption: "B",
     explanation: "Assumptions are beliefs accepted as true without direct evidence, which can lead to errors."
@@ -2438,8 +2439,8 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "Solving problems using standard, direct logic only",
       "Solving problems through an indirect, creative, and non-linear approach",
-      "Working on horizontal lines",
-      "Avoiding problem solving entirely"
+      "Avoiding problem solving entirely",
+      "Working on horizontal lines"
     ],
     correctOption: "B",
     explanation: "Lateral thinking uses creative, non-linear approaches to find unique solutions."
@@ -2448,10 +2449,10 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CPS",
     questionText: "What is 'correlation does not imply causation'?",
     options: [
-      "Two events happening together means one caused the other",
+      "Statistics are always false",
       "Just because two trends move together doesn't mean one causes the other",
       "Data should not be plotted",
-      "Statistics are always false"
+      "Two events happening together means one caused the other"
     ],
     correctOption: "B",
     explanation: "Two events may be related by chance or a third factor, without one causing the other."
@@ -2460,34 +2461,34 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CPS",
     questionText: "Which of these represents a 'straw man' argument?",
     options: [
-      "Agreeing to compromise",
-      "Misrepresenting someone's argument to make it easier to attack or refute",
+      "A type of budget planning",
       "An argument supported by facts",
-      "A type of budget planning"
+      "Agreeing to compromise",
+      "Misrepresenting someone's argument to make it easier to attack or refute"
     ],
-    correctOption: "B",
+    correctOption: "D",
     explanation: "A straw man misrepresents an opponent's view to make it easier to refute."
   },
   {
     examId: "CPS",
     questionText: "In critical thinking, 'objectivity' means:",
     options: [
-      "Being influenced by personal feelings and opinions",
       "Making judgments based on facts and evidence, free from personal bias",
       "Opposing every point of view",
+      "Being influenced by personal feelings and opinions",
       "Designing a product object"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Objectivity requires setting aside personal bias to evaluate evidence fairly."
   },
   {
     examId: "CPS",
     questionText: "Which tool is commonly used to visualize cause-and-effect relationships?",
     options: [
-      "Gantt Chart",
+      "Calendar",
       "Fishbone (Ishikawa) Diagram",
       "Bar Chart",
-      "Calendar"
+      "Gantt Chart"
     ],
     correctOption: "B",
     explanation: "Fishbone diagrams map cause-and-effect categories, helping you trace root issues."
@@ -2496,21 +2497,21 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CPS",
     questionText: "What is the sunk cost fallacy?",
     options: [
-      "Investing in new projects",
       "Continuing to invest in a failing project just because you have already spent money/time on it",
-      "Cutting costs early",
-      "Declaring bankruptcy"
+      "Declaring bankruptcy",
+      "Investing in new projects",
+      "Cutting costs early"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "The sunk cost fallacy leads people to keep investing in a failing plan just because of past spend."
   },
   {
     examId: "CPS",
     questionText: "Logical fallacies are:",
     options: [
-      "Correct mathematical steps",
-      "Flaws in reasoning that weaken or invalidate an argument",
       "Historical facts",
+      "Flaws in reasoning that weaken or invalidate an argument",
+      "Correct mathematical steps",
       "Programming bugs"
     ],
     correctOption: "B",
@@ -2520,10 +2521,10 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CPS",
     questionText: "A critical thinker responds to a complex issue by:",
     options: [
-      "Jump to conclusions immediately",
-      "Asking questions, gathering facts, and evaluating options before deciding",
       "Ignoring the issue",
-      "Trusting their first instinct blindly"
+      "Asking questions, gathering facts, and evaluating options before deciding",
+      "Trusting their first instinct blindly",
+      "Jump to conclusions immediately"
     ],
     correctOption: "B",
     explanation: "Evaluating facts and alternatives helps ensure you make reasoned decisions."
@@ -2534,8 +2535,8 @@ const defaultQuestions: QuestionSeed[] = [
     options: [
       "Claiming to know everything",
       "Recognizing the limits of your own knowledge and being open to new perspectives",
-      "Being quiet in meetings",
-      "Lacking confidence in your skills"
+      "Lacking confidence in your skills",
+      "Being quiet in meetings"
     ],
     correctOption: "B",
     explanation: "Humility involves recognizing the limits of your own knowledge and staying open to new ideas."
@@ -2544,24 +2545,24 @@ const defaultQuestions: QuestionSeed[] = [
     examId: "CPS",
     questionText: "Which step comes after selecting a solution in the problem-solving cycle?",
     options: [
-      "Defining the problem again",
       "Implementing and monitoring the solution",
       "Giving up",
+      "Defining the problem again",
       "Brainstorming alternative problems"
     ],
-    correctOption: "B",
+    correctOption: "A",
     explanation: "Implementation must be followed by monitoring to ensure the solution actually works."
   },
   {
     examId: "CPS",
     questionText: "A '5 Whys' technique is used to:",
     options: [
+      "Ask customers why they bought a product",
       "Interrogate team members",
       "Repeatedly ask 'why' to drill down to the root cause of a problem",
-      "List five project deadlines",
-      "Ask customers why they bought a product"
+      "List five project deadlines"
     ],
-    correctOption: "B",
+    correctOption: "C",
     explanation: "Asking 'why' repeatedly helps you peel away surface symptoms to find the root cause."
   }
 ];

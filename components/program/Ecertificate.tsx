@@ -28,21 +28,10 @@ const features = [
 ];
 
 export default function ECertificate() {
-  const { user } = useAuth();
-  const router = useRouter();
-
-  const handleViewCertification = () => {
-    if (user) {
-      router.push("/dashboard/e-certification");
-    } else {
-      router.push("/auth/login?callbackUrl=/dashboard/e-certification");
-    }
-  };
-
   return (
     <>
-       <section className="py-6 md:py-10 px-4" >
-      <div className="max-w-7xl mx-auto">
+      <section className="pt-6 md:pt-10 pb-2 px-4">
+        <div className="max-w-7xl mx-auto">
 
         {/* Header */}
         <div className="text-center mb-10 md:mb-12.5">
@@ -94,20 +83,8 @@ export default function ECertificate() {
 
         </div>
 
-        {/* View E-Certification Button */}
-        <div className="text-center mt-10 md:mt-12">
-          <button
-            onClick={handleViewCertification}
-            className="bg-[#2F3E56] hover:bg-[#1e293b] text-white px-8 py-3 rounded-xl font-medium transition cursor-pointer text-center inline-block"
-          >
-            View E-Certification
-          </button>
-        </div>
-
       </div>
     </section>
-    <div className="global-page-divider mt-2"></div>
     </>
- 
   );
 }

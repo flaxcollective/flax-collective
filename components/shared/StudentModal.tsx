@@ -11,6 +11,8 @@ interface StudentModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialCourse?: string;
+  type?: "course" | "exam";
+  availableExams?: Array<{ examId?: string; title: string }>;
 }
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -28,14 +30,42 @@ const defaultForm = {
   consent: false,
 };
 
-export default function StudentModal({ isOpen, onClose, initialCourse }: StudentModalProps) {
+export default function StudentModal({ isOpen, onClose, initialCourse, type = "course", availableExams }: StudentModalProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [form, setForm] = useState(defaultForm);
+  const [coursesList, setCoursesList] = useState<string[]>([]);
+  const [examsList, setExamsList] = useState<string[]>([]);
   const { user } = useAuth();
 
+  const isExam = type === "exam";
+
   const hasProfile = Boolean(user && user.name && user.phone && user.country && user.state && user.city);
+
+  useEffect(() => {
+    if (isOpen) {
+      if (isExam) {
+        fetch("/api/exams")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && Array.isArray(data.exams)) {
+              setExamsList(data.exams.filter((e: any) => e.isActive !== false).map((e: any) => e.title));
+            }
+          })
+          .catch((err) => console.error("Error loading exams from database:", err));
+      } else {
+        fetch("/api/courses")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && Array.isArray(data.courses)) {
+              setCoursesList(data.courses.filter((c: any) => c.isActive !== false).map((c: any) => c.title));
+            }
+          })
+          .catch((err) => console.error("Error loading courses from database:", err));
+      }
+    }
+  }, [isOpen, isExam]);
 
   useEffect(() => {
     if (isOpen) {
@@ -144,7 +174,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
       const res = await fetch("/api/enrollment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, recaptchaToken }),
+        body: JSON.stringify({ ...form, type: isExam ? "exam" : "course", recaptchaToken }),
       });
 
       const data = await res.json() as { success: boolean; message?: string; redirectUrl?: string };
@@ -155,6 +185,9 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
           window.location.href = data.redirectUrl;
         } else {
           setStatus("success");
+          setTimeout(() => {
+            window.location.href = isExam ? "/dashboard/e-certification" : "/dashboard";
+          }, 1500);
         }
       } else {
         setStatus("error");
@@ -175,9 +208,11 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
         {status === "success" ? (
           <div className="modal-success">
             <div className="modal-success-icon">✓</div>
-            <h2 className="modal-success-title">Enrollment Submitted!</h2>
+            <h2 className="modal-success-title">{isExam ? "Certification Registration Submitted!" : "Enrollment Submitted!"}</h2>
             <p className="modal-success-text">
-              Thank you for your interest. Our team will reach out to you shortly.
+              {isExam
+                ? "Thank you for registering for the certification. Our team will reach out to you shortly."
+                : "Thank you for your interest. Our team will reach out to you shortly."}
             </p>
             <button className="modal-submit-btn" onClick={onClose} type="button">
               Close
@@ -185,7 +220,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
           </div>
         ) : (
           <>
-            <h2 className="modal-title">Start Your Enrollment Process</h2>
+            <h2 className="modal-title">{isExam ? "Register for Certification" : "Start Your Enrollment Process"}</h2>
 
             <form className="modal-form" onSubmit={handleSubmit}>
               <div className="modal-grid-2">
@@ -294,20 +329,23 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                   </>
                 )}
                 <div className="modal-input-group">
-
-                  <label>Course</label>
+                  <label>{isExam ? "Certification Exam" : "Course"}</label>
                   <select name="course" value={form.course} onChange={handleChange} required>
-                    <option value="" disabled hidden>Course You Are Interested In:</option>
-                    <option value="Hospitality Professional Foundations (HPF)">Hospitality Professional Foundations (HPF)</option>
-                    <option value="Hotel Operations & Systems Certification (HOSC)">Hotel Operations & Systems Certification (HOSC)</option>
-                    <option value="Hospitality Communication & Professional Skills (HCPS)">Hospitality Communication & Professional Skills (HCPS)</option>
-                    <option value="International Guest Experience Certification (IGEC)">International Guest Experience Certification (IGEC)</option>
-                    <option value="Career Success & International Placement Bootcamp (CSIPB)">Career Success & International Placement Bootcamp (CSIPB)</option>
-                    <option value="Professional Skills & Soft Skills Foundation (PSSF)">Professional Skills & Soft Skills Foundation (PSSF)</option>
-                    <option value="Real Estate Sales & Management (RESM)">Real Estate Sales & Management (RESM)</option>
-                    <option value="Butler Service & Luxury Hospitality Certification (BSLHC)">Butler Service & Luxury Hospitality Certification (BSLHC)</option>
-                    <option value="Professional Bartending & Guest Engagement Certification (PBGEC)">Professional Bartending & Guest Engagement Certification (PBGEC)</option>
-                    <option value="Childcare & Family Guest Services Certification (CFHC)">Childcare & Family Guest Services Certification (CFHC)</option>
+                    <option value="" disabled hidden>
+                      {isExam ? "Certification You Are Interested In:" : "Course You Are Interested In:"}
+                    </option>
+                    {isExam ? (
+                      (availableExams && availableExams.length > 0
+                        ? availableExams.map(e => e.title)
+                        : (examsList.length > 0 ? examsList : (form.course ? [form.course] : []))
+                      ).map((examTitle) => (
+                        <option key={examTitle} value={examTitle}>{examTitle}</option>
+                      ))
+                    ) : (
+                      (coursesList.length > 0 ? coursesList : (form.course ? [form.course] : [])).map((cTitle) => (
+                        <option key={cTitle} value={cTitle}>{cTitle}</option>
+                      ))
+                    )}
                   </select>
                 </div>
               </div>
@@ -339,7 +377,7 @@ export default function StudentModal({ isOpen, onClose, initialCourse }: Student
                     <span className="modal-spinner" />
                     Submitting...
                   </span>
-                ) : "Submit Now"}
+                ) : (isExam ? "Register & Pay" : "Submit Now")}
               </button>
             </form>
           </>

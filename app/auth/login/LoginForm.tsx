@@ -66,8 +66,10 @@ const LoginForm = () => {
         router.push("/programs#custom-course");
       } else if (data.user?.usertype === "admin") {
         router.push("/admin-dashboard");
+      } else if (callbackUrl) {
+        router.push(callbackUrl);
       } else {
-        router.push("/");
+        router.push("/dashboard");
       }
 
     } catch (error) {
@@ -95,7 +97,15 @@ const LoginForm = () => {
         return;
       }
       setUser(data.user);
-      router.push("/");
+      if (from === "custom" && callbackUrl) {
+        router.push("/programs#custom-course");
+      } else if (data.user?.usertype === "admin") {
+        router.push("/admin-dashboard");
+      } else if (callbackUrl) {
+        router.push(callbackUrl);
+      } else {
+        router.push("/dashboard");
+      }
     } catch (error) {
       console.error("Google Login error:", error);
     } finally {

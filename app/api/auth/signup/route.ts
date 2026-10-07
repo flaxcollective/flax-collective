@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { getDb, getNextSequence } from "@/lib/mongodb";
 
 export const runtime = "nodejs";
@@ -149,9 +150,20 @@ export async function POST(req: Request) {
     }
     await signupOtps.deleteOne({ email: normalizedEmail });
 
-    return NextResponse.json({
+    const token = jwt.sign(
+      {
+        id: newUser.id,
+        email: newUser.email,
+        usertype: newUser.usertype,
+      },
+      process.env.JWT_SECRET as string,
+      { expiresIn: "1d" }
+    );
+
+    const response = NextResponse.json({
       success: true,
       message: "User created successfully",
+      token,
       user: {
         id: newUser.id,
         name: newUser.name,
@@ -165,6 +177,16 @@ export async function POST(req: Request) {
         updatedAt: newUser.updatedAt,
       },
     });
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24,
+    });
+
+    return response;
   } catch (error: any) {
     console.error("Signup Error", error);
     return NextResponse.json(
