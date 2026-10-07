@@ -63,18 +63,18 @@ const adminMenu = [
     href: "/admin-dashboard/view-courses",
   },
   {
-    name: "Manage Exams",
+    name: "E-Certification",
     icon: Award,
     href: "/admin-dashboard/exams",
   },
   {
-    name: "Create Exam",
+    name: "Create E-Certification",
     icon: PlusCircle,
     href: "/admin-dashboard/exams/create",
     isSub: true,
   },
   {
-    name: "Existing Exams",
+    name: "Existing E-Certifications",
     icon: Award,
     href: "/admin-dashboard/exams",
     isSub: true,
@@ -240,18 +240,20 @@ export default function Sidebar() {
       <nav className="flex-1 px-2">
         <ul className="space-y-1">
           {menuItems.map((item) => {
+            const isAdmin = user?.usertype === "admin" || user?.usertype === "employee";
+            const isSub = (item as any).isSub;
+            const isExamParent = isAdmin && item.href === "/admin-dashboard/exams" && !isSub;
+
             let isActive = pathname === item.href;
-            if (item.name === "Manage Exams") {
+            if (isExamParent) {
               isActive = pathname.startsWith("/admin-dashboard/exams");
             }
             if (item.name === "Courses") {
               isActive = pathname.startsWith("/dashboard/course");
             }
-            if (item.name === "E-Certification") {
+            if (item.name === "E-Certification" && !isAdmin) {
               isActive = pathname.startsWith("/dashboard/e-certification");
             }
-            const isAdmin = user?.usertype === "admin" || user?.usertype === "employee";
-            const isSub = (item as any).isSub;
             
             // Exam sub-menus are only shown if expanded
             const isExamSub = isSub && item.href.startsWith("/admin-dashboard/exams");
@@ -295,7 +297,7 @@ export default function Sidebar() {
                   <item.icon className={`w-5 h-5 ${isActive ? (isAdmin ? "text-white" : "text-black") : "text-gray-600"}`} />
                 )}
                 {(forMobile || !collapsed) && <span className="flex-1">{item.name}</span>}
-                {item.name === "Manage Exams" && (forMobile || !collapsed) && (
+                {isExamParent && (forMobile || !collapsed) && (
                   <span className="shrink-0 ml-auto">
                     {examsOpen ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
                   </span>
@@ -304,13 +306,11 @@ export default function Sidebar() {
             );
 
             return (
-              <li key={item.name}>
-                {item.name === "Manage Exams" ? (
+              <li key={item.name + (isSub ? "-sub" : "")}>
+                {isExamParent ? (
                   <button
                     onClick={() => {
-                      if (item.name === "Manage Exams") {
-                        setExamsOpen(!examsOpen);
-                      }
+                      setExamsOpen(!examsOpen);
                     }}
                     className={`flex items-center w-full ${!forMobile && collapsed ? "justify-center" : "gap-3"} ${
                       !forMobile && !collapsed && isSub ? "pl-8" : "px-3"

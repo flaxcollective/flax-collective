@@ -201,7 +201,7 @@ function QuestionsContent() {
           </Link>
           <div>
             <span className="text-[10px] uppercase font-bold tracking-widest text-[#6E7C3A] font-sans">
-              Exam Questions Editor ({examId})
+              E-Certification Questions Editor ({examId})
             </span>
             <h2 className="text-lg md:text-xl font-bold text-[#2F3E56] mt-0.5 leading-none pr-6">
               {exam ? exam.title : "Loading Exam..."}

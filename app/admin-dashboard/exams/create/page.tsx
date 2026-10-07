@@ -52,13 +52,13 @@ export default function CreateExamPage() {
       const data = await res.json();
       if (data.success) {
         setStatus("success");
-        setMessage("Exam created successfully! Redirecting...");
+        setMessage("E-Certification created successfully! Redirecting...");
         setTimeout(() => {
           router.push("/admin-dashboard/exams");
         }, 1200);
       } else {
         setStatus("error");
-        setMessage(data.message || "Failed to create exam.");
+        setMessage(data.message || "Failed to create e-certification.");
       }
     } catch (err: any) {
       setStatus("error");
@@ -80,10 +80,10 @@ export default function CreateExamPage() {
         </button>
         <div>
           <h2 className="text-xl font-bold text-[#2F3E56] leading-none">
-            Create Certification Exam
+            Create E-Certification
           </h2>
           <p className="text-gray-400 text-xs mt-1">
-            Configure exam rules, question pools, and special registration pricing.
+            Configure e-certification rules, question pools, and special registration pricing.
           </p>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function CreateExamPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-gray-500 mb-1">EXAM ID / CODE (Unique)</label>
+              <label className="block text-xs font-bold text-gray-500 mb-1">CERTIFICATION ID / CODE (Unique)</label>
               <input
                 type="text"
                 name="examId"
@@ -248,7 +248,7 @@ export default function CreateExamPage() {
               disabled={status === "loading"}
               className="px-6 py-2.5 bg-[#6E7C3A] hover:bg-[#5a6630] text-white text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer disabled:opacity-50"
             >
-              {status === "loading" ? "Creating..." : "Create Exam"}
+              {status === "loading" ? "Creating..." : "Create E-Certification"}
             </button>
           </div>
 

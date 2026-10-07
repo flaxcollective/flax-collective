@@ -100,7 +100,7 @@ export default function AdminExamsPage() {
   };
 
   const handleDelete = async (examId: string) => {
-    if (!confirm(`Are you sure you want to delete exam "${examId}"? This will delete all its questions as well!`)) {
+    if (!confirm(`Are you sure you want to delete e-certification "${examId}"? This will delete all its questions as well!`)) {
       return;
     }
 
@@ -110,14 +110,14 @@ export default function AdminExamsPage() {
       });
       const data = await res.json();
       if (data.success) {
-        alert("Exam deleted successfully.");
+        alert("E-Certification deleted successfully.");
         fetchExams();
       } else {
-        alert(data.message || "Failed to delete exam.");
+        alert(data.message || "Failed to delete e-certification.");
       }
     } catch (err) {
-      console.error("Error deleting exam:", err);
-      alert("Error deleting exam.");
+      console.error("Error deleting e-certification:", err);
+      alert("Error deleting e-certification.");
     }
   };
 
@@ -133,7 +133,7 @@ export default function AdminExamsPage() {
       if (data.success) {
         fetchExams();
       } else {
-        alert(data.message || "Failed to update exam status.");
+        alert(data.message || "Failed to update e-certification status.");
       }
     } catch (err) {
       console.error("Error toggling status:", err);
@@ -170,7 +170,7 @@ export default function AdminExamsPage() {
       const data = await res.json();
       if (data.success) {
         setStatus("success");
-        setMessage(isEditing ? "Exam updated successfully!" : "Exam created successfully!");
+        setMessage(isEditing ? "E-Certification updated successfully!" : "E-Certification created successfully!");
         fetchExams();
         setTimeout(() => setIsModalOpen(false), 1200);
       } else {
@@ -194,10 +194,10 @@ export default function AdminExamsPage() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-[#2F3E56] leading-none">
-              Certification Exams
+              E-Certification
             </h2>
             <p className="text-gray-400 text-xs mt-1">
-              Create and manage certification exams, question pools, and audit passing candidate results.
+              Create and manage e-certification exams, question pools, and audit passing candidate results.
             </p>
           </div>
         </div>
@@ -207,7 +207,7 @@ export default function AdminExamsPage() {
           className="flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#6E7C3A] hover:bg-[#5a6630] text-white text-xs font-semibold rounded-xl transition-all shadow-sm cursor-pointer self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
-          Create New Exam
+          Create E-Certification
         </button>
       </div>
 
@@ -215,7 +215,7 @@ export default function AdminExamsPage() {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden p-6">
         
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-base font-bold text-[#2F3E56]">Existing Exams ({exams.length})</h3>
+          <h3 className="text-base font-bold text-[#2F3E56]">Existing E-Certifications ({exams.length})</h3>
           <button
             onClick={fetchExams}
             className="text-[#6E7C3A] hover:text-[#5a6630] transition-colors p-1"
@@ -229,19 +229,19 @@ export default function AdminExamsPage() {
           <div className="text-center py-20">
             <div className="flex flex-col items-center gap-3">
               <div className="w-8 h-8 border-4 border-gray-200 border-t-[#6E7C3A] rounded-full animate-spin"></div>
-              <span className="text-sm font-semibold text-gray-400">Loading exams database...</span>
+              <span className="text-sm font-semibold text-gray-400">Loading e-certifications database...</span>
             </div>
           </div>
         ) : exams.length === 0 ? (
           <div className="text-center py-16 border-2 border-dashed border-gray-100 rounded-xl">
             <HelpCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <h4 className="font-bold text-gray-400 text-sm">No Exams Configured</h4>
-            <p className="text-xs text-gray-400 mt-1 mb-4">Create your first certification exam to seed the student portal.</p>
+            <h4 className="font-bold text-gray-400 text-sm">No E-Certifications Configured</h4>
+            <p className="text-xs text-gray-400 mt-1 mb-4">Create your first e-certification exam to seed the student portal.</p>
             <button
               onClick={handleOpenAdd}
               className="px-4 py-2 bg-[#6E7C3A] text-white rounded-lg text-xs font-semibold hover:bg-[#5a6630]"
             >
-              Add Exam
+              Add E-Certification
             </button>
           </div>
         ) : (
@@ -249,7 +249,7 @@ export default function AdminExamsPage() {
             <table className="w-full border-collapse text-left text-xs text-gray-600">
               <thead className="bg-[#FAF8F5] border-b border-gray-100 text-[10px] font-bold text-[#2F3E56] uppercase tracking-wider">
                 <tr>
-                  <th className="px-6 py-4 w-28">Exam Code</th>
+                  <th className="px-6 py-4 w-28">Certification Code</th>
                   <th className="px-6 py-4">Title & Description</th>
                   <th className="px-6 py-4">Price</th>
                   <th className="px-6 py-4">Parameters</th>
@@ -319,7 +319,7 @@ export default function AdminExamsPage() {
                         <button
                           onClick={() => handleOpenEdit(exam)}
                           className="p-1.5 border border-gray-200 rounded-lg text-gray-500 hover:text-[#6E7C3A] hover:bg-gray-50 transition-all cursor-pointer"
-                          title="Edit exam settings"
+                          title="Edit e-certification settings"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
@@ -327,7 +327,7 @@ export default function AdminExamsPage() {
                         <button
                           onClick={() => handleDelete(exam.examId)}
                           className="p-1.5 border border-gray-200 rounded-lg text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer"
-                          title="Delete exam"
+                          title="Delete e-certification"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -346,10 +346,10 @@ export default function AdminExamsPage() {
         <div>
           <h4 className="font-bold text-[#2F3E56] text-sm flex items-center gap-1.5">
             <FileText className="w-4 h-4 text-[#6E7C3A]" />
-            Audit Student Certification Attempts
+            Audit Student E-Certification Attempts
           </h4>
           <p className="text-xs text-gray-400 mt-1">
-            Check logs of all student exam registrations, marks, and digital certificates generated.
+            Check logs of all student e-certification registrations, marks, and digital certificates generated.
           </p>
         </div>
         <Link
@@ -369,7 +369,7 @@ export default function AdminExamsPage() {
             <div className="bg-[#2F3E56] px-6 py-4 flex items-center justify-between text-white">
               <h3 className="font-bold text-base flex items-center gap-2">
                 <Award className="w-5 h-5 text-[#6E7C3A]" />
-                {isEditing ? "Edit Exam Details" : "Create Certification Exam"}
+                {isEditing ? "Edit E-Certification Details" : "Create E-Certification"}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -394,7 +394,7 @@ export default function AdminExamsPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1">EXAM CODE / ID</label>
+                  <label className="block text-xs font-bold text-gray-500 mb-1">CERTIFICATION CODE / ID</label>
                   <input
                     type="text"
                     name="examId"
