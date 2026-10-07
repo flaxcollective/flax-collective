@@ -135,7 +135,7 @@ export async function POST(req: NextRequest) {
       await completeEnrollment(result.insertedId.toString(), pgTxnId);
 
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-      return NextResponse.json({
+      const response = NextResponse.json({
         success: true,
         redirectUrl: `${baseUrl}/enrollment/status?success=true&txnNo=${merchantTxnNo}`,
         enrollmentId: result.insertedId,
@@ -143,6 +143,34 @@ export async function POST(req: NextRequest) {
         amount: price,
         message: "Payment simulated successfully. Redirecting..."
       });
+
+      // Ensure purchaser is authenticated so they can access dashboard immediately
+      try {
+        const user = await db.collection("users").findOne({ email });
+        if (user && process.env.JWT_SECRET) {
+          const jwt = (await import("jsonwebtoken")).default;
+          const token = jwt.sign(
+            {
+              id: user.id,
+              email: user.email,
+              usertype: user.usertype || "student",
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+          );
+          response.cookies.set("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
+            maxAge: 60 * 60 * 24,
+          });
+        }
+      } catch (authErr) {
+        console.warn("[ENROLLMENT] Session cookie assignment skipped:", authErr);
+      }
+
+      return response;
     }
 
     try {

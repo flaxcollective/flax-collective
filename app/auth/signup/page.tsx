@@ -172,7 +172,7 @@ const SignupPage = () => {
       const data = await res.json();
 
       if (res.ok) {
-        window.location.href = "/auth/successfullpage";
+        window.location.href = "/dashboard";
       } else {
         setOtpError(data.message || "Invalid verification code or expired");
       }
@@ -185,7 +185,7 @@ const SignupPage = () => {
 
   const handleResendOTP = async () => {
     if (countdown > 0) return;
-    setResendLoading(true);
+    setResendLoading(true);     
     setOtpError("");
 
     try {
@@ -225,7 +225,7 @@ const SignupPage = () => {
       });
       const data = await res.json();
       if (data.success) {
-        window.location.href = "/auth/successfullpage";
+        window.location.href = "/dashboard";
       } else {
         alert("Error: " + data.message);
       }

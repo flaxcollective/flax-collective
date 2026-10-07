@@ -89,10 +89,35 @@ export async function POST(req: NextRequest) {
     }
 
     if (isSuccess) {
-      return NextResponse.redirect(
+      const redirectRes = NextResponse.redirect(
         `${baseUrl}/enrollment/status?success=true&txnNo=${merchantTxnNo}`,
         303
       );
+      try {
+        const user = await db.collection("users").findOne({ email: transaction.email });
+        if (user && process.env.JWT_SECRET) {
+          const jwt = (await import("jsonwebtoken")).default;
+          const token = jwt.sign(
+            {
+              id: user.id,
+              email: user.email,
+              usertype: user.usertype || "student",
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+          );
+          redirectRes.cookies.set("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
+            maxAge: 60 * 60 * 24,
+          });
+        }
+      } catch (authErr) {
+        console.warn("[ICICI PG CALLBACK] Cookie attachment skipped:", authErr);
+      }
+      return redirectRes;
     } else {
       const errMsg = params.responseMessage || "Payment failed or rejected.";
       return NextResponse.redirect(
