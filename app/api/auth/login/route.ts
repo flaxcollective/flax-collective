@@ -31,7 +31,12 @@ export async function POST(req: Request) {
 
     if (!user.password) {
       return NextResponse.json(
-        { success: false, message: `Please log in using your ${user.provider || "social"} account.` },
+        {
+          success: false,
+          message: user.provider
+            ? `Please log in using your ${user.provider} account.`
+            : "No password is set for this account yet. Please click 'Forgot Password' to create a password, or sign in with Google.",
+        },
         { status: 401 }
       );
     }
