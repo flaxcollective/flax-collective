@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ProgramHero from "./ProgramHero";
 import HomePrograms from "../home/HomePrograms";
 import WhatSetsApart from "./WhatSetsApart";
@@ -15,6 +16,10 @@ import ECertificate from "./Ecertificate";
 import CertificationList from "./CertificationList";
 
 export default function Program() {
+  const searchParams = useSearchParams();
+  const targetCourse = searchParams.get("course") || "";
+  const targetExam = searchParams.get("exam") || searchParams.get("examId") || "";
+
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"course" | "exam">("course");
   const [selectedItem, setSelectedItem] = useState("");
@@ -39,9 +44,9 @@ export default function Program() {
       <ProgramHero />
       <WhatSetsApart />
       <ECertificate />
-      <CertificationList onApplyExam={handleApplyExam} />
+      <CertificationList onApplyExam={handleApplyExam} targetExam={targetExam} />
       <HowItWorksStudents />
-      <HomePrograms onApplyNow={handleApplyCourse} />
+      <HomePrograms onApplyNow={handleApplyCourse} targetCourse={targetCourse} />
       <AreaofLearning />
       <CustomCourse user={user} />
       <CareerCTA />

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { BookOpen, Calendar, DollarSign, Tag, Key, Link as LinkIcon, FileText, Edit, X, CheckCircle, AlertCircle, FileImage, Eye, EyeOff, Trash2 } from "lucide-react";
+import { BookOpen, Calendar, DollarSign, Tag, Key, Link as LinkIcon, FileText, Edit, X, CheckCircle, AlertCircle, FileImage, Eye, EyeOff, Trash2, Share2, Check } from "lucide-react";
 
 interface Course {
   courseId: string;
@@ -20,6 +20,15 @@ interface Course {
 export default function ViewCoursesPage() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
+  const [copiedCourseId, setCopiedCourseId] = useState<string | null>(null);
+
+  const handleCopyCourseLink = (course: Course) => {
+    const identifier = course.slug || course.courseId || course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const url = `${window.location.origin}/programs?course=${encodeURIComponent(identifier)}#programs`;
+    navigator.clipboard.writeText(url);
+    setCopiedCourseId(course.courseId);
+    setTimeout(() => setCopiedCourseId(null), 2200);
+  };
 
   // Edit Modal State
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -353,6 +362,19 @@ export default function ViewCoursesPage() {
                 >
                   <Edit className="w-3.5 h-3.5" />
                   Edit
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleCopyCourseLink(course)}
+                  className="p-2 border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 hover:text-[#2F3E56] rounded-lg flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                  title="Copy Direct Shareable Link"
+                >
+                  {copiedCourseId === course.courseId ? (
+                    <Check className="w-3.5 h-3.5 text-green-700 font-bold" />
+                  ) : (
+                    <Share2 className="w-3.5 h-3.5" />
+                  )}
                 </button>
 
                 <button

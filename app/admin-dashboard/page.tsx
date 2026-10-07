@@ -269,81 +269,81 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="space-y-8 bg-[#FAF8F5] min-h-screen p-1 md:p-4 lg:p-6 text-gray-800">
+    <div className="space-y-4 md:space-y-6 lg:space-y-8 bg-[#FAF8F5] min-h-screen p-2.5 sm:p-4 lg:p-6 text-gray-800 animate-fade-in">
       {/* Greeting Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-[#2F3E56]">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2F3E56]">
           {greeting}, {user?.name?.split(" ")[0] || "Anshuman"}! 👋
         </h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <p className="text-gray-500 text-xs sm:text-sm mt-0.5 sm:mt-1">
           Here's what's happening with FLAX Collective.
         </p>
       </div>
 
       {/* Metric Cards Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
         {/* Stat 1: Total Courses */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-[#2F3E56] flex items-center justify-center text-white shrink-0">
-            <BookOpen className="w-6 h-6" />
+        <div className="bg-white p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-4">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-[#2F3E56] flex items-center justify-center text-white shrink-0">
+            <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </div>
-          <div>
-            <h3 className="text-3xl font-extrabold text-[#2F3E56] leading-none">
+          <div className="min-w-0">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#2F3E56] leading-none">
               {stats.totalCourses}
             </h3>
-            <p className="text-sm font-semibold text-gray-700 mt-1">Total Courses</p>
-            <p className="text-xs text-gray-400">All Courses</p>
+            <p className="text-xs sm:text-sm font-semibold text-gray-700 mt-1 truncate">Total Courses</p>
+            <p className="text-[10px] sm:text-xs text-gray-400 truncate">All Courses</p>
           </div>
         </div>
 
         {/* Stat 2: Total Users */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-[#2F3E56] flex items-center justify-center text-white shrink-0">
-            <Users className="w-6 h-6" />
+        <div className="bg-white p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-4">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-[#2F3E56] flex items-center justify-center text-white shrink-0">
+            <Users className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </div>
-          <div>
-            <h3 className="text-3xl font-extrabold text-[#2F3E56] leading-none">
+          <div className="min-w-0">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#2F3E56] leading-none">
               {stats.totalUsers.toLocaleString()}
             </h3>
-            <p className="text-sm font-semibold text-gray-700 mt-1">Total Users</p>
-            <p className="text-xs text-gray-400">Overall users</p>
+            <p className="text-xs sm:text-sm font-semibold text-gray-700 mt-1 truncate">Total Users</p>
+            <p className="text-[10px] sm:text-xs text-gray-400 truncate">Overall users</p>
           </div>
         </div>
 
         {/* Stat 3: Active Members */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-[#2F3E56] flex items-center justify-center text-white shrink-0">
-            <UserCheck className="w-6 h-6" />
+        <div className="bg-white p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-4">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-[#2F3E56] flex items-center justify-center text-white shrink-0">
+            <UserCheck className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </div>
-          <div>
-            <h3 className="text-3xl font-extrabold text-[#2F3E56] leading-none">
+          <div className="min-w-0">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#2F3E56] leading-none">
               {stats.activeMembers.toLocaleString()}
             </h3>
-            <p className="text-sm font-semibold text-gray-700 mt-1">Active Members</p>
-            <p className="text-xs text-gray-400">Currently active</p>
+            <p className="text-xs sm:text-sm font-semibold text-gray-700 mt-1 truncate">Active Members</p>
+            <p className="text-[10px] sm:text-xs text-gray-400 truncate">Currently active</p>
           </div>
         </div>
 
         {/* Stat 4: Completions */}
-        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-[#2F3E56] flex items-center justify-center text-white shrink-0">
-            <Award className="w-6 h-6" />
+        <div className="bg-white p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-4">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-[#2F3E56] flex items-center justify-center text-white shrink-0">
+            <Award className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
           </div>
-          <div>
-            <h3 className="text-3xl font-extrabold text-[#2F3E56] leading-none">
+          <div className="min-w-0">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#2F3E56] leading-none">
               {stats.completions}
             </h3>
-            <p className="text-sm font-semibold text-gray-700 mt-1">Completions</p>
-            <p className="text-xs text-gray-400">Completed course</p>
+            <p className="text-xs sm:text-sm font-semibold text-gray-700 mt-1 truncate">Completions</p>
+            <p className="text-[10px] sm:text-xs text-gray-400 truncate">Completed course</p>
           </div>
         </div>
       </div>
 
       {/* Main Grid: Recent Users & Recent Activity */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
         
         {/* Left Side: Recent Users Table Card */}
-        <div className="xl:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-6 flex flex-col justify-between">
+        <div className="xl:col-span-2 bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm p-3.5 sm:p-6 space-y-4 sm:space-y-6 flex flex-col justify-between">
           <div className="space-y-4">
             
             {/* Recent Users Header Tools */}
@@ -566,8 +566,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Right Side: Recent Activity Timeline */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-6 flex flex-col">
-          <h2 className="text-xl font-bold text-[#2F3E56]">
+        <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm p-3.5 sm:p-6 space-y-4 sm:space-y-6 flex flex-col">
+          <h2 className="text-lg sm:text-xl font-bold text-[#2F3E56]">
             Recent Activity
           </h2>
           
