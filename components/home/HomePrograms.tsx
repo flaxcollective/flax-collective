@@ -1,6 +1,6 @@
 "use client";
 import "@/app/styles/home/home-programs.css";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FiClock } from "react-icons/fi";
 
 const formatPrice = (price: any) => {
@@ -126,6 +126,14 @@ export default function HomePrograms({ onApplyNow, targetCourse }: HomeProgramsP
   const [highlightedCourseKey, setHighlightedCourseKey] = useState<string | null>(null);
   const [copiedCourseKey, setCopiedCourseKey] = useState<string | null>(null);
 
+  // Track targetCourse to auto-scroll, highlight, and directly open the registration form
+  const hasTriggeredCourseModalRef = useRef(false);
+  const currentTargetCourseRef = useRef(targetCourse);
+  if (currentTargetCourseRef.current !== targetCourse) {
+    currentTargetCourseRef.current = targetCourse;
+    hasTriggeredCourseModalRef.current = false;
+  }
+
   useEffect(() => {
     fetch("/api/courses")
       .then(res => res.json())
@@ -137,9 +145,9 @@ export default function HomePrograms({ onApplyNow, targetCourse }: HomeProgramsP
       .catch(err => console.error("Error loading courses:", err));
   }, []);
 
-  // Handle auto-scroll and highlight when targetCourse is passed
+  // Handle auto-scroll, highlight, and auto-opening form when targetCourse is passed
   useEffect(() => {
-    if (!targetCourse || courses.length === 0) return;
+    if (!targetCourse || courses.length === 0 || hasTriggeredCourseModalRef.current) return;
 
     const query = decodeURIComponent(targetCourse).trim().toLowerCase();
     const matched = courses.find((c: any) => {
@@ -158,15 +166,25 @@ export default function HomePrograms({ onApplyNow, targetCourse }: HomeProgramsP
     if (matched) {
       const key = getCourseIdentifier(matched);
       setHighlightedCourseKey(key);
-      const timer = setTimeout(() => {
+      const scrollTimer = setTimeout(() => {
         const el = document.getElementById(`course-${key}`);
         if (el) {
           el.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       }, 450);
-      return () => clearTimeout(timer);
+
+      // Directly open the registration/enquiry form without requiring manual click
+      const modalTimer = setTimeout(() => {
+        hasTriggeredCourseModalRef.current = true;
+        onApplyNow(matched.title);
+      }, 900);
+
+      return () => {
+        clearTimeout(scrollTimer);
+        clearTimeout(modalTimer);
+      };
     }
-  }, [targetCourse, courses]);
+  }, [targetCourse, courses, onApplyNow]);
 
   const handleCopyCourseLink = (course: any) => {
     const key = getCourseIdentifier(course);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Award, Clock, FileText, CheckCircle2, ArrowRight, CheckCircle, Share2, Check } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -42,6 +42,14 @@ export default function CertificationList({ onApplyExam, targetExam }: Certifica
   const [highlightedExamId, setHighlightedExamId] = useState<string | null>(null);
   const [copiedExamId, setCopiedExamId] = useState<string | null>(null);
 
+  // Track targetExam to auto-scroll, highlight, and directly open the Register & Pay form
+  const hasTriggeredExamModalRef = useRef(false);
+  const currentTargetExamRef = useRef(targetExam);
+  if (currentTargetExamRef.current !== targetExam) {
+    currentTargetExamRef.current = targetExam;
+    hasTriggeredExamModalRef.current = false;
+  }
+
   useEffect(() => {
     fetch("/api/exams")
       .then((res) => res.json())
@@ -58,9 +66,9 @@ export default function CertificationList({ onApplyExam, targetExam }: Certifica
       });
   }, [user]);
 
-  // Handle auto-scroll and highlight when targetExam is passed
+  // Handle auto-scroll, highlight, and auto-opening Register & Pay form when targetExam is passed
   useEffect(() => {
-    if (!targetExam || exams.length === 0) return;
+    if (!targetExam || exams.length === 0 || hasTriggeredExamModalRef.current) return;
 
     const query = decodeURIComponent(targetExam).trim().toLowerCase();
     const matched = exams.find(
@@ -72,15 +80,27 @@ export default function CertificationList({ onApplyExam, targetExam }: Certifica
 
     if (matched) {
       setHighlightedExamId(matched.examId);
-      const timer = setTimeout(() => {
+      const scrollTimer = setTimeout(() => {
         const el = document.getElementById(`exam-${matched.examId}`);
         if (el) {
           el.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       }, 400);
-      return () => clearTimeout(timer);
+
+      // Directly open the Register & Pay form without requiring manual click
+      const modalTimer = setTimeout(() => {
+        hasTriggeredExamModalRef.current = true;
+        if (!user || (!matched.hasPassed && !matched.isPurchased)) {
+          onApplyExam(matched.title);
+        }
+      }, 850);
+
+      return () => {
+        clearTimeout(scrollTimer);
+        clearTimeout(modalTimer);
+      };
     }
-  }, [targetExam, exams]);
+  }, [targetExam, exams, user, onApplyExam]);
 
   const handleCopyExamLink = (examId: string) => {
     const url = `${window.location.origin}/programs?exam=${encodeURIComponent(examId)}#e-certifications-section`;
