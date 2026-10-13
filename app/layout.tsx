@@ -45,9 +45,6 @@ export default function RootLayout({
     >
       <head>
         <meta name="google-site-verification" content="t3sNZ8RRA8Dix18tkniOsqTPxH7wHskzcTfrBlRfkq8" />
-
-      </head>
-      <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
@@ -75,6 +72,8 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
+      </head>
+      <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
         <AuthProvider>
           {children}
         </AuthProvider>
