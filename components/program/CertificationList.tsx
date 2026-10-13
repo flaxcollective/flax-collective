@@ -329,7 +329,7 @@ export default function CertificationList({ onApplyExam, targetExam }: Certifica
               {/* Price & Action */}
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 <div>
-                  <span className="text-xs text-gray-400 block font-medium">Registration Fee</span>
+                  <span className="text-xs text-gray-400 block font-medium">Course Fee</span>
                   <div className="flex items-baseline gap-2">
                     <span className="text-2xl font-black text-[#2F3E56]">₹{selectedExam.discountedPrice}</span>
                     <span className="text-sm text-gray-400 line-through">₹{selectedExam.price}</span>
