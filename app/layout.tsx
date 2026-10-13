@@ -7,6 +7,7 @@ import "./styles/animations.css";
 import { cn } from "@/lib/utils";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { AuthProvider } from "@/context/AuthContext";
+import PixelRouteTracker from "@/components/analytics/PixelRouteTracker";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -75,6 +76,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
         <AuthProvider>
+          <PixelRouteTracker />
           {children}
         </AuthProvider>
       </body>
