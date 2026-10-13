@@ -76,6 +76,15 @@ export default function Header() {
     }
   };
 
+  const handleNavClick = (label: string, href: string) => {
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("trackCustom", "NavClick", {
+        nav_item: label,
+        href,
+      });
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 header-main ${isScrolled ? "header-scrolled" : ""
@@ -98,6 +107,7 @@ export default function Header() {
               <Link
                 key={link.label}
                 href={link.href}
+                onClick={() => handleNavClick(link.label, link.href)}
                 className={`nav-link ${pathname === link.href ? "active" : ""}`}
               >
                 {link.label}
@@ -171,7 +181,10 @@ export default function Header() {
               <Link
                 key={link.label}
                 href={link.href}
-                onClick={closeMenu}
+                onClick={() => {
+                  handleNavClick(link.label, link.href);
+                  closeMenu();
+                }}
                 className="mobile-nav-item"
               >
                 {link.label}
