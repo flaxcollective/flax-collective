@@ -36,7 +36,7 @@ export default function Header() {
   // ---------------- SCROLL HEADER ----------------
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerWidth < 992) {
+      if (window.innerWidth < 1024) {
         setIsScrolled(false);
         document.body.classList.remove("scrolled");
         return;
