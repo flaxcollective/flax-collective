@@ -429,7 +429,7 @@
         display: flex !important;
     }
     .header-scrolled {
-        height: 0px;
+        height: 70px;
     }
 }
 
