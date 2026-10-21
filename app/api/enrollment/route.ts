@@ -78,7 +78,16 @@ export async function POST(req: NextRequest) {
     }
 
     const targetItemId = isExam ? itemData.examId : itemData.courseId;
-    const cleanEmail = email.trim();
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanFirstName = (firstName as string).trim();
+    const cleanLastName = (lastName as string).trim();
+    const cleanMobile = (mobile as string).trim();
+    const cleanCountryCode = (countryCode as string).trim();
+    const cleanCountry = (country as string).trim();
+    const cleanState = (state as string).trim();
+    const cleanCity = (city as string).trim();
+    const studentName = `${cleanFirstName} ${cleanLastName}`.trim();
+
     const emailEscaped = cleanEmail.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     const emailRegex = new RegExp(`^${emailEscaped}$`, "i");
 
@@ -113,14 +122,14 @@ export async function POST(req: NextRequest) {
 
     const newEntry = {
       submittedAt: new Date(),
-      firstName,
-      lastName,
-      email,
-      countryCode,
-      mobile,
-      country,
-      state,
-      city,
+      firstName: cleanFirstName,
+      lastName: cleanLastName,
+      email: cleanEmail,
+      countryCode: cleanCountryCode,
+      mobile: cleanMobile,
+      country: cleanCountry,
+      state: cleanState,
+      city: cleanCity,
       course,
       courseId: isExam ? itemData.examId : itemData.courseId,
       amount: price,
@@ -131,19 +140,77 @@ export async function POST(req: NextRequest) {
 
     const result = await db.collection("enrollments").insertOne(newEntry);
 
-    // Record the pending transaction
+    // Record the pending transaction with complete student contact details
     const newTransaction = {
       merchantTxnNo,
       enrollmentId: result.insertedId,
       amount: price,
       status: "pending",
       createdAt: new Date(),
-      email,
+      email: cleanEmail,
+      studentName,
+      firstName: cleanFirstName,
+      lastName: cleanLastName,
+      mobile: cleanMobile,
+      phone: cleanMobile,
+      countryCode: cleanCountryCode,
+      country: cleanCountry,
+      state: cleanState,
+      city: cleanCity,
       course,
       courseId: isExam ? itemData.examId : itemData.courseId,
       type: isExam ? "exam" : "course"
     };
     await db.collection("transactions").insertOne(newTransaction);
+
+    // Immediately persist student details into users collection so all form information is saved in database even if payment is pending
+    try {
+      const existingUser = await db.collection("users").findOne({
+        email: { $regex: emailRegex }
+      });
+      const nowIso = new Date().toISOString();
+      if (!existingUser) {
+        const { getNextSequence } = await import("@/lib/mongodb");
+        const sequenceValue = await getNextSequence("userId");
+        const userId = `FC${1000 + sequenceValue}`;
+        await db.collection("users").insertOne({
+          id: userId,
+          name: studentName,
+          firstName: cleanFirstName,
+          lastName: cleanLastName,
+          email: cleanEmail,
+          phone: cleanMobile,
+          countryCode: cleanCountryCode,
+          country: cleanCountry,
+          state: cleanState,
+          city: cleanCity,
+          usertype: "student",
+          createdAt: nowIso,
+          updatedAt: nowIso,
+        });
+        console.log(`[ENROLLMENT] Stored new user profile for ${cleanEmail} (ID: ${userId}) upon registration`);
+      } else {
+        await db.collection("users").updateOne(
+          { _id: existingUser._id },
+          {
+            $set: {
+              name: studentName || existingUser.name,
+              firstName: cleanFirstName || existingUser.firstName,
+              lastName: cleanLastName || existingUser.lastName,
+              phone: cleanMobile || existingUser.phone,
+              countryCode: cleanCountryCode || existingUser.countryCode,
+              country: cleanCountry || existingUser.country,
+              state: cleanState || existingUser.state,
+              city: cleanCity || existingUser.city,
+              updatedAt: nowIso,
+            }
+          }
+        );
+        console.log(`[ENROLLMENT] Updated user profile details for ${cleanEmail} upon registration`);
+      }
+    } catch (userSaveErr) {
+      console.error("[ENROLLMENT] Error saving user profile:", userSaveErr);
+    }
 
     // Simulated checkout bypass if explicit env variable is set or PG credentials are missing
     const bypassPayment = process.env.BYPASS_PAYMENT === "true";
