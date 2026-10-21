@@ -50,8 +50,21 @@ export async function GET(req: NextRequest) {
     // Return everything except password
     const { password, ...safeUser } = user;
 
-    // Fetch enrollments by email
-    const enrollments = await db.collection("enrollments").find({ email: user.email }).toArray();
+    // Fetch enrollments by email (case-insensitive)
+    const emailEscaped = (user.email || "").replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    const enrollments = await db.collection("enrollments").find({
+      email: { $regex: new RegExp(`^${emailEscaped}$`, "i") }
+    }).sort({ submittedAt: -1 }).toArray();
+
+    // Fall back to enrollment contact details if user document has missing fields
+    const latestEnrollment = enrollments[0];
+    if (latestEnrollment) {
+      if (!safeUser.phone && latestEnrollment.mobile) safeUser.phone = latestEnrollment.mobile;
+      if (!safeUser.countryCode && latestEnrollment.countryCode) safeUser.countryCode = latestEnrollment.countryCode;
+      if (!safeUser.country && latestEnrollment.country) safeUser.country = latestEnrollment.country;
+      if (!safeUser.state && latestEnrollment.state) safeUser.state = latestEnrollment.state;
+      if (!safeUser.city && latestEnrollment.city) safeUser.city = latestEnrollment.city;
+    }
 
     return NextResponse.json({
       success: true,

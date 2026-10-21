@@ -45,37 +45,46 @@ export async function completeEnrollment(enrollmentId: string, pgTxnId?: string)
 
   // 1.5 Update or create user account with the details they provided during checkout
   try {
-    const existingUser = await db.collection("users").findOne({ email: enrollment.email });
+    const cleanEmail = (enrollment.email || "").trim().toLowerCase();
+    const emailEscaped = cleanEmail.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    const existingUser = await db.collection("users").findOne({
+      email: { $regex: new RegExp(`^${emailEscaped}$`, "i") }
+    });
+    const nowIso = new Date().toISOString();
     if (!existingUser) {
       const { getNextSequence } = await import("../mongodb");
       const sequenceValue = await getNextSequence("userId");
       const userId = `FC${1000 + sequenceValue}`;
-      const now = new Date().toISOString();
       await db.collection("users").insertOne({
         id: userId,
         name: studentName,
-        email: enrollment.email,
+        firstName: enrollment.firstName || "",
+        lastName: enrollment.lastName || "",
+        email: cleanEmail,
         phone: enrollment.mobile,
         countryCode: enrollment.countryCode,
         country: enrollment.country,
         state: enrollment.state,
         city: enrollment.city,
         usertype: "student",
-        createdAt: now,
-        updatedAt: now,
+        createdAt: nowIso,
+        updatedAt: nowIso,
       });
       console.log(`[SERVICE] Created new user profile for ${enrollment.email} with id ${userId}`);
     } else {
       await db.collection("users").updateOne(
-        { email: enrollment.email },
+        { _id: existingUser._id },
         {
           $set: {
-            name: studentName,
-            phone: enrollment.mobile,
-            countryCode: enrollment.countryCode,
-            country: enrollment.country,
-            state: enrollment.state,
-            city: enrollment.city,
+            name: studentName || existingUser.name,
+            firstName: enrollment.firstName || existingUser.firstName,
+            lastName: enrollment.lastName || existingUser.lastName,
+            phone: enrollment.mobile || existingUser.phone,
+            countryCode: enrollment.countryCode || existingUser.countryCode,
+            country: enrollment.country || existingUser.country,
+            state: enrollment.state || existingUser.state,
+            city: enrollment.city || existingUser.city,
+            updatedAt: nowIso,
           }
         }
       );

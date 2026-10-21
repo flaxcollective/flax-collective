@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { CreditCard, Search, Filter, AlertCircle, ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
+import { CreditCard, Search, Filter, AlertCircle, ChevronLeft, ChevronRight, RefreshCw, Phone, MapPin } from "lucide-react";
 
 interface Transaction {
   id: string;
@@ -13,6 +13,12 @@ interface Transaction {
   email: string;
   course: string;
   studentName: string;
+  mobile?: string;
+  phone?: string;
+  countryCode?: string;
+  country?: string;
+  state?: string;
+  city?: string;
 }
 
 export default function AdminPaymentsPage() {
@@ -102,7 +108,7 @@ export default function AdminPaymentsPage() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search ID, student name, email..."
+              placeholder="Search ID, student name, email, phone..."
               className="w-full pl-10 pr-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-1 focus:ring-[#2F3E56] focus:bg-white transition-all"
             />
           </div>
@@ -157,9 +163,21 @@ export default function AdminPaymentsPage() {
                       {txn.createdAt}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex flex-col">
+                      <div className="flex flex-col gap-0.5">
                         <span className="font-bold text-gray-900">{txn.studentName}</span>
-                        <span className="text-xs text-gray-450 select-all">{txn.email}</span>
+                        <span className="text-xs text-gray-500 select-all">{txn.email}</span>
+                        {(txn.phone || txn.mobile) && (
+                          <span className="text-xs text-gray-700 font-mono flex items-center gap-1.5 mt-0.5">
+                            <Phone className="w-3 h-3 text-gray-400 shrink-0" />
+                            {txn.countryCode ? `${txn.countryCode} ` : ""}{txn.phone || txn.mobile}
+                          </span>
+                        )}
+                        {(txn.city || txn.state || txn.country) && (
+                          <span className="text-[11px] text-gray-400 flex items-center gap-1 mt-0.5">
+                            <MapPin className="w-3 h-3 text-gray-300 shrink-0" />
+                            {[txn.city, txn.state, txn.country].filter(Boolean).join(", ")}
+                          </span>
+                        )}
                       </div>
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-700">

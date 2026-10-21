@@ -40,7 +40,12 @@ export async function GET(req: NextRequest) {
         { merchantTxnNo: { $regex: search, $options: "i" } },
         { pgTxnId: { $regex: search, $options: "i" } },
         { email: { $regex: search, $options: "i" } },
-        { course: { $regex: search, $options: "i" } }
+        { course: { $regex: search, $options: "i" } },
+        { studentName: { $regex: search, $options: "i" } },
+        { mobile: { $regex: search, $options: "i" } },
+        { phone: { $regex: search, $options: "i" } },
+        { city: { $regex: search, $options: "i" } },
+        { country: { $regex: search, $options: "i" } }
       ];
     }
 
@@ -70,27 +75,58 @@ export async function GET(req: NextRequest) {
           path: "$enrollment",
           preserveNullAndEmptyArrays: true
         }
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "email",
+          foreignField: "email",
+          as: "userDoc"
+        }
+      },
+      {
+        $unwind: {
+          path: "$userDoc",
+          preserveNullAndEmptyArrays: true
+        }
       }
     ]).toArray();
 
-    const formatted = transactions.map(t => ({
-      id: t._id.toString(),
-      merchantTxnNo: t.merchantTxnNo,
-      pgTxnId: t.pgTxnId || "—",
-      amount: t.amount,
-      status: t.status,
-      createdAt: t.createdAt ? new Date(t.createdAt).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      }) : "—",
-      email: t.email,
-      course: t.course,
-      courseId: t.courseId || "—",
-      studentName: t.enrollment ? `${t.enrollment.firstName} ${t.enrollment.lastName}` : "Unknown"
-    }));
+    const formatted = transactions.map(t => {
+      const enr = t.enrollment || {};
+      const u = t.userDoc || {};
+      const mobile = t.mobile || t.phone || enr.mobile || enr.phone || u.phone || "";
+      const countryCode = t.countryCode || enr.countryCode || u.countryCode || "";
+      const country = t.country || enr.country || u.country || "";
+      const state = t.state || enr.state || u.state || "";
+      const city = t.city || enr.city || u.city || "";
+      const studentName = t.studentName || (enr.firstName ? `${enr.firstName} ${enr.lastName || ""}`.trim() : "") || u.name || "Unknown";
+
+      return {
+        id: t._id.toString(),
+        merchantTxnNo: t.merchantTxnNo,
+        pgTxnId: t.pgTxnId || "—",
+        amount: t.amount,
+        status: t.status,
+        createdAt: t.createdAt ? new Date(t.createdAt).toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }) : "—",
+        email: t.email,
+        course: t.course,
+        courseId: t.courseId || "—",
+        studentName,
+        mobile,
+        phone: mobile,
+        countryCode,
+        country,
+        state,
+        city
+      };
+    });
 
     return NextResponse.json({
       success: true,
