@@ -695,12 +695,6 @@ export default function AdminDashboard() {
                             {txn.countryCode ? `${txn.countryCode} ` : ""}{txn.phone || txn.mobile}
                           </span>
                         )}
-                        {(txn.city || txn.state || txn.country) && (
-                          <span className="text-[11px] text-gray-400 flex items-center gap-1">
-                            <MapPin className="w-3 h-3 text-gray-300 shrink-0" />
-                            {[txn.city, txn.state, txn.country].filter(Boolean).join(", ")}
-                          </span>
-                        )}
                       </div>
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-700">
