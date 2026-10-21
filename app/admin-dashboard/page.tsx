@@ -14,7 +14,10 @@ import {
   Trash2,
   X,
   Phone,
-  MapPin
+  MapPin,
+  GraduationCap,
+  MessageSquare,
+  CreditCard
 } from "lucide-react";
 
 interface UserItem {
@@ -273,13 +276,39 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-4 md:space-y-6 lg:space-y-8 bg-[#FAF8F5] min-h-screen p-2.5 sm:p-4 lg:p-6 text-gray-800 animate-fade-in">
       {/* Greeting Header */}
-      <div>
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2F3E56]">
-          {greeting}, {user?.name?.split(" ")[0] || "Anshuman"}! 👋
-        </h1>
-        <p className="text-gray-500 text-xs sm:text-sm mt-0.5 sm:mt-1">
-          Here's what's happening with FLAX Collective.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2F3E56]">
+            {greeting}, {user?.name?.split(" ")[0] || "Anshuman"}! 👋
+          </h1>
+          <p className="text-gray-500 text-xs sm:text-sm mt-0.5 sm:mt-1">
+            Here's what's happening with FLAX Collective.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href="/admin-dashboard/enrollments"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-gray-700 hover:text-[#2F3E56] hover:bg-gray-50 transition-colors shadow-2xs"
+          >
+            <GraduationCap className="w-3.5 h-3.5 text-blue-600" />
+            Enrollments
+          </Link>
+          <Link
+            href="/admin-dashboard/contacts"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-gray-700 hover:text-[#2F3E56] hover:bg-gray-50 transition-colors shadow-2xs"
+          >
+            <MessageSquare className="w-3.5 h-3.5 text-purple-600" />
+            Contact Inquiries
+          </Link>
+          <Link
+            href="/admin-dashboard/payments"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs font-semibold text-gray-700 hover:text-[#2F3E56] hover:bg-gray-50 transition-colors shadow-2xs"
+          >
+            <CreditCard className="w-3.5 h-3.5 text-amber-600" />
+            Payments
+          </Link>
+        </div>
       </div>
 
       {/* Metric Cards Layout */}
