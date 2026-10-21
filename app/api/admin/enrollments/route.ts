@@ -135,3 +135,79 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+
+    if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized: Please log in." },
+        { status: 401 }
+      );
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+    const db = await getDb();
+    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+
+    if (!currentUser || (currentUser.usertype !== "admin" && currentUser.usertype !== "employee")) {
+      return NextResponse.json(
+        { success: false, message: "Forbidden: Admin access required." },
+        { status: 403 }
+      );
+    }
+
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: "Missing enrollment ID." },
+        { status: 400 }
+      );
+    }
+
+    const { ObjectId } = await import("mongodb");
+    let filter: any = { _id: id };
+    if (ObjectId.isValid(id)) {
+      filter = { $or: [{ _id: id }, { _id: new ObjectId(id) }] };
+    }
+
+    const enrollment = await db.collection("enrollments").findOne(filter);
+    if (!enrollment) {
+      return NextResponse.json(
+        { success: false, message: "Enrollment record not found." },
+        { status: 404 }
+      );
+    }
+
+    // Delete enrollment record
+    await db.collection("enrollments").deleteOne(filter);
+
+    // Delete associated transactions if any
+    try {
+      if (enrollment.merchantTxnNo) {
+        await db.collection("transactions").deleteMany({ merchantTxnNo: enrollment.merchantTxnNo });
+      }
+      if (ObjectId.isValid(id)) {
+        await db.collection("transactions").deleteMany({ enrollmentId: new ObjectId(id) });
+      }
+    } catch (txnDelErr) {
+      console.warn("[ADMIN ENROLLMENTS] Failed cleaning transactions for deleted enrollment:", txnDelErr);
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: "Enrollment record deleted successfully.",
+    });
+  } catch (error: any) {
+    console.error("[ADMIN DELETE ENROLLMENT ERROR]", error);
+    return NextResponse.json(
+      { success: false, message: "Error deleting enrollment" },
+      { status: 500 }
+    );
+  }
+}
+

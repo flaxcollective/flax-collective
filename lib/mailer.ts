@@ -247,3 +247,100 @@ export async function sendExamEnrollmentSuccessEmail(email: string, studentName:
     return false;
   }
 }
+
+export async function sendPaymentReminderEmail({
+  email,
+  studentName,
+  itemName,
+  itemType = "Course",
+  amount,
+  paymentUrl,
+}: {
+  email: string;
+  studentName: string;
+  itemName: string;
+  itemType?: string;
+  amount: number;
+  paymentUrl?: string;
+}) {
+  try {
+    const mailUser = process.env.MAIL_USER?.trim();
+    const mailPass = process.env.MAIL_PASS?.replace(/"/g, "").trim();
+
+    console.log(`[MAILER] sendPaymentReminderEmail invoked for: ${email}`);
+
+    const isExam = itemType.toLowerCase() === "exam";
+    const itemNoun = isExam ? "Certification Exam" : "Course";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://flaxcollective.com";
+    const actionUrl = paymentUrl || `${baseUrl}/programs`;
+
+    if (!mailUser || !mailPass) {
+      console.warn("⚠️ MAIL_USER or MAIL_PASS is not configured. Mocking payment reminder email.");
+      console.log(`✉️ [MOCK EMAIL] To: ${email} | Subject: Complete Your Payment for ${itemName} | Amount: ₹${amount}`);
+      return true;
+    }
+
+    const transporter = getTransporter();
+    if (!transporter) throw new Error("Transporter not initialized");
+
+    const mailOptions = {
+      from: `"FLAX Collective" <${mailUser}>`,
+      to: email,
+      subject: `Action Required: Complete Your Payment for ${itemName}`,
+      text: `Hello ${studentName},\n\nWe noticed you recently started registration for "${itemName}" (${itemNoun}), but your payment of ₹${amount.toLocaleString()} is currently pending.\n\nTo secure your enrollment and unlock your learning materials, please complete your payment using this link: ${actionUrl}\n\nIf you have any questions or already completed payment, please feel free to reach out to us.\n\nBest regards,\nFLAX Collective Team`,
+      html: `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+          <div style="background-color: #2F3E56; padding: 28px 24px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px;">FLAX Collective</h1>
+            <p style="color: #cbd5e1; margin: 6px 0 0 0; font-size: 13px;">Enrollment & Payment Reminder</p>
+          </div>
+
+          <div style="padding: 32px 24px;">
+            <p style="font-size: 16px; color: #1e293b; margin-top: 0;">Hello <strong>${studentName}</strong>,</p>
+            
+            <p style="font-size: 15px; color: #475569; line-height: 1.6;">
+              Thank you for choosing <strong>FLAX Collective</strong>! We noticed that your registration for the following ${itemNoun.toLowerCase()} was initiated, but the payment is still marked as <strong>pending</strong>:
+            </p>
+
+            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 24px 0;">
+              <div style="font-size: 13px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Registered Program</div>
+              <div style="font-size: 17px; color: #0f172a; font-weight: 700; margin: 4px 0 12px 0;">${itemName}</div>
+              
+              <div style="display: flex; justify-content: space-between; border-top: 1px dashed #cbd5e1; padding-top: 12px; margin-top: 12px;">
+                <span style="font-size: 14px; color: #475569; font-weight: 600;">Total Fee Payable:</span>
+                <span style="font-size: 18px; color: #2F3E56; font-weight: 800;">₹ ${amount.toLocaleString()}</span>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${actionUrl}" style="display: inline-block; background-color: #2F3E56; color: #ffffff; text-decoration: none; font-size: 15px; font-weight: 700; padding: 14px 36px; border-radius: 10px; box-shadow: 0 4px 12px rgba(47, 62, 86, 0.25);">
+                Complete Payment Now →
+              </a>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 10px;">Click the button above to safely complete your checkout</p>
+            </div>
+
+            <p style="font-size: 13px; color: #64748b; line-height: 1.6; border-top: 1px solid #f1f5f9; padding-top: 20px;">
+              Need help? If you have already paid or have questions regarding your enrollment, simply reply to this email or contact our support team.
+            </p>
+
+            <div style="margin-top: 24px; font-size: 13px; color: #334155;">
+              Warm regards,<br/>
+              <strong>FLAX Collective Team</strong>
+            </div>
+          </div>
+
+          <div style="background-color: #f8fafc; padding: 16px 24px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8;">
+            © ${new Date().getFullYear()} FLAX Collective. All rights reserved.
+          </div>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("[MAILER] Payment reminder email sent successfully:", info.response);
+    return true;
+  } catch (error) {
+    console.error("[MAILER] Error sending payment reminder email:", error);
+    return false;
+  }
+}

@@ -15,6 +15,8 @@ import {
   Award,
   BookOpen,
   Eye,
+  Trash2,
+  Send,
   X,
   CreditCard,
   Calendar,
@@ -63,6 +65,12 @@ export default function AdminEnrollmentsPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
+  // Reminder & Delete States
+  const [sendingReminderId, setSendingReminderId] = useState<string | null>(null);
+  const [deleteTargetEnrollment, setDeleteTargetEnrollment] = useState<EnrollmentItem | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [notification, setNotification] = useState<{ type: "success" | "error"; message: string } | null>(null);
+
   // Detail Modal State
   const [selectedEnrollment, setSelectedEnrollment] = useState<EnrollmentItem | null>(null);
 
@@ -106,6 +114,73 @@ export default function AdminEnrollmentsPage() {
     return () => clearTimeout(delay);
   }, [search]);
 
+  // Send Payment Reminder Email
+  const sendPaymentReminder = async (enr: EnrollmentItem) => {
+    setSendingReminderId(enr.id);
+    setNotification(null);
+    try {
+      const res = await fetch("/api/admin/enrollments/reminder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ enrollmentId: enr.id }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setNotification({
+          type: "success",
+          message: data.message || `Payment link email sent to ${enr.email}`,
+        });
+      } else {
+        setNotification({
+          type: "error",
+          message: data.message || "Failed to send payment reminder email.",
+        });
+      }
+    } catch (err: any) {
+      console.error("Error sending payment reminder:", err);
+      setNotification({
+        type: "error",
+        message: err.message || "Server connection error sending reminder.",
+      });
+    } finally {
+      setSendingReminderId(null);
+      setTimeout(() => {
+        setNotification(null);
+      }, 5000);
+    }
+  };
+
+  // Delete Enrollment Handler
+  const handleDeleteEnrollment = async (id: string) => {
+    setDeleting(true);
+    try {
+      const res = await fetch(`/api/admin/enrollments?id=${id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (selectedEnrollment?.id === id) {
+          setSelectedEnrollment(null);
+        }
+        setDeleteTargetEnrollment(null);
+        setNotification({
+          type: "success",
+          message: "Enrollment record deleted successfully.",
+        });
+        fetchEnrollments();
+      } else {
+        alert(data.message || "Failed to delete enrollment.");
+      }
+    } catch (err) {
+      console.error("Error deleting enrollment:", err);
+    } finally {
+      setDeleting(false);
+      setTimeout(() => {
+        setNotification(null);
+      }, 5000);
+    }
+  };
+
   const getStatusBadge = (status: string) => {
     if (status === "completed") {
       return (
@@ -142,7 +217,7 @@ export default function AdminEnrollmentsPage() {
           <div>
             <h2 className="text-xl font-bold text-[#2F3E56] leading-none">Student Enrollments</h2>
             <p className="text-gray-400 text-xs mt-1">
-              Audit, search, and monitor student registrations, contact details, and payment statuses.
+              Audit, search, send fee payment reminders, and monitor student registrations.
             </p>
           </div>
         </div>
@@ -155,6 +230,32 @@ export default function AdminEnrollmentsPage() {
           Refresh
         </button>
       </div>
+
+      {/* Floating Action Notification Banner */}
+      {notification && (
+        <div
+          className={`p-4 rounded-xl text-sm font-semibold flex items-center justify-between shadow-sm animate-fade-in ${
+            notification.type === "success"
+              ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+              : "bg-red-50 text-red-800 border border-red-200"
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            {notification.type === "success" ? (
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            ) : (
+              <AlertCircle className="w-4 h-4 text-red-600" />
+            )}
+            <span>{notification.message}</span>
+          </div>
+          <button
+            onClick={() => setNotification(null)}
+            className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       {/* Metric Stat Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
@@ -357,13 +458,41 @@ export default function AdminEnrollmentsPage() {
 
                     {/* Actions */}
                     <td className="px-5 py-4 text-right whitespace-nowrap">
-                      <button
-                        onClick={() => setSelectedEnrollment(enr)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-200 rounded-lg bg-white text-xs font-semibold text-gray-700 hover:bg-[#2F3E56] hover:text-white hover:border-[#2F3E56] transition-all cursor-pointer shadow-2xs"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        View Full Details
-                      </button>
+                      <div className="flex items-center justify-end gap-1.5">
+                        {/* Send Payment Reminder Mail button */}
+                        {enr.status === "pending_payment" && (
+                          <button
+                            onClick={() => sendPaymentReminder(enr)}
+                            disabled={sendingReminderId === enr.id}
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-600 hover:text-white transition-all cursor-pointer shadow-2xs disabled:opacity-50"
+                            title="Send payment reminder email to student"
+                          >
+                            <Send className={`w-3 h-3 ${sendingReminderId === enr.id ? "animate-spin" : ""}`} />
+                            <span className="hidden sm:inline">
+                              {sendingReminderId === enr.id ? "Sending..." : "Send Fee Mail"}
+                            </span>
+                          </button>
+                        )}
+
+                        {/* View Details */}
+                        <button
+                          onClick={() => setSelectedEnrollment(enr)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 border border-gray-200 rounded-lg bg-white text-xs font-semibold text-gray-700 hover:bg-[#2F3E56] hover:text-white hover:border-[#2F3E56] transition-all cursor-pointer shadow-2xs"
+                          title="View complete enrollment details"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">View</span>
+                        </button>
+
+                        {/* Delete Button */}
+                        <button
+                          onClick={() => setDeleteTargetEnrollment(enr)}
+                          className="inline-flex items-center p-1.5 border border-red-200 rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all cursor-pointer shadow-2xs"
+                          title="Delete enrollment record"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -518,8 +647,19 @@ export default function AdminEnrollmentsPage() {
             </div>
 
             {/* Quick Actions Footer */}
-            <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
+            <div className="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                {selectedEnrollment.status === "pending_payment" && (
+                  <button
+                    onClick={() => sendPaymentReminder(selectedEnrollment)}
+                    disabled={sendingReminderId === selectedEnrollment.id}
+                    className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    <Send className={`w-3.5 h-3.5 ${sendingReminderId === selectedEnrollment.id ? "animate-spin" : ""}`} />
+                    {sendingReminderId === selectedEnrollment.id ? "Sending Email..." : "Send Fee Reminder Email"}
+                  </button>
+                )}
+
                 {selectedEnrollment.mobile && (
                   <a
                     href={`https://wa.me/${selectedEnrollment.countryCode.replace(/\+/g, "")}${selectedEnrollment.mobile.replace(/\D/g, "")}`}
@@ -536,8 +676,18 @@ export default function AdminEnrollmentsPage() {
                   className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5" />
-                  Email Student
+                  Email
                 </a>
+
+                <button
+                  onClick={() => {
+                    setDeleteTargetEnrollment(selectedEnrollment);
+                  }}
+                  className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Delete
+                </button>
               </div>
 
               <button
@@ -545,6 +695,43 @@ export default function AdminEnrollmentsPage() {
                 className="px-5 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-xs cursor-pointer transition-colors"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteTargetEnrollment && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-2xl max-w-sm w-full p-6 relative shadow-2xl border border-gray-100 flex flex-col gap-4 text-center">
+            <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 mx-auto flex items-center justify-center">
+              <Trash2 className="w-6 h-6" />
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-gray-900">Delete Enrollment</h3>
+              <p className="text-xs text-gray-500 mt-1">
+                Are you sure you want to permanently delete the enrollment record for{" "}
+                <strong className="text-gray-800">{deleteTargetEnrollment.studentName}</strong> (
+                {deleteTargetEnrollment.course})?
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                onClick={() => setDeleteTargetEnrollment(null)}
+                className="flex-1 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={() => handleDeleteEnrollment(deleteTargetEnrollment.id)}
+                disabled={deleting}
+                className="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-semibold transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                {deleting ? "Deleting..." : "Confirm Delete"}
               </button>
             </div>
           </div>
