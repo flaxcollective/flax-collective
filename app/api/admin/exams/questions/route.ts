@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 import { ObjectId } from "mongodb";
 
 export const runtime = "nodejs";
@@ -18,7 +19,7 @@ async function checkAdminAuth() {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
     const db = await getDb();
-    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+    const currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
 
     if (!currentUser || (currentUser.usertype !== "admin" && currentUser.usertype !== "employee")) {
       return { error: "Forbidden: Admin access required.", status: 403 };
@@ -47,7 +48,7 @@ export async function GET(req: NextRequest) {
     }
 
     const cleanExamId = examId.toUpperCase().trim();
-    const questions = await db.collection("exam_questions").find({ examId: cleanExamId }).toArray();
+    const questions = await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).find({ examId: cleanExamId }).toArray();
     
     return NextResponse.json({ success: true, questions });
   } catch (error: any) {
@@ -89,7 +90,7 @@ export async function POST(req: NextRequest) {
       createdAt: new Date()
     };
 
-    const result = await db.collection("exam_questions").insertOne(newQuestion);
+    const result = await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).insertOne(newQuestion);
 
     return NextResponse.json({
       success: true,
@@ -135,7 +136,7 @@ export async function PUT(req: NextRequest) {
       filter = { _id: new ObjectId(id) };
     }
 
-    const existing = await db.collection("exam_questions").findOne(filter);
+    const existing = await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).findOne(filter);
     if (!existing) {
       return NextResponse.json({ success: false, message: "Question not found." }, { status: 404 });
     }
@@ -148,7 +149,7 @@ export async function PUT(req: NextRequest) {
       updatedAt: new Date()
     };
 
-    await db.collection("exam_questions").updateOne(filter, { $set: updateFields });
+    await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).updateOne(filter, { $set: updateFields });
 
     return NextResponse.json({
       success: true,
@@ -183,7 +184,7 @@ export async function DELETE(req: NextRequest) {
       filter = { _id: new ObjectId(id) };
     }
 
-    const result = await db.collection("exam_questions").deleteOne(filter);
+    const result = await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).deleteOne(filter);
 
     if (result.deletedCount === 0) {
       return NextResponse.json({ success: false, message: "Question not found." }, { status: 404 });

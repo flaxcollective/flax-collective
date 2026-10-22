@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 import { verifyRecaptcha } from "@/lib/recaptcha";
 import { initiateICICISale } from "@/lib/payment/icici";
 
@@ -65,9 +66,9 @@ export async function POST(req: NextRequest) {
     let itemData = null;
 
     if (isExam) {
-      itemData = await db.collection("exams").findOne({ title: course });
+      itemData = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ title: course });
     } else {
-      itemData = await db.collection("courses").findOne({ title: course });
+      itemData = await db.collection(COLLECTIONS.COURSES).findOne({ title: course });
     }
 
     if (!itemData) {
@@ -138,7 +139,7 @@ export async function POST(req: NextRequest) {
       type: isExam ? "exam" : "course"
     };
 
-    const result = await db.collection("enrollments").insertOne(newEntry);
+    const result = await db.collection(COLLECTIONS.ENROLLMENTS).insertOne(newEntry);
 
     // Record the pending transaction with complete student contact details
     const newTransaction = {
@@ -161,11 +162,11 @@ export async function POST(req: NextRequest) {
       courseId: isExam ? itemData.examId : itemData.courseId,
       type: isExam ? "exam" : "course"
     };
-    await db.collection("transactions").insertOne(newTransaction);
+    await db.collection(COLLECTIONS.TRANSACTIONS).insertOne(newTransaction);
 
     // Immediately persist student details into users collection so all form information is saved in database even if payment is pending
     try {
-      const existingUser = await db.collection("users").findOne({
+      const existingUser = await db.collection(COLLECTIONS.USERS).findOne({
         email: { $regex: emailRegex }
       });
       const nowIso = new Date().toISOString();
@@ -173,7 +174,7 @@ export async function POST(req: NextRequest) {
         const { getNextSequence } = await import("@/lib/mongodb");
         const sequenceValue = await getNextSequence("userId");
         const userId = `FC${1000 + sequenceValue}`;
-        await db.collection("users").insertOne({
+        await db.collection(COLLECTIONS.USERS).insertOne({
           id: userId,
           name: studentName,
           firstName: cleanFirstName,
@@ -190,7 +191,7 @@ export async function POST(req: NextRequest) {
         });
         console.log(`[ENROLLMENT] Stored new user profile for ${cleanEmail} (ID: ${userId}) upon registration`);
       } else {
-        await db.collection("users").updateOne(
+        await db.collection(COLLECTIONS.USERS).updateOne(
           { _id: existingUser._id },
           {
             $set: {
@@ -221,7 +222,7 @@ export async function POST(req: NextRequest) {
 
       // Mark transaction as successful
       const pgTxnId = `MOCK_TXN_${Date.now()}`;
-      await db.collection("transactions").updateOne(
+      await db.collection(COLLECTIONS.TRANSACTIONS).updateOne(
         { merchantTxnNo },
         { $set: { status: "success", pgTxnId, updatedAt: new Date() } }
       );
@@ -242,7 +243,7 @@ export async function POST(req: NextRequest) {
 
       // Ensure purchaser is authenticated so they can access dashboard immediately
       try {
-        const user = await db.collection("users").findOne({ email });
+        const user = await db.collection(COLLECTIONS.USERS).findOne({ email });
         if (user && process.env.JWT_SECRET) {
           const jwt = (await import("jsonwebtoken")).default;
           const token = jwt.sign(

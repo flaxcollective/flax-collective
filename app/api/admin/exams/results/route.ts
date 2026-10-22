@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 
 export const runtime = "nodejs";
 
@@ -17,7 +18,7 @@ async function checkAdminAuth() {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
     const db = await getDb();
-    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+    const currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
 
     if (!currentUser || (currentUser.usertype !== "admin" && currentUser.usertype !== "employee")) {
       return { error: "Forbidden: Admin access required.", status: 403 };
@@ -58,7 +59,7 @@ export async function GET(req: NextRequest) {
 
     // Resolve search by matching user names or emails
     if (search) {
-      const usersMatching = await db.collection("users").find({
+      const usersMatching = await db.collection(COLLECTIONS.USERS).find({
         $or: [
           { name: { $regex: search, $options: "i" } },
           { email: { $regex: search, $options: "i" } }
@@ -73,8 +74,8 @@ export async function GET(req: NextRequest) {
     }
 
     const skip = (page - 1) * limit;
-    const totalCount = await db.collection("exam_sessions").countDocuments(query);
-    const sessions = await db.collection("exam_sessions").find(query)
+    const totalCount = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).countDocuments(query);
+    const sessions = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).find(query)
       .sort({ submittedAt: -1 })
       .skip(skip)
       .limit(limit)
@@ -83,8 +84,8 @@ export async function GET(req: NextRequest) {
     // Map sessions to include candidate details and exam details
     const resolvedSessions = await Promise.all(
       sessions.map(async (s) => {
-        const student = await db.collection("users").findOne({ email: s.email });
-        const exam = await db.collection("exams").findOne({ examId: s.examId });
+        const student = await db.collection(COLLECTIONS.USERS).findOne({ email: s.email });
+        const exam = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ examId: s.examId });
 
         return {
           sessionId: s._id.toString(),

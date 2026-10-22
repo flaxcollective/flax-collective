@@ -99,6 +99,18 @@ export default function Header() {
       return "Courses";
     }
 
+    if (pathname.includes("/admin-dashboard/enrollments")) {
+      return "Student Enrollments";
+    }
+
+    if (pathname.includes("/admin-dashboard/contacts")) {
+      return "Contact Inquiries";
+    }
+
+    if (pathname.includes("/admin-dashboard/payments")) {
+      return "Payment Transactions";
+    }
+
     if (pathname.includes("profile-settings")) {
       return "Profile Settings";
     }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { CreditCard, Search, Filter, AlertCircle, ChevronLeft, ChevronRight, RefreshCw, Phone, MapPin } from "lucide-react";
+import { CreditCard, Search, Filter, AlertCircle, ChevronLeft, ChevronRight, RefreshCw, Phone } from "lucide-react";
 
 interface Transaction {
   id: string;
@@ -170,12 +170,6 @@ export default function AdminPaymentsPage() {
                           <span className="text-xs text-gray-700 font-mono flex items-center gap-1.5 mt-0.5">
                             <Phone className="w-3 h-3 text-gray-400 shrink-0" />
                             {txn.countryCode ? `${txn.countryCode} ` : ""}{txn.phone || txn.mobile}
-                          </span>
-                        )}
-                        {(txn.city || txn.state || txn.country) && (
-                          <span className="text-[11px] text-gray-400 flex items-center gap-1 mt-0.5">
-                            <MapPin className="w-3 h-3 text-gray-300 shrink-0" />
-                            {[txn.city, txn.state, txn.country].filter(Boolean).join(", ")}
                           </span>
                         )}
                       </div>

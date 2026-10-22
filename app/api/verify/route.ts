@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 
 export const runtime = "nodejs";
 
@@ -15,7 +16,7 @@ export async function GET(req: NextRequest) {
     const db = await getDb();
     
     // Find the exam session that matches the certificate ID and is successfully passed
-    const session = await db.collection("exam_sessions").findOne({ 
+    const session = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).findOne({ 
       certificateId: certId,
       passed: true
     });
@@ -25,11 +26,11 @@ export async function GET(req: NextRequest) {
     }
 
     // Lookup the user to get their name
-    const user = await db.collection("users").findOne({ email: session.email });
+    const user = await db.collection(COLLECTIONS.USERS).findOne({ email: session.email });
     const studentName = user?.name || user?.firstName + " " + user?.lastName || "Unknown Student";
 
     // Lookup the exam to get the title
-    const exam = await db.collection("exams").findOne({ examId: session.examId });
+    const exam = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ examId: session.examId });
     const examTitle = exam?.title || "Unknown Certification";
 
     return NextResponse.json({

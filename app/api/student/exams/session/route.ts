@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 import { ObjectId } from "mongodb";
 
 export const runtime = "nodejs";
@@ -25,7 +26,7 @@ export async function GET(req: NextRequest) {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
     const db = await getDb();
-    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+    const currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
 
     if (!currentUser) {
       return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
@@ -38,13 +39,13 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Exam ID required" }, { status: 400 });
     }
 
-    const exam = await db.collection("exams").findOne({ examId, isActive: true });
+    const exam = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ examId, isActive: true });
     if (!exam) {
       return NextResponse.json({ success: false, message: "Exam not found" }, { status: 404 });
     }
 
     // Find started session
-    const session = await db.collection("exam_sessions").findOne({
+    const session = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).findOne({
       email: currentUser.email,
       examId,
       status: "started"
@@ -58,7 +59,7 @@ export async function GET(req: NextRequest) {
     const duration = exam.duration || 60;
     if (isSessionExpired(session.startedAt, duration)) {
       // Auto-submit expired session
-      await db.collection("exam_sessions").updateOne(
+      await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).updateOne(
         { _id: session._id },
         { $set: { status: "submitted", submittedAt: new Date() } }
       );
@@ -103,7 +104,7 @@ export async function POST(req: NextRequest) {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
     const db = await getDb();
-    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+    const currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
 
     if (!currentUser) {
       return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
@@ -116,13 +117,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Exam ID required" }, { status: 400 });
     }
 
-    const exam = await db.collection("exams").findOne({ examId, isActive: true });
+    const exam = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ examId, isActive: true });
     if (!exam) {
       return NextResponse.json({ success: false, message: "Exam not found or inactive" }, { status: 404 });
     }
 
     // Verify purchase
-    const enrollment = await db.collection("enrollments").findOne({
+    const enrollment = await db.collection(COLLECTIONS.ENROLLMENTS).findOne({
       email: currentUser.email,
       courseId: examId,
       status: "completed",
@@ -134,7 +135,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if there is an active session
-    let existingSession = await db.collection("exam_sessions").findOne({
+    let existingSession = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).findOne({
       email: currentUser.email,
       examId,
       status: "started"
@@ -162,7 +163,7 @@ export async function POST(req: NextRequest) {
         });
       } else {
         // Submit expired session
-        await db.collection("exam_sessions").updateOne(
+        await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).updateOne(
           { _id: existingSession._id },
           { $set: { status: "submitted", submittedAt: new Date() } }
         );
@@ -170,7 +171,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Generate new session: Get all questions for this exam
-    const questions = await db.collection("exam_questions").find({ examId }).toArray();
+    const questions = await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).find({ examId }).toArray();
     if (questions.length === 0) {
       return NextResponse.json({ success: false, message: "No questions found for this exam." }, { status: 400 });
     }
@@ -191,7 +192,7 @@ export async function POST(req: NextRequest) {
       startedAt: new Date(),
     };
 
-    const result = await db.collection("exam_sessions").insertOne(newSession);
+    const result = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).insertOne(newSession);
 
     // Hide answers for client
     const clientQuestions = selectedQuestions.map((q) => ({
@@ -245,7 +246,7 @@ export async function PUT(req: NextRequest) {
       filter = { _id: new ObjectId(sessionId) };
     }
 
-    const session = await db.collection("exam_sessions").findOne(filter);
+    const session = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).findOne(filter);
     if (!session) {
       return NextResponse.json({ success: false, message: "Session not found" }, { status: 404 });
     }
@@ -258,11 +259,11 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Session is already submitted" }, { status: 400 });
     }
 
-    const exam = await db.collection("exams").findOne({ examId: session.examId });
+    const exam = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ examId: session.examId });
     const duration = exam?.duration || 60;
 
     if (isSessionExpired(session.startedAt, duration)) {
-      await db.collection("exam_sessions").updateOne(
+      await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).updateOne(
         filter,
         { $set: { status: "submitted", submittedAt: new Date() } }
       );
@@ -270,7 +271,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Save intermediate progress
-    await db.collection("exam_sessions").updateOne(
+    await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).updateOne(
       filter,
       {
         $set: {

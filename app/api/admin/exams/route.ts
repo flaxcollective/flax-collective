@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 import { ObjectId } from "mongodb";
 import { seedExamsIfEmpty } from "@/lib/exam_seed";
 
@@ -19,7 +20,7 @@ async function checkAdminAuth() {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
     const db = await getDb();
-    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+    const currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
 
     if (!currentUser || (currentUser.usertype !== "admin" && currentUser.usertype !== "employee")) {
       return { error: "Forbidden: Admin access required.", status: 403 };
@@ -41,7 +42,7 @@ export async function GET(req: NextRequest) {
   try {
     const db = auth.db;
     await seedExamsIfEmpty();
-    const exams = await db.collection("exams").find({}).sort({ createdAt: -1 }).toArray();
+    const exams = await db.collection(COLLECTIONS.E_CERTIFICATIONS).find({}).sort({ createdAt: -1 }).toArray();
     return NextResponse.json({ success: true, exams });
   } catch (error: any) {
     console.error("GET Admin Exams Error:", error);
@@ -68,7 +69,7 @@ export async function POST(req: NextRequest) {
     const cleanExamId = examId.toUpperCase().trim();
     
     // Check uniqueness
-    const existing = await db.collection("exams").findOne({ examId: cleanExamId });
+    const existing = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ examId: cleanExamId });
     if (existing) {
       return NextResponse.json({ success: false, message: "Exam ID already exists." }, { status: 400 });
     }
@@ -88,7 +89,7 @@ export async function POST(req: NextRequest) {
       updatedAt: new Date()
     };
 
-    await db.collection("exams").insertOne(newExam);
+    await db.collection(COLLECTIONS.E_CERTIFICATIONS).insertOne(newExam);
 
     return NextResponse.json({
       success: true,
@@ -119,7 +120,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const cleanExamId = examId.toUpperCase().trim();
-    const existing = await db.collection("exams").findOne({ examId: cleanExamId });
+    const existing = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ examId: cleanExamId });
     if (!existing) {
       return NextResponse.json({ success: false, message: "Exam not found." }, { status: 404 });
     }
@@ -137,7 +138,7 @@ export async function PUT(req: NextRequest) {
       updatedAt: new Date()
     };
 
-    await db.collection("exams").updateOne(
+    await db.collection(COLLECTIONS.E_CERTIFICATIONS).updateOne(
       { examId: cleanExamId },
       { $set: updateFields }
     );
@@ -171,14 +172,14 @@ export async function DELETE(req: NextRequest) {
     }
 
     const cleanExamId = examId.toUpperCase().trim();
-    const result = await db.collection("exams").deleteOne({ examId: cleanExamId });
+    const result = await db.collection(COLLECTIONS.E_CERTIFICATIONS).deleteOne({ examId: cleanExamId });
 
     if (result.deletedCount === 0) {
       return NextResponse.json({ success: false, message: "Exam not found." }, { status: 404 });
     }
 
     // Cascade delete questions
-    await db.collection("exam_questions").deleteMany({ examId: cleanExamId });
+    await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).deleteMany({ examId: cleanExamId });
 
     return NextResponse.json({
       success: true,

@@ -17,6 +17,8 @@ import {
   FileText,
   ChevronDown,
   ChevronUp,
+  GraduationCap,
+  MessageSquare,
 } from "lucide-react";
 import { MdLogout } from "react-icons/md";
 
@@ -51,6 +53,11 @@ const adminMenu = [
     name: "Dashboard",
     icon: LayoutDashboard,
     href: "/admin-dashboard",
+  },
+  {
+    name: "Enrollments",
+    icon: GraduationCap,
+    href: "/admin-dashboard/enrollments",
   },
   {
     name: "Add Course",
@@ -89,6 +96,11 @@ const adminMenu = [
     name: "Payments",
     icon: ClipboardList,
     href: "/admin-dashboard/payments",
+  },
+  {
+    name: "Contact Inquiries",
+    icon: MessageSquare,
+    href: "/admin-dashboard/contacts",
   },
 ];
 

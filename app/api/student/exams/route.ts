@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 import { seedExamsIfEmpty } from "@/lib/exam_seed";
 
 export const runtime = "nodejs";
@@ -17,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
     const db = await getDb();
-    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+    const currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
 
     if (!currentUser) {
       return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
@@ -26,17 +27,17 @@ export async function GET(req: NextRequest) {
     // Auto-seed if database collections are empty
     await seedExamsIfEmpty();
 
-    // Fetch active exams
-    const exams = await db.collection("exams").find({ isActive: true }).toArray();
+    // Fetch active exams / e-certifications
+    const exams = await db.collection(COLLECTIONS.E_CERTIFICATIONS).find({ isActive: true }).toArray();
 
     // Fetch user enrollments (for type: "exam") and exam sessions
-    const enrollments = await db.collection("enrollments").find({
+    const enrollments = await db.collection(COLLECTIONS.ENROLLMENTS).find({
       email: currentUser.email,
       status: "completed",
       type: "exam"
     }).toArray();
 
-    const sessions = await db.collection("exam_sessions").find({
+    const sessions = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).find({
       email: currentUser.email
     }).toArray();
 

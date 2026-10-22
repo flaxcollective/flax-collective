@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 import { ObjectId } from "mongodb";
 
 export const runtime = "nodejs";
@@ -17,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
     const db = await getDb();
-    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+    const currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
 
     if (!currentUser) {
       return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
@@ -35,7 +36,7 @@ export async function GET(req: NextRequest) {
       filter = { _id: new ObjectId(sessionId) };
     }
 
-    const session = await db.collection("exam_sessions").findOne(filter);
+    const session = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).findOne(filter);
     if (!session) {
       return NextResponse.json({ success: false, message: "Session not found" }, { status: 404 });
     }
@@ -50,7 +51,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Session is not submitted yet" }, { status: 400 });
     }
 
-    const exam = await db.collection("exams").findOne({ examId: session.examId });
+    const exam = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({ examId: session.examId });
 
     return NextResponse.json({
       success: true,
