@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { ObjectId } from "mongodb";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 import { sendPaymentReminderEmail } from "@/lib/mailer";
 
 export const runtime = "nodejs";
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
     const db = await getDb();
-    const currentUser = await db.collection("users").findOne({ id: decoded.id });
+    const currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
 
     if (!currentUser || (currentUser.usertype !== "admin" && currentUser.usertype !== "employee")) {
       return NextResponse.json(
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
       filter = { $or: [{ _id: enrollmentId }, { _id: new ObjectId(enrollmentId) }] };
     }
 
-    const enrollment = await db.collection("enrollments").findOne(filter);
+    const enrollment = await db.collection(COLLECTIONS.ENROLLMENTS).findOne(filter);
 
     if (!enrollment) {
       return NextResponse.json(
@@ -63,7 +64,7 @@ export async function POST(req: NextRequest) {
 
     const studentName = `${enrollment.firstName || ""} ${enrollment.lastName || ""}`.trim() || "Student";
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://flaxcollective.com";
-    const paymentUrl = `${baseUrl}/programs`;
+    const paymentUrl = `${baseUrl}/enrollment/pay?id=${enrollment._id}`;
 
     const emailSent = await sendPaymentReminderEmail({
       email: enrollment.email,
@@ -82,7 +83,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Record timestamp of reminder sent
-    await db.collection("enrollments").updateOne(filter, {
+    await db.collection(COLLECTIONS.ENROLLMENTS).updateOne(filter, {
       $set: {
         lastReminderSentAt: new Date(),
       },
