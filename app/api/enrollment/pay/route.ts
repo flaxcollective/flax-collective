@@ -213,38 +213,53 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Call ICICI Initiate Sale Gateway
+    // Sanitize mobile to valid 10 digits
+    let digitsOnly = (mobile || enrollment.mobile || "").replace(/\D/g, "");
+    if (digitsOnly.length > 10) {
+      digitsOnly = digitsOnly.slice(-10);
+    }
+    const customerMobileNo = digitsOnly.length >= 10 ? digitsOnly : (digitsOnly || "9999999999");
+
+    // Call ICICI Initiate Sale Gatewaymn t
     const iciciRes = await initiateICICISale({
       merchantTxnNo,
       amount: price.toFixed(2),
       customerEmailID: cleanEmail,
-      customerMobileNo: cleanMobile,
+      customerMobileNo,
       customerName: studentName,
       addlParam1: targetItemId || "",
       addlParam2: enrollment._id.toString(),
     });
 
-    if (iciciRes.responseCode === "000" && iciciRes.redirectURI) {
-      let redirectUrl = iciciRes.redirectURI;
-      if (iciciRes.tranCtx) {
-        redirectUrl += `?tranCtx=${encodeURIComponent(iciciRes.tranCtx)}`;
-      }
+    console.log("[ICICI PG REMINDER RES]", JSON.stringify(iciciRes));
+
+    const isSuccess = (iciciRes.responseCode === "R1000" || iciciRes.responseCode === "000" || iciciRes.responseCode === "0") && Boolean(iciciRes.redirectURI);
+
+    if (isSuccess && iciciRes.redirectURI) {
+      const redirectUrl = iciciRes.tranCtx
+        ? `${iciciRes.redirectURI}?tranCtx=${encodeURIComponent(iciciRes.tranCtx)}`
+        : iciciRes.redirectURI;
+
       return NextResponse.json({
         success: true,
         redirectUrl,
         enrollmentId: enrollment._id,
         merchantTxnNo,
         amount: price,
+        message: "Payment initialized successfully. Redirecting..."
       });
     }
+
+    console.error("[ICICI PG REMINDER FAILED]", iciciRes);
 
     return NextResponse.json(
       {
         success: false,
-        message: iciciRes.message || "Unable to initiate payment with ICICI gateway. Please try again.",
+        message: iciciRes.message || `Payment gateway response error (${iciciRes.responseCode || "Unknown"}). Please try again.`,
       },
       { status: 502 }
     );
+
   } catch (error: any) {
     console.error("[POST ENROLLMENT PAY ERROR]", error);
     return NextResponse.json(
