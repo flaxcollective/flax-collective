@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 
 export const runtime = "nodejs";
 
@@ -30,7 +31,7 @@ export async function GET(req: Request) {
     }
 
     const db = await getDb();
-    const record = await db.collection("customCourses").findOne({ userId: user.id });
+    const record = await db.collection(COLLECTIONS.CUSTOM_COURSES).findOne({ userId: user.id });
 
     return NextResponse.json({
       courses: record?.courses || [],
@@ -60,7 +61,7 @@ export async function POST(req: Request) {
     const { courses } = body;
 
     const db = await getDb();
-    await db.collection("customCourses").updateOne(
+    await db.collection(COLLECTIONS.CUSTOM_COURSES).updateOne(
       { userId: user.id },
       {
         $set: {

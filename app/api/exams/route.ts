@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 import { seedExamsIfEmpty } from "@/lib/exam_seed";
 
 export const runtime = "nodejs";
@@ -13,8 +14,8 @@ export async function GET(req: NextRequest) {
     // Auto-seed exams if database collection is empty
     await seedExamsIfEmpty();
 
-    // Fetch all active exams
-    const exams = await db.collection("exams").find({ isActive: { $ne: false } }).toArray();
+    // Fetch all active exams / e-certifications
+    const exams = await db.collection(COLLECTIONS.E_CERTIFICATIONS).find({ isActive: { $ne: false } }).toArray();
 
     // Optional user verification from token cookie
     let currentUser: any = null;
@@ -23,7 +24,7 @@ export async function GET(req: NextRequest) {
       const token = cookieStore.get("token")?.value;
       if (token && process.env.JWT_SECRET) {
         const decoded = jwt.verify(token, process.env.JWT_SECRET) as { id: string };
-        currentUser = await db.collection("users").findOne({ id: decoded.id });
+        currentUser = await db.collection(COLLECTIONS.USERS).findOne({ id: decoded.id });
       }
     } catch {
       // Unauthenticated visitor is allowed
@@ -34,13 +35,13 @@ export async function GET(req: NextRequest) {
     let sessions: any[] = [];
 
     if (currentUser && currentUser.email) {
-      enrollments = await db.collection("enrollments").find({
+      enrollments = await db.collection(COLLECTIONS.ENROLLMENTS).find({
         email: currentUser.email,
         status: "completed",
         type: "exam"
       }).toArray();
 
-      sessions = await db.collection("exam_sessions").find({
+      sessions = await db.collection(COLLECTIONS.E_CERTIFICATION_SESSIONS).find({
         email: currentUser.email
       }).toArray();
     }

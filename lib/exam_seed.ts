@@ -1,4 +1,5 @@
 import { getDb } from "./mongodb";
+import { COLLECTIONS } from "./db/collections";
 
 export interface ExamSeed {
   examId: string;
@@ -2572,13 +2573,13 @@ export async function seedExamsIfEmpty() {
     const db = await getDb();
     
     // Check if exams are already seeded
-    const examCount = await db.collection("exams").countDocuments({});
+    const examCount = await db.collection(COLLECTIONS.E_CERTIFICATIONS).countDocuments({});
     
     // If the count is different from our new list of 10 exams, clear and re-seed
     if (examCount > 0 && examCount !== defaultExams.length) {
       console.log(`[SEED] Upgrading exams database from ${examCount} to ${defaultExams.length} items. Dropping collections.`);
-      await db.collection("exams").deleteMany({});
-      await db.collection("exam_questions").deleteMany({});
+      await db.collection(COLLECTIONS.E_CERTIFICATIONS).deleteMany({});
+      await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).deleteMany({});
     } else if (examCount === defaultExams.length) {
       console.log(`[SEED] Exams database is already seeded and updated (count: ${examCount}). Skipping.`);
       return;
@@ -2587,11 +2588,11 @@ export async function seedExamsIfEmpty() {
     console.log("[SEED] Seeding Soft Skills Certification exams and questions...");
     
     // Seed exams
-    await db.collection("exams").insertMany(defaultExams);
+    await db.collection(COLLECTIONS.E_CERTIFICATIONS).insertMany(defaultExams);
     console.log(`[SEED] Successfully seeded ${defaultExams.length} exams.`);
 
     // Seed questions
-    await db.collection("exam_questions").insertMany(defaultQuestions);
+    await db.collection(COLLECTIONS.E_CERTIFICATION_QUESTIONS).insertMany(defaultQuestions);
     console.log(`[SEED] Successfully seeded ${defaultQuestions.length} exam questions.`);
     
   } catch (error) {

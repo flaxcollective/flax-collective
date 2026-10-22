@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
+import { COLLECTIONS } from "@/lib/db/collections";
 
 export const runtime = "nodejs";
 
@@ -27,11 +28,11 @@ export async function GET(req: NextRequest) {
 
     let itemData: any = null;
     if (isExam) {
-      itemData = await db.collection("exams").findOne({
+      itemData = await db.collection(COLLECTIONS.E_CERTIFICATIONS).findOne({
         $or: [{ title: course }, { examId: course }]
       });
     } else {
-      itemData = await db.collection("courses").findOne({
+      itemData = await db.collection(COLLECTIONS.COURSES).findOne({
         $or: [{ title: course }, { courseId: course }]
       });
     }
@@ -40,7 +41,7 @@ export async function GET(req: NextRequest) {
     const emailEscaped = cleanEmail.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     const emailRegex = new RegExp(`^${emailEscaped}$`, "i");
 
-    const existing = await db.collection("enrollments").findOne({
+    const existing = await db.collection(COLLECTIONS.ENROLLMENTS).findOne({
       email: { $regex: emailRegex },
       status: "completed",
       $or: [
