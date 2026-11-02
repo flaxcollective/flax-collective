@@ -46,6 +46,24 @@ export default function RootLayout({
     >
       <head>
         <meta name="google-site-verification" content="t3sNZ8RRA8Dix18tkniOsqTPxH7wHskzcTfrBlRfkq8" />
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DG2Y2KJVS7"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-tag"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-DG2Y2KJVS7');
+            `,
+          }}
+        />
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
