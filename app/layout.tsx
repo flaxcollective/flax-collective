@@ -46,21 +46,20 @@ export default function RootLayout({
     >
       <head>
         <meta name="google-site-verification" content="t3sNZ8RRA8Dix18tkniOsqTPxH7wHskzcTfrBlRfkq8" />
-        {/* Google tag (gtag.js) */}
+        {/* Google Tag Manager */}
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-DG2Y2KJVS7"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-WXF4T6XK"
           strategy="afterInteractive"
         />
         <Script
-          id="google-tag"
+          id="google-tag-manager"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-DG2Y2KJVS7');
             `,
           }}
         />
@@ -93,6 +92,15 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className="min-h-full flex flex-col w-full overflow-x-hidden" suppressHydrationWarning>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WXF4T6XK"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <AuthProvider>
           <PixelRouteTracker />
           {children}
