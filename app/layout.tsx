@@ -53,6 +53,11 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         <Script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=G-DG2Y2KJVS7"
+          strategy="afterInteractive"
+        />
+        <Script
           id="google-tag-manager"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
