@@ -45,7 +45,43 @@ interface EnrollmentItem {
   merchantTxnNo: string;
   pgTxnId: string;
   type: "course" | "exam" | string;
+  lastReminderSentAt?: string | null;
+  reminderCount?: number;
 }
+
+const getReminderStatus = (lastReminderSentAt?: string | null) => {
+  if (!lastReminderSentAt) {
+    return { isWithin24Hours: false, hoursLeft: 0, minutesLeft: 0, formattedRemaining: "" };
+  }
+  const lastTime = new Date(lastReminderSentAt).getTime();
+  if (isNaN(lastTime)) {
+    return { isWithin24Hours: false, hoursLeft: 0, minutesLeft: 0, formattedRemaining: "" };
+  }
+  const elapsedMs = Date.now() - lastTime;
+  const cooldownMs = 24 * 60 * 60 * 1000;
+  if (elapsedMs < cooldownMs) {
+    const diffMs = cooldownMs - elapsedMs;
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    const formattedRemaining = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+    return { isWithin24Hours: true, hoursLeft: hours, minutesLeft: minutes, formattedRemaining };
+  }
+  return { isWithin24Hours: false, hoursLeft: 0, minutesLeft: 0, formattedRemaining: "" };
+};
+
+const formatReminderDateTime = (dateStr?: string | null) => {
+  if (!dateStr) return null;
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
 
 interface Stats {
   total: number;
@@ -116,6 +152,16 @@ export default function AdminEnrollmentsPage() {
 
   // Send Payment Reminder Email
   const sendPaymentReminder = async (enr: EnrollmentItem) => {
+    // Check 24-hour cooldown client-side
+    const reminderCheck = getReminderStatus(enr.lastReminderSentAt);
+    if (reminderCheck.isWithin24Hours) {
+      setNotification({
+        type: "error",
+        message: `A fee reminder was already sent. Please wait ${reminderCheck.formattedRemaining} before sending again (24h cooldown).`,
+      });
+      return;
+    }
+
     setSendingReminderId(enr.id);
     setNotification(null);
     try {
@@ -130,6 +176,29 @@ export default function AdminEnrollmentsPage() {
           type: "success",
           message: data.message || `Payment link email sent to ${enr.email}`,
         });
+
+        const updatedTime = data.lastReminderSentAt || new Date().toISOString();
+        const updatedCount =
+          typeof data.reminderCount === "number"
+            ? data.reminderCount
+            : (enr.reminderCount || 0) + 1;
+
+        // Instantly update enrollment in state so button disables and count/time update
+        setEnrollments((prev) =>
+          prev.map((item) =>
+            item.id === enr.id
+              ? { ...item, lastReminderSentAt: updatedTime, reminderCount: updatedCount }
+              : item
+          )
+        );
+
+        if (selectedEnrollment && selectedEnrollment.id === enr.id) {
+          setSelectedEnrollment((prev) =>
+            prev
+              ? { ...prev, lastReminderSentAt: updatedTime, reminderCount: updatedCount }
+              : null
+          );
+        }
       } else {
         setNotification({
           type: "error",
@@ -458,41 +527,90 @@ export default function AdminEnrollmentsPage() {
 
                     {/* Actions */}
                     <td className="px-5 py-4 text-right whitespace-nowrap">
-                      <div className="flex items-center justify-end gap-1.5">
-                        {/* Send Payment Reminder Mail button */}
-                        {enr.status === "pending_payment" && (
-                          <button
-                            onClick={() => sendPaymentReminder(enr)}
-                            disabled={sendingReminderId === enr.id}
-                            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-600 hover:text-white transition-all cursor-pointer shadow-2xs disabled:opacity-50"
-                            title="Send payment reminder email to student"
-                          >
-                            <Send className={`w-3 h-3 ${sendingReminderId === enr.id ? "animate-spin" : ""}`} />
-                            <span className="hidden sm:inline">
-                              {sendingReminderId === enr.id ? "Sending..." : "Send Fee Mail"}
-                            </span>
-                          </button>
-                        )}
+                      {(() => {
+                        const reminderInfo = getReminderStatus(enr.lastReminderSentAt);
+                        const formattedLastSent = formatReminderDateTime(enr.lastReminderSentAt);
+                        const count = enr.reminderCount || 0;
 
-                        {/* View Details */}
-                        <button
-                          onClick={() => setSelectedEnrollment(enr)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1.5 border border-gray-200 rounded-lg bg-white text-xs font-semibold text-gray-700 hover:bg-[#2F3E56] hover:text-white hover:border-[#2F3E56] transition-all cursor-pointer shadow-2xs"
-                          title="View complete enrollment details"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span className="hidden sm:inline">View</span>
-                        </button>
+                        return (
+                          <div className="flex flex-col items-end gap-1.5">
+                            <div className="flex items-center justify-end gap-1.5">
+                              {/* Send Payment Reminder Mail button */}
+                              {enr.status === "pending_payment" && (
+                                reminderInfo.isWithin24Hours ? (
+                                  <button
+                                    disabled
+                                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed shadow-2xs"
+                                    title={`Fee reminder sent recently. 24h cooldown active (available in ${reminderInfo.formattedRemaining}).`}
+                                  >
+                                    <Clock className="w-3 h-3 text-gray-400" />
+                                    <span className="hidden sm:inline">Send Fee Mail</span>
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => sendPaymentReminder(enr)}
+                                    disabled={sendingReminderId === enr.id}
+                                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-600 hover:text-white transition-all cursor-pointer shadow-2xs disabled:opacity-50"
+                                    title="Send payment reminder email to student"
+                                  >
+                                    <Send className={`w-3 h-3 ${sendingReminderId === enr.id ? "animate-spin" : ""}`} />
+                                    <span className="hidden sm:inline">
+                                      {sendingReminderId === enr.id ? "Sending..." : "Send Fee Mail"}
+                                    </span>
+                                  </button>
+                                )
+                              )}
 
-                        {/* Delete Button */}
-                        <button
-                          onClick={() => setDeleteTargetEnrollment(enr)}
-                          className="inline-flex items-center p-1.5 border border-red-200 rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all cursor-pointer shadow-2xs"
-                          title="Delete enrollment record"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
+                              {/* View Details */}
+                              <button
+                                onClick={() => setSelectedEnrollment(enr)}
+                                className="inline-flex items-center gap-1 px-2.5 py-1.5 border border-gray-200 rounded-lg bg-white text-xs font-semibold text-gray-700 hover:bg-[#2F3E56] hover:text-white hover:border-[#2F3E56] transition-all cursor-pointer shadow-2xs"
+                                title="View complete enrollment details"
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                                <span className="hidden sm:inline">View</span>
+                              </button>
+
+                              {/* Delete Button */}
+                              <button
+                                onClick={() => setDeleteTargetEnrollment(enr)}
+                                className="inline-flex items-center p-1.5 border border-red-200 rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all cursor-pointer shadow-2xs"
+                                title="Delete enrollment record"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+
+                            {/* Fee reminder status indicators */}
+                            {enr.status === "pending_payment" && (
+                              <div className="flex flex-col items-end text-[10.5px] leading-tight">
+                                {count > 0 ? (
+                                  <>
+                                    <span className="text-gray-600 font-medium flex items-center gap-1">
+                                      <Mail className="w-2.5 h-2.5 text-amber-600" />
+                                      <span>
+                                        Sent: <strong className="text-amber-800 font-bold">{count} {count === 1 ? "time" : "times"}</strong>
+                                      </span>
+                                    </span>
+                                    {formattedLastSent && (
+                                      <span className="text-[10px] text-gray-400 mt-0.5">
+                                        Last: {formattedLastSent}
+                                      </span>
+                                    )}
+                                    {reminderInfo.isWithin24Hours && (
+                                      <span className="text-[9.5px] text-amber-700 font-medium bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60 mt-0.5 flex items-center gap-0.5">
+                                        <Clock className="w-2.5 h-2.5" /> In cooldown: {reminderInfo.formattedRemaining}
+                                      </span>
+                                    )}
+                                  </>
+                                ) : (
+                                  <span className="text-[10px] text-gray-400 italic">No mail sent yet</span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </td>
                   </tr>
                 ))
@@ -644,20 +762,68 @@ export default function AdminEnrollmentsPage() {
                 <span className="text-gray-400 block font-semibold">Submitted On</span>
                 <span className="text-gray-800 font-medium">{selectedEnrollment.submittedAt}</span>
               </div>
+
+              {/* Fee Reminder Details */}
+              {selectedEnrollment.status === "pending_payment" && (
+                <div className="col-span-2 bg-amber-50/70 border border-amber-200 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <span className="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                      <Mail className="w-3.5 h-3.5 text-amber-600" /> Fee Reminder Mail Status
+                    </span>
+                    <p className="text-xs text-gray-600 mt-0.5">
+                      {(selectedEnrollment.reminderCount || 0) > 0
+                        ? `Sent ${selectedEnrollment.reminderCount} time${selectedEnrollment.reminderCount === 1 ? "" : "s"}${
+                            selectedEnrollment.lastReminderSentAt
+                              ? ` • Last sent on ${formatReminderDateTime(selectedEnrollment.lastReminderSentAt)}`
+                              : ""
+                          }`
+                        : "No reminder email has been sent to this student yet."}
+                    </p>
+                  </div>
+                  {(() => {
+                    const modalReminder = getReminderStatus(selectedEnrollment.lastReminderSentAt);
+                    if (modalReminder.isWithin24Hours) {
+                      return (
+                        <span className="text-[11px] font-semibold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md border border-amber-300 flex items-center gap-1 shrink-0">
+                          <Clock className="w-3 h-3" /> Cooldown: {modalReminder.formattedRemaining} left
+                        </span>
+                      );
+                    }
+                    return null;
+                  })()}
+                </div>
+              )}
             </div>
 
             {/* Quick Actions Footer */}
             <div className="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
               <div className="flex flex-wrap items-center gap-2">
                 {selectedEnrollment.status === "pending_payment" && (
-                  <button
-                    onClick={() => sendPaymentReminder(selectedEnrollment)}
-                    disabled={sendingReminderId === selectedEnrollment.id}
-                    className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
-                  >
-                    <Send className={`w-3.5 h-3.5 ${sendingReminderId === selectedEnrollment.id ? "animate-spin" : ""}`} />
-                    {sendingReminderId === selectedEnrollment.id ? "Sending Email..." : "Send Fee Reminder Email"}
-                  </button>
+                  (() => {
+                    const modalReminder = getReminderStatus(selectedEnrollment.lastReminderSentAt);
+                    if (modalReminder.isWithin24Hours) {
+                      return (
+                        <button
+                          disabled
+                          className="px-3.5 py-1.5 bg-gray-100 text-gray-400 border border-gray-200 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-not-allowed"
+                          title={`24h cooldown active. Available in ${modalReminder.formattedRemaining}.`}
+                        >
+                          <Clock className="w-3.5 h-3.5 text-gray-400" />
+                          Fee Mail Sent (Wait {modalReminder.formattedRemaining})
+                        </button>
+                      );
+                    }
+                    return (
+                      <button
+                        onClick={() => sendPaymentReminder(selectedEnrollment)}
+                        disabled={sendingReminderId === selectedEnrollment.id}
+                        className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                      >
+                        <Send className={`w-3.5 h-3.5 ${sendingReminderId === selectedEnrollment.id ? "animate-spin" : ""}`} />
+                        {sendingReminderId === selectedEnrollment.id ? "Sending Email..." : "Send Fee Reminder Email"}
+                      </button>
+                    );
+                  })()
                 )}
 
                 {selectedEnrollment.mobile && (
