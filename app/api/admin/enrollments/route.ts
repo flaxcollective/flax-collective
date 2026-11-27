@@ -112,6 +112,8 @@ export async function GET(req: NextRequest) {
       merchantTxnNo: enr.merchantTxnNo || "—",
       pgTxnId: enr.pgTxnId || "—",
       type: enr.type || "course",
+      lastReminderSentAt: enr.lastReminderSentAt ? new Date(enr.lastReminderSentAt).toISOString() : null,
+      reminderCount: typeof enr.reminderCount === "number" ? enr.reminderCount : 0,
     }));
 
     return NextResponse.json({

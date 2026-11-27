@@ -62,6 +62,23 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Enforce 24-hour cooldown between fee reminder emails
+    if (enrollment.lastReminderSentAt) {
+      const lastSentTime = new Date(enrollment.lastReminderSentAt).getTime();
+      const elapsedMs = Date.now() - lastSentTime;
+      const cooldownMs = 24 * 60 * 60 * 1000;
+      if (elapsedMs < cooldownMs) {
+        const remainingHours = Math.ceil((cooldownMs - elapsedMs) / (1000 * 60 * 60));
+        return NextResponse.json(
+          {
+            success: false,
+            message: `A fee reminder was already sent within the last 24 hours. Please wait ${remainingHours} hour${remainingHours > 1 ? "s" : ""} before sending again.`,
+          },
+          { status: 429 }
+        );
+      }
+    }
+
     const studentName = `${enrollment.firstName || ""} ${enrollment.lastName || ""}`.trim() || "Student";
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://flaxcollective.com";
     const paymentUrl = `${baseUrl}/enrollment/pay?id=${enrollment._id}`;
@@ -83,18 +100,23 @@ export async function POST(req: NextRequest) {
     }
 
     // Record timestamp of reminder sent
+    const now = new Date();
     await db.collection(COLLECTIONS.ENROLLMENTS).updateOne(filter, {
       $set: {
-        lastReminderSentAt: new Date(),
+        lastReminderSentAt: now,
       },
       $inc: {
         reminderCount: 1,
       },
     });
 
+    const newCount = (typeof enrollment.reminderCount === "number" ? enrollment.reminderCount : 0) + 1;
+
     return NextResponse.json({
       success: true,
       message: `Payment reminder email successfully sent to ${enrollment.email}.`,
+      lastReminderSentAt: now.toISOString(),
+      reminderCount: newCount,
     });
   } catch (error: any) {
     console.error("[ADMIN SEND PAYMENT REMINDER ERROR]", error);
